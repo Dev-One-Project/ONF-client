@@ -30,5 +30,6 @@ const Btn = styled.button`
   padding: 8px 16px;
   color: ${(Props: IStyleProps) => (Props.color ? Props.color : "")};
   background: ${(Props: IStyleProps) => (Props.bgC ? Props.bgC : "")};
-  border: 1px solid ${(Props: IStyleProps) => (Props.bdC ? Props.bdC : "#000")};
+  border: ${(Props: IStyleProps) => (Props.bdC ? "1px" : "none")} solid
+    ${(Props: IStyleProps) => (Props.bdC ? Props.bdC : "#000")};
 `;
