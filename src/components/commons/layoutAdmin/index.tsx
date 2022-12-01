@@ -11,7 +11,9 @@ const AdminLayout = (props: ILayoutProps) => {
       <AdminHeaderPage />
       <div style={{ display: "flex", flexDirection: "row" }}>
         <AdminSidebarPage />
-        <div style={{ margin: "70px 50px 0 120px" }}>{props.children}</div>
+        <div style={{ margin: "70px 50px 0 120px", width: "100%" }}>
+          {props.children}
+        </div>
       </div>
     </>
   );

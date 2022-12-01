@@ -3,7 +3,7 @@ export const styleSet = {
     white: "#fff",
     black: "#000",
     gray: "#ccc",
-    darkgray: "#777",
+    darkGray: "#777",
     lightGray: "#eee",
     primary: "#e47e7e",
     subColor01: "#FA8F7D",
@@ -26,7 +26,7 @@ export const styleSet = {
     normal: "1rem",
     small: "0.8rem",
   },
-  breakePoints: {
+  breakPoints: {
     mobile: "(max-width: 767px)",
     tablet: "(max-width: 1024px)",
   },
