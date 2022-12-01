@@ -1,11 +1,11 @@
 import AdminHeaderPage from "./header";
 import AdminSidebarPage from "./sidebar";
 
-interface ILayoutProps {
+interface IAdminLayoutProps {
   children: JSX.Element;
 }
 
-const AdminLayout = (props: ILayoutProps) => {
+const AdminLayout = (props: IAdminLayoutProps) => {
   return (
     <>
       <AdminHeaderPage />
