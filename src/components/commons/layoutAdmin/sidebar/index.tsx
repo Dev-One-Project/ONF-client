@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   padding-top: 50px;
 `;
 
-const SidebarLink = [
+const sidebarLink = [
   { id: "/admin/home", name: "홈" },
   { id: "/admin/scheduler/calendar", name: "근무일정" },
   { id: "/admin/scheduler/calendar", name: "달력형" },
@@ -36,13 +36,11 @@ const AdminSidebarPage = () => {
   return (
     <Wrapper>
       <ul>
-        {SidebarLink.map((el) => {
-          return (
-            <li style={{ cursor: "pointer" }} id={el.id} onClick={onClickPage}>
-              {el.name}
-            </li>
-          );
-        })}
+        {sidebarLink.map((el) => (
+          <li style={{ cursor: "pointer" }} id={el.id} onClick={onClickPage}>
+            {el.name}
+          </li>
+        ))}
       </ul>
     </Wrapper>
   );
