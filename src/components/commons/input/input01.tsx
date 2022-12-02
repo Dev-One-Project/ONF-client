@@ -5,10 +5,17 @@ import { styleSet } from "../../../commons/styles/styleSet";
 interface IInput01Props {
   type?: string | undefined;
   register: UseFormRegister<FieldValues>;
+  placeholder?: string;
 }
 
-const Input01 = ({ type, register }: IInput01Props) => {
-  return <Input type={type} {...register} />;
+const Input01 = (props: IInput01Props) => {
+  return (
+    <Input
+      type={props.type}
+      {...props.register}
+      placeholder={props.placeholder}
+    />
+  );
 };
 
 export default Input01;
