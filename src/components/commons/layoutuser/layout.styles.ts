@@ -125,6 +125,9 @@ export const Sidebar = styled.section`
   width: 380px;
   padding: 36px 36px 0 36px;
   box-sizing: content-box;
+  &.min {
+    width: 250px;
+  }
 `;
 
 export const H1 = styled.h1`
@@ -163,8 +166,14 @@ export const Date = styled.ul`
   li {
     display: flex;
     gap: 10px;
+    margin-bottom: 10px;
     .ant-space-vertical {
       border: 1px solid ${styleSet.colors.primary};
+    }
+    &.tab2 {
+      border-bottom: 1px solid gray;
+      padding-bottom: 30px;
+      width: 100%;
     }
 
     span {
@@ -198,7 +207,7 @@ export const DateInfo = styled.ul`
 export const H2 = styled.h2`
   font-size: ${styleSet.fontSizes.strong};
   font-family: ${styleSet.fonts.EB};
-  padding-block: 25px;
+  margin-top: 20px;
 `;
 
 export const Vacation = styled.section`
@@ -206,6 +215,7 @@ export const Vacation = styled.section`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding-top: 20px;
     .ant-space-vertical {
       border: 1px solid ${styleSet.colors.primary};
     }
@@ -217,7 +227,7 @@ export const Aside = styled.aside`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 10px;
+  padding: 25px 0 10px 0;
   p {
     color: ${styleSet.colors.darkgray};
     font-family: ${styleSet.fonts.B};
@@ -255,5 +265,52 @@ export const Aside2 = styled.aside`
       font-family: ${styleSet.fonts.B};
       font-size: ${styleSet.fontSizes.normal};
     }
+  }
+`;
+
+export const Check = styled.ul`
+  padding-top: 30px;
+  li {
+    font-family: ${styleSet.fonts.B};
+    font-size: ${styleSet.fontSizes.normal};
+    padding-bottom: 10px;
+  }
+`;
+
+export const Date2 = styled.ul`
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid ${styleSet.colors.gray};
+  padding-bottom: 20px;
+
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: ${styleSet.fontSizes.normal};
+    font-family: ${styleSet.fonts.B};
+    gap: 10px;
+    margin-bottom: 10px;
+    .ant-space-vertical {
+      border: 1px solid ${styleSet.colors.primary};
+    }
+    &.top {
+      padding-top: 20px;
+    }
+  }
+`;
+
+export const Li = styled.li`
+  color: ${styleSet.colors.darkgray};
+
+  strong {
+    font-family: ${styleSet.fonts.EB};
+    font-size: ${styleSet.fontSizes.small};
+    background: #607d8b;
+    color: ${styleSet.colors.white};
+    padding: 3px 10px;
+    border-radius: 5px;
+    min-width: 35px;
+    text-align: center;
   }
 `;

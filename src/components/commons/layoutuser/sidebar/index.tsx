@@ -76,6 +76,50 @@ const UserSideBar = (props: IUserSideBar) => {
           </S.Aside2>
         </S.Sidebar>
       )}
+
+      {props.tab === '2' && (
+        <S.Sidebar className='min'>
+          <S.H1>내 출퇴근기록</S.H1>
+          <S.Date>
+            <li className='tab2'>
+              <Space direction='vertical'>
+                <DatePicker.RangePicker style={{ height: '40px' }} />
+              </Space>
+            </li>
+          </S.Date>
+
+          <S.Check>
+            <li>정상적인 기록</li>
+            <li>출근 누락된 기록</li>
+            <li>퇴근 누락된 기록</li>
+          </S.Check>
+        </S.Sidebar>
+      )}
+
+      {props.tab === '3' && (
+        <S.Sidebar className='min'>
+          <S.H1>내 요청들</S.H1>
+          <S.Date2>
+            <li>
+              <Space direction='vertical'>
+                <DatePicker.RangePicker style={{ height: '40px' }} />
+              </Space>
+            </li>
+            <S.Li className='top'>
+              대기중인 요청 수 <strong>10</strong>
+            </S.Li>
+            <S.Li>
+              완료된 요청 수 <strong>0</strong>
+            </S.Li>
+          </S.Date2>
+
+          <S.Check>
+            <li>정상적인 기록</li>
+            <li>출근 누락된 기록</li>
+            <li>퇴근 누락된 기록</li>
+          </S.Check>
+        </S.Sidebar>
+      )}
     </>
   );
 };
