@@ -1,11 +1,11 @@
-import * as S from "./manage.styles";
+import * as S from "./company.styles";
 import Btn01 from "../../../commons/button/btn01";
-import { IManagePresenterProps } from "./manage.types";
+import { ICompanyPresenterProps } from "./company.types";
 import { styleSet } from "../../../../commons/styles/styleSet";
 import Input01 from "../../../commons/input/input01";
 import Check01 from "../../../commons/input/check01";
 
-const ManagePresenter = (props: IManagePresenterProps) => {
+const CompanyPresenter = (props: ICompanyPresenterProps) => {
   return (
     <S.Container>
       <S.TopWrapper>
@@ -184,4 +184,4 @@ const ManagePresenter = (props: IManagePresenterProps) => {
   );
 };
 
-export default ManagePresenter;
+export default CompanyPresenter;

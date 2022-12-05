@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { MouseEvent } from "react";
 import AttendanceSvg from "../../../commons/svg/attendances";
+import CompanySvg from "../../../commons/svg/company";
 import HomeSvg from "../../../commons/svg/home";
 import LeaveSvg from "../../../commons/svg/leaves";
 import ManageSvg from "../../../commons/svg/manage";
@@ -30,7 +31,8 @@ const sidebarLink = [
   { id: 9, address: "/admin/leaves", name: "휴가 목록" },
   { id: 10, address: "/admin/leaves-accruals", name: "휴가 발생" },
   { id: 11, address: "/admin/manage", name: "관리", svg: <ManageSvg /> },
-  { id: 12, address: "/admin/profile", name: "프로필", svg: <ProfileSvg /> },
+  { id: 12, address: "/admin/company", name: "회사 설정", svg: <CompanySvg /> },
+  { id: 13, address: "/admin/profile", name: "프로필", svg: <ProfileSvg /> },
 ];
 
 const AdminSidebarContainer = () => {
