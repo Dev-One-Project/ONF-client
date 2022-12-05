@@ -11,7 +11,7 @@ const AdminLayout = (props: IAdminLayoutProps) => {
       <AdminHeaderPage />
       <div style={{ display: "flex", flexDirection: "row" }}>
         <AdminSidebarPage />
-        <div style={{ margin: "70px 50px 0 120px", width: "100%" }}>
+        <div style={{ margin: "70px 50px 0 250px", width: "100%" }}>
           {props.children}
         </div>
       </div>
