@@ -1,9 +1,15 @@
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { Fragment, useState } from 'react';
 import UserHeaderPage from './header';
 import { IUserLayoutProps } from './layout.types';
 import UserSideBar from './sidebar';
 
+const HIDDEN = ['/login'];
+
 const UserLayout = (props: IUserLayoutProps) => {
+  const router = useRouter();
+  const hidden = HIDDEN.includes(router.asPath);
+
   const [tab, setTab] = useState('1');
 
   const onClickTab = (event: any) => {
@@ -12,10 +18,10 @@ const UserLayout = (props: IUserLayoutProps) => {
 
   return (
     <>
-      <UserHeaderPage tab={tab} onClickTab={onClickTab} />
+      {!hidden && <UserHeaderPage tab={tab} onClickTab={onClickTab} />}
       <div style={{ display: 'flex', flexDirection: 'row' }}>
-        <UserSideBar tab={tab} />
-        <div style={{ margin: '70px 50px 0 120px' }}>{props.children}</div>
+        {!hidden && <UserSideBar tab={tab} />}
+        <body>{props.children}</body>
       </div>
     </>
   );
