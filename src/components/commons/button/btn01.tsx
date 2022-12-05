@@ -32,4 +32,5 @@ const Btn = styled.button`
   background: ${(Props: IStyleProps) => (Props.bgC ? Props.bgC : "")};
   border: ${(Props: IStyleProps) => (Props.bdC ? "1px" : "none")} solid
     ${(Props: IStyleProps) => (Props.bdC ? Props.bdC : "#000")};
+  border-radius: 4px;
 `;
