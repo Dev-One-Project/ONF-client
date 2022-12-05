@@ -1,9 +1,11 @@
-import { Global } from '@emotion/react';
-import { AppProps } from 'next/app';
-import { globalStyles } from '../src/commons/styles/globalStyles';
-import ApolloSetting from '../src/components/commons/apollo';
-import 'antd/dist/antd.css';
+
+import { Global } from "@emotion/react";
+import { AppProps } from "next/app";
+import { globalStyles } from "../src/commons/styles/globalStyles";
+import ApolloSetting from "../src/components/commons/apollo";
+import "antd/dist/reset.css";
 import UserLayout from '../src/components/commons/layoutuser';
+
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

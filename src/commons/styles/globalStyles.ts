@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css } from "@emotion/react";
 
 export const globalStyles = css`
   * {
@@ -10,7 +10,7 @@ export const globalStyles = css`
       sans-serif;
   }
 
-  html {
+  body {
     font-size: 16px;
   }
 
@@ -46,19 +46,19 @@ export const globalStyles = css`
     margin: 0;
   }
   @font-face {
-    font-family: 'SCDream2';
-    src: url('/fonts/SCDream2.otf');
+    font-family: "SCDream2";
+    src: url("/fonts/SCDream2.otf");
   }
   @font-face {
-    font-family: 'SCDream3';
-    src: url('/fonts/SCDream3.otf');
+    font-family: "SCDream3";
+    src: url("/fonts/SCDream3.otf");
   }
   @font-face {
-    font-family: 'SCDream4';
-    src: url('/fonts/SCDream4.otf');
+    font-family: "SCDream4";
+    src: url("/fonts/SCDream4.otf");
   }
   @font-face {
-    font-family: 'SCDream5';
-    src: url('/fonts/SCDream5.otf');
+    font-family: "SCDream5";
+    src: url("/fonts/SCDream5.otf");
   }
 `;
