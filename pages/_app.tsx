@@ -10,9 +10,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <ApolloSetting>
       <>
         <Global styles={globalStyles} />
-        <UserLayout>
           <Component {...pageProps} />
-        </UserLayout>
       </>
     </ApolloSetting>
   );
