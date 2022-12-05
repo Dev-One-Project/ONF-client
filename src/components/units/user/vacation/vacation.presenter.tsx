@@ -1,10 +1,10 @@
-import { CloseOutlined } from "@ant-design/icons";
-import { IVacationWrtieUI } from "./vacation.types";
-import * as S from "./vacation.styles";
-import Btn01 from "../../../commons/button/btn01";
-import { styleSet } from "../../../../commons/styles/styleSet";
+import { CloseOutlined } from '@ant-design/icons';
+import * as S from './vacation.styles';
+import Btn01 from '../../../commons/button/btn01';
+import { styleSet } from '../../../../commons/styles/styleSet';
+import { IVacationContainerProps } from './vacation.types';
 
-const VacationWrtieUI = (props: IVacationWrtieUI) => {
+const VacationPresenter = (props: IVacationContainerProps) => {
   return (
     <S.MainWrapper>
       <S.HeaderWrapper>
@@ -18,7 +18,7 @@ const VacationWrtieUI = (props: IVacationWrtieUI) => {
         </S.HeaderTitleWrapper>
         <S.HeaderBtnWrapper>
           <Btn01
-            text={"다음: 승인권자 선택"}
+            text={'다음: 승인권자 선택'}
             bgC={`${styleSet.colors.primary}`}
             color={`${styleSet.colors.white}`}
           ></Btn01>
@@ -82,4 +82,4 @@ const VacationWrtieUI = (props: IVacationWrtieUI) => {
   );
 };
 
-export default VacationWrtieUI;
+export default VacationPresenter;

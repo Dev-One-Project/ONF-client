@@ -1,3 +1,3 @@
-export interface IVacationWrtieUI {
+export interface IVacationContainerProps {
   onClickCancel: () => void;
 }

@@ -1,7 +1,7 @@
-import VacationWrite from "../../../src/components/units/user/vacation/vacation.container";
+import VacationContainer from '../../../src/components/units/user/vacation/vacation.container';
 
-const Vacation = () => {
-  return <VacationWrite />;
+const VacationPage = () => {
+  return <VacationContainer />;
 };
 
-export default Vacation;
+export default VacationPage;

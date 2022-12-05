@@ -1,14 +1,14 @@
-import { useRouter } from "next/router";
-import VacationWrtieUI from "./vacation.presenter";
+import { useRouter } from 'next/router';
+import VacationPresenter from './vacation.presenter';
 
-const VacationWrite = () => {
+const VacationContainer = () => {
   const router = useRouter();
 
   const onClickCancel = () => {
     void router.back();
   };
 
-  return <VacationWrtieUI onClickCancel={onClickCancel} />;
+  return <VacationPresenter onClickCancel={onClickCancel} />;
 };
 
-export default VacationWrite;
+export default VacationContainer;
