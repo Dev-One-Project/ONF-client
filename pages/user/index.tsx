@@ -1,10 +1,8 @@
-import UserLayout from '../../src/components/commons/layoutuser';
-
 const UserPage = () => {
   return (
-    <UserLayout>
+    <section>
       <div>유저페이지입니다.</div>
-    </UserLayout>
+    </section>
   );
 };
 export default UserPage;
