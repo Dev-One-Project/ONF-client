@@ -92,7 +92,7 @@ export const Explanation = styled.p`
   padding: 0.6rem 0;
   width: 100%;
   font-size: ${styleSet.fontSizes.small};
-  color: ${styleSet.colors.darkGray};
+  color: ${styleSet.colors.darkgray};
 `;
 
 export const Select = styled.select`
