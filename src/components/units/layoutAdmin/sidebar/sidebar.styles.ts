@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
   background: ${styleSet.colors.primary};
   position: fixed;
   z-index: 0;
-  padding-top: 50px;
+  padding-top: 4.5rem;
   @media ${styleSet.breakPoints.tablet} {
     width: 60px;
   }

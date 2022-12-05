@@ -4,7 +4,7 @@ import {
   UseFormRegister,
 } from "react-hook-form";
 
-export interface IManagePresenterProps {
+export interface ICompanyPresenterProps {
   register: UseFormRegister<FieldValues>;
   handleSubmit: UseFormHandleSubmit<FieldValues>;
 }

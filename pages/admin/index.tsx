@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import AdminLayout from "../../src/components/commons/layoutAdmin";
+import AdminLayout from "../../src/components/commons/layoutadmin";
 
 const AdminPage = () => {
   const router = useRouter();

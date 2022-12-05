@@ -1,16 +1,7 @@
-import styled from "@emotion/styled";
-
-const Wrapper = styled.div`
-  width: 100%;
-  height: 50px;
-  border: 1px solid red;
-  background: #fff;
-  position: fixed;
-  z-index: 99;
-`;
+import AdminHeaderContainer from '../../../units/layoutAdmin/header/header.container';
 
 const AdminHeaderPage = () => {
-  return <Wrapper></Wrapper>;
+  return <AdminHeaderContainer />;
 };
 
 export default AdminHeaderPage;
