@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { styleSet } from '../../src/commons/styles/styleSet';
+import { styleSet } from '../../../src/commons/styles/styleSet';
 
 export const Wrapper = styled.section`
   span {
@@ -24,6 +24,9 @@ export const Header = styled.header`
   align-items: center;
   justify-content: space-between;
   padding-inline: 30px;
+  position: fixed;
+  top: 0;
+
   p {
     font-size: ${styleSet.fontSizes.small};
     font-family: ${styleSet.fonts.B};
@@ -31,11 +34,16 @@ export const Header = styled.header`
 `;
 
 export const Main = styled.main`
-  width: 450px;
-  margin: 0 auto;
+  width: 40%;
+  margin: 0px auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 15%;
+
+  form {
+    width: 100%;
+  }
 
   button {
     width: 100%;
@@ -44,12 +52,19 @@ export const Main = styled.main`
     font-family: ${styleSet.fonts.B};
     margin-top: 20px;
   }
+
+  @media ${styleSet.breakPoints.tablet} {
+    width: 50%;
+  }
+  @media ${styleSet.breakPoints.mobile} {
+    width: 65%;
+  }
 `;
 
 export const Data = styled.data`
   display: flex;
   gap: 5px;
-  width: 450px;
+  width: 100%;
   flex-direction: column;
   align-content: space-between;
 

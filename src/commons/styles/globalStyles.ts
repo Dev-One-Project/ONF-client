@@ -34,7 +34,7 @@ export const globalStyles = css`
   button {
     border: none;
     background-color: transparent;
-    border-radius: 10px;
+    border-radius: 4px;
     cursor: pointer;
   }
   h1,
