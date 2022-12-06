@@ -9,14 +9,21 @@ import { useRouter } from 'next/router';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  const USER_LAYOUT = ['/user', '/user/vacation'];
+  const USER_LAYOUT = ['/user'];
+  const HIDDEN_LAYOUT = ['/login', '/user/vacation'];
 
   const isUserPage = USER_LAYOUT.includes(router.asPath);
+  const hiddenLayout = HIDDEN_LAYOUT.includes(router.asPath);
 
   return (
     <ApolloSetting>
       <>
-        {isUserPage ? (
+        {hiddenLayout ? (
+          <>
+            <Global styles={globalStyles} />
+            <Component {...pageProps} />
+          </>
+        ) : isUserPage ? (
           <UserLayout>
             <>
               <Global styles={globalStyles} />
