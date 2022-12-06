@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
-import { styleSet } from "../../../../commons/styles/styleSet";
+import styled from '@emotion/styled';
+import { styleSet } from '../../../../commons/styles/styleSet';
 
 export const Container = styled.section`
   width: 100%;
@@ -11,6 +11,10 @@ export const Row = styled.div`
   flex-direction: row;
   justify-content: space-between;
   gap: 20px;
+
+  @media ${styleSet.breakPoints.tablet} {
+    flex-direction: column;
+  }
 `;
 
 export const QuickBtnWrapper = styled.div`
@@ -43,17 +47,17 @@ export const StatusBox = styled.div`
   gap: 10px;
 
   &::before {
-    content: "";
+    content: '';
     width: 100%;
     height: 4px;
-    background-color: ${(props) => (props.color ? props.color : "white")};
+    background-color: ${(props) => (props.color ? props.color : 'white')};
     position: absolute;
     top: 0;
     left: 0;
   }
   p {
     text-align: center;
-    color: ${(props) => (props.color ? props.color : "black")};
+    color: ${(props) => (props.color ? props.color : 'black')};
   }
 `;
 
