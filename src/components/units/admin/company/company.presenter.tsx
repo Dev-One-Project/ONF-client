@@ -1,9 +1,9 @@
-import * as S from "./company.styles";
-import Btn01 from "../../../commons/button/btn01";
-import { ICompanyPresenterProps } from "./company.types";
-import { styleSet } from "../../../../commons/styles/styleSet";
-import Input01 from "../../../commons/input/input01";
-import Check01 from "../../../commons/input/check01";
+import * as S from './company.styles';
+import Btn01 from '../../../commons/button/btn01';
+import { ICompanyPresenterProps } from './company.types';
+import { styleSet } from '../../../../commons/styles/styleSet';
+import Input01 from '../../../commons/input/input01';
+import Check01 from '../../../commons/input/check01';
 
 const CompanyPresenter = (props: ICompanyPresenterProps) => {
   return (
@@ -11,7 +11,7 @@ const CompanyPresenter = (props: ICompanyPresenterProps) => {
       <S.TopWrapper>
         <S.H1>회사 설정</S.H1>
         <Btn01
-          text={"저장"}
+          text={'저장'}
           color={styleSet.colors.white}
           bgC={styleSet.colors.primary}
         />
@@ -21,11 +21,11 @@ const CompanyPresenter = (props: ICompanyPresenterProps) => {
         <S.H2>일반</S.H2>
         <S.RowWrapper>
           <S.Label>회사명</S.Label>
-          <Input01 type={"text"} register={props.register} />
+          <Input01 type={'text'} register={props.register} />
         </S.RowWrapper>
         <S.RowWrapper>
           <S.Label>회사로고</S.Label>
-          <Input01 type={"text"} register={props.register} />
+          <Input01 type={'text'} register={props.register} />
         </S.RowWrapper>
         <S.RowWrapper>
           <S.Label>회사 지정 휴일</S.Label>
@@ -37,16 +37,16 @@ const CompanyPresenter = (props: ICompanyPresenterProps) => {
             </S.TableTitleWrapper>
             <S.TableUl>
               <li>
-                <Input01 type={"text"} register={props.register} />
+                <Input01 type={'text'} register={props.register} />
                 <Input01
-                  type={"text"}
+                  type={'text'}
                   register={props.register}
-                  placeholder={"YYYY-MM-DD"}
+                  placeholder={'YYYY-MM-DD'}
                 />
                 <Input01
-                  type={"text"}
+                  type={'text'}
                   register={props.register}
-                  placeholder={"eg) 0.5"}
+                  placeholder={'eg) 0.5'}
                 />
               </li>
             </S.TableUl>
@@ -57,7 +57,7 @@ const CompanyPresenter = (props: ICompanyPresenterProps) => {
           <S.Textarea
             {...props.register}
             placeholder={
-              "직원들에게 공유할 취업규칙 혹은 출결 관련 사규를 작성하세요."
+              '직원들에게 공유할 취업규칙 혹은 출결 관련 사규를 작성하세요.'
             }
           />
         </S.RowWrapper>
@@ -128,7 +128,7 @@ const CompanyPresenter = (props: ICompanyPresenterProps) => {
           <S.RightInner>
             <Check01
               register={props.register}
-              text={"출퇴근기록 생성 요청 기능을 사용합니다."}
+              text={'출퇴근기록 생성 요청 기능을 사용합니다.'}
             />
             <S.Explanation>
               (출근을 누락한 경우, 출퇴근기록 생성 요청을 보낼 수 있습니다.)
@@ -140,7 +140,7 @@ const CompanyPresenter = (props: ICompanyPresenterProps) => {
           <S.RightInner>
             <Check01
               register={props.register}
-              text={"휴가 생성 요청 기능을 사용합니다."}
+              text={'휴가 생성 요청 기능을 사용합니다.'}
             />
           </S.RightInner>
         </S.RowWrapper>
@@ -149,7 +149,7 @@ const CompanyPresenter = (props: ICompanyPresenterProps) => {
           <S.RightInner>
             <Check01
               register={props.register}
-              text={"근무일정 생성 요청 기능을 사용합니다."}
+              text={'근무일정 생성 요청 기능을 사용합니다.'}
             />
           </S.RightInner>
         </S.RowWrapper>
@@ -158,7 +158,7 @@ const CompanyPresenter = (props: ICompanyPresenterProps) => {
           <S.RightInner>
             <Check01
               register={props.register}
-              text={"출근 요청 기능을 사용합니다."}
+              text={'출근 요청 기능을 사용합니다.'}
             />
             <S.Explanation>
               배정된 출퇴근 장소에서 출근 기록이 어려운 경우 (예: 외근, 낮은
@@ -171,7 +171,7 @@ const CompanyPresenter = (props: ICompanyPresenterProps) => {
           <S.RightInner>
             <Check01
               register={props.register}
-              text={"퇴근 요청 기능을 사용합니다."}
+              text={'퇴근 요청 기능을 사용합니다.'}
             />
             <S.Explanation>
               배정된 출퇴근 장소에서 퇴근 기록이 어려운 경우 (예: 외근, 낮은

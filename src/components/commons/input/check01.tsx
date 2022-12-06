@@ -1,16 +1,22 @@
-import styled from "@emotion/styled";
-import { FieldValues, UseFormRegister } from "react-hook-form";
-import { styleSet } from "../../../commons/styles/styleSet";
+import styled from '@emotion/styled';
+import { ChangeEvent, MouseEvent } from 'react';
+import { FieldValues, UseFormRegister } from 'react-hook-form';
+import { styleSet } from '../../../commons/styles/styleSet';
 
 interface ICheck01Props {
   register: UseFormRegister<FieldValues>;
   text?: string;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Check01 = (props: ICheck01Props) => {
   return (
     <Label>
-      <InputInvisible type={"checkbox"} {...props.register} />
+      <InputInvisible
+        type={'checkbox'}
+        {...props.register}
+        onChange={props.onChange}
+      />
       <Checkbox className="checkbox" />
       <span>{props.text}</span>
     </Label>
