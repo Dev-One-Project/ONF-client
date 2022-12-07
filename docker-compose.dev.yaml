@@ -1,7 +1,7 @@
 version: "3.7"
 
 services:
-  zero9-client:
+  onf-client:
     image: reg.brian-hong.tech/onf/onf-client:latest
     container_name: onf-client
     restart: unless-stopped
