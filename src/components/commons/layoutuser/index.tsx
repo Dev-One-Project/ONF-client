@@ -1,29 +1,42 @@
+import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
-import { Fragment, useState } from 'react';
+import { styleSet } from '../../../commons/styles/styleSet';
 import UserHeaderPage from './header';
 import { IUserLayoutProps } from './layout.types';
-import UserSideBar from './sidebar';
+import UserRecordSideBar from './sidebar/record';
+import UserRequestSideBar from './sidebar/request';
+import UserScheduleSideBar from './sidebar/schedule';
 
 const HIDDEN = ['/login'];
+const SCHEDULE = ['/user/schedule'];
+const RECORD = ['/user/record'];
+const REQUEST = ['/user/request'];
 
 const UserLayout = (props: IUserLayoutProps) => {
   const router = useRouter();
   const hidden = HIDDEN.includes(router.asPath);
-
-  const [tab, setTab] = useState('1');
-
-  const onClickTab = (event: any) => {
-    setTab(event?.currentTarget.id);
-  };
+  const schedule = SCHEDULE.includes(router.asPath);
+  const record = RECORD.includes(router.asPath);
+  const request = REQUEST.includes(router.asPath);
 
   return (
     <>
-      {!hidden && <UserHeaderPage tab={tab} onClickTab={onClickTab} />}
+      {!hidden && <UserHeaderPage />}
       <div style={{ display: 'flex', flexDirection: 'row' }}>
-        {!hidden && <UserSideBar tab={tab} />}
-        <body>{props.children}</body>
+        {schedule && <UserScheduleSideBar />}
+        {record && <UserRecordSideBar />}
+        {request && <UserRequestSideBar />}
+        <ChildrenBox>{props.children}</ChildrenBox>
       </div>
     </>
   );
 };
 export default UserLayout;
+
+const ChildrenBox = styled.div`
+  margin: 2rem;
+  width: 100%;
+  @media ${styleSet.breakPoints.tablet} {
+    margin-left: 6rem;
+  }
+`;
