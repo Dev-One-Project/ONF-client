@@ -31,14 +31,23 @@ export const ColWrapper = styled.div`
 export const RowWrapper = styled.div`
   width: 100%;
   display: flex;
+  flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   gap: 1.2rem;
+
+  @media ${styleSet.breakPoints.mobile} {
+    flex-direction: column;
+  }
 `;
 
 export const Label = styled.label`
   width: 18%;
   font-family: ${styleSet.fonts.B};
+
+  @media ${styleSet.breakPoints.mobile} {
+    width: 100%;
+  }
 `;
 
 export const SubLabel = styled.label`

@@ -25,7 +25,7 @@ const CompanyPresenter = (props: ICompanyPresenterProps) => {
         </S.RowWrapper>
         <S.RowWrapper>
           <S.Label>회사로고</S.Label>
-          <Input01 type={'text'} register={props.register} />
+          <Input01 type={'file'} register={props.register} />
         </S.RowWrapper>
         <S.RowWrapper>
           <S.Label>회사 지정 휴일</S.Label>
