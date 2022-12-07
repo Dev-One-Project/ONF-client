@@ -229,7 +229,7 @@ export const Aside = styled.aside`
   justify-content: space-between;
   padding: 25px 0 10px 0;
   p {
-    color: ${styleSet.colors.darkgray};
+    color: ${styleSet.colors.darkGray};
     font-family: ${styleSet.fonts.B};
   }
 
@@ -239,7 +239,7 @@ export const Aside = styled.aside`
     justify-content: space-between;
     gap: 30px;
     li {
-      color: ${styleSet.colors.darkgray};
+      color: ${styleSet.colors.darkGray};
       font-family: ${styleSet.fonts.B};
       font-size: ${styleSet.fontSizes.normal};
     }
@@ -301,7 +301,7 @@ export const Date2 = styled.ul`
 `;
 
 export const Li = styled.li`
-  color: ${styleSet.colors.darkgray};
+  color: ${styleSet.colors.darkGray};
 
   strong {
     font-family: ${styleSet.fonts.EB};
