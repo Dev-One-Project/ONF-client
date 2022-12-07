@@ -5,7 +5,15 @@ export const Container = styled.section`
   width: 100%;
 `;
 
-export const Row = styled.div`
+export const TopRow = styled.div`
+  padding: 10px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+`;
+
+export const BodyRow = styled.div`
   padding: 10px 0;
   display: flex;
   flex-direction: row;
@@ -13,6 +21,16 @@ export const Row = styled.div`
   gap: 20px;
 
   @media ${styleSet.breakPoints.tablet} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    .notice {
+      grid-area: 2/1/3/3;
+    }
+  }
+
+  @media ${styleSet.breakPoints.mobile} {
+    display: flex;
     flex-direction: column;
   }
 `;
@@ -91,7 +109,40 @@ export const AlignRight = styled.div`
   text-align: right;
 `;
 
-export const Ul = styled.ul`
+export const OmissionUl = styled.ul`
+  padding: 10px 0;
+  width: 100%;
+  height: 100%;
+
+  li {
+    padding: 10px 0;
+    border-bottom: 1px solid ${styleSet.colors.gray};
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    span {
+      :nth-child(1) {
+        width: 20%;
+      }
+      :nth-child(2) {
+        width: 40%;
+      }
+      :nth-child(3) {
+        width: 15%;
+      }
+      :nth-child(4) {
+        width: 10%;
+      }
+      :nth-child(5) {
+        width: 15%;
+      }
+    }
+  }
+`;
+
+export const NoticeUl = styled.ul`
   padding: 10px 0;
   width: 100%;
   height: 100%;
