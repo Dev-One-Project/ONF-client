@@ -1,9 +1,9 @@
-import styled from "@emotion/styled";
-import { styleSet } from "../../../../commons/styles/styleSet";
+import styled from '@emotion/styled';
+import { styleSet } from '../../../../commons/styles/styleSet';
 
 export const Wrapper = styled.div`
   width: 200px;
-  height: 100vh;
+  height: 100%;
   background: ${styleSet.colors.primary};
   position: fixed;
   z-index: 0;
