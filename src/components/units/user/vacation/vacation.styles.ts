@@ -161,7 +161,7 @@ export const ListContentsWrapper = styled.div`
 `;
 
 export const WorkingListWrapper = styled.article`
-  margin: 4rem -0 0;
+  margin: 4rem 0 0;
 `;
 
 export const DateOfWorkingStyle = styled.span`
