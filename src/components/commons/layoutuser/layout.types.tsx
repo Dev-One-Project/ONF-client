@@ -1,8 +1,6 @@
-export interface IUserHeaderProps {
-  isOn?: boolean;
-  tab?: string;
-  onClickTab?: (event: any) => void;
-}
+import { FieldValues, UseFormRegister } from 'react-hook-form';
+
+export interface IUserHeaderProps {}
 
 export interface IUserLayoutProps extends IUserLayout {}
 
@@ -11,5 +9,5 @@ export interface IUserLayout {
 }
 
 export interface IUserSideBar {
-  tab?: string;
+  register?: any;
 }

@@ -101,7 +101,7 @@ export const P = styled.p`
   strong {
     background: ${styleSet.colors.white};
     z-index: 2;
-    padding: 0 8rem;
+    padding: 0 0.8rem;
     font-family: ${styleSet.fonts.B};
   }
 
