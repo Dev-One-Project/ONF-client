@@ -1,10 +1,10 @@
-import styled from "@emotion/styled";
-import { FieldValues, UseFormRegister } from "react-hook-form";
-import { styleSet } from "../../../commons/styles/styleSet";
+import styled from '@emotion/styled';
+import { UseFormRegisterReturn } from 'react-hook-form';
+import { styleSet } from '../../../commons/styles/styleSet';
 
 interface IInput01Props {
   type?: string | undefined;
-  register: UseFormRegister<FieldValues>;
+  register?: UseFormRegisterReturn;
   placeholder?: string;
 }
 
