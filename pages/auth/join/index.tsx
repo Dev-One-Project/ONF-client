@@ -9,8 +9,6 @@ import { useState } from 'react';
 import { Tooltip } from 'antd';
 
 const LoginPage = (props: IJoinProps) => {
-  const [check, setCheck] = useState([false, false, false]);
-
   return (
     <>
       <S.Header>
@@ -69,29 +67,19 @@ const LoginPage = (props: IJoinProps) => {
             </S.Data>
 
             <S.Article>
-              <Check01
-                id="0"
-                register={props.register}
-                text={'모두 동의합니다.'}
-              />
+              <Check01 register={props.register} text={'모두 동의합니다.'} />
 
               <Check01
-                id="1"
                 register={props.register}
                 text={'[필수] 만 14세 이상입니다.'}
-                checked={check[0]}
               />
               <Check01
-                id="2"
                 register={props.register}
                 text={'[필수] 최종이용자 이용약관에 동의합니다.'}
-                checked={check[1]}
               />
               <Check01
-                id="3"
                 register={props.register}
                 text={'[필수] 개인정보 수집 및 이용에 동의합니다.'}
-                checked={check[2]}
               />
             </S.Article>
 

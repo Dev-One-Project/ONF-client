@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { styleSet } from '../../../src/commons/styles/styleSet';
 
 export const Wrapper = styled.section`
-  padding-bottom: 10px;
+  padding-bottom: 1rem;
   display: flex;
 `;
 
@@ -10,7 +10,7 @@ export const H1 = styled.h1`
   font-size: ${styleSet.fontSizes.big};
   font-family: ${styleSet.fonts.EB};
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 2rem;
 
   p {
     display: block;
@@ -24,7 +24,7 @@ export const Header = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-inline: 30px;
+  padding-inline: 2rem;
   position: fixed;
   top: 0;
   z-index: 5;
@@ -46,7 +46,7 @@ export const Header = styled.header`
 
 export const Main = styled.main`
   width: 35%;
-  margin: 80px auto;
+  margin: 7rem auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -60,7 +60,7 @@ export const Main = styled.main`
     border-radius: 4px;
     height: 50px;
     font-family: ${styleSet.fonts.B};
-    margin-top: 20px;
+    margin-top: 1.5rem;
   }
 
   @media ${styleSet.breakPoints.tablet} {
@@ -76,7 +76,7 @@ export const Data = styled.data`
   gap: 5px;
   flex-direction: column;
   align-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
 
   input:focus {
     border: 1px solid ${styleSet.colors.primary};
@@ -84,7 +84,7 @@ export const Data = styled.data`
   }
 
   span {
-    color: ${styleSet.colors.darkgray};
+    color: ${styleSet.colors.darkGray};
     font-size: ${styleSet.fontSizes.small};
     font-family: ${styleSet.fonts.L};
     letter-spacing: -0.8px;
@@ -97,14 +97,14 @@ export const Label = styled.label`
 
 export const P = styled.p`
   width: 100%;
-  padding-block: 20px;
+  padding-block: 1.5rem;
   position: relative;
   display: flex;
   justify-content: center;
   strong {
     background: ${styleSet.colors.white};
     z-index: 2;
-    padding: 0 8px;
+    padding: 0 0.8rem;
     font-family: ${styleSet.fonts.B};
   }
 
@@ -131,7 +131,7 @@ export const Ul = styled.ul`
     gap: 10px;
     border: 1px solid ${styleSet.colors.gray};
     padding: 0.7rem;
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
     cursor: pointer;
     &:hover {
       background-color: ${styleSet.colors.subColor05};
@@ -147,16 +147,16 @@ export const Article = styled.article`
 
   label:first-of-type {
     border-bottom: 1px solid ${styleSet.colors.gray};
-    padding-bottom: 15px;
-    margin-bottom: 5px;
+    padding-bottom: 1rem;
+    margin-bottom: 0.5rem;
   }
   label {
-    color: ${styleSet.colors.darkgray};
+    color: ${styleSet.colors.darkGray};
   }
 `;
 
 export const Section = styled.section`
-  padding: 0 50px;
+  padding: 0 3.5rem;
   width: 450px;
   background-color: ${styleSet.colors.primary};
   height: 100vh;

@@ -34,15 +34,19 @@ export const Header = styled.header`
 `;
 
 export const Main = styled.main`
-  width: 40%;
+  width: 35%;
   margin: 0px auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 15%;
+  padding-top: 7rem;
 
   form {
     width: 100%;
+    input:focus {
+      outline: none;
+      border: 1px solid ${styleSet.colors.primary};
+    }
   }
 
   button {
@@ -50,7 +54,7 @@ export const Main = styled.main`
     border-radius: 4px;
     height: 50px;
     font-family: ${styleSet.fonts.B};
-    margin-top: 20px;
+    margin-top: 1.5rem;
   }
 
   @media ${styleSet.breakPoints.tablet} {
@@ -69,11 +73,11 @@ export const Data = styled.data`
   align-content: space-between;
 
   &:nth-of-type(1) {
-    margin-bottom: 20px;
+    margin-bottom: 1.5rem;
   }
 
   &:nth-of-type(2) {
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
   }
 `;
 
@@ -90,14 +94,14 @@ export const Label = styled.label`
 
 export const P = styled.p`
   width: 100%;
-  padding-block: 20px;
+  padding-block: 1.5rem;
   position: relative;
   display: flex;
   justify-content: center;
   strong {
     background: ${styleSet.colors.white};
     z-index: 2;
-    padding: 0 8px;
+    padding: 0 8rem;
     font-family: ${styleSet.fonts.B};
   }
 
@@ -124,7 +128,7 @@ export const Ul = styled.ul`
     gap: 10px;
     border: 1px solid ${styleSet.colors.gray};
     padding: 0.7rem;
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
     cursor: pointer;
     &:hover {
       background-color: ${styleSet.colors.subColor05};
@@ -135,5 +139,5 @@ export const Ul = styled.ul`
 
 export const Join = styled.p`
   font-family: ${styleSet.fonts.B};
-  padding-top: 50px;
+  padding-top: 2rem;
 `;
