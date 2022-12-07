@@ -7,27 +7,32 @@ import {
 } from '@ant-design/icons';
 import { useRouter } from 'next/router';
 import { MouseEvent, useState } from 'react';
+import Switch01 from '../../switch/switch01';
 import * as S from '../layout.styles';
 import { IUserHeaderProps } from '../layout.types';
 
 const UserHeaderPage = (props: IUserHeaderProps) => {
   const router = useRouter();
-  const [isOn, setIsOn] = useState(false);
   const [mypage, setMypage] = useState(false);
-  const [menu, setMenu] = useState(false);
+  const [menu, setMenu] = useState([false, false, false]);
   const headerLink = [
-    { id: 1, address: '/user/schedule', name: '스케줄' },
-    { id: 2, address: '/user/record', name: '출퇴근기록' },
-    { id: 3, address: '/user/request', name: '요청 내역' },
+    { id: 0, address: '/user/schedule', name: '스케줄' },
+    { id: 1, address: '/user/record', name: '출퇴근기록' },
+    { id: 2, address: '/user/request', name: '요청 내역' },
   ];
 
   const onClickMypage = () => {
     setMypage((prev) => !prev);
   };
 
-  const onClickList = (event: MouseEvent<HTMLLIElement>) => {
+  const onClickList = (id: number) => (event: MouseEvent<HTMLLIElement>) => {
     router.push(event?.currentTarget.id);
-    setMenu((prev) => !prev);
+    setMenu((prev) =>
+      prev.map((el, index) => {
+        if (index === id) return true;
+        else return false;
+      }),
+    );
   };
 
   return (
@@ -35,24 +40,23 @@ const UserHeaderPage = (props: IUserHeaderProps) => {
       <S.Header>
         <S.Section>
           <img src="/" alt="로고" />
-          <S.Ul menu={menu}>
-            {headerLink.map((el) => (
-              <li key={el.id} id={el.address} onClick={onClickList}>
+          <S.Ul>
+            {headerLink.map((el, index) => (
+              <S.Menu
+                key={el.id}
+                menu={menu[index]}
+                id={el.address}
+                onClick={onClickList(index)}
+              >
                 {el.name}
-              </li>
+              </S.Menu>
             ))}
           </S.Ul>
         </S.Section>
 
         <section>
           <S.Ul2>
-            <S.Switch onClick={() => setIsOn(!isOn)} className="switch">
-              <S.Strong isOn={isOn}>{isOn ? '근무중' : '근무끝'}</S.Strong>
-              <S.Groove isOn={isOn}>
-                <S.Handle isOn={isOn} />
-              </S.Groove>
-              <S.Indicator isOn={isOn} />
-            </S.Switch>
+            <Switch01 />
             <li onClick={() => location.reload()}>
               <ReloadOutlined />
             </li>

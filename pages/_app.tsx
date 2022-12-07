@@ -9,7 +9,13 @@ import { useRouter } from 'next/router';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  const USER_LAYOUT = ['/user', '/user/vacation'];
+  const USER_LAYOUT = [
+    '/user',
+    '/user/vacation',
+    '/user/record',
+    '/user/schedule',
+    '/user/request',
+  ];
   const HIDDEN_LAYOUT = ['/auth/login', '/auth/join'];
 
   const isUserPage = USER_LAYOUT.includes(router.asPath);

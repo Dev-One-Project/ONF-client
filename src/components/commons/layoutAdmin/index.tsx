@@ -8,7 +8,7 @@ interface IAdminLayoutProps {
   children: JSX.Element;
 }
 
-// const HIDDEN = ['/auth/login', '/auth/join'];
+const HIDDEN = ['/auth/login', '/auth/join'];
 
 const AdminLayout = (props: IAdminLayoutProps) => {
   const router = useRouter();

@@ -27,30 +27,27 @@ export const Ul: any = styled.ul`
   gap: 30px;
   padding-left: 4rem;
   box-sizing: border-box;
-  word-break: keep-all;
-  li {
-    font-family: ${styleSet.fonts.B};
-    font-size: ${styleSet.fontSizes.normal};
-    cursor: pointer;
-    padding: 0.5rem;
-    box-sizing: border-box;
-
-
-  
-    color:${(props: boolean) => props.menu}
-    &:hover {
-      color: ${styleSet.colors.primary};
-      font-family: ${styleSet.fonts.EB};
-    }
-
-    span {
-      font-size: ${styleSet.fontSizes.strong};
-    }
-  }
 
   @media ${styleSet.breakPoints.tablet} {
     gap: 15px;
     padding-left: 2rem;
+  }
+`;
+
+export const Menu: any = styled.li`
+  word-break: keep-all;
+  white-space: nowrap;
+  font-family: ${styleSet.fonts.B};
+  font-size: ${styleSet.fontSizes.normal};
+  cursor: pointer;
+  padding: 0.5rem;
+  box-sizing: border-box;
+
+  color: ${(props: any) =>
+    props.menu ? `${styleSet.colors.primary}` : 'black'};
+
+  span {
+    font-size: ${styleSet.fontSizes.strong};
   }
 `;
 
@@ -115,56 +112,6 @@ export const Mypage = styled.article`
       }
     }
   }
-`;
-
-export const Groove = styled.div`
-  position: relative;
-  width: 40px;
-  height: 20px;
-  border-radius: 30px;
-  display: flex;
-  align-items: center;
-  border: 1px solid
-    ${({ isOn }: IUserHeaderProps) =>
-      isOn ? `${styleSet.colors.primary}` : `${styleSet.colors.black}`};
-  transition: all 0.35s;
-`;
-
-export const Handle = styled.div`
-  width: 15px;
-  height: 15px;
-  position: absolute;
-  border-radius: 50%;
-  background: ${({ isOn }: IUserHeaderProps) =>
-    isOn ? `${styleSet.colors.primary}` : `${styleSet.colors.black}`};
-  transform: translateX(${({ isOn }) => (isOn ? '20px' : '3px')});
-  transition: 0.35s;
-`;
-
-export const Indicator = styled.div`
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: ${({ isOn }: IUserHeaderProps) => (isOn ? '#6cc387' : '#ccc')};
-  transition: background 0.35s;
-`;
-
-export const Switch = styled.li`
-  display: flex;
-  word-break: keep-all;
-  align-items: center;
-  gap: 5px;
-  border-radius: 10px;
-  margin-right: 1rem;
-  transition: all 0.35s;
-`;
-
-export const Strong = styled.strong`
-  font-size: ${styleSet.fontSizes.small};
-  font-family: ${styleSet.fonts.B};
-  color: ${({ isOn }: IUserHeaderProps) =>
-    isOn ? `${styleSet.colors.primary}` : `${styleSet.colors.black}`};
-  transition: all 0.3s;
 `;
 
 // Sidebar
