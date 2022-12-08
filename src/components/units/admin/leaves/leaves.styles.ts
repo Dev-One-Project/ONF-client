@@ -93,10 +93,10 @@ export const UlWrapper = styled.section`
   @media ${styleSet.breakPoints.tablet} {
     overflow: auto;
   }
-  ul:nth-of-type(1) {
+  ul {
     border-bottom: 2px double ${styleSet.colors.gray};
   }
-  ul:not(:first-of-type) {
+  li {
     border-bottom: 1px solid ${styleSet.colors.gray};
   }
 `;
@@ -108,16 +108,19 @@ export const Ul = styled.ul`
   justify-content: space-between;
   padding: 0.1rem 0;
   min-width: 700px;
-  li:not(:first-child) {
+  span:not(:first-of-type) {
     min-width: 85px;
     padding: 0.5rem;
     font-family: ${styleSet.fonts.EB};
   }
-  li:nth-of-type(1) {
-    width: 57px;
+  span:nth-of-type(1) {
+    width: 0;
     padding-left: 1rem;
+    @media ${styleSet.breakPoints.tablet} {
+      width: 30px;
+    }
   }
-  li:nth-of-type(3) {
+  span:nth-of-type(3) {
     width: 21%;
     @media ${styleSet.breakPoints.tablet} {
       max-width: 15%;
@@ -125,23 +128,44 @@ export const Ul = styled.ul`
   }
 `;
 
-export const UlData = styled(Ul)`
-  li:not(:first-child) {
+export const Li = styled.li`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.1rem 0;
+  min-width: 700px;
+  span:not(:first-of-type) {
+    min-width: 85px;
+    padding: 0.5rem;
     font-family: ${styleSet.fonts.M};
   }
-  li:nth-of-type(4) {
+  span:nth-of-type(1) {
+    width: 0;
+    padding-left: 1rem;
+    @media ${styleSet.breakPoints.tablet} {
+      width: 30px;
+    }
+  }
+  span:nth-of-type(3) {
+    width: 21%;
+    @media ${styleSet.breakPoints.tablet} {
+      max-width: 15%;
+    }
+  }
+  span:nth-of-type(4) {
     text-align: center;
     padding-left: 0.1rem;
   }
-  li:nth-of-type(5) {
+  span:nth-of-type(5) {
     text-align: center;
     padding-left: 0.1rem;
   }
-  li:nth-of-type(6) {
+  span:nth-of-type(6) {
     text-align: center;
     padding-left: 0.1rem;
   }
-  li:nth-of-type(7) {
+  span:nth-of-type(7) {
     text-align: center;
     padding-left: 0.1rem;
   }
