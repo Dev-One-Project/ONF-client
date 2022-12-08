@@ -18,7 +18,6 @@ import Btn01 from '../button/btn01';
 import Check01 from './check01';
 
 interface ISelectProps {
-  text: string;
   register?: UseFormRegisterReturn;
   setValue?: UseFormSetValue<FieldValues>;
   data?: string[];
@@ -54,6 +53,7 @@ const Select01 = (props: ISelectProps) => {
   );
 
   const onClickToggleModal = () => {
+    setCheckedList(saveChecked);
     setIsOpen((prev) => !prev);
   };
 
@@ -71,10 +71,9 @@ const Select01 = (props: ISelectProps) => {
 
   const onClickBackground = (e: MouseEvent) => {
     if (e.currentTarget.id !== 'selectZone') {
-      setCheckedList(saveChecked);
-      props.setValue?.('duty', saveChecked);
       setIsOpen(false);
     }
+    setCheckedList(saveChecked);
   };
 
   const onClickSaveChecked = () => {
@@ -148,7 +147,9 @@ const Select01 = (props: ISelectProps) => {
             <Btn01
               text="적용하기"
               type="button"
-              bdC="#ddd"
+              bdC={styleSet.colors.primary}
+              bgC={styleSet.colors.primary}
+              color="#fff"
               onClick={onClickSaveChecked}
             />
           </DrowDownMenu>
@@ -216,6 +217,11 @@ const DrowDownMenu = styled.div`
     max-width: 220px;
     width: 100%;
     margin: 0 auto;
+  }
+
+  @media ${styleSet.breakPoints.mobile} {
+    left: 50%;
+    transform: translateX(-50%);
   }
 `;
 
