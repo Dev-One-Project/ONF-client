@@ -16,26 +16,29 @@ const LeavesPresenter = (props: ILeavesPresenterProps) => {
           bgC={styleSet.colors.primary}
         />
       </S.TopWrapper>
+
       <S.OptWrapper>
         <S.OptBox>
-          <S.OptSelectBox>
+          <S.OptSelect>
             <Space direction="vertical">
-              <DatePicker.RangePicker style={{ width: '244px' }} />
+              <DatePicker.RangePicker
+                style={{ width: '244px', borderRadius: '2px' }}
+              />
             </Space>
             <input placeholder="selectBox111" />
-          </S.OptSelectBox>
+          </S.OptSelect>
           <input placeholder="selectBox222" />
         </S.OptBox>
         <S.OptBox>
-          <S.OptSelectBox>
-            <Btn01 text={'휴가 유형 변경'} bdC={styleSet.colors.darkGray} />
+          <S.OptSelect>
+            <Btn01 text={'휴가 유형 변경'} bdC={styleSet.colors.gray} />
             <Btn01
               text={'모두 삭제'}
-              bdC={styleSet.colors.darkGray}
+              bdC={styleSet.colors.gray}
               color={styleSet.colors.fail}
             />
-          </S.OptSelectBox>
-          <div>목록</div>
+          </S.OptSelect>
+          <S.SelectBox>목록</S.SelectBox>
         </S.OptBox>
       </S.OptWrapper>
 

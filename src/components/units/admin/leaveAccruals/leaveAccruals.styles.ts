@@ -47,9 +47,6 @@ export const OptBox = styled.div`
       gap: 0.5rem;
     }
   }
-  :nth-of-type(2) {
-    align-items: flex-end;
-  }
   input {
     width: 119px;
     height: 32px;
@@ -64,16 +61,33 @@ export const OptBox = styled.div`
 export const OptSelect = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
   gap: 0.5rem;
   :first-of-type {
     width: 100%;
   }
   input {
     width: 100px;
+    border: 1px solid ${styleSet.colors.gray};
+    border-radius: 2px;
     @media ${styleSet.breakPoints.mobile} {
       width: 100%;
     }
   }
+`;
+
+export const DateBox = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+export const Date = styled.div`
+  border: 1px solid ${styleSet.colors.gray};
+  padding: 0.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px 0px 0px 2px;
 `;
 
 export const SelectBox = styled.nav`
@@ -101,48 +115,76 @@ export const UlWrapper = styled.section`
   }
 `;
 
-export const Ul = styled.ul`
+export const EmployeeUl = styled.ul`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   padding: 0.1rem 0;
-  min-width: 700px;
-  li:not(:first-child) {
-    min-width: 85px;
+  min-width: 1000px;
+  li {
+    min-width: 175px;
     padding: 0.5rem;
     font-family: ${styleSet.fonts.EB};
   }
   li:nth-of-type(1) {
-    width: 57px;
-    padding-left: 1rem;
+    min-width: 13%;
+  }
+  li:nth-of-type(2) {
+    min-width: 13%;
   }
   li:nth-of-type(3) {
-    width: 21%;
-    @media ${styleSet.breakPoints.tablet} {
-      max-width: 15%;
-    }
+    width: 22%;
   }
 `;
 
-export const UlData = styled(Ul)`
-  li:not(:first-child) {
+export const EmployeeDataUl = styled(EmployeeUl)`
+  li {
     font-family: ${styleSet.fonts.M};
   }
+
   li:nth-of-type(4) {
-    text-align: center;
-    padding-left: 0.1rem;
+    padding-left: 2rem;
   }
   li:nth-of-type(5) {
-    text-align: center;
-    padding-left: 0.1rem;
+    padding-left: 3.4rem;
   }
   li:nth-of-type(6) {
-    text-align: center;
-    padding-left: 0.1rem;
+    padding-left: 1.5rem;
+  }
+`;
+
+export const ListUl = styled.ul`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.1rem 0;
+  min-width: 1000px;
+  li {
+    min-width: 108px;
+    padding: 0.5rem;
+    font-family: ${styleSet.fonts.EB};
+  }
+  li:nth-of-type(6) {
+    min-width: 12%;
   }
   li:nth-of-type(7) {
-    text-align: center;
-    padding-left: 0.1rem;
+    min-width: 11%;
+  }
+`;
+
+export const ListDataUl = styled(ListUl)`
+  li {
+    font-family: ${styleSet.fonts.M};
+  }
+  li:nth-of-type(5) {
+    padding-left: 1.8rem;
+  }
+  li:nth-of-type(6) {
+    padding-left: 4rem;
+  }
+  li:nth-of-type(7) {
+    padding-left: 3rem;
   }
 `;
