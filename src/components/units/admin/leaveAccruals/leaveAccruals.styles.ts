@@ -107,10 +107,10 @@ export const UlWrapper = styled.section`
   @media ${styleSet.breakPoints.tablet} {
     overflow: auto;
   }
-  ul:nth-of-type(1) {
+  ul {
     border-bottom: 2px double ${styleSet.colors.gray};
   }
-  ul:not(:first-of-type) {
+  li {
     border-bottom: 1px solid ${styleSet.colors.gray};
   }
 `;
@@ -122,34 +122,50 @@ export const EmployeeUl = styled.ul`
   justify-content: space-between;
   padding: 0.1rem 0;
   min-width: 1000px;
-  li {
+  span {
     min-width: 175px;
     padding: 0.5rem;
     font-family: ${styleSet.fonts.EB};
   }
-  li:nth-of-type(1) {
+  span:nth-of-type(1) {
     min-width: 13%;
   }
-  li:nth-of-type(2) {
+  span:nth-of-type(2) {
     min-width: 13%;
   }
-  li:nth-of-type(3) {
+  span:nth-of-type(3) {
     width: 22%;
   }
 `;
 
-export const EmployeeDataUl = styled(EmployeeUl)`
-  li {
+export const EmployeeLi = styled.li`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.1rem 0;
+  min-width: 1000px;
+  span {
+    min-width: 175px;
+    padding: 0.5rem;
     font-family: ${styleSet.fonts.M};
   }
-
-  li:nth-of-type(4) {
+  span:nth-of-type(1) {
+    min-width: 13%;
+  }
+  span:nth-of-type(2) {
+    min-width: 13%;
+  }
+  span:nth-of-type(3) {
+    width: 22%;
+  }
+  span:nth-of-type(4) {
     padding-left: 2rem;
   }
-  li:nth-of-type(5) {
+  span:nth-of-type(5) {
     padding-left: 3.4rem;
   }
-  li:nth-of-type(6) {
+  span:nth-of-type(6) {
     padding-left: 1.5rem;
   }
 `;
@@ -161,30 +177,40 @@ export const ListUl = styled.ul`
   justify-content: space-between;
   padding: 0.1rem 0;
   min-width: 1000px;
-  li {
+  span {
     min-width: 108px;
     padding: 0.5rem;
     font-family: ${styleSet.fonts.EB};
   }
-  li:nth-of-type(6) {
+  span:nth-of-type(6) {
     min-width: 12%;
   }
-  li:nth-of-type(7) {
+  span:nth-of-type(7) {
     min-width: 11%;
   }
 `;
 
-export const ListDataUl = styled(ListUl)`
-  li {
+export const ListLi = styled.li`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.1rem 0;
+  min-width: 1000px;
+  span {
+    min-width: 108px;
+    padding: 0.5rem;
     font-family: ${styleSet.fonts.M};
   }
-  li:nth-of-type(5) {
+  span:nth-of-type(5) {
     padding-left: 1.8rem;
   }
-  li:nth-of-type(6) {
+  span:nth-of-type(6) {
+    min-width: 12%;
     padding-left: 4rem;
   }
-  li:nth-of-type(7) {
+  span:nth-of-type(7) {
+    min-width: 11%;
     padding-left: 3rem;
   }
 `;
