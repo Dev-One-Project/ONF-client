@@ -9,7 +9,6 @@ interface ISwitch01Props {
 
 const Switch01 = (props: ISwitch01Props) => {
   const [isOn, setIsOn] = useState(false);
-  console.log(props.text);
   return (
     <>
       <Switch onClick={() => setIsOn(!isOn)} className="switch">
