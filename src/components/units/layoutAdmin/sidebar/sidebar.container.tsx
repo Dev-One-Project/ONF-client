@@ -6,6 +6,7 @@ import HomeSvg from '../../../commons/svg/home';
 import LeaveSvg from '../../../commons/svg/leaves';
 import ManageSvg from '../../../commons/svg/manage';
 import ProfileSvg from '../../../commons/svg/profile';
+import RequestSvg from '../../../commons/svg/requests';
 import SchedulerSvg from '../../../commons/svg/scheduler';
 import AdminSidebarPresenter from './sidebar.presenter';
 
@@ -30,9 +31,15 @@ const sidebarLink = [
   { id: 8, address: '/admin/leaves', name: '휴가', svg: <LeaveSvg /> },
   { id: 9, address: '/admin/leaves', name: '휴가 목록' },
   { id: 10, address: '/admin/leaveAccruals', name: '휴가 발생' },
-  { id: 11, address: '/admin/manage', name: '관리', svg: <ManageSvg /> },
-  { id: 12, address: '/admin/company', name: '회사 설정', svg: <CompanySvg /> },
-  { id: 13, address: '/admin/profile', name: '프로필', svg: <ProfileSvg /> },
+  {
+    id: 11,
+    address: '/admin/requests',
+    name: '요청 내역',
+    svg: <RequestSvg />,
+  },
+  { id: 12, address: '/admin/manage', name: '관리', svg: <ManageSvg /> },
+  { id: 13, address: '/admin/company', name: '회사 설정', svg: <CompanySvg /> },
+  { id: 14, address: '/admin/profile', name: '프로필', svg: <ProfileSvg /> },
 ];
 
 const AdminSidebarContainer = () => {
