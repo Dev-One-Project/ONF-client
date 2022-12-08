@@ -49,6 +49,11 @@ export const Menu: any = styled.li`
   span {
     font-size: ${styleSet.fontSizes.strong};
   }
+
+  @media ${styleSet.breakPoints.tablet} {
+    gap: 15px;
+    padding-left: 2rem;
+  }
 `;
 
 export const Ul2 = styled.ul`
