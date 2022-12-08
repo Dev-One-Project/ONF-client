@@ -1,11 +1,6 @@
-import AdminLayout from "../../../src/components/commons/layoutAdmin";
-import AdminProfile from "../../../src/components/units/admin/profile/adminProfile.container";
+import AdminProfile from '../../../src/components/units/admin/profile/adminProfile.container';
 const AdminProfilePage = () => {
-  return (
-    <AdminLayout>
-      <AdminProfile />
-    </AdminLayout>
-  );
+  return <AdminProfile />;
 };
 
 export default AdminProfilePage;

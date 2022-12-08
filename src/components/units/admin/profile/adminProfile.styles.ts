@@ -2,15 +2,14 @@ import { createUploadLink } from 'apollo-upload-client';
 import { styleSet } from './../../../../commons/styles/styleSet';
 import styled from '@emotion/styled';
 
-export const Wrapper = styled.section`
-  padding: 2rem 2.5rem 60px 2rem;
-`;
+export const Wrapper = styled.section``;
 
 export const Form = styled.form`
-  width: 80%;
+  width: 100%;
 `;
 
 export const FormHeader = styled.div`
+  position: sticky;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -34,11 +33,6 @@ export const FormBody = styled.div`
 export const FormContents = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
-
-  :nth-of-type(8) {
-    align-items: flex-start;
-  }
 
   input {
     outline: none;
@@ -47,13 +41,16 @@ export const FormContents = styled.div`
       border: 1px solid ${styleSet.colors.primary};
     }
   }
+
+  @media ${styleSet.breakPoints.mobile} {
+    flex-direction: column;
+  }
 `;
 
 export const Label = styled.label`
   padding-top: calc(0.5rem + 1px);
   padding-bottom: calc(0.5rem + 1px);
   flex: 0 0 16.6666666667%;
-  max-width: 16.6666666667%;
   font-family: ${styleSet.fonts.B};
 `;
 
@@ -67,6 +64,14 @@ export const NotificationContents = styled.div`
   align-items: center;
   :last-of-type {
     margin: 0;
+  }
+
+  @media ${styleSet.breakPoints.mobile} {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    word-break: keep-all;
+    text-align: center;
   }
 `;
 
