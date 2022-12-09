@@ -1,0 +1,17 @@
+version: "3.7"
+
+services:
+  onf-client:
+    image: reg.brian-hong.tech/onf/onf-client:latest
+    container_name: onf-client
+    restart: unless-stopped
+    ports:
+      - 10010:3000
+    environment:
+      - TZ=Asia/Seoul
+    networks:
+      - onf-client
+
+networks:
+  onf-client:
+    driver: bridge
