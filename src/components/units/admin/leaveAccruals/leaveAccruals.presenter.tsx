@@ -92,60 +92,60 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
       {props.isSelect ? (
         <S.UlWrapper>
           <S.EmployeeUl>
-            <span>직원</span>
-            <span>휴가 그룹</span>
-            <span>산정 기간</span>
-            <span>총 휴가 일수</span>
-            <span>사용한 휴가 일수</span>
-            <span>남은 일수</span>
+            <li>직원</li>
+            <li>휴가 그룹</li>
+            <li>산정 기간</li>
+            <li>총 휴가 일수</li>
+            <li>사용한 휴가 일수</li>
+            <li>남은 일수</li>
           </S.EmployeeUl>
-          <S.EmployeeLi>
-            <span>에스쿱스</span>
-            <span>연차휴가</span>
-            <span>12월 5일 (월) 10:00 - 14:00</span>
-            <span>12일</span>
-            <span>0일</span>
-            <span>12일</span>
-          </S.EmployeeLi>
-          <S.EmployeeLi>
-            <span>에스쿱스</span>
-            <span>연차휴가</span>
-            <span>12월 5일 (월) 10:00 - 14:00</span>
-            <span>12일</span>
-            <span>0일</span>
-            <span>12일</span>
-          </S.EmployeeLi>
-          <S.EmployeeLi>
-            <span>에스쿱스</span>
-            <span>연차휴가</span>
-            <span>12월 5일 (월) 10:00 - 14:00</span>
-            <span>12일</span>
-            <span>0일</span>
-            <span>12일</span>
-          </S.EmployeeLi>
+          <S.EmployeeUl>
+            <li>에스쿱스</li>
+            <li>연차휴가</li>
+            <li>12월 5일 (월) 10:00 - 14:00</li>
+            <li>12일</li>
+            <li>0일</li>
+            <li>12일</li>
+          </S.EmployeeUl>
+          <S.EmployeeUl>
+            <li>에스쿱스</li>
+            <li>연차휴가</li>
+            <li>12월 5일 (월) 10:00 - 14:00</li>
+            <li>12일</li>
+            <li>0일</li>
+            <li>12일</li>
+          </S.EmployeeUl>
+          <S.EmployeeUl>
+            <li>에스쿱스</li>
+            <li>연차휴가</li>
+            <li>12월 5일 (월) 10:00 - 14:00</li>
+            <li>12일</li>
+            <li>0일</li>
+            <li>12일</li>
+          </S.EmployeeUl>
         </S.UlWrapper>
       ) : (
         <S.UlWrapper>
           <S.ListUl>
-            <span>직원</span>
-            <span>휴가 그룹</span>
-            <span>발생 시점</span>
-            <span>만료 시점</span>
-            <span>발생 일수</span>
-            <span>사용한 휴가 일수</span>
-            <span>남은 휴가 일수</span>
-            <span>메모</span>
+            <li>직원</li>
+            <li>휴가 그룹</li>
+            <li>발생 시점</li>
+            <li>만료 시점</li>
+            <li>발생 일수</li>
+            <li>사용한 휴가 일수</li>
+            <li>남은 휴가 일수</li>
+            <li>메모</li>
           </S.ListUl>
-          <S.ListLi>
-            <span>에스쿱스</span>
-            <span>연차휴가</span>
-            <span>2022-12-30</span>
-            <span>2023-12-30</span>
-            <span>12</span>
-            <span>0</span>
-            <span>12</span>
-            <span>메롱</span>
-          </S.ListLi>
+          <S.ListUl>
+            <li>에스쿱스</li>
+            <li>연차휴가</li>
+            <li>2022-12-30</li>
+            <li>2023-12-30</li>
+            <li>12</li>
+            <li>0</li>
+            <li>12</li>
+            <li>메롱</li>
+          </S.ListUl>
         </S.UlWrapper>
       )}
     </S.Container>
