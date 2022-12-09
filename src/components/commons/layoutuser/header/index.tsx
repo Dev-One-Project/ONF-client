@@ -1,8 +1,14 @@
 import {
+  BellOutlined,
+  CalendarOutlined,
+  ClockCircleOutlined,
+  CloseOutlined,
+  FileDoneOutlined,
   HomeOutlined,
   LogoutOutlined,
   ReloadOutlined,
   SettingOutlined,
+  UnorderedListOutlined,
   UserOutlined,
 } from '@ant-design/icons';
 import { useRouter } from 'next/router';
@@ -14,6 +20,7 @@ import { IUserHeaderProps } from '../layout.types';
 const UserHeaderPage = (props: IUserHeaderProps) => {
   const router = useRouter();
   const [mypage, setMypage] = useState(false);
+  const [sideMenu, setSideMenu] = useState(false);
   const [menu, setMenu] = useState([false, false, false]);
   const headerLink = [
     { id: 0, address: '/user/schedule', name: '스케줄' },
@@ -21,6 +28,10 @@ const UserHeaderPage = (props: IUserHeaderProps) => {
     { id: 2, address: '/user/request', name: '요청 내역' },
   ];
 
+  const onClickMoveMenu = (path: string) => () => {
+    void router.push(path);
+    setSideMenu(false);
+  };
   const onClickMypage = () => {
     setMypage((prev) => !prev);
   };
@@ -35,9 +46,13 @@ const UserHeaderPage = (props: IUserHeaderProps) => {
     );
   };
 
+  const onClickSideMenu = () => {
+    setSideMenu((prev) => !prev);
+  };
+
   return (
     <>
-      <S.Header>
+      <S.Header className="pc">
         <S.Section>
           <img src="/" alt="로고" />
           <S.Ul>
@@ -84,6 +99,46 @@ const UserHeaderPage = (props: IUserHeaderProps) => {
           </S.Ul2>
         </section>
       </S.Header>
+
+      <>
+        <S.Header className="mobile">
+          {sideMenu && <S.BgLayer></S.BgLayer>}
+
+          <UnorderedListOutlined onClick={onClickSideMenu} />
+          <img src="/" alt="로고" />
+          <BellOutlined />
+        </S.Header>
+        {sideMenu && (
+          <S.Nav>
+            <S.MyPage>
+              <CloseOutlined className="close" onClick={onClickSideMenu} />
+              <S.TopText>
+                <li>
+                  <S.Name>신미연 </S.Name>직원
+                </li>
+                <li>
+                  <span>내 계정</span> <span>내 프로필</span>
+                </li>
+              </S.TopText>
+            </S.MyPage>
+
+            <S.MobileMenu>
+              <p>Dev.One</p>
+              <ul>
+                <li onClick={onClickMoveMenu('/user/schedule')}>
+                  <CalendarOutlined /> 스케줄
+                </li>
+                <li onClick={onClickMoveMenu('/user/record')}>
+                  <ClockCircleOutlined /> 출퇴근기록
+                </li>
+                <li onClick={onClickMoveMenu('/user/request')}>
+                  <FileDoneOutlined /> 요청 내역
+                </li>
+              </ul>
+            </S.MobileMenu>
+          </S.Nav>
+        )}
+      </>
     </>
   );
 };
