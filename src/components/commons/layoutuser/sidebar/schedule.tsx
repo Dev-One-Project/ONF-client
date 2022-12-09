@@ -7,7 +7,6 @@ import { IUserSideBar } from '../layout.types';
 const UserScheduleSideBar = (props: IUserSideBar) => {
   return (
     <>
-      {!styleSet.breakPoints.tablet ? (
         <S.Sidebar>
           <S.H1>내 근로 통계</S.H1>
           <S.Date>
@@ -77,7 +76,6 @@ const UserScheduleSideBar = (props: IUserSideBar) => {
             </ul>
           </S.Aside2>
         </S.Sidebar>
-      ) : null}
     </>
   );
 };
