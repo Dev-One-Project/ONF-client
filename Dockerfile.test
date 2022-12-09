@@ -1,0 +1,12 @@
+FROM node:16-alpine
+
+WORKDIR /onf/
+COPY ./package.json /onf/
+COPY ./yarn.lock /onf/
+RUN yarn install --force --network-timeout 1000000
+
+RUN apk add tzdata && ln -snf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+
+COPY . /onf/
+RUN yarn build
+CMD yarn start
