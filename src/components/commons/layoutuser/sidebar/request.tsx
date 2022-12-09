@@ -7,7 +7,6 @@ import { IUserSideBar } from '../layout.types';
 const UserRequestSideBar = (props: IUserSideBar) => {
   return (
     <>
-      {!styleSet.breakPoints.tablet ? (
         <S.Sidebar className="min">
           <S.H1>내 요청들</S.H1>
           <S.Date2>
@@ -36,7 +35,6 @@ const UserRequestSideBar = (props: IUserSideBar) => {
             </li>
           </S.Check>
         </S.Sidebar>
-      ) : null}
     </>
   );
 };
