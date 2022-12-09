@@ -54,6 +54,7 @@ const Checkbox = styled.span`
 `;
 
 export const Label = styled.label`
+  width: 3rem;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
