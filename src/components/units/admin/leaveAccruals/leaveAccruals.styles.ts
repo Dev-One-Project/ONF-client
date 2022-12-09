@@ -107,11 +107,17 @@ export const UlWrapper = styled.section`
   @media ${styleSet.breakPoints.tablet} {
     overflow: auto;
   }
-  ul {
+  ul:first-of-type {
     border-bottom: 2px double ${styleSet.colors.gray};
+    li {
+      font-family: ${styleSet.fonts.EB};
+    }
   }
-  li {
+  ul:not(:first-of-type) {
     border-bottom: 1px solid ${styleSet.colors.gray};
+    li {
+      font-family: ${styleSet.fonts.M};
+    }
   }
 `;
 
@@ -122,51 +128,19 @@ export const EmployeeUl = styled.ul`
   justify-content: space-between;
   padding: 0.1rem 0;
   min-width: 1000px;
-  span {
+  li {
     min-width: 175px;
     padding: 0.5rem;
     font-family: ${styleSet.fonts.EB};
   }
-  span:nth-of-type(1) {
+  li:nth-of-type(1) {
     min-width: 13%;
   }
-  span:nth-of-type(2) {
+  li:nth-of-type(2) {
     min-width: 13%;
   }
-  span:nth-of-type(3) {
+  li:nth-of-type(3) {
     width: 22%;
-  }
-`;
-
-export const EmployeeLi = styled.li`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.1rem 0;
-  min-width: 1000px;
-  span {
-    min-width: 175px;
-    padding: 0.5rem;
-    font-family: ${styleSet.fonts.M};
-  }
-  span:nth-of-type(1) {
-    min-width: 13%;
-  }
-  span:nth-of-type(2) {
-    min-width: 13%;
-  }
-  span:nth-of-type(3) {
-    width: 22%;
-  }
-  span:nth-of-type(4) {
-    padding-left: 2rem;
-  }
-  span:nth-of-type(5) {
-    padding-left: 3.4rem;
-  }
-  span:nth-of-type(6) {
-    padding-left: 1.5rem;
   }
 `;
 
@@ -177,40 +151,15 @@ export const ListUl = styled.ul`
   justify-content: space-between;
   padding: 0.1rem 0;
   min-width: 1000px;
-  span {
+  li {
     min-width: 108px;
     padding: 0.5rem;
     font-family: ${styleSet.fonts.EB};
   }
-  span:nth-of-type(6) {
+  li:nth-of-type(6) {
     min-width: 12%;
   }
-  span:nth-of-type(7) {
+  li:nth-of-type(7) {
     min-width: 11%;
-  }
-`;
-
-export const ListLi = styled.li`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.1rem 0;
-  min-width: 1000px;
-  span {
-    min-width: 108px;
-    padding: 0.5rem;
-    font-family: ${styleSet.fonts.M};
-  }
-  span:nth-of-type(5) {
-    padding-left: 1.8rem;
-  }
-  span:nth-of-type(6) {
-    min-width: 12%;
-    padding-left: 4rem;
-  }
-  span:nth-of-type(7) {
-    min-width: 11%;
-    padding-left: 3rem;
   }
 `;
