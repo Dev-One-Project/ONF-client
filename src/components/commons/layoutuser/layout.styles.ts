@@ -1,8 +1,17 @@
 import styled from '@emotion/styled';
 import { styleSet } from '../../../commons/styles/styleSet';
-import { IUserHeaderProps } from './layout.types';
 
 // Header
+
+export const BgLayer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100vh;
+  z-index: 0;
+`;
 
 export const Header = styled.header`
   width: 100%;
@@ -14,6 +23,22 @@ export const Header = styled.header`
   align-items: center;
   padding: 1rem 3rem;
   box-sizing: border-box;
+
+  &.mobile {
+    display: none;
+  }
+
+  @media ${styleSet.breakPoints.tablet} {
+    &.pc {
+      display: none;
+    }
+    &.mobile {
+      display: flex;
+    }
+    span {
+      font-size: ${styleSet.fontSizes.subTitle};
+    }
+  }
 `;
 
 export const Section = styled.section`
@@ -27,11 +52,6 @@ export const Ul: any = styled.ul`
   gap: 30px;
   padding-left: 4rem;
   box-sizing: border-box;
-
-  @media ${styleSet.breakPoints.tablet} {
-    gap: 15px;
-    padding-left: 2rem;
-  }
 `;
 
 export const Menu: any = styled.li`
@@ -119,11 +139,10 @@ export const Sidebar = styled.section`
   background: ${styleSet.colors.subColor05};
   height: 100vh;
   width: 400px;
-  padding: 2rem;
+  padding: 1rem;
   box-sizing: content-box;
   &.min {
     width: 250px;
-    padding: 1rem;
   }
 `;
 
@@ -269,6 +288,7 @@ export const Date2 = styled.ul`
   flex-direction: column;
   border-bottom: 1px solid ${styleSet.colors.gray};
   padding-bottom: 20px;
+  width: 100%;
 
   li {
     display: flex;
@@ -300,5 +320,77 @@ export const Li = styled.li`
     border-radius: 5px;
     min-width: 35px;
     text-align: center;
+  }
+`;
+
+// 모바일
+
+export const Nav = styled.nav`
+  width: 70%;
+  background: ${styleSet.colors.white};
+  border-right: 1px solid ${styleSet.colors.gray};
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
+
+export const MyPage = styled.section`
+  width: 100%;
+  background: ${styleSet.colors.primary};
+  height: 100px;
+  padding: 1rem 1.5rem;
+  color: ${styleSet.colors.white};
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  .close {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: ${styleSet.fontSizes.subTitle};
+    color: ${styleSet.colors.white};
+  }
+`;
+
+export const Name = styled.strong`
+  font-size: ${styleSet.fontSizes.strong};
+  font-family: ${styleSet.fonts.B};
+`;
+
+export const TopText = styled.ul`
+  li {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    gap: 10px;
+    &:first-of-type {
+      padding-bottom: 1rem;
+    }
+
+    &:last-of-type {
+      span {
+        font-family: ${styleSet.fonts.B};
+        font-size: ${styleSet.fontSizes.normal};
+      }
+    }
+  }
+`;
+
+export const MobileMenu = styled.section`
+  font-size: ${styleSet.fontSizes.strong};
+  padding: 1rem;
+  p {
+    font-family: ${styleSet.fonts.EB};
+    padding-block: 1rem;
+  }
+
+  ul {
+    padding-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
 `;

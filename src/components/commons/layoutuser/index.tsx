@@ -22,12 +22,12 @@ const UserLayout = (props: IUserLayoutProps) => {
   return (
     <>
       {!hidden && <UserHeaderPage />}
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <FlexBox>
         {schedule && <UserScheduleSideBar />}
         {record && <UserRecordSideBar />}
         {request && <UserRequestSideBar />}
         <ChildrenBox>{props.children}</ChildrenBox>
-      </div>
+      </FlexBox>
     </>
   );
 };
@@ -39,4 +39,9 @@ const ChildrenBox = styled.div`
   @media ${styleSet.breakPoints.tablet} {
     margin-left: 6rem;
   }
+`;
+
+const FlexBox = styled.div`
+  display: flex;
+  flex-direction: row;
 `;
