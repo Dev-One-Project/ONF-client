@@ -4,7 +4,7 @@ import { styleSet } from '../../../../../commons/styles/styleSet';
 import Btn01 from '../../../../commons/button/btn01';
 import { DatePicker, Space } from 'antd';
 
-const AttendancesListPresenter = (props) => {
+const AttendancesListPresenter = () => {
   return (
     <S.Container>
       <S.TopWrapper>
@@ -43,7 +43,7 @@ const AttendancesListPresenter = (props) => {
       <S.UlWrapper>
         <S.Ul>
           <li>
-            <Check01 register={props.register} />
+            <Check01 />
           </li>
           <li>직원</li>
           <li>날짜</li>
@@ -62,7 +62,7 @@ const AttendancesListPresenter = (props) => {
         </S.Ul>
         <S.Ul>
           <li>
-            <Check01 register={props.register} />
+            <Check01 />
           </li>
           <li>에스쿱스</li>
           <li>12/05 (월)</li>

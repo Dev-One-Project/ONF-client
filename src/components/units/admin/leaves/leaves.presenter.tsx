@@ -3,9 +3,8 @@ import { styleSet } from '../../../../commons/styles/styleSet';
 import Btn01 from '../../../commons/button/btn01';
 import Check01 from '../../../commons/input/check01';
 import * as S from './leaves.styles';
-import { ILeavesPresenterProps } from './leaves.types';
 
-const LeavesPresenter = (props: ILeavesPresenterProps) => {
+const LeavesPresenter = () => {
   return (
     <S.Container>
       <S.TopWrapper>
@@ -45,7 +44,7 @@ const LeavesPresenter = (props: ILeavesPresenterProps) => {
       <S.UlWrapper>
         <S.Ul>
           <li>
-            <Check01 register={props.register} />
+            <Check01 />
           </li>
           <li>직원</li>
           <li>휴가 기간</li>
@@ -57,7 +56,7 @@ const LeavesPresenter = (props: ILeavesPresenterProps) => {
         </S.Ul>
         <S.Ul>
           <li>
-            <Check01 register={props.register} />
+            <Check01 />
           </li>
           <li>에스쿱스</li>
           <li>12월 5일 (월) 10:00 - 14:00</li>

@@ -120,11 +120,7 @@ export const Ul = styled.ul`
     font-family: ${styleSet.fonts.EB};
   }
   li:nth-of-type(1) {
-    width: 0;
     padding-left: 1rem;
-    @media ${styleSet.breakPoints.tablet} {
-      width: 30px;
-    }
   }
   li:nth-of-type(3) {
     width: 21%;
