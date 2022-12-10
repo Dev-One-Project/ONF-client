@@ -1,8 +1,6 @@
+import RequestContainer from '../../../src/components/units/user/request/request.container';
+
 const UserRequestPage = () => {
-  return (
-    <section>
-      <div>요청내역 페이지입니다.</div>
-    </section>
-  );
+  return <RequestContainer />;
 };
 export default UserRequestPage;

@@ -34,7 +34,7 @@ const UserLayout = (props: IUserLayoutProps) => {
 export default UserLayout;
 
 const ChildrenBox = styled.div`
-  margin: 2rem;
+  padding: 1rem;
   width: 100%;
   @media ${styleSet.breakPoints.tablet} {
     margin-left: 6rem;
