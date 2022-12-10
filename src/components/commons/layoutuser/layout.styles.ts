@@ -103,6 +103,7 @@ export const Mypage = styled.article`
   top: 50px;
   right: 0;
   border-radius: 5px;
+  z-index: 9999;
 
   box-shadow: 0 4px 16px rgb(130 135 147 / 36%);
   ul {
@@ -136,13 +137,13 @@ export const Mypage = styled.article`
 
 // Sidebar
 export const Sidebar = styled.section`
-  background: ${styleSet.colors.subColor05};
   height: 100vh;
   width: 400px;
   padding: 1rem;
   box-sizing: content-box;
+  box-shadow: 1px 0px 5px #eee;
   &.min {
-    width: 250px;
+    width: 300px;
   }
 `;
 
@@ -159,7 +160,6 @@ export const Date = styled.ul`
   gap: 5px;
   .ant-picker {
     border-radius: 0;
-    border: 1px solid ${styleSet.colors.primary};
   }
 
   li {
@@ -223,7 +223,6 @@ export const Vacation = styled.section`
   }
   .ant-picker {
     border-radius: 0;
-    border: 1px solid ${styleSet.colors.primary};
   }
 `;
 
@@ -300,7 +299,6 @@ export const Date2 = styled.ul`
     margin-bottom: 10px;
     .ant-picker {
       border-radius: 0;
-      border: 1px solid ${styleSet.colors.primary};
     }
     &.top {
       padding-top: 20px;
