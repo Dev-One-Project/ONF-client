@@ -22,10 +22,14 @@ interface ISelectProps {
   setValue?: UseFormSetValue<FieldValues>;
   data?: string[];
   role?: string;
+  left?: boolean;
+  center?: boolean;
 }
 
 interface IStyle {
   active?: boolean;
+  isLeft?: boolean;
+  isCenter?: boolean;
 }
 
 const Select01 = (props: ISelectProps) => {
@@ -90,7 +94,7 @@ const Select01 = (props: ISelectProps) => {
       <Wrapper>
         <ToggleButton
           className="selectZone"
-          active={isOpen ? true : false}
+          active={isOpen}
           type="button"
           onClick={onClickToggleModal}
         >
@@ -104,7 +108,11 @@ const Select01 = (props: ISelectProps) => {
           )}
         </ToggleButton>
         {isOpen && (
-          <DrowDownMenu id="selectZone">
+          <DropDownMenu
+            isLeft={props.left}
+            isCenter={props.center}
+            id="selectZone"
+          >
             <SearchBox>
               <SearchOutlined className="searchIcon" />
               <SearchInput
@@ -121,8 +129,6 @@ const Select01 = (props: ISelectProps) => {
                   checkedList.length === 0
                     ? false
                     : checkedList.length === props.data?.length
-                    ? true
-                    : false
                 }
                 onChange={(event) => onCheckedAll(event.target.checked)}
               />
@@ -135,7 +141,7 @@ const Select01 = (props: ISelectProps) => {
                         <Check01
                           key={el}
                           text={el}
-                          checked={checkedList.includes(el) ? true : false}
+                          checked={checkedList.includes(el)}
                           onChange={(event) =>
                             onCheckedElement(event.target.checked, el)
                           }
@@ -152,7 +158,7 @@ const Select01 = (props: ISelectProps) => {
               color="#fff"
               onClick={onClickSaveChecked}
             />
-          </DrowDownMenu>
+          </DropDownMenu>
         )}
       </Wrapper>
       <InvisibleInput {...props.register} />
@@ -197,7 +203,7 @@ const ToggleButton = styled.button`
   }
 `;
 
-const DrowDownMenu = styled.div`
+const DropDownMenu = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -205,7 +211,15 @@ const DrowDownMenu = styled.div`
   min-width: 15rem;
   position: absolute;
   top: 100%;
-  left: 0;
+  ${(props: IStyle) =>
+    props.isLeft
+      ? { right: 0 }
+      : props.isCenter
+      ? {
+          left: '50%',
+          transform: 'translateX(-50%)',
+        }
+      : { left: 0 }}
   padding: 0.5rem 0;
   margin-top: 1rem;
   border: 1px solid #ddd;
@@ -217,11 +231,6 @@ const DrowDownMenu = styled.div`
     max-width: 220px;
     width: 100%;
     margin: 0 auto;
-  }
-
-  @media ${styleSet.breakPoints.mobile} {
-    left: 50%;
-    transform: translateX(-50%);
   }
 `;
 
@@ -239,7 +248,7 @@ const SearchInput = styled.input`
   outline: none;
   padding: 0.5rem 1rem 0.5rem 2rem;
   :focus {
-    border: 1px soild #ddd;
+    border: 1px solid ${styleSet.colors.primary};
   }
 `;
 

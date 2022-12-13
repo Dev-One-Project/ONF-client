@@ -1,4 +1,3 @@
-import { createUploadLink } from 'apollo-upload-client';
 import { styleSet } from './../../../../commons/styles/styleSet';
 import styled from '@emotion/styled';
 
