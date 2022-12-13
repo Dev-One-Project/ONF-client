@@ -133,14 +133,8 @@ export const EmployeeUl = styled.ul`
     padding: 0.5rem;
     font-family: ${styleSet.fonts.EB};
   }
-  li:nth-of-type(1) {
-    min-width: 13%;
-  }
   li:nth-of-type(2) {
-    min-width: 13%;
-  }
-  li:nth-of-type(3) {
-    width: 22%;
+    min-width: 25%;
   }
 `;
 
@@ -156,10 +150,10 @@ export const ListUl = styled.ul`
     padding: 0.5rem;
     font-family: ${styleSet.fonts.EB};
   }
-  li:nth-of-type(6) {
+  li:nth-of-type(5) {
     min-width: 12%;
   }
-  li:nth-of-type(7) {
+  li:nth-of-type(6) {
     min-width: 11%;
   }
 `;

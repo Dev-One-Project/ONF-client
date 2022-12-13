@@ -1,7 +1,6 @@
 import { DatePicker, Space } from 'antd';
 import { styleSet } from '../../../../commons/styles/styleSet';
 import Btn01 from '../../../commons/button/btn01';
-import Check01 from '../../../commons/input/check01';
 import Switch01 from '../../../commons/switch/switch01';
 import * as S from './leaveAccruals.styles';
 import { ILeaveAccrualsPresenterProps } from './leaveAccruals.types';
@@ -93,7 +92,6 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
         <S.UlWrapper>
           <S.EmployeeUl>
             <li>직원</li>
-            <li>휴가 그룹</li>
             <li>산정 기간</li>
             <li>총 휴가 일수</li>
             <li>사용한 휴가 일수</li>
@@ -101,7 +99,6 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
           </S.EmployeeUl>
           <S.EmployeeUl>
             <li>에스쿱스</li>
-            <li>연차휴가</li>
             <li>12월 5일 (월) 10:00 - 14:00</li>
             <li>12일</li>
             <li>0일</li>
@@ -109,7 +106,6 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
           </S.EmployeeUl>
           <S.EmployeeUl>
             <li>에스쿱스</li>
-            <li>연차휴가</li>
             <li>12월 5일 (월) 10:00 - 14:00</li>
             <li>12일</li>
             <li>0일</li>
@@ -117,7 +113,6 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
           </S.EmployeeUl>
           <S.EmployeeUl>
             <li>에스쿱스</li>
-            <li>연차휴가</li>
             <li>12월 5일 (월) 10:00 - 14:00</li>
             <li>12일</li>
             <li>0일</li>
@@ -128,7 +123,6 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
         <S.UlWrapper>
           <S.ListUl>
             <li>직원</li>
-            <li>휴가 그룹</li>
             <li>발생 시점</li>
             <li>만료 시점</li>
             <li>발생 일수</li>
@@ -138,7 +132,6 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
           </S.ListUl>
           <S.ListUl>
             <li>에스쿱스</li>
-            <li>연차휴가</li>
             <li>2022-12-30</li>
             <li>2023-12-30</li>
             <li>12</li>
