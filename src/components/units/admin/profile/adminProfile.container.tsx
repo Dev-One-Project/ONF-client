@@ -1,6 +1,6 @@
 import { CheckCircleOutlined } from '@ant-design/icons';
 import { notification } from 'antd';
-import React, { FormEvent, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { styleSet } from '../../../../commons/styles/styleSet';
 import AdminProfileUI from './adminProfile.presenter';

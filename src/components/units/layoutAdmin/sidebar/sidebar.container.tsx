@@ -45,8 +45,8 @@ const sidebarLink = [
 const AdminSidebarContainer = () => {
   const router = useRouter();
 
-  const onClickList = (event: MouseEvent<HTMLLIElement>) => {
-    router.push(event?.currentTarget.id);
+  const onClickList = async (event: MouseEvent<HTMLLIElement>) => {
+    await router.push(event?.currentTarget.id);
   };
 
   return (

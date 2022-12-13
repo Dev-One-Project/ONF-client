@@ -43,12 +43,12 @@ const AdminProfileUI = (props: IAdminProfileProps) => {
             <Select01
               register={props.register('duty')}
               setValue={props.setValue}
-              data={['최고 관리자', '중간 관리자', '사원'] || undefined}
             />
           </S.FormContents>
           <S.FormContents>
             <S.Label>팀</S.Label>
             <Select01
+              center
               register={props.register('organization')}
               setValue={props.setValue}
               data={['BUSKER', 'ZERO9', 'WETREKKING'] || undefined}
@@ -72,7 +72,7 @@ const AdminProfileUI = (props: IAdminProfileProps) => {
                       지점관리자: 지점관리자는 모든 직원의 권한을 가지고 있고
                       추가로 배정 된 지점들의 스케줄과 출퇴근기록을 열람, 생성,
                       수정할 수 있는 권한을 가집니다. 직원들을 초대할 수 있으며
-                      '관리자용 PC버전'도 접속이 가능 합니다.
+                      관리자용 PC 버전도 접속이 가능 합니다.
                     </p>
                     <p>
                       총괄관리자: 총괄관리자는 모든 직원의 권한을 가지고 있고
