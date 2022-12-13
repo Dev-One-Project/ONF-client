@@ -168,6 +168,7 @@ const Wrapper = styled.div`
 `;
 
 const ToggleButton = styled.button`
+  display: block;
   max-width: 350px;
   padding: 0.5rem 1rem;
   overflow: hidden;

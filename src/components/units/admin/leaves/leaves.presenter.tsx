@@ -48,7 +48,6 @@ const LeavesPresenter = () => {
           </li>
           <li>직원</li>
           <li>휴가 기간</li>
-          <li>휴가 그룹</li>
           <li>휴가 유형</li>
           <li>유급 시간</li>
           <li>차감 일수</li>
@@ -60,7 +59,6 @@ const LeavesPresenter = () => {
           </li>
           <li>에스쿱스</li>
           <li>12월 5일 (월) 10:00 - 14:00</li>
-          <li>연차휴가</li>
           <li>반차</li>
           <li>4h</li>
           <li>0.5일</li>
