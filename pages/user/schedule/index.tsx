@@ -1,8 +1,6 @@
+import ScheduleContainer from '../../../src/components/units/user/schedule/schedule.container';
+
 const UserSchedulePage = () => {
-  return (
-    <section>
-      <div>스케줄입니다.</div>
-    </section>
-  );
+  return <ScheduleContainer />;
 };
 export default UserSchedulePage;
