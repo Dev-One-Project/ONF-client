@@ -5,7 +5,9 @@ import ApolloSetting from '../src/components/commons/apollo';
 import 'antd/dist/reset.css';
 import AdminLayout from '../src/components/commons/layoutAdmin';
 import { useRouter } from 'next/router';
+import { RecoilRoot } from 'recoil';
 import UserLayout from '../src/components/commons/layoutUser';
+
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -22,31 +24,26 @@ function MyApp({ Component, pageProps }: AppProps) {
   const hiddenLayout = HIDDEN_LAYOUT.includes(router.asPath);
 
   return (
-    <ApolloSetting>
-      <>
-        {router.asPath === HIDDEN_LAYOUT[0] ||
-        router.asPath === HIDDEN_LAYOUT[1] ? (
+    <>
+      <RecoilRoot>
+        <Global styles={globalStyles} />
+        <ApolloSetting>
           <>
-            <Global styles={globalStyles} />
-            <Component {...pageProps} />
+            {hiddenLayout ? (
+              <Component {...pageProps} />
+            ) : isUserPage ? (
+              <UserLayout>
+                <Component {...pageProps} />
+              </UserLayout>
+            ) : (
+              <AdminLayout>
+                <Component {...pageProps} />
+              </AdminLayout>
+            )}
           </>
-        ) : isUserPage ? (
-          <UserLayout>
-            <>
-              <Global styles={globalStyles} />
-              <Component {...pageProps} />
-            </>
-          </UserLayout>
-        ) : (
-          <AdminLayout>
-            <>
-              <Global styles={globalStyles} />
-              <Component {...pageProps} />
-            </>
-          </AdminLayout>
-        )}
-      </>
-    </ApolloSetting>
+        </ApolloSetting>
+      </RecoilRoot>
+    </>
   );
 }
 

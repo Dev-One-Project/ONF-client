@@ -1,26 +1,25 @@
 import styled from '@emotion/styled';
-import { useRouter } from 'next/router';
+import { useRecoilState } from 'recoil';
+import { isAdminSidebarState } from '../../../commons/store';
 import { styleSet } from '../../../commons/styles/styleSet';
 import AdminHeaderPage from './header';
 import AdminSidebarPage from './sidebar';
 
 interface IAdminLayoutProps {
-  children: JSX.Element;
+  children?: JSX.Element;
+  isAdminSidebar?: boolean;
 }
 
-const HIDDEN = ['/auth/login', '/auth/join'];
-
 const AdminLayout = (props: IAdminLayoutProps) => {
-  const router = useRouter();
-
-  const hidden = HIDDEN.includes(router.asPath);
-
+  const [isAdminSidebar] = useRecoilState(isAdminSidebarState);
   return (
     <>
-      {!hidden && <AdminHeaderPage />}
+      <AdminHeaderPage />
       <div style={{ display: 'flex', flexDirection: 'row' }}>
-        {!hidden && <AdminSidebarPage />}
-        <ChildrenBox>{props.children}</ChildrenBox>
+        <AdminSidebarPage />
+        <ChildrenBox isAdminSidebar={isAdminSidebar}>
+          {props.children}
+        </ChildrenBox>
       </div>
     </>
   );
@@ -28,9 +27,11 @@ const AdminLayout = (props: IAdminLayoutProps) => {
 export default AdminLayout;
 
 const ChildrenBox = styled.div`
-  margin: 7rem 3rem 6.5rem 15rem;
+  margin: ${({ isAdminSidebar }: IAdminLayoutProps) =>
+    isAdminSidebar ? '7rem 3rem 6.5rem 15rem' : '7rem 3rem 6.5rem 6rem'};
   width: 100%;
   @media ${styleSet.breakPoints.tablet} {
-    margin-left: 6rem;
+    margin: ${({ isAdminSidebar }: IAdminLayoutProps) =>
+      isAdminSidebar ? '7rem 3rem 6.5rem 6rem' : '7rem 3rem 6.5rem 15rem'};
   }
 `;

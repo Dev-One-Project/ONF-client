@@ -1,4 +1,3 @@
-export interface IAdminHeaderProps {
-  isOn: boolean;
-  onClickSwitch?: () => void;
+export interface IAdminHeaderPresenterProps {
+  onClickMenu: () => void;
 }
