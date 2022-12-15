@@ -1,13 +1,14 @@
-import { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { isAdminSidebarState } from '../../../../commons/store';
 import AdminHeaderPresenter from './header.presenter';
 
 const AdminHeaderContainer = () => {
-  const [isOn, setIsOn] = useState(false);
-  const onClickSwitch = () => {
-    setIsOn(!isOn);
-  };
+  const [, setIsAdminSidebar] = useRecoilState(isAdminSidebarState);
 
-  return <AdminHeaderPresenter isOn={isOn} onClickSwitch={onClickSwitch} />;
+  const onClickMenu = () => {
+    setIsAdminSidebar((prev) => !prev);
+  };
+  return <AdminHeaderPresenter onClickMenu={onClickMenu} />;
 };
 
 export default AdminHeaderContainer;

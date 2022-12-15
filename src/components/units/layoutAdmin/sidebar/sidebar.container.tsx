@@ -1,5 +1,7 @@
 import { useRouter } from 'next/router';
 import { MouseEvent } from 'react';
+import { useRecoilState } from 'recoil';
+import { isAdminSidebarState } from '../../../../commons/store';
 import AttendanceSvg from '../../../commons/svg/attendances';
 import CompanySvg from '../../../commons/svg/company';
 import HomeSvg from '../../../commons/svg/home';
@@ -44,6 +46,7 @@ const sidebarLink = [
 
 const AdminSidebarContainer = () => {
   const router = useRouter();
+  const [isAdminSidebar] = useRecoilState(isAdminSidebarState);
 
   const onClickList = async (event: MouseEvent<HTMLLIElement>) => {
     await router.push(event?.currentTarget.id);
@@ -53,6 +56,7 @@ const AdminSidebarContainer = () => {
     <AdminSidebarPresenter
       sidebarLink={sidebarLink}
       onClickList={onClickList}
+      isAdminSidebar={isAdminSidebar}
     />
   );
 };

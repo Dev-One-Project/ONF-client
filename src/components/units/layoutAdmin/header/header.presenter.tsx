@@ -1,21 +1,21 @@
 import {
   ArrowRightOutlined,
   MenuOutlined,
-  QuestionCircleOutlined,
   ReloadOutlined,
   SettingOutlined,
 } from '@ant-design/icons';
+import Switch01 from '../../../commons/switch/switch01';
 import * as S from './header.styles';
-import { IAdminHeaderProps } from './header.types';
+import { IAdminHeaderPresenterProps } from './header.types';
 
-const AdminHeaderPresenter = (props: IAdminHeaderProps) => {
+const AdminHeaderPresenter = (props: IAdminHeaderPresenterProps) => {
   return (
     <S.Wrapper>
       <S.Header>
         <S.Section>
           <S.Ul>
             <li>
-              <MenuOutlined />
+              <MenuOutlined onClick={props.onClickMenu} />
             </li>
           </S.Ul>
           <img src="/" alt="로고" />
@@ -23,20 +23,9 @@ const AdminHeaderPresenter = (props: IAdminHeaderProps) => {
       </S.Header>
       <S.Section>
         <S.Ul>
-          <S.Switch onClick={props.onClickSwitch} className="switch">
-            <S.Strong isOn={props.isOn}>
-              {props.isOn ? '근무중' : '근무끝'}
-            </S.Strong>
-            <S.Groove isOn={props.isOn}>
-              <S.Handle isOn={props.isOn} />
-            </S.Groove>
-            <S.Indicator isOn={props.isOn} />
-          </S.Switch>
+          <Switch01 />
           <li>
             <ReloadOutlined />
-          </li>
-          <li>
-            <QuestionCircleOutlined />
           </li>
           <li>
             <SettingOutlined />
@@ -44,7 +33,11 @@ const AdminHeaderPresenter = (props: IAdminHeaderProps) => {
         </S.Ul>
         <S.ChangeBtn>
           <ArrowRightOutlined />
-          <span>직원 모드로 전환</span>
+          <span>
+            {typeof window !== 'undefined' && window.outerWidth < 767
+              ? '직원 모드'
+              : '직원 모드로 전환'}
+          </span>
         </S.ChangeBtn>
       </S.Section>
     </S.Wrapper>
