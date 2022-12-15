@@ -101,7 +101,7 @@ export const Explanation = styled.p`
   padding: 0.6rem 0;
   width: 100%;
   font-size: ${styleSet.fontSizes.small};
-  color: ${styleSet.colors.darkgray};
+  color: ${styleSet.colors.darkGray};
 `;
 
 export const Select = styled.select`
