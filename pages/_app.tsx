@@ -3,10 +3,11 @@ import { AppProps } from 'next/app';
 import { globalStyles } from '../src/commons/styles/globalStyles';
 import ApolloSetting from '../src/components/commons/apollo';
 import 'antd/dist/reset.css';
-import UserLayout from '../src/components/commons/layoutUser';
 import AdminLayout from '../src/components/commons/layoutAdmin';
 import { useRouter } from 'next/router';
 import { RecoilRoot } from 'recoil';
+import UserLayout from '../src/components/commons/layoutUser';
+
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
