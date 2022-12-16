@@ -39,7 +39,12 @@ const sidebarLink = [
     name: '요청 내역',
     svg: <RequestSvg />,
   },
-  { id: 12, address: '/admin/manage', name: '관리', svg: <ManageSvg /> },
+  {
+    id: 12,
+    address: '/admin/manage/members',
+    name: '관리',
+    svg: <ManageSvg />,
+  },
   { id: 13, address: '/admin/company', name: '회사 설정', svg: <CompanySvg /> },
   { id: 14, address: '/admin/profile', name: '프로필', svg: <ProfileSvg /> },
 ];
