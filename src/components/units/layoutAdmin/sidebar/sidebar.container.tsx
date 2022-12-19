@@ -74,7 +74,6 @@ const AdminSidebarContainer = () => {
     return () => window.removeEventListener('resize', controlWidth);
   }, []);
 
-  console.log('넓이:', isNarrowWidth, '사이드바:', isAdminSidebar);
 
   const onClickList = async (event: MouseEvent<HTMLLIElement>) => {
     await router.push(event?.currentTarget.id);
