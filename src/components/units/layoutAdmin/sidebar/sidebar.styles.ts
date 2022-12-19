@@ -2,9 +2,15 @@ import styled from '@emotion/styled';
 import { styleSet } from '../../../../commons/styles/styleSet';
 import { IAdminSidebarPresenterProps } from './sidebar.types';
 
-export const Wrapper = styled.div`
-  width: ${({ isAdminSidebar }: IAdminSidebarPresenterProps) =>
-    isAdminSidebar ? '200px' : '60px'};
+export const Wrapper = styled.section`
+  width: ${(props: IAdminSidebarPresenterProps) =>
+    props.isAdminSidebar
+      ? props.isNarrowWidth
+        ? '60px'
+        : '200px'
+      : props.isNarrowWidth
+      ? '200px'
+      : '60px'};
   height: 100%;
   background: ${styleSet.colors.primary};
   position: fixed;
@@ -12,8 +18,14 @@ export const Wrapper = styled.div`
   padding-top: 4.5rem;
   transition: 0.3s;
   @media ${styleSet.breakPoints.tablet} {
-    width: ${({ isAdminSidebar }: IAdminSidebarPresenterProps) =>
-      isAdminSidebar ? '60px' : '200px'};
+    width: ${(props: IAdminSidebarPresenterProps) =>
+      props.isAdminSidebar
+        ? props.isNarrowWidth
+          ? '200px'
+          : '60px'
+        : props.isNarrowWidth
+        ? '60px'
+        : '200px'};
   }
 `;
 
@@ -65,10 +77,22 @@ export const Svg = styled.div`
   padding-bottom: 3px;
 `;
 export const Text = styled.p`
-  display: ${({ isAdminSidebar }: IAdminSidebarPresenterProps) =>
-    isAdminSidebar ? 'block' : 'none'};
+  display: ${(props: IAdminSidebarPresenterProps) =>
+    props.isAdminSidebar
+      ? props.isNarrowWidth
+        ? 'none'
+        : 'block'
+      : props.isNarrowWidth
+      ? 'block'
+      : 'none'};
   @media ${styleSet.breakPoints.tablet} {
-    display: ${({ isAdminSidebar }: IAdminSidebarPresenterProps) =>
-      isAdminSidebar ? 'none' : 'block'};
+    display: ${(props: IAdminSidebarPresenterProps) =>
+      props.isAdminSidebar
+        ? props.isNarrowWidth
+          ? 'block'
+          : 'none'
+        : props.isNarrowWidth
+        ? 'none'
+        : 'block'};
   }
 `;

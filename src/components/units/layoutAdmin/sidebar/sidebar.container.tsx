@@ -1,7 +1,10 @@
 import { useRouter } from 'next/router';
-import { MouseEvent } from 'react';
+import { MouseEvent, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { isAdminSidebarState } from '../../../../commons/store';
+import {
+  isAdminSidebarState,
+  isNarrowWidthState,
+} from '../../../../commons/store';
 import AttendanceSvg from '../../../commons/svg/attendances';
 import CompanySvg from '../../../commons/svg/company';
 import HomeSvg from '../../../commons/svg/home';
@@ -51,7 +54,26 @@ const sidebarLink = [
 
 const AdminSidebarContainer = () => {
   const router = useRouter();
-  const [isAdminSidebar] = useRecoilState(isAdminSidebarState);
+  const [isAdminSidebar, setIsAdminSidebar] =
+    useRecoilState(isAdminSidebarState);
+  const [isNarrowWidth, setIsNarrowWidth] = useRecoilState(isNarrowWidthState);
+
+  const controlWidth = () => {
+    const width = window.innerWidth;
+    if (width < 1024) {
+      setIsNarrowWidth(true);
+      setIsAdminSidebar(false);
+    } else {
+      setIsNarrowWidth(false);
+      setIsAdminSidebar(true);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', controlWidth);
+    return () => window.removeEventListener('resize', controlWidth);
+  }, []);
+
 
   const onClickList = async (event: MouseEvent<HTMLLIElement>) => {
     await router.push(event?.currentTarget.id);
@@ -62,6 +84,7 @@ const AdminSidebarContainer = () => {
       sidebarLink={sidebarLink}
       onClickList={onClickList}
       isAdminSidebar={isAdminSidebar}
+      isNarrowWidth={isNarrowWidth}
     />
   );
 };
