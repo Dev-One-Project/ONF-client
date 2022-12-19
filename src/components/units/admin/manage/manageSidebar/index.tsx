@@ -1,23 +1,21 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
-import { useRecoilState } from 'recoil';
-import { isAdminSidebarState } from '../../../../commons/store';
-import { styleSet } from '../../../../commons/styles/styleSet';
+import { styleSet } from '../../../../../commons/styles/styleSet';
 
 interface ITabProps {
   isActive: boolean;
 }
 
-interface IStyle {
-  isAdminSidebar?: boolean;
-}
+// interface IStyle {
+//   isAdminSidebar?: boolean;
+// }
 
 const ManageSidebarComponent = () => {
   const router = useRouter();
-  const [isAdminSidebar] = useRecoilState(isAdminSidebarState);
+
   const ManageList = [
     { label: '직원', path: 'members' },
-    { label: '팀', path: 'organization' },
+    { label: '지점', path: 'organization' },
     { label: '직무', path: 'duty' },
     { label: '근로정보', path: 'wages' },
     { label: '근무일정 유형', path: 'shift-types' },
@@ -33,7 +31,7 @@ const ManageSidebarComponent = () => {
     await router.push(`/admin/manage/${path}`);
   };
   return (
-    <ManageSidebar isAdminSidebar={isAdminSidebar}>
+    <ManageSidebar>
       <TabContainer>
         {ManageList.map((el, i) => (
           <Tab
@@ -52,18 +50,12 @@ const ManageSidebarComponent = () => {
 export default ManageSidebarComponent;
 
 const ManageSidebar = styled.div`
-  width: 180px;
-  height: 100%;
+  min-width: 11.5rem;
+  height: 100vh;
   background: ${styleSet.colors.lightGray};
-  position: fixed;
-  left: ${({ isAdminSidebar }: IStyle) => (isAdminSidebar ? '200px' : '60px')};
-
+  position: relative;
   z-index: 0;
   padding-top: 4.5rem;
-  @media ${styleSet.breakPoints.tablet} {
-    left: ${({ isAdminSidebar }: IStyle) =>
-      isAdminSidebar ? '60px' : '200px'};
-  }
 `;
 
 const TabContainer = styled.ul`

@@ -74,7 +74,6 @@ const AdminSidebarContainer = () => {
     return () => window.removeEventListener('resize', controlWidth);
   }, []);
 
-
   const onClickList = async (event: MouseEvent<HTMLLIElement>) => {
     await router.push(event?.currentTarget.id);
   };

@@ -6,7 +6,7 @@ import {
   isNarrowWidthState,
 } from '../../../commons/store';
 import { styleSet } from '../../../commons/styles/styleSet';
-import ManageSidebarComponent from '../../units/admin/manageSidebar';
+import ManageSidebarComponent from '../../units/admin/manage/manageSidebar';
 import AdminHeaderPage from './header';
 import AdminSidebarPage from './sidebar';
 

@@ -2,26 +2,21 @@ import { CloseOutlined } from '@ant-design/icons';
 import { css, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Divider } from 'antd';
-import { SetStateAction } from 'react';
-import { FieldValues, UseFormHandleSubmit } from 'react-hook-form';
+import { MouseEvent, SetStateAction } from 'react';
 import { styleSet } from '../../../commons/styles/styleSet';
-import Btn01 from '../button/btn01';
 
 interface IFallingModalProps {
   children?: JSX.Element;
   title?: string;
-  width?: number;
+  width?: string;
   onCancel?: () => void;
-  onOk?: () => void;
   aniMode: boolean;
   isOpen: boolean;
-  handleSubmit?: UseFormHandleSubmit<FieldValues>;
   setIsOpen: SetStateAction<any>;
-  onSubmit?: any;
 }
 
 interface IStyle {
-  width?: number;
+  width?: string;
   aniMode?: boolean;
 }
 
@@ -33,12 +28,23 @@ const FallingModal = (props: IFallingModalProps) => {
   return (
     <>
       {props.isOpen ? (
-        <Wrapper onAnimationEnd={onAnimationEnd} aniMode={props.aniMode}>
+        <Wrapper
+          onClick={(e: MouseEvent<HTMLDivElement>) => {
+            e.stopPropagation();
+            const target = e.target as HTMLDivElement;
+            const className =
+              target.className !== null ? String(target.className) : '';
+            if (className.includes('wrapper')) props.onCancel?.();
+          }}
+          className="wrapper"
+          onAnimationEnd={onAnimationEnd}
+          aniMode={props.aniMode}
+        >
           <CustomModal
             onAnimationEnd={onAnimationEnd}
             aniMode={props.aniMode}
             width={props.width}
-            onSubmit={props.handleSubmit?.(props.onSubmit)}
+            className="modal"
           >
             <Header>
               <H3>
@@ -56,30 +62,12 @@ const FallingModal = (props: IFallingModalProps) => {
                 <div>
                   <p>커스텀 모달입니다.</p>
                   <p>
-                    {'<FallingModal></FallingModal>'}안에 태그 넣어서
-                    사용해주세요.
+                    <code>{'<FallingModal></FallingModal>'}</code>안에 태그
+                    넣어서 사용해주세요.
                   </p>
                 </div>
               )}
             </Body>
-            <Divider style={{ margin: '0' }} />
-            <Footer>
-              <div></div>
-              <ButtonBox>
-                <Btn01
-                  onClick={props.onCancel}
-                  type="button"
-                  text="닫기"
-                  bdC="#ddd"
-                />
-                <Btn01
-                  text="저장"
-                  color="#fff"
-                  bgC={styleSet.colors.primary}
-                  bdC={styleSet.colors.primary}
-                />
-              </ButtonBox>
-            </Footer>
           </CustomModal>
         </Wrapper>
       ) : null}
@@ -110,7 +98,7 @@ const Wrapper = styled.div`
         `};
 `;
 
-const CustomModal = styled.form`
+const CustomModal = styled.div`
   position: relative;
   top: 2rem;
   height: fit-content;
@@ -144,20 +132,6 @@ const CloseBtnBox = styled.div``;
 
 const Body = styled.div`
   padding: 1rem;
-`;
-
-const Footer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem 1rem;
-`;
-
-const ButtonBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
 `;
 
 const getDark = keyframes`

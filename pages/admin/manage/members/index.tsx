@@ -1,7 +1,7 @@
-import Members from '../../../../src/components/units/admin/manage/members';
+import Manage from '../../../../src/components/units/admin/manage';
 
 const ManageMember = () => {
-  return <Members />;
+  return <Manage tab="직원" />;
 };
 
 export default ManageMember;
