@@ -1,8 +1,8 @@
-import styled from "@emotion/styled";
-import { MouseEvent } from "react";
+import styled from '@emotion/styled';
+import { MouseEvent } from 'react';
 
 interface IBtn01Props {
-  type?: "button" | "submit" | "reset" | undefined;
+  type?: 'button' | 'submit' | 'reset' | undefined;
   text: string;
   color?: string;
   bdC?: string;
@@ -28,9 +28,9 @@ export default Btn01;
 
 const Btn = styled.button`
   padding: 8px 16px;
-  color: ${(Props: IStyleProps) => (Props.color ? Props.color : "")};
-  background: ${(Props: IStyleProps) => (Props.bgC ? Props.bgC : "")};
-  border: ${(Props: IStyleProps) => (Props.bdC ? "1px" : "none")} solid
-    ${(Props: IStyleProps) => (Props.bdC ? Props.bdC : "#000")};
-  border-radius: 4px;
+  color: ${(Props: IStyleProps) => (Props.color ? Props.color : '')};
+  background: ${(Props: IStyleProps) => (Props.bgC ? Props.bgC : '')};
+  border: ${(Props: IStyleProps) => (Props.bdC ? '1px' : 'none')} solid
+    ${(Props: IStyleProps) => (Props.bdC ? Props.bdC : '#000')};
+  border-radius: 2px;
 `;

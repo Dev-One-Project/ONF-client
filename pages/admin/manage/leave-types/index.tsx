@@ -1,5 +1,7 @@
+import Manage from '../../../../src/components/units/admin/manage';
+
 const LeaveTypes = () => {
-  return <>휴가 유형</>;
+  return <Manage tab="휴가 유형" />;
 };
 
 export default LeaveTypes;

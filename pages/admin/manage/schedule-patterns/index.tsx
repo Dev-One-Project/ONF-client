@@ -1,5 +1,7 @@
+import Manage from '../../../../src/components/units/admin/manage';
+
 const SchedulePatterns = () => {
-  return <>스케쥴 패턴</>;
+  return <Manage tab="스케쥴 패턴" />;
 };
 
 export default SchedulePatterns;

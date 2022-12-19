@@ -1,5 +1,7 @@
+import Manage from '../../../../src/components/units/admin/manage';
+
 const ShiftTypes = () => {
-  return <>근무일정 유형</>;
+  return <Manage tab="근무 일정 유형" />;
 };
 
 export default ShiftTypes;

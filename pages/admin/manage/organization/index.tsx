@@ -1,5 +1,7 @@
+import Manage from '../../../../src/components/units/admin/manage';
+
 const Organization = () => {
-  return <>팀</>;
+  return <Manage tab="지점" />;
 };
 
 export default Organization;

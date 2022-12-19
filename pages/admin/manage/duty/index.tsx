@@ -1,5 +1,7 @@
+import Manage from '../../../../src/components/units/admin/manage';
+
 const Duty = () => {
-  return <>직무</>;
+  return <Manage tab="직무" />;
 };
 
 export default Duty;

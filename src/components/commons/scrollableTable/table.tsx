@@ -5,12 +5,19 @@ import { isAdminSidebarState } from '../../../commons/store';
 import { styleSet } from '../../../commons/styles/styleSet';
 import Check01 from '../input/check01';
 
+interface IScrollableTableProps {
+  tab: string;
+}
+
 interface IStyle {
   isManage: boolean;
   isAdminSidebar?: boolean;
 }
 
-const ScrollableTable = () => {
+let headerData: string[] = [];
+let bodyData: string[] = [];
+
+const ScrollableTable = (props: IScrollableTableProps) => {
   const router = useRouter();
   const [isAdminSidebar] = useRecoilState(isAdminSidebarState);
   // const exampleData = [
@@ -22,34 +29,40 @@ const ScrollableTable = () => {
   //     category: '프론트엔드 개발자',
   //   },
   // ];
-  const headerData = [
-    '이름',
-    '액세스 권한',
-    '입사일',
-    '팀',
-    '직무',
-    '근로정보명',
-    '시급',
-    '소정근로규칙',
-    '최대근로규칙',
-    '적용 시점',
-    '적용 시점',
-    '적용 시점',
-  ];
-  const bodyData = [
-    '김민겸',
-    '최고 관리자',
-    '',
-    '',
-    '프론트엔드 개발자',
-    '일반근무',
-    '',
-    '1주 40시간',
-    '1주 52시간',
-    '',
-    '',
-    '',
-  ];
+
+  if (props.tab === '직원') {
+    headerData = [
+      '이름',
+      '액세스 권한',
+      '입사일',
+      '팀',
+      '직무',
+      '근로정보명',
+      '시급',
+      '소정근로규칙',
+      '최대근로규칙',
+      '적용 시점',
+      '적용 시점',
+      '적용 시점',
+    ];
+    bodyData = [
+      '김민겸',
+      '최고 관리자',
+      '',
+      '',
+      '프론트엔드 개발자',
+      '일반근무',
+      '',
+      '1주 40시간',
+      '1주 52시간',
+      '',
+      '',
+      '',
+    ];
+  } else if (props.tab === '지점') {
+    headerData = ['지점명', '출퇴근 장소들', '메모'];
+    bodyData = ['패스파인더', '패스트파이브', '아몰랑 출근 안 해'];
+  }
 
   return (
     <Wrapper
@@ -89,26 +102,10 @@ const ScrollableTable = () => {
 export default ScrollableTable;
 
 const Wrapper = styled.div`
-  width: ${(props: IStyle) =>
-    props.isAdminSidebar
-      ? props.isManage
-        ? 'calc(100vw - 28.5rem)'
-        : 'calc(100vw - 18rem)'
-      : props.isManage
-      ? 'calc(100vw - 28.5rem)'
-      : 'calc(100vw - 20rem)'};
+  width: calc(
+    100vw - ${(props: IStyle) => (props.isAdminSidebar ? '30rem' : '21.5rem')}
+  );
   overflow: scroll auto;
-
-  @media ${styleSet.breakPoints.tablet} {
-    width: ${(props: IStyle) =>
-      props.isAdminSidebar
-        ? props.isManage
-          ? 'calc(100vw - 20rem)'
-          : 'calc(100vw - 18rem)'
-        : props.isManage
-        ? 'calc(100vw - 28.5rem)'
-        : 'calc(100vw - 20rem)'};
-  }
 `;
 
 const Table = styled.table`
