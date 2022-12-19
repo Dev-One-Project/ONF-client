@@ -12,6 +12,15 @@ export const Wrapper = styled.section`
   justify-content: space-between;
   align-items: center;
 `;
+// export const Wrapper = styled.section`
+//   width: 100%;
+//   height: 60px;
+//   background: ${styleSet.colors.white};
+//   box-shadow: 0 4px 8px rgb(175 180 190 / 20%);
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+// `;
 
 export const Header = styled.header`
   display: flex;
