@@ -4,8 +4,8 @@ import {
   InMemoryCache,
   ApolloLink,
   // fromPromise,
-} from "@apollo/client";
-import { createUploadLink } from "apollo-upload-client";
+} from '@apollo/client';
+import { createUploadLink } from 'apollo-upload-client';
 // import { useEffect } from "react";
 // import { onError } from "@apollo/client/link/error";
 
@@ -43,9 +43,9 @@ export default function ApolloSetting(props: IApolloSettingProps) {
   // });
 
   const uploadLink = createUploadLink({
-    uri: "https://backend09.codebootcamp.co.kr/graphql",
+    uri: 'https://onf-backend.brian-hong.tech/graphql',
     // headers: { Authorization: `Bearer ${accessToken}` },
-    credentials: "include",
+    credentials: 'include',
   });
 
   const client = new ApolloClient({
