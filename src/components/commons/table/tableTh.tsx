@@ -12,8 +12,8 @@ interface IElement {
 const TableTh = ({ list }: ITableThProps) => {
   return (
     <Wrapper>
-      {list.map((el: IElement) => (
-        <Th>{el.name}</Th>
+      {list.map((el: IElement, i) => (
+        <Th key={i}>{el.name}</Th>
       ))}
     </Wrapper>
   );

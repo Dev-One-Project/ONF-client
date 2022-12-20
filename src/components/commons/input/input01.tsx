@@ -7,6 +7,7 @@ interface IInput01Props {
   register?: UseFormRegisterReturn;
   placeholder?: string;
   width?: string;
+  id?: string;
 }
 
 interface IStyle {
@@ -16,6 +17,7 @@ interface IStyle {
 const Input01 = (props: IInput01Props) => {
   return (
     <Input
+      id={props.id}
       width={props.width || '100%'}
       type={props.type}
       {...props.register}

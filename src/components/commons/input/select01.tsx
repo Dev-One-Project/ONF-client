@@ -1,25 +1,16 @@
 import { SearchOutlined } from '@ant-design/icons';
 import styled from '@emotion/styled';
 import { Divider } from 'antd';
-import {
-  ChangeEvent,
-  MouseEvent,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
-import {
-  FieldValues,
-  UseFormRegisterReturn,
-  UseFormSetValue,
-} from 'react-hook-form';
+import { ChangeEvent, MouseEvent, useCallback, useState } from 'react';
+import { FieldValues, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import { styleSet } from '../../../commons/styles/styleSet';
 import Btn01 from '../button/btn01';
 import Check01 from './check01';
 
 interface ISelectProps {
-  register?: UseFormRegisterReturn;
+  register?: UseFormRegister<FieldValues>;
   setValue?: UseFormSetValue<FieldValues>;
+  fieldName?: string;
   data?: string[];
   role?: string;
   left?: boolean;
@@ -37,6 +28,7 @@ const Select01 = (props: ISelectProps) => {
   const [saveChecked, setSaveChecked] = useState<string[]>([]);
   const [checkedList, setCheckedList] = useState<string[]>([]);
   const [keyword, setKeyword] = useState('');
+
   const onCheckedAll = useCallback(
     (checked) => {
       if (checked) {
@@ -82,12 +74,10 @@ const Select01 = (props: ISelectProps) => {
 
   const onClickSaveChecked = () => {
     setSaveChecked(checkedList);
+    props.setValue?.(props.fieldName ?? '', checkedList);
     setIsOpen(false);
   };
 
-  useEffect(() => {
-    props.setValue?.('duty', saveChecked);
-  }, [saveChecked]);
   return (
     <>
       {isOpen && <Background onClick={onClickBackground}></Background>}
@@ -161,7 +151,7 @@ const Select01 = (props: ISelectProps) => {
           </DropDownMenu>
         )}
       </Wrapper>
-      <InvisibleInput {...props.register} />
+      <InvisibleInput {...props.register?.(props.fieldName ?? '')} />
     </>
   );
 };

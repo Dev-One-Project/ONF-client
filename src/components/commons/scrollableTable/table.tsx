@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
+import { useCallback, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { isAdminSidebarState } from '../../../commons/store';
 import { styleSet } from '../../../commons/styles/styleSet';
@@ -7,6 +8,7 @@ import Check01 from '../input/check01';
 
 interface IScrollableTableProps {
   tab: string;
+  isLocation?: boolean;
 }
 
 interface IStyle {
@@ -15,20 +17,14 @@ interface IStyle {
 }
 
 let headerData: string[] = [];
-let bodyData: string[] = [];
+let bodyData: Array<string | JSX.Element> = [];
 
 const ScrollableTable = (props: IScrollableTableProps) => {
+  const [checkedList, setCheckedList] = useState<Array<string | JSX.Element>>(
+    [],
+  );
   const router = useRouter();
   const [isAdminSidebar] = useRecoilState(isAdminSidebarState);
-  // const exampleData = [
-  //   {
-  //     name: '김민겸',
-  //     isAdmin: true,
-  //     joinDate: '2022.12.02',
-  //     organization: '1팀',
-  //     category: '프론트엔드 개발자',
-  //   },
-  // ];
 
   if (props.tab === '직원') {
     headerData = [
@@ -41,9 +37,6 @@ const ScrollableTable = (props: IScrollableTableProps) => {
       '시급',
       '소정근로규칙',
       '최대근로규칙',
-      '적용 시점',
-      '적용 시점',
-      '적용 시점',
     ];
     bodyData = [
       '김민겸',
@@ -55,14 +48,54 @@ const ScrollableTable = (props: IScrollableTableProps) => {
       '',
       '1주 40시간',
       '1주 52시간',
-      '',
-      '',
-      '',
     ];
   } else if (props.tab === '지점') {
-    headerData = ['지점명', '출퇴근 장소들', '메모'];
-    bodyData = ['패스파인더', '패스트파이브', '아몰랑 출근 안 해'];
+    if (props.isLocation) {
+      headerData = ['출퇴근 장소', '근무지 주소', '좌표', 'WiFi', '메모'];
+      bodyData = [
+        '뭐 이딴 기능이',
+        '다있냐 웃기네',
+        '허 참 나',
+        '아몰라',
+        '안할거야~',
+      ];
+    } else {
+      headerData = ['지점명', '출퇴근 장소들', '메모'];
+      bodyData = ['패스파인더', '패스트파이브', '아몰랑 출근 안 해'];
+    }
+  } else if (props.tab === '직무') {
+    headerData = ['직무명', '색깔', '메모'];
+    bodyData = [
+      '데브옵스',
+      <div
+        key="key"
+        style={{
+          width: '25px',
+          height: '25px',
+          borderRadius: '5px',
+          backgroundColor: 'blue',
+          marginLeft: '2px',
+        }}
+      ></div>,
+      '배포낄낄',
+    ];
   }
+
+  const onCheckedAll = useCallback((checked) => {
+    if (checked) {
+      const checkedListArray: Array<JSX.Element | string> = [];
+      bodyData.forEach((el) => checkedListArray.push(el));
+      setCheckedList(checkedListArray);
+    } else setCheckedList([]);
+  }, []); // 외부에서 들어오는 데이터 props.data
+
+  const onCheckedElement = useCallback(
+    (checked, list) => {
+      if (checked) setCheckedList([...checkedList, list]);
+      else setCheckedList(checkedList.filter((el) => el !== list));
+    },
+    [checkedList],
+  );
 
   return (
     <Wrapper
@@ -73,7 +106,14 @@ const ScrollableTable = (props: IScrollableTableProps) => {
         <Header>
           <Row>
             <HeaderContent>
-              <Check01 />
+              <Check01
+                checked={
+                  checkedList.length === 0
+                    ? false
+                    : checkedList.length === bodyData.length
+                }
+                onChange={(event) => onCheckedAll(event.target.checked)}
+              />
             </HeaderContent>
             {headerData.map((el, i) => (
               <HeaderContent key={i}>
@@ -83,16 +123,23 @@ const ScrollableTable = (props: IScrollableTableProps) => {
           </Row>
         </Header>
         <Body>
-          <Row className="bodyRow">
-            <BodyContent>
-              <Check01 />
-            </BodyContent>
-            {bodyData.map((el, i) => (
-              <BodyContent key={i}>
-                <span>{el}</span>
+          {new Array(3).fill(1).map((el, index) => (
+            <Row key={index} className="bodyRow">
+              <BodyContent>
+                <Check01
+                  checked={checkedList.includes(el)}
+                  onChange={(event) =>
+                    onCheckedElement(event.target.checked, el)
+                  }
+                />
               </BodyContent>
-            ))}
-          </Row>
+              {bodyData.map((el, i) => (
+                <BodyContent key={i}>
+                  <>{el}</>
+                </BodyContent>
+              ))}
+            </Row>
+          ))}
         </Body>
       </Table>
     </Wrapper>
@@ -120,7 +167,6 @@ const Header = styled.thead`
 `;
 
 const Body = styled.tbody`
-  border-bottom: 1px solid #d8dfeb;
   th:not(:first-of-type) {
     padding-left: 0.5rem;
   }
@@ -128,6 +174,7 @@ const Body = styled.tbody`
 
 const Row = styled.tr`
   width: 100%;
+  border-bottom: 1px solid #d8dfeb;
 
   &.bodyRow:hover {
     background-color: ${styleSet.colors.lightGray};
@@ -140,6 +187,7 @@ const HeaderContent = styled.th`
   min-width: 100px;
 
   a {
+    font-family: ${styleSet.fonts.B};
     word-break: keep-all;
     padding: 0.25rem 0.5rem;
     white-space: nowrap;
