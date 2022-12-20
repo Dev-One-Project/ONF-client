@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -6,19 +7,25 @@ import Btn01 from '../../../commons/button/btn01';
 import FallingModal from '../../../commons/modal/fallingModal';
 import ScrollableTable from '../../../commons/scrollableTable/table';
 import Switch01 from '../../../commons/switch/switch01';
-import MemberForm from './forms/member';
-import OrganizationForm from './forms/oranization';
+import Form from './forms';
 
 interface IManageProps {
   tab: string;
 }
 
+interface IStyle {
+  isLocation: boolean;
+}
+
 const ACTIVE_TABS = ['직원', '지점', '근로 정보'];
 
 const Manage = (props: IManageProps) => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
   const [isOpen, setIsOpen] = useState(false);
   const [aniMode, setAniMode] = useState(false);
+
+  const [isLocation, setIsLocation] = useState(false);
+
   const onClickOpenModal = () => {
     setIsOpen(true);
     setAniMode(true);
@@ -42,23 +49,18 @@ const Manage = (props: IManageProps) => {
           isOpen={isOpen}
           aniMode={aniMode}
           onCancel={onClickCloseModal}
-          title={`${props.tab} 추가하기`}
+          title={`${
+            props.tab === '지점' && isLocation ? '출퇴근 장소' : props.tab
+          } 추가하기`}
         >
-          {props.tab === '직원' ? (
-            <MemberForm
-              onSubmit={onSubmit}
-              handleSubmit={handleSubmit}
-              onCancel={onClickCloseModal}
-              register={register}
-            />
-          ) : (
-            <OrganizationForm
-              onSubmit={onSubmit}
-              handleSubmit={handleSubmit}
-              onCancel={onClickCloseModal}
-              register={register}
-            />
-          )}
+          <Form
+            setValue={setValue}
+            register={register}
+            handleSubmit={handleSubmit}
+            onSubmit={onSubmit}
+            onCancel={onClickCloseModal}
+            tab={props.tab === '지점' && isLocation ? '출퇴근 장소' : props.tab}
+          />
         </FallingModal>
       )}
       <Wrapper>
@@ -68,22 +70,44 @@ const Manage = (props: IManageProps) => {
             bdC={styleSet.colors.primary}
             bgC={styleSet.colors.primary}
             color="white"
-            text={`+ ${props.tab} 추가하기`}
+            text={`+ ${
+              props.tab === '지점' && isLocation ? '출퇴근 장소' : props.tab
+            } 추가하기`}
             onClick={onClickOpenModal}
           />
         </Header>
         <ContentBox>
-          {ACTIVE_TABS.includes(props.tab) && (
-            <SwitchBox>
+          <SwitchBox>
+            {ACTIVE_TABS.includes(props.tab) && (
               <Switch01 text={`비활성화된 ${props.tab}들 보기`} />
-            </SwitchBox>
-          )}
+            )}
+          </SwitchBox>
           {props.tab === '직원' && (
             <TotalMembersCount>
               총 직원 수: {'직원 수 데이터'}
             </TotalMembersCount>
           )}
-          <ScrollableTable tab={props.tab} />
+          {props.tab === '지점' && (
+            <OrganizationTabBox>
+              <ButtonBox>
+                <ToggleButton
+                  onClick={() => setIsLocation(false)}
+                  isLocation={!isLocation}
+                  type="button"
+                >
+                  지점
+                </ToggleButton>
+                <ToggleButton
+                  onClick={() => setIsLocation(true)}
+                  isLocation={isLocation}
+                  type="button"
+                >
+                  출퇴근 장소
+                </ToggleButton>
+              </ButtonBox>
+            </OrganizationTabBox>
+          )}
+          <ScrollableTable tab={props.tab} isLocation={isLocation} />
         </ContentBox>
       </Wrapper>
     </>
@@ -117,4 +141,39 @@ const SwitchBox = styled.div`
 
 const TotalMembersCount = styled.span`
   font-family: ${styleSet.fonts.B};
+`;
+
+const OrganizationTabBox = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const ButtonBox = styled.div`
+  display: flex;
+  font-size: ${styleSet.fontSizes.small};
+  padding-bottom: 1rem;
+`;
+
+const ToggleButton = styled.button`
+  border: 1px solid #ccc;
+  border-radius: 0px;
+  padding: 0.5rem 1rem;
+  :hover {
+    background-color: #eee;
+  }
+  ${(props: IStyle) =>
+    props.isLocation
+      ? css`
+          background-color: ${styleSet.colors.subColor05};
+          border: 1px solid black;
+          :hover {
+            background-color: ${styleSet.colors.subColor05};
+            border: 1px solid black;
+          }
+        `
+      : null}
+
+  :first-of-type {
+    border-right: 0px;
+  }
 `;

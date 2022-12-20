@@ -7,10 +7,10 @@ import {
   UseFormRegister,
 } from 'react-hook-form';
 import { styleSet } from '../../../../../commons/styles/styleSet';
-import Btn01 from '../../../../commons/button/btn01';
 import Check01 from '../../../../commons/input/check01';
 import Input01 from '../../../../commons/input/input01';
 import Select01 from '../../../../commons/input/select01';
+import Footer from './common/footer';
 
 interface IMemberFormProps {
   register: UseFormRegister<FieldValues>;
@@ -84,24 +84,7 @@ const MemberForm = (props: IMemberFormProps) => {
           </div>
         </Right>
       </WrapperM>
-      <Divider style={{ margin: '0' }} />
-      <Footer>
-        <div></div>
-        <ButtonBox>
-          <Btn01
-            onClick={props.onCancel}
-            type="button"
-            text="닫기"
-            bdC="#ddd"
-          />
-          <Btn01
-            text="저장"
-            color="#fff"
-            bgC={styleSet.colors.primary}
-            bdC={styleSet.colors.primary}
-          />
-        </ButtonBox>
-      </Footer>
+      <Footer onCancel={props.onCancel} />
     </form>
   );
 };
@@ -148,18 +131,4 @@ const InnerContent = styled.div`
 
 const Label = styled.label`
   min-width: 120px;
-`;
-
-const Footer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem 1rem;
-`;
-
-const ButtonBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
 `;

@@ -51,6 +51,8 @@ const Checkbox = styled.span`
 
   display: block;
   transition: all 0.35s;
+
+  cursor: pointer;
 `;
 
 export const Label = styled.label`
@@ -59,4 +61,5 @@ export const Label = styled.label`
   justify-content: flex-start;
   align-items: center;
   gap: 1rem;
+  cursor: pointer;
 `;

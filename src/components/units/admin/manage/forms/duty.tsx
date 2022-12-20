@@ -1,61 +1,58 @@
 import styled from '@emotion/styled';
+import { Divider } from 'antd';
 import {
   FieldValues,
   SubmitHandler,
   UseFormHandleSubmit,
   UseFormRegister,
-  UseFormSetValue,
 } from 'react-hook-form';
 import Input01 from '../../../../commons/input/input01';
-import Select01 from '../../../../commons/input/select01';
+import Textarea from '../../../../commons/textarea';
 import Footer from './common/footer';
 
-interface IOrganizationFormProps {
+interface IDutyFormProps {
   register: UseFormRegister<FieldValues>;
   onCancel: () => void;
   onSubmit: SubmitHandler<FieldValues>;
   handleSubmit: UseFormHandleSubmit<FieldValues>;
-  setValue?: UseFormSetValue<FieldValues>;
 }
 
-const OrganizationForm = (props: IOrganizationFormProps) => {
+const Duty = (props: IDutyFormProps) => {
   return (
     <form onSubmit={props.handleSubmit(props.onSubmit)}>
       <Wrapper>
         <FormContent>
-          <span>지점명</span>
+          <label htmlFor="duty">직무명</label>
           <Input01
+            id="duty"
             type="text"
-            width="180px"
-            register={props.register('organization')}
+            register={props.register('duty_name')}
           />
         </FormContent>
         <FormContent>
-          <span>출퇴근 장소들</span>
-          <Select01
-            fieldName="location"
-            setValue={props.setValue}
-            register={props.register}
-            data={['패파', '희현님집']}
+          <label htmlFor="color">색깔</label>{' '}
+          <ColorPicker
+            id="color"
+            type="color"
+            {...props.register('duty_color')}
           />
         </FormContent>
         <FormContent>
-          <span>메모</span>
-          <Textarea
-            placeholder="메모 입력"
-            {...props.register('memo')}
-          ></Textarea>
+          <label htmlFor="memo">메모</label>
+          <Textarea id="memo" register={props.register('duty_memo')} />
         </FormContent>
       </Wrapper>
+      <Divider style={{ marginBottom: '0.5rem' }} />
       <Footer onCancel={props.onCancel} />
     </form>
   );
 };
 
-export default OrganizationForm;
+export default Duty;
 
 const Wrapper = styled.div`
-  width: 30rem;
+  width: 31.5rem;
+
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -63,22 +60,18 @@ const Wrapper = styled.div`
 
 const FormContent = styled.div`
   display: flex;
+  justify-content: flex-start;
   align-items: center;
-  & > span {
-    min-width: 100px;
+  gap: 1rem;
+
+  & > label {
+    min-width: 5rem;
   }
 
-  :nth-of-type(3) {
+  :last-of-type {
     flex-direction: column;
     align-items: flex-start;
   }
-  gap: 1rem;
 `;
 
-const Textarea = styled.textarea`
-  resize: none;
-  width: 100%;
-  height: 100px;
-  padding: 1rem;
-  outline: none;
-`;
+const ColorPicker = styled.input``;
