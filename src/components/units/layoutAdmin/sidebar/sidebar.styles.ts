@@ -42,33 +42,31 @@ export const List = styled.li`
   flex-direction: row;
   gap: 1rem;
   align-items: center;
-  /* :nth-child(3) {
-    display: none;
-  }
 
+  :nth-child(3) {
+    display: ${(props: IAdminSidebarPresenterProps) =>
+      props.isAdminSidebar ? 'flex' : 'none'};
+  }
   :nth-child(4) {
-    display: none;
+    display: ${(props: IAdminSidebarPresenterProps) =>
+      props.isAdminSidebar ? 'flex' : 'none'};
   }
   :nth-child(6) {
-    display: none;
+    display: ${(props: IAdminSidebarPresenterProps) =>
+      props.isAdminSidebar ? 'flex' : 'none'};
   }
   :nth-child(7) {
-    display: none;
+    display: ${(props: IAdminSidebarPresenterProps) =>
+      props.isAdminSidebar ? 'flex' : 'none'};
   }
   :nth-child(9) {
-    display: none;
+    display: ${(props: IAdminSidebarPresenterProps) =>
+      props.isAdminSidebar ? 'flex' : 'none'};
   }
   :nth-child(10) {
-    display: none;
+    display: ${(props: IAdminSidebarPresenterProps) =>
+      props.isAdminSidebar ? 'flex' : 'none'};
   }
-  :nth-child(2):hover ~ :nth-child(3),
-  :nth-child(2):hover ~ :nth-child(4),
-  :nth-child(5):hover ~ :nth-child(6),
-  :nth-child(5):hover ~ :nth-child(7),
-  :nth-child(8):hover ~ :nth-child(9),
-  :nth-child(8):hover ~ :nth-child(10) {
-    display: block;
-  } */
 `;
 
 export const Svg = styled.div`

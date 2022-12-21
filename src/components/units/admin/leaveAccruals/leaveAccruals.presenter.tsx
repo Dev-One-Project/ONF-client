@@ -1,6 +1,13 @@
 import { DatePicker, Space } from 'antd';
 import { styleSet } from '../../../../commons/styles/styleSet';
+import { getDate } from '../../../../commons/utils/getDate';
 import Btn01 from '../../../commons/button/btn01';
+import dayjs from 'dayjs';
+import Input01 from '../../../commons/input/input01';
+import Select01 from '../../../commons/input/select01';
+import Select02 from '../../../commons/input/select02';
+import Select03 from '../../../commons/input/select03';
+import FallingModal from '../../../commons/modal/fallingModal';
 import Switch01 from '../../../commons/switch/switch01';
 import * as S from './leaveAccruals.styles';
 import { ILeaveAccrualsPresenterProps } from './leaveAccruals.types';
@@ -14,8 +21,55 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
           text={'휴가 발생'}
           color={styleSet.colors.white}
           bgC={styleSet.colors.primary}
+          onClick={props.onClickOpenModal}
         />
       </S.TopWrapper>
+
+      {props.isOpen && (
+        <FallingModal
+          setIsOpen={props.setIsOpen}
+          isOpen={props.isOpen}
+          aniMode={props.aniMode}
+          onCancel={props.onClickCloseModal}
+          title="휴가 발생 건 추가하기"
+        >
+          <form onSubmit={props.handleSubmit(props.onSubmit)}>
+            <S.ModalWrapper>
+              <S.ModalField>
+                <div>
+                  <label>직원</label>
+                  <Select02 data={['짱구', '맹구', '철수']} />
+                </div>
+                <div>
+                  <label>발생 일수</label>
+                  <Input01 type="number" width="133px" />
+                </div>
+                <div>
+                  <label>발생 시점</label>
+                  <DatePicker style={{ borderRadius: '0' }} />
+                </div>
+                <div>
+                  <label>만료 시점</label>
+                  <DatePicker style={{ borderRadius: '0' }} />
+                </div>
+              </S.ModalField>
+              <S.MemoDiv>
+                <label>메모</label>
+                <textarea />
+              </S.MemoDiv>
+            </S.ModalWrapper>
+            <S.ModalFooter>
+              <Btn01 text="닫기" bdC="#ddd" onClick={props.onClickCloseModal} />
+              <Btn01
+                text="추가하기"
+                color="#fff"
+                bgC={styleSet.colors.primary}
+                bdC={styleSet.colors.primary}
+              />
+            </S.ModalFooter>
+          </form>
+        </FallingModal>
+      )}
 
       {props.isSelect ? (
         <S.OptWrapper>
@@ -24,16 +78,29 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
               <S.DateBox>
                 <S.Date>기준 일자</S.Date>
                 <Space direction="vertical">
-                  <DatePicker style={{ borderRadius: '0 2px 2px 0' }} />
+                  <DatePicker
+                    style={{
+                      borderRadius: '0',
+                      padding: '0.4rem 1rem',
+                    }}
+                    defaultValue={dayjs(new Date())}
+                  />
                 </Space>
               </S.DateBox>
-              <input placeholder="필터" />
+              <Select03
+                filterInit={props.filterInit}
+                setFilterInit={props.setFilterInit}
+              />
             </S.OptSelect>
-            <input placeholder="selectBox222" />
+            <Select01 data={props.organizationsData} role="organization" left />
           </S.OptBox>
           <S.OptBox>
             <S.OptSelect>
-              <Switch01 text={'기준 일자까지만 계산'} />
+              <Switch01
+                text={'기준 일자까지만 계산'}
+                init={props.init}
+                setInit={props.setInit}
+              />
             </S.OptSelect>
             <S.SelectBox
               onClick={props.onClickEmployee}
@@ -55,18 +122,28 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
             <S.OptSelect>
               <Space direction="vertical">
                 <DatePicker.RangePicker
-                  style={{ width: '207px', borderRadius: '2px' }}
+                  style={{
+                    borderRadius: '0',
+                    padding: '0.4rem 1rem',
+                    maxWidth: '13rem',
+                  }}
                 />
               </Space>
               <S.DateBox>
                 <S.Date>기준 일자</S.Date>
                 <Space direction="vertical">
-                  <DatePicker style={{ borderRadius: '0 2px 2px 0' }} />
+                  <DatePicker
+                    style={{ borderRadius: '0', padding: '0.4rem 1rem' }}
+                  />
                 </Space>
               </S.DateBox>
-              <input placeholder="필터" />
+              <Select03 />
             </S.OptSelect>
-            <input placeholder="selectBox222" />
+            <Select01
+              data={['이다은', '바보', '멍충이']}
+              role="organization"
+              left
+            />
           </S.OptBox>
           <S.OptBox>
             <S.OptSelect>
@@ -97,27 +174,17 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
             <li>사용한 휴가 일수</li>
             <li>남은 일수</li>
           </S.EmployeeUl>
-          <S.EmployeeUl>
-            <li>에스쿱스</li>
-            <li>12월 5일 (월) 10:00 - 14:00</li>
-            <li>12일</li>
-            <li>0일</li>
-            <li>12일</li>
-          </S.EmployeeUl>
-          <S.EmployeeUl>
-            <li>에스쿱스</li>
-            <li>12월 5일 (월) 10:00 - 14:00</li>
-            <li>12일</li>
-            <li>0일</li>
-            <li>12일</li>
-          </S.EmployeeUl>
-          <S.EmployeeUl>
-            <li>에스쿱스</li>
-            <li>12월 5일 (월) 10:00 - 14:00</li>
-            <li>12일</li>
-            <li>0일</li>
-            <li>12일</li>
-          </S.EmployeeUl>
+          {props.data?.fetchVacationIssues.map((el) => (
+            <S.EmployeeUl key={el.id}>
+              <li>{el.member.name}</li>
+              <li>
+                {getDate(el.startingPoint)} - {getDate(el.expirationDate)}
+              </li>
+              <li>{el.vacationAll}</li>
+              <li>{el.useVacation}</li>
+              <li>{el.vacationAll - el.useVacation || 0}</li>
+            </S.EmployeeUl>
+          ))}
         </S.UlWrapper>
       ) : (
         <S.UlWrapper>
