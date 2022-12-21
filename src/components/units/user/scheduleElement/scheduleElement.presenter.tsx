@@ -1,7 +1,11 @@
+import * as S from './scheduleElement.style';
+
 const ScheduleElementPresenter = () => {
   return (
     <>
-      <div>ㅎ ㅏㅇ ㅣ</div>
+      <S.MainWrapper>
+        <div>ㅎ ㅏㅇ ㅣ</div>
+      </S.MainWrapper>
     </>
   );
 };

@@ -2,6 +2,8 @@ import SchedulePresenter from './schedule.presenter';
 import moment from 'moment';
 import { IWeekData } from './schedule.types';
 import { useMemo, useState } from 'react';
+import ScheduleElementContainer from '../scheduleElement/scheduleElement.container';
+import { useRouter } from 'next/router';
 
 const newWeekData = (
   days: string,
@@ -26,9 +28,18 @@ const newWeekData = (
 };
 
 const ScheduleContainer = () => {
-  const [today] = useState(moment()); // 오늘
+  const router = useRouter();
+  const [today, setToday] = useState(moment()); // 오늘
   const [dateArr, setDateArr] = useState<IWeekData[][]>([]);
-  // const dayData = [];
+  const dayData = [<ScheduleElementContainer key="first" />];
+
+  const MoveNextMonth = () => {
+    setToday(today.clone().add(1, 'month'));
+  };
+
+  const MovePrevMonth = () => {
+    setToday(today.clone().subtract(1, 'month'));
+  };
 
   const todayFirstWeek = today.clone().startOf('month').week(); // 이번달의 첫째 주
   const todayLastWeek =
@@ -66,10 +77,23 @@ const ScheduleContainer = () => {
     setDateArr(result);
   }, [today, todayFirstWeek, todayLastWeek]);
 
+  const onClickCreateVacation = async () => {
+    await router.push('/user/vacation');
+  };
+
+  const onClickCreateWorking = async () => {
+    await router.push('/user/working');
+  };
+
   return (
     <SchedulePresenter
       dateArr={dateArr}
-      // dayData={dayData}
+      dayData={dayData}
+      onClickCreateVacation={onClickCreateVacation}
+      onClickCreateWorking={onClickCreateWorking}
+      MoveNextMonth={MoveNextMonth}
+      MovePrevMonth={MovePrevMonth}
+      today={today}
     />
   );
 };

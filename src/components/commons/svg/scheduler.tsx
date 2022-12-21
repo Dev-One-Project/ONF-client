@@ -1,4 +1,4 @@
-import { styleSet } from "../../../commons/styles/styleSet";
+import { styleSet } from '../../../commons/styles/styleSet';
 
 const SchedulerSvg = () => {
   return (

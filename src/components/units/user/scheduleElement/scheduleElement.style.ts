@@ -1,3 +1,5 @@
 import styled from '@emotion/styled';
 
-export const MainWrapper = styled.section``;
+export const MainWrapper = styled.section`
+  display: flex;
+`;
