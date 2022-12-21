@@ -1,6 +1,9 @@
 import { IScheduleContainerProps, IWeekData } from './schedule.types';
 import { v4 } from 'uuid';
 import * as S from './schedule.style';
+import Btn01 from '../../../commons/button/btn01';
+import { styleSet } from '../../../../commons/styles/styleSet';
+import ArrowSvg from '../../../commons/svg/arrows';
 
 const Calender = (props: IScheduleContainerProps) => {
   return (
@@ -28,7 +31,7 @@ const Calender = (props: IScheduleContainerProps) => {
                     ? `${day.day.split('-')[1]}/${day.day.split('-')[2]}`
                     : day.day.split('-')[2]}
                 </label>
-                {/* <S.DayBox>{props.dayData[i * 7 + (j + 1) - 1]}</S.DayBox> */}
+                <S.DayBox>{props.dayData[i * 7 + (j + 1) - 1]}</S.DayBox>
               </S.DayWrapper>
             );
           })}
@@ -41,9 +44,62 @@ const Calender = (props: IScheduleContainerProps) => {
 const SchedulePresenter = (props: IScheduleContainerProps) => {
   return (
     <>
-      <div>
-        <Calender dateArr={props.dateArr} />
-      </div>
+      <section>
+        <S.TopWrapper>
+          <S.BtnWrapper>
+            <S.ArrowButton onClick={props.MovePrevMonth}>
+              <ArrowSvg
+                direction={'left'}
+                size={'big'}
+                color={styleSet.colors.primary}
+              />
+            </S.ArrowButton>
+            <S.ArrowButton onClick={props.MoveNextMonth}>
+              <ArrowSvg
+                direction={'right'}
+                size={'big'}
+                color={styleSet.colors.primary}
+              />
+            </S.ArrowButton>
+            <S.DateStyle>{props.today?.format('YYYY년')}</S.DateStyle>
+            <S.DateStyle>{props.today?.format('MM월')}</S.DateStyle>
+          </S.BtnWrapper>
+          <S.BtnWrapper>
+            <S.BtnBox>
+              <Btn01
+                type="button"
+                text="휴가일정 생성 요청"
+                bdC="none"
+                color="white"
+                bgC={`${styleSet.colors.subColor02}`}
+                onClick={props.onClickCreateVacation}
+              />
+            </S.BtnBox>
+            <S.BtnBox>
+              <Btn01
+                text="근무일정 생성 요청"
+                type="button"
+                bdC="none"
+                color="white"
+                bgC={`${styleSet.colors.primary}`}
+                onClick={props.onClickCreateWorking}
+              />
+            </S.BtnBox>
+            <S.WorkingBtnBox>
+              <Btn01
+                text="근무일정 수정 요청"
+                bgC={`${styleSet.colors.white}`}
+                bdC={`${styleSet.colors.primary}`}
+                color={`${styleSet.colors.primary}`}
+              />
+            </S.WorkingBtnBox>
+          </S.BtnWrapper>
+        </S.TopWrapper>
+
+        <div>
+          <Calender dayData={props.dayData} dateArr={props.dateArr} />
+        </div>
+      </section>
     </>
   );
 };
