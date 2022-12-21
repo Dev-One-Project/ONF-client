@@ -2,11 +2,9 @@ import styled from '@emotion/styled';
 import { styleSet } from '../../../../../commons/styles/styleSet';
 
 export const Container = styled.div`
+  width: calc(100vw - 18rem);
   @media ${styleSet.breakPoints.tablet} {
     width: 95%;
-  }
-  @media (width: 1024px) {
-    width: 100%;
   }
   @media ${styleSet.breakPoints.mobile} {
     width: 90%;
@@ -126,4 +124,60 @@ export const Label = styled.label`
   font-size: ${styleSet.fontSizes.normal};
   font-family: ${styleSet.fonts.B};
   margin-left: 0.5rem;
+`;
+
+export const ListHeaderWrapper = styled.div`
+  margin: 0.5rem 0 0 0;
+  padding: 0 0 0.5rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  border-bottom: 2px solid ${styleSet.colors.darkGray};
+`;
+
+export const List = styled.ul`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 1.5rem;
+  label {
+    padding-left: 2rem;
+  }
+  li {
+    min-width: 6.875rem;
+  }
+  li:nth-of-type(1) {
+    min-width: 3.125rem;
+  }
+  li:nth-of-type(2) {
+    min-width: 10.625rem;
+  }
+  li:nth-of-type(7) {
+    min-width: 7.625rem;
+  }
+`;
+
+export const ListHeaderContent = styled.li`
+  padding-left: 0.5rem;
+  text-align: left;
+  min-width: 6.875rem;
+`;
+
+export const ListBodyWrapper = styled.div`
+  margin: 0.5rem 0 0 0;
+  padding: 0 0 0.5rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid ${styleSet.colors.gray};
+`;
+
+export const ListBodyContent = styled.li`
+  padding-left: 0.5rem;
+  text-align: left;
+  min-width: 6.875rem;
 `;
