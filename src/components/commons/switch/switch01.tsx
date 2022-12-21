@@ -1,17 +1,25 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { SetStateAction, useState } from 'react';
 import { styleSet } from '../../../commons/styles/styleSet';
 
 interface ISwitch01Props {
   isOn?: boolean;
   text?: string;
+  init?: boolean;
+  setInit?: SetStateAction<any>;
 }
 
 const Switch01 = (props: ISwitch01Props) => {
-  const [isOn, setIsOn] = useState(false);
+  const [isOn, setIsOn] = useState(props.init || false);
+
+  const onClickSwitch = () => {
+    setIsOn(!isOn);
+    props.setInit?.((prev: boolean) => !prev);
+  };
+
   return (
     <>
-      <Switch onClick={() => setIsOn(!isOn)} className="switch">
+      <Switch onClick={onClickSwitch} className="switch">
         <Strong isOn={isOn}>
           {props.text ? props.text : isOn ? '근무중' : '근무끝'}
         </Strong>

@@ -26,7 +26,11 @@ const AttendancesCalendarPresenter = (
             <S.Input placeholder={props.month} />
             <S.Input placeholder="필터" />
           </S.OptSelect>
-          <Select01 data={['이다은', '바보', '멍충이']} role="organization" />
+          <Select01
+            data={['이다은', '바보', '멍충이']}
+            role="organization"
+            left
+          />
         </S.OptBox>
         <S.OptBox>
           <S.OptSelect>

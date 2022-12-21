@@ -2,14 +2,9 @@ import styled from '@emotion/styled';
 import { styleSet } from '../../../../commons/styles/styleSet';
 
 export const Container = styled.div`
+  width: calc(100vw - 18rem);
   @media ${styleSet.breakPoints.tablet} {
-    width: 95%;
-  }
-  @media (width: 1024px) {
-    width: 100%;
-  }
-  @media ${styleSet.breakPoints.mobile} {
-    width: 90%;
+    width: calc(100vw - 9.5rem);
   }
 `;
 
@@ -45,16 +40,24 @@ export const OptBox = styled.div`
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
+
+      & > div:first-of-type {
+        width: 100%;
+      }
     }
   }
-  input {
-    width: 119px;
-    height: 32px;
-    border: 1px solid ${styleSet.colors.gray};
-    border-radius: 2px;
-    @media ${styleSet.breakPoints.mobile} {
-      width: 100%;
-    }
+`;
+
+export const Input = styled.input`
+  width: 119px;
+  height: 32px;
+  border: 1px solid ${styleSet.colors.gray};
+  border-radius: 2px;
+  @media ${styleSet.breakPoints.tablet} {
+    width: 100%;
+  }
+  @media ${styleSet.breakPoints.mobile} {
+    width: 100%;
   }
 `;
 
@@ -63,16 +66,8 @@ export const OptSelect = styled.div`
   flex-direction: row;
   align-items: center;
   gap: 0.5rem;
-  :first-of-type {
+  :last-of-type {
     width: 100%;
-  }
-  input {
-    width: 100px;
-    border: 1px solid ${styleSet.colors.gray};
-    border-radius: 2px;
-    @media ${styleSet.breakPoints.mobile} {
-      width: 100%;
-    }
   }
 `;
 
@@ -83,23 +78,31 @@ export const DateBox = styled.div`
 
 export const Date = styled.div`
   border: 1px solid ${styleSet.colors.gray};
-  padding: 0.3rem;
+  padding: 0.5rem 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 2px 0px 0px 2px;
+  border-right: 0;
+  background-color: #eee;
 `;
 
 export const SelectBox = styled.nav`
   width: 50px;
   border: 1px solid ${styleSet.colors.gray};
-  padding: 0.2rem;
+  font-size: ${styleSet.fontSizes.small};
+  padding: 0.3rem 0.2rem;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  :hover {
+    background-color: #eee;
+  }
   &.active {
-    color: ${styleSet.colors.primary};
+    background-color: ${styleSet.colors.subColor05};
+  }
+  :first-of-type {
+    border-right: 0px;
   }
 `;
 
@@ -156,4 +159,45 @@ export const ListUl = styled.ul`
   li:nth-of-type(6) {
     min-width: 11%;
   }
+`;
+
+export const ModalWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const ModalField = styled.fieldset`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  label {
+    display: block;
+    width: 100px;
+    padding-right: 1rem;
+  }
+  input {
+    height: 32px;
+  }
+`;
+
+export const MemoDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-top: 1rem;
+  textarea {
+    width: 30rem;
+    height: 4rem;
+  }
+`;
+
+export const ModalFooter = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.75rem 0;
+  gap: 1rem;
 `;

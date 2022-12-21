@@ -165,10 +165,8 @@ const ToggleButton = styled.button`
     props.isLocation
       ? css`
           background-color: ${styleSet.colors.subColor05};
-          border: 1px solid black;
           :hover {
             background-color: ${styleSet.colors.subColor05};
-            border: 1px solid black;
           }
         `
       : null}

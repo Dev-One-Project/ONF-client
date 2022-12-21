@@ -1,0 +1,7 @@
+schema: https://onf-backend.brian-hong.tech/graphql
+generates:
+  ./src/commons/types/generated/types.ts:
+    plugins:
+      - typescript
+    config:
+      typesPrefix: I
