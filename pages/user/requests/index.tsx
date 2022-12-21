@@ -1,4 +1,4 @@
-import RequestContainer from '../../../src/components/units/user/request/request.container';
+import RequestContainer from '../../../src/components/units/user/requests/requests.container';
 
 const UserRequestPage = () => {
   return <RequestContainer />;

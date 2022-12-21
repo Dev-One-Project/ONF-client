@@ -1,8 +1,7 @@
-import RequestModal from './request.modal';
-import * as S from './request.styles';
-import { IUserRequestProps } from './request.types';
+import * as S from './attendances.styles';
+import { IUserAttenancesProps } from './attendances.types';
 
-const RequestPresenter = (props: IUserRequestProps) => {
+const AttendancesPresenter = (props: IUserAttenancesProps) => {
   return (
     <>
       <S.Container>
@@ -18,7 +17,7 @@ const RequestPresenter = (props: IUserRequestProps) => {
             <li>관리</li>
           </S.Notice>
 
-          <S.NoticeList onClick={props.onClickModal}>
+          <S.NoticeList>
             <li>휴가 생성</li>
             <li>신미연</li>
             <li className="text">12월 9일 (금) / 병가 (8h, 0일)</li>
@@ -32,11 +31,11 @@ const RequestPresenter = (props: IUserRequestProps) => {
             <li>승인권자 노트</li>
             <li>12/09 18:09</li>
             <li>관리</li>
-            {props.modal && <RequestModal />}
+            {/* {props.modal && <RequestModal />} */}
           </S.NoticeList>
         </S.Wrapper>
       </S.Container>
     </>
   );
 };
-export default RequestPresenter;
+export default AttendancesPresenter;

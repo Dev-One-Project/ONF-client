@@ -14,8 +14,8 @@ import {
 import { useRouter } from 'next/router';
 import { MouseEvent, useState } from 'react';
 import Switch01 from '../../switch/switch01';
-import * as S from '../layout.styles';
-import { IUserHeaderProps } from '../layout.types';
+import * as S from '../../layoutUser/layout.styles';
+import { IUserHeaderProps } from '../../layoutUser/layout.types';
 
 const UserHeaderPage = (props: IUserHeaderProps) => {
   const router = useRouter();
@@ -24,8 +24,8 @@ const UserHeaderPage = (props: IUserHeaderProps) => {
   const [menu, setMenu] = useState([false, false, false]);
   const headerLink = [
     { id: 0, address: '/user/schedule', name: '스케줄' },
-    { id: 1, address: '/user/record', name: '출퇴근기록' },
-    { id: 2, address: '/user/request', name: '요청 내역' },
+    { id: 1, address: '/user/attendances', name: '출퇴근기록' },
+    { id: 2, address: '/user/requests', name: '요청 내역' },
   ];
 
   const onClickMoveMenu = (path: string) => () => {
@@ -37,7 +37,7 @@ const UserHeaderPage = (props: IUserHeaderProps) => {
   };
 
   const onClickList = (id: number) => (event: MouseEvent<HTMLLIElement>) => {
-    router.push(event?.currentTarget.id);
+    void router.push(event?.currentTarget.id);
     setMenu((prev) =>
       prev.map((el, index) => {
         if (index === id) return true;
@@ -128,10 +128,10 @@ const UserHeaderPage = (props: IUserHeaderProps) => {
                 <li onClick={onClickMoveMenu('/user/schedule')}>
                   <CalendarOutlined /> 스케줄
                 </li>
-                <li onClick={onClickMoveMenu('/user/record')}>
+                <li onClick={onClickMoveMenu('/user/attendances')}>
                   <ClockCircleOutlined /> 출퇴근기록
                 </li>
-                <li onClick={onClickMoveMenu('/user/request')}>
+                <li onClick={onClickMoveMenu('/user/requests')}>
                   <FileDoneOutlined /> 요청 내역
                 </li>
               </ul>
