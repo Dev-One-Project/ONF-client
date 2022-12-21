@@ -1,5 +1,6 @@
 export interface IDateData {
   index: number;
-  date: string;
+  day: string;
   isToday: boolean;
+  dateStr: string;
 }

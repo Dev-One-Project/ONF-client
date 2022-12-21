@@ -1,7 +1,7 @@
-import SchedularCalendarContainer from '../../../../src/components/units/admin/schedular/calendar/schedularCalendar.container';
+import SchedulerCalendarContainer from '../../../../src/components/units/admin/scheduler/calendar/schedulerCalendar.container';
 
-const SchedularCalendarPage = () => {
-  return <SchedularCalendarContainer />;
+const SchedulerCalendarPage = () => {
+  return <SchedulerCalendarContainer />;
 };
 
-export default SchedularCalendarPage;
+export default SchedulerCalendarPage;

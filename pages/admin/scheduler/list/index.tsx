@@ -1,7 +1,7 @@
-import SchedularListContainer from '../../../../src/components/units/admin/schedular/list/schedularList.container';
+import SchedulerListContainer from '../../../../src/components/units/admin/scheduler/list/schedulerList.container';
 
-const SchedularListPage = () => {
-  return <SchedularListContainer />;
+const SchedulerListPage = () => {
+  return <SchedulerListContainer />;
 };
 
-export default SchedularListPage;
+export default SchedulerListPage;

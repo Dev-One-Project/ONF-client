@@ -2,11 +2,9 @@ import styled from '@emotion/styled';
 import { styleSet } from '../../../../../commons/styles/styleSet';
 
 export const Container = styled.div`
+  width: calc(100vw - 18rem);
   @media ${styleSet.breakPoints.tablet} {
     width: 95%;
-  }
-  @media (width: 1024px) {
-    width: 100%;
   }
   @media ${styleSet.breakPoints.mobile} {
     width: 90%;
@@ -126,4 +124,114 @@ export const DateLabel = styled.label`
   font-size: ${styleSet.fontSizes.normal};
   font-family: ${styleSet.fonts.B};
   margin-left: 0.5rem;
+`;
+
+export const CalendarWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  ul {
+    border-top: none;
+  }
+  ul:first-of-type {
+    border-top: 1px solid ${styleSet.colors.gray};
+    margin-top: 2rem;
+    border-radius: 0.25rem 0.25rem 0 0;
+  }
+  ul:last-of-type {
+    border-radius: 0 0 0.25rem 0.25rem;
+  }
+`;
+
+export const CalendarHeader = styled.ul`
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 2rem;
+  border: 1px solid ${styleSet.colors.gray};
+  li {
+    width: 12.5%;
+  }
+  li:last-of-type {
+    border-right: none;
+  }
+  li.today {
+    color: ${styleSet.colors.primary};
+  }
+`;
+
+export const CalendarHeaderItem = styled.li`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+  font-size: ${styleSet.fontSizes.small};
+  font-family: ${styleSet.fonts.B};
+  border-right: 1px solid ${styleSet.colors.gray};
+`;
+
+export const CalendarBody = styled.ul`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 2rem;
+  border: 1px solid ${styleSet.colors.gray};
+  li {
+    width: 12.5%;
+  }
+  li:last-of-type {
+    border-right: none;
+  }
+  li.today {
+    color: ${styleSet.colors.primary};
+  }
+`;
+
+export const CalendarBodyItem = styled.li`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+  font-size: ${styleSet.fontSizes.small};
+  font-family: ${styleSet.fonts.B};
+  border-right: 1px solid ${styleSet.colors.gray};
+`;
+
+export const CalendarFooter = styled.ul`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 2rem;
+  border: 1px solid ${styleSet.colors.gray};
+  li {
+    width: 12.5%;
+  }
+  li:last-of-type {
+    border-right: none;
+  }
+  li.today {
+    color: ${styleSet.colors.primary};
+  }
+`;
+
+export const CalendarFooterItem = styled.li`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+  font-size: ${styleSet.fontSizes.small};
+  font-family: ${styleSet.fonts.B};
+  border-right: 1px solid ${styleSet.colors.gray};
 `;

@@ -1,12 +1,12 @@
-import * as S from './schedularList.styles';
+import * as S from './schedulerList.styles';
 import { styleSet } from '../../../../../commons/styles/styleSet';
 import Btn01 from '../../../../commons/button/btn01';
 import Select01 from '../../../../commons/input/select01';
 import { DatePicker, Space } from 'antd';
-import { ISchedularListProps } from './schedularList.types';
+import { ISchedulerListProps } from './schedulerList.types';
 import Check01 from '../../../../commons/input/check01';
 
-const SchedularListPresenter = (props: ISchedularListProps) => {
+const SchedulerListPresenter = (props: ISchedulerListProps) => {
   return (
     <S.Container>
       <S.TopWrapper>
@@ -80,4 +80,4 @@ const SchedularListPresenter = (props: ISchedularListProps) => {
   );
 };
 
-export default SchedularListPresenter;
+export default SchedulerListPresenter;
