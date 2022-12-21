@@ -67,7 +67,6 @@ const SchedulePresenter = (props: IScheduleContainerProps) => {
           <S.BtnWrapper>
             <S.BtnBox>
               <Btn01
-                type="button"
                 text="휴가일정 생성 요청"
                 bdC="none"
                 color="white"
@@ -78,7 +77,6 @@ const SchedulePresenter = (props: IScheduleContainerProps) => {
             <S.BtnBox>
               <Btn01
                 text="근무일정 생성 요청"
-                type="button"
                 bdC="none"
                 color="white"
                 bgC={`${styleSet.colors.primary}`}
