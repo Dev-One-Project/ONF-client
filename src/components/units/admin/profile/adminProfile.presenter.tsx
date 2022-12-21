@@ -41,16 +41,17 @@ const AdminProfileUI = (props: IAdminProfileProps) => {
           <S.FormContents>
             <S.Label>직무들</S.Label>
             <Select01
-              register={props.register('duty')}
+              register={props.register}
               setValue={props.setValue}
+              fieldName={'duty'}
             />
           </S.FormContents>
           <S.FormContents>
-            <S.Label>팀</S.Label>
+            <S.Label>지점들</S.Label>
             <Select01
-              center
-              register={props.register('organization')}
+              register={props.register}
               setValue={props.setValue}
+              fieldName={'oranization'}
               data={['BUSKER', 'ZERO9', 'WETREKKING'] || undefined}
             />
           </S.FormContents>
