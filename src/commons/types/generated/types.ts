@@ -16,8 +16,10 @@ export type Scalars = {
 
 export type IAccount = {
   __typename?: 'Account';
+  company?: Maybe<ICompany>;
   email: Scalars['String'];
   id: Scalars['String'];
+  member?: Maybe<IMember>;
 };
 
 export type ICompany = {
@@ -69,6 +71,11 @@ export type ICreateMemberInput = {
   organizationId?: InputMaybe<Scalars['String']>;
   phone?: InputMaybe<Scalars['String']>;
   roleCategoryId?: InputMaybe<Scalars['String']>;
+};
+
+export type ICreateNoticeBoardInput = {
+  contents: Scalars['String'];
+  title: Scalars['String'];
 };
 
 export type ICreateOrganizationInput = {
@@ -188,7 +195,6 @@ export type IMember = {
   company: ICompany;
   exitDate?: Maybe<Scalars['String']>;
   id: Scalars['String'];
-  isAdmin?: Maybe<Scalars['Boolean']>;
   isJoin: Scalars['Boolean'];
   joinDate: Scalars['String'];
   leave?: Maybe<Scalars['Int']>;
@@ -219,6 +225,7 @@ export type IMutation = {
   createHolidays: Scalars['String'];
   /** 멤버 정보 입력 */
   createMember: IMember;
+  createNoticeBoard: INoticeBoard;
   /** 조직 신규 생성 */
   createOrganization: IOrganization;
   /** 근무기록 생성 */
@@ -243,6 +250,7 @@ export type IMutation = {
   deleteCompany: Scalars['Boolean'];
   /** 멤버 정보 완전 삭제 */
   deleteMember: Scalars['Boolean'];
+  deleteNoticeBoard: Scalars['Boolean'];
   /** 조직 정보 삭제 */
   deleteOrganization: Scalars['Boolean'];
   /** 근무기록 삭제 */
@@ -272,6 +280,7 @@ export type IMutation = {
   updateGlobalConfig: IGlobalConfig;
   /** 멤버 정보 수정 */
   updateMember: IMember;
+  updateNoticeBoard: INoticeBoard;
   /** 조직 정보 수정 */
   updateOrganization: IOrganization;
   /** scheduleId(근무기록Id)로 근무기록 수정 */
@@ -343,6 +352,11 @@ export type IMutationCreateMemberArgs = {
 };
 
 
+export type IMutationCreateNoticeBoardArgs = {
+  createNoticeBoardInput: ICreateNoticeBoardInput;
+};
+
+
 export type IMutationCreateOrganizationArgs = {
   createOrganizationInput: ICreateOrganizationInput;
 };
@@ -401,6 +415,11 @@ export type IMutationDeleteCompanyArgs = {
 
 export type IMutationDeleteMemberArgs = {
   memberId: Scalars['String'];
+};
+
+
+export type IMutationDeleteNoticeBoardArgs = {
+  noticeBoardId: Scalars['String'];
 };
 
 
@@ -484,6 +503,12 @@ export type IMutationUpdateMemberArgs = {
 };
 
 
+export type IMutationUpdateNoticeBoardArgs = {
+  noticeBoardId: Scalars['String'];
+  updateNoticeBoardInput: IUpdateNoticeBoardInput;
+};
+
+
 export type IMutationUpdateOrganizationArgs = {
   organizationId: Scalars['String'];
   updateOrganizationInput: IUpdateOrganizationInput;
@@ -540,6 +565,16 @@ export type IMutationUploadSingleFileArgs = {
   file: Scalars['Upload'];
 };
 
+export type INoticeBoard = {
+  __typename?: 'NoticeBoard';
+  account: IAccount;
+  contents: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  id: Scalars['String'];
+  title: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
+};
+
 export type IOrganization = {
   __typename?: 'Organization';
   address?: Maybe<Scalars['String']>;
@@ -558,6 +593,7 @@ export type IOrganization = {
 export type IQuery = {
   __typename?: 'Query';
   fetchAccount: IAccount;
+  fetchAllNoticeBoards: Array<INoticeBoard>;
   /** 근무일정 유형 전체 조회 */
   fetchAllScheduleCategories: Array<IScheduleCategory>;
   /** 근무일정 템플릿 전체 조회 */
@@ -583,6 +619,7 @@ export type IQuery = {
   fetchMembers: Array<IMember>;
   /** 회사 지점에 속한 멤버들의 출퇴근 기록을 월별로 조회 */
   fetchMonthWorkChecks: Array<Array<IWorkCheck>>;
+  fetchOneNoticeBoard: INoticeBoard;
   /** 조직 상세 조회 */
   fetchOrganizationDetail: IOrganization;
   /** 조직 리스트 조회 */
@@ -664,6 +701,11 @@ export type IQueryFetchMembersArgs = {
 export type IQueryFetchMonthWorkChecksArgs = {
   comapnyId: Scalars['String'];
   month: Scalars['String'];
+};
+
+
+export type IQueryFetchOneNoticeBoardArgs = {
+  noticeBoardId: Scalars['String'];
 };
 
 
@@ -805,6 +847,11 @@ export type IUpdateMemberInput = {
   organizationId?: InputMaybe<Scalars['String']>;
   phone?: InputMaybe<Scalars['String']>;
   roleCategoryId?: InputMaybe<Scalars['String']>;
+};
+
+export type IUpdateNoticeBoardInput = {
+  contents?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
 };
 
 export type IUpdateOrganizationInput = {
