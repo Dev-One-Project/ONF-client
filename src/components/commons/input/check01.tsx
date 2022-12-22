@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import { ChangeEvent } from 'react';
-import { FieldValues, UseFormRegister } from 'react-hook-form';
+import { UseFormRegisterReturn } from 'react-hook-form';
 import { styleSet } from '../../../commons/styles/styleSet';
 
 interface ICheck01Props {
-  register?: UseFormRegister<FieldValues>;
+  register?: UseFormRegisterReturn;
   text?: string;
   checked?: boolean;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
