@@ -1,6 +1,5 @@
 import { DatePicker, Space } from 'antd';
 import { styleSet } from '../../../../commons/styles/styleSet';
-import { getDate } from '../../../../commons/utils/getDate';
 import Btn01 from '../../../commons/button/btn01';
 import dayjs from 'dayjs';
 import Input01 from '../../../commons/input/input01';
@@ -84,6 +83,7 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
                       padding: '0.4rem 1rem',
                     }}
                     defaultValue={dayjs(new Date())}
+                    onChange={props.onChangeDate}
                   />
                 </Space>
               </S.DateBox>
@@ -125,8 +125,24 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
                   style={{
                     borderRadius: '0',
                     padding: '0.4rem 1rem',
-                    maxWidth: '13rem',
                   }}
+                  defaultValue={[
+                    dayjs(
+                      new Date(
+                        new Date().getFullYear(),
+                        new Date().getMonth(),
+                        1,
+                      ),
+                    ),
+                    dayjs(
+                      new Date(
+                        new Date().getFullYear(),
+                        new Date().getMonth() + 1,
+                        0,
+                      ),
+                    ),
+                  ]}
+                  onChange={props.onChangeStartEndDate}
                 />
               </Space>
               <S.DateBox>
@@ -134,16 +150,14 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
                 <Space direction="vertical">
                   <DatePicker
                     style={{ borderRadius: '0', padding: '0.4rem 1rem' }}
+                    defaultValue={dayjs(new Date())}
+                    onChange={props.onChangeDate}
                   />
                 </Space>
               </S.DateBox>
               <Select03 />
             </S.OptSelect>
-            <Select01
-              data={['이다은', '바보', '멍충이']}
-              role="organization"
-              left
-            />
+            <Select01 data={props.organizationsData} role="organization" left />
           </S.OptBox>
           <S.OptBox>
             <S.OptSelect>
@@ -174,17 +188,7 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
             <li>사용한 휴가 일수</li>
             <li>남은 일수</li>
           </S.EmployeeUl>
-          {props.data?.fetchVacationIssues.map((el) => (
-            <S.EmployeeUl key={el.id}>
-              <li>{el.member.name}</li>
-              <li>
-                {getDate(el.startingPoint)} - {getDate(el.expirationDate)}
-              </li>
-              <li>{el.vacationAll}</li>
-              <li>{el.useVacation}</li>
-              <li>{el.vacationAll - el.useVacation || 0}</li>
-            </S.EmployeeUl>
-          ))}
+          {props.optionalFetch()}
         </S.UlWrapper>
       ) : (
         <S.UlWrapper>

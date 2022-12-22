@@ -43,27 +43,27 @@ export const List = styled.li`
   gap: 1rem;
   align-items: center;
 
-  :nth-child(3) {
+  :nth-of-type(3) {
     display: ${(props: IAdminSidebarPresenterProps) =>
       props.isAdminSidebar ? 'flex' : 'none'};
   }
-  :nth-child(4) {
+  :nth-of-type(4) {
     display: ${(props: IAdminSidebarPresenterProps) =>
       props.isAdminSidebar ? 'flex' : 'none'};
   }
-  :nth-child(6) {
+  :nth-of-type(6) {
     display: ${(props: IAdminSidebarPresenterProps) =>
       props.isAdminSidebar ? 'flex' : 'none'};
   }
-  :nth-child(7) {
+  :nth-of-type(7) {
     display: ${(props: IAdminSidebarPresenterProps) =>
       props.isAdminSidebar ? 'flex' : 'none'};
   }
-  :nth-child(9) {
+  :nth-of-type(9) {
     display: ${(props: IAdminSidebarPresenterProps) =>
       props.isAdminSidebar ? 'flex' : 'none'};
   }
-  :nth-child(10) {
+  :nth-of-type(10) {
     display: ${(props: IAdminSidebarPresenterProps) =>
       props.isAdminSidebar ? 'flex' : 'none'};
   }

@@ -24,4 +24,5 @@ export interface ILeaveAccrualsPresenterProps {
   setInit: SetStateAction<any>;
   filterInit: boolean;
   setFilterInit: SetStateAction<any>;
+  onChangeDate: (value: any) => void;
 }
