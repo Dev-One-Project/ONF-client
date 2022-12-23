@@ -41,7 +41,7 @@ const AdminProfileUI = (props: IAdminProfileProps) => {
           <S.FormContents>
             <S.Label>직무들</S.Label>
             <Select01
-              register={props.register}
+              register={props.register('duty')}
               setValue={props.setValue}
               fieldName={'duty'}
             />
@@ -49,7 +49,7 @@ const AdminProfileUI = (props: IAdminProfileProps) => {
           <S.FormContents>
             <S.Label>지점들</S.Label>
             <Select01
-              register={props.register}
+              register={props.register('organization')}
               setValue={props.setValue}
               fieldName={'oranization'}
               data={['BUSKER', 'ZERO9', 'WETREKKING'] || undefined}
@@ -102,33 +102,48 @@ const AdminProfileUI = (props: IAdminProfileProps) => {
             <S.Label>모바일 알림 설정</S.Label>
             <S.MobileNotificationBox>
               <S.NotificationContents>
-                <Check01 text="출근 알림" register={props.register} />
+                <Check01
+                  text="출근 알림"
+                  register={props.register('goToWorkAlert')}
+                />
                 <S.NotificationSubscription>
                   (모바일 앱으로 배정된 지점 내 직원들의 출근 알림을 받습니다)
                 </S.NotificationSubscription>
               </S.NotificationContents>
               <S.NotificationContents>
-                <Check01 text="퇴근 알림" register={props.register} />
+                <Check01
+                  text="퇴근 알림"
+                  register={props.register('goToHomeAlert')}
+                />
                 <S.NotificationSubscription>
                   (모바일 앱으로 배정된 지점 내 직원들의 퇴근 알림을 받습니다)
                 </S.NotificationSubscription>
               </S.NotificationContents>
               <S.NotificationContents>
-                <Check01 text="지각 알림" register={props.register} />
+                <Check01
+                  text="지각 알림"
+                  register={props.register('lateAlert')}
+                />
                 <S.NotificationSubscription>
                   (모바일 앱으로 배정된 지점 내 직원들의 지각 알림을 받습니다 -
                   근무일정 시작 후 10분)
                 </S.NotificationSubscription>
               </S.NotificationContents>
               <S.NotificationContents>
-                <Check01 text="초과 근무 알림" register={props.register} />
+                <Check01
+                  text="초과 근무 알림"
+                  register={props.register('overWorkAlert')}
+                />
                 <S.NotificationSubscription>
                   (모바일 앱으로 배정된 지점 내 직원들의 초과 근무 알림을
                   받습니다 - 근무일정 종료 후 10분)
                 </S.NotificationSubscription>
               </S.NotificationContents>
               <S.NotificationContents>
-                <Check01 text="요청 알림" register={props.register} />
+                <Check01
+                  text="요청 알림"
+                  register={props.register('requestAlert')}
+                />
                 <S.NotificationSubscription>
                   (모바일 앱으로 모든 요청 알림을 받습니다)
                 </S.NotificationSubscription>
@@ -138,7 +153,10 @@ const AdminProfileUI = (props: IAdminProfileProps) => {
           <S.FormContents>
             <S.Label>이메일 알림 설정</S.Label>
             <S.NotificationContents>
-              <Check01 text="요청 알림" register={props.register} />
+              <Check01
+                text="요청 알림"
+                register={props.register('emailAlert')}
+              />
               <S.NotificationSubscription>
                 (이메일로 모든 요청 알림을 받습니다)
               </S.NotificationSubscription>

@@ -21,7 +21,7 @@ const Footer = (props: IFooterProps) => {
             bdC="#ddd"
           />
           <Btn01
-            text="저장"
+            text="추가하기"
             color="#fff"
             bgC={styleSet.colors.primary}
             bdC={styleSet.colors.primary}

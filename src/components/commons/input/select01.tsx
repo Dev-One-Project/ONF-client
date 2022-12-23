@@ -2,19 +2,26 @@ import { SearchOutlined } from '@ant-design/icons';
 import styled from '@emotion/styled';
 import { Divider } from 'antd';
 import { ChangeEvent, MouseEvent, useCallback, useState } from 'react';
-import { FieldValues, UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import {
+  FieldValues,
+  UseFormRegisterReturn,
+  UseFormSetValue,
+} from 'react-hook-form';
 import { styleSet } from '../../../commons/styles/styleSet';
 import Btn01 from '../button/btn01';
 import Check01 from './check01';
 
 interface ISelectProps {
-  register?: UseFormRegister<FieldValues>;
+  register?: UseFormRegisterReturn;
   setValue?: UseFormSetValue<FieldValues>;
   fieldName?: string;
-  data?: string[];
   role?: string;
   left?: boolean;
   center?: boolean;
+  noSearch?: boolean;
+  data?: string[];
+  defaultChecked?: string[];
+  textFillMode?: boolean;
 }
 
 interface IStyle {
@@ -25,8 +32,16 @@ interface IStyle {
 
 const Select01 = (props: ISelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [saveChecked, setSaveChecked] = useState<string[]>([]);
-  const [checkedList, setCheckedList] = useState<string[]>([]);
+  const [saveChecked, setSaveChecked] = useState<string[]>(
+    props.defaultChecked && props.defaultChecked.length > 0
+      ? props.defaultChecked
+      : [],
+  );
+  const [checkedList, setCheckedList] = useState<string[]>(
+    props.defaultChecked && props.defaultChecked.length > 0
+      ? props.defaultChecked
+      : [],
+  );
   const [keyword, setKeyword] = useState('');
 
   const onCheckedAll = useCallback(
@@ -90,7 +105,11 @@ const Select01 = (props: ISelectProps) => {
         >
           {label(props.role)}
           {checkedList.length ? (
-            <span>{checkedList.length} 선택됨</span>
+            <span>
+              {props.textFillMode
+                ? checkedList.join(',')
+                : `${checkedList.length} 선택됨`}
+            </span>
           ) : props.data?.length ? (
             '선택 안됨'
           ) : (
@@ -104,13 +123,17 @@ const Select01 = (props: ISelectProps) => {
             id="selectZone"
           >
             <SearchBox>
-              <SearchOutlined className="searchIcon" />
-              <SearchInput
-                value={keyword}
-                onChange={onChangeInput}
-                type="text"
-                placeholder="검색"
-              />
+              {!props.noSearch && (
+                <>
+                  <SearchOutlined className="searchIcon" />
+                  <SearchInput
+                    value={keyword}
+                    onChange={onChangeInput}
+                    type="text"
+                    placeholder="검색"
+                  />
+                </>
+              )}
             </SearchBox>
             <OptionBox>
               <Check01
@@ -151,7 +174,7 @@ const Select01 = (props: ISelectProps) => {
           </DropDownMenu>
         )}
       </Wrapper>
-      <InvisibleInput {...props.register?.(props.fieldName ?? '')} />
+      <InvisibleInput {...props.register} />
     </>
   );
 };

@@ -79,6 +79,25 @@ const ScrollableTable = (props: IScrollableTableProps) => {
       ></div>,
       '배포낄낄',
     ];
+  } else if (props.tab === '근로 정보') {
+    headerData = [
+      '근로정보명',
+      '시급',
+      '소정근로요일',
+      '주휴요일',
+      '소정근로규칙',
+      '최대근로규칙',
+      '메모',
+    ];
+    bodyData = [
+      '일반근무',
+      '₩ 9,160',
+      '월, 화, 수, 목, 금',
+      '일',
+      '1주 40시간',
+      '1주 52시간',
+      '최저시급 낄낄',
+    ];
   }
 
   const onCheckedAll = useCallback((checked) => {

@@ -1,23 +1,11 @@
 import styled from '@emotion/styled';
 import { Divider } from 'antd';
-import {
-  FieldValues,
-  SubmitHandler,
-  UseFormHandleSubmit,
-  UseFormRegister,
-} from 'react-hook-form';
 import Input01 from '../../../../commons/input/input01';
 import Textarea from '../../../../commons/textarea';
 import Footer from './common/footer';
+import { IFormProps } from './common/form.types';
 
-interface IDutyFormProps {
-  register: UseFormRegister<FieldValues>;
-  onCancel: () => void;
-  onSubmit: SubmitHandler<FieldValues>;
-  handleSubmit: UseFormHandleSubmit<FieldValues>;
-}
-
-const Duty = (props: IDutyFormProps) => {
+const Duty = (props: IFormProps) => {
   return (
     <form onSubmit={props.handleSubmit(props.onSubmit)}>
       <Wrapper>
