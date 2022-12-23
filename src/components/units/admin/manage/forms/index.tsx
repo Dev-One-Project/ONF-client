@@ -9,6 +9,7 @@ import AttendanceLocation from './attendanceLocation';
 import Duty from './duty';
 import MemberForm from './member';
 import OrganizationForm from './oranization';
+import Wages from './wages';
 
 interface IFormProps {
   register: UseFormRegister<FieldValues>;
@@ -27,7 +28,7 @@ const Form = (props: IFormProps) => {
   if (props.tab === '출퇴근 장소')
     divergence = <AttendanceLocation {...props} />;
   if (props.tab === '직무') divergence = <Duty {...props} />;
-  if (props.tab === '근로정보') divergence = <></>;
+  if (props.tab === '근로 정보') divergence = <Wages {...props} />;
   return divergence;
 };
 

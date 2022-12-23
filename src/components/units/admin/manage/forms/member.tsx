@@ -1,25 +1,13 @@
 import styled from '@emotion/styled';
 import { DatePicker, Divider } from 'antd';
-import {
-  SubmitHandler,
-  UseFormHandleSubmit,
-  FieldValues,
-  UseFormRegister,
-} from 'react-hook-form';
 import { styleSet } from '../../../../../commons/styles/styleSet';
 import Check01 from '../../../../commons/input/check01';
 import Input01 from '../../../../commons/input/input01';
 import Select01 from '../../../../commons/input/select01';
 import Footer from './common/footer';
+import { IFormProps } from './common/form.types';
 
-interface IMemberFormProps {
-  register: UseFormRegister<FieldValues>;
-  onCancel: () => void;
-  onSubmit: SubmitHandler<FieldValues>;
-  handleSubmit: UseFormHandleSubmit<FieldValues>;
-}
-
-const MemberForm = (props: IMemberFormProps) => {
+const MemberForm = (props: IFormProps) => {
   return (
     <form onSubmit={props.handleSubmit(props.onSubmit)}>
       <WrapperM>

@@ -2,32 +2,18 @@ import { WifiOutlined } from '@ant-design/icons';
 import styled from '@emotion/styled';
 import axios from 'axios';
 import { useState } from 'react';
-import {
-  FieldValues,
-  SubmitHandler,
-  UseFormHandleSubmit,
-  UseFormRegister,
-  UseFormSetValue,
-} from 'react-hook-form';
 import { styleSet } from '../../../../../commons/styles/styleSet';
 import Check01 from '../../../../commons/input/check01';
 import Input01 from '../../../../commons/input/input01';
 import Textarea from '../../../../commons/textarea';
 import Footer from './common/footer';
 import Label from './common/label';
-
-interface IAttendanceLocationFormProps {
-  register: UseFormRegister<FieldValues>;
-  onCancel: () => void;
-  onSubmit: SubmitHandler<FieldValues>;
-  handleSubmit: UseFormHandleSubmit<FieldValues>;
-  setValue?: UseFormSetValue<FieldValues>;
-}
+import { IFormProps } from './common/form.types';
 
 // API 키값 env로 ??
 const API_KEY = '726352a79674495788faaade6bbbb04d';
 
-const AttendanceLocation = (props: IAttendanceLocationFormProps) => {
+const AttendanceLocation = (props: IFormProps) => {
   const [positionTab, setPositionTab] = useState(false);
   const [wifiTab, setWifiTab] = useState(false);
 

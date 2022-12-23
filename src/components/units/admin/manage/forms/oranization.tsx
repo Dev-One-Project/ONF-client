@@ -1,24 +1,10 @@
 import styled from '@emotion/styled';
-import {
-  FieldValues,
-  SubmitHandler,
-  UseFormHandleSubmit,
-  UseFormRegister,
-  UseFormSetValue,
-} from 'react-hook-form';
 import Input01 from '../../../../commons/input/input01';
 import Select01 from '../../../../commons/input/select01';
 import Footer from './common/footer';
+import { IFormProps } from './common/form.types';
 
-interface IOrganizationFormProps {
-  register: UseFormRegister<FieldValues>;
-  onCancel: () => void;
-  onSubmit: SubmitHandler<FieldValues>;
-  handleSubmit: UseFormHandleSubmit<FieldValues>;
-  setValue?: UseFormSetValue<FieldValues>;
-}
-
-const OrganizationForm = (props: IOrganizationFormProps) => {
+const OrganizationForm = (props: IFormProps) => {
   return (
     <form onSubmit={props.handleSubmit(props.onSubmit)}>
       <Wrapper>
@@ -33,9 +19,8 @@ const OrganizationForm = (props: IOrganizationFormProps) => {
         <FormContent>
           <span>출퇴근 장소들</span>
           <Select01
-            fieldName="location"
             setValue={props.setValue}
-            register={props.register}
+            register={props.register('location')}
             data={['패파', '희현님집']}
           />
         </FormContent>

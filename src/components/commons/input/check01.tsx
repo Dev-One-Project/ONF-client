@@ -20,7 +20,11 @@ const Check01 = (props: ICheck01Props) => {
           onChange={props.onChange}
         />
       ) : (
-        <InputInvisible type={'checkbox'} {...props.register} />
+        <InputInvisible
+          checked={props.checked}
+          type={'checkbox'}
+          {...props.register}
+        />
       )}
       <Checkbox className="checkbox" />
       <span>{props.text}</span>
