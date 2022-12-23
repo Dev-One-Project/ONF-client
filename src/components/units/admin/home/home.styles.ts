@@ -123,19 +123,19 @@ export const OmissionUl = styled.ul`
     align-items: center;
     text-align: center;
     span {
-      :nth-child(1) {
+      :nth-of-type(1) {
         width: 20%;
       }
-      :nth-child(2) {
+      :nth-of-type(2) {
         width: 40%;
       }
-      :nth-child(3) {
+      :nth-of-type(3) {
         width: 15%;
       }
-      :nth-child(4) {
+      :nth-of-type(4) {
         width: 10%;
       }
-      :nth-child(5) {
+      :nth-of-type(5) {
         width: 15%;
       }
     }
