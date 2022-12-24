@@ -98,6 +98,30 @@ const ScrollableTable = (props: IScrollableTableProps) => {
       '1주 52시간',
       '최저시급 낄낄',
     ];
+  } else if (props.tab === '근무일정 유형') {
+    headerData = [
+      '근무일정 유형명',
+      '색깔',
+      '연장근무일정 여부',
+      '휴일근무 미적용 여부',
+      '메모',
+    ];
+    bodyData = [
+      '외근',
+      <div
+        key="key"
+        style={{
+          width: '25px',
+          height: '25px',
+          borderRadius: '5px',
+          backgroundColor: 'tomato',
+          marginLeft: '2px',
+        }}
+      ></div>,
+      'X',
+      'O',
+      '하위하위',
+    ];
   }
 
   const onCheckedAll = useCallback((checked) => {

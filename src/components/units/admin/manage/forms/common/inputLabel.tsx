@@ -19,12 +19,16 @@ interface IInputLabelProps {
   defaultChecked?: any[];
   textFillMode?: boolean;
   noSearch?: boolean;
+  labelWidth?: string;
+  inputWidth?: string;
 }
 
 const InputLabel = (props: IInputLabelProps) => {
   return (
     <FormContent>
-      <Label for={props.name}>{props.children}</Label>
+      <Label width={props.labelWidth} for={props.name}>
+        {props.children}
+      </Label>
       {props.type === 'select' ? (
         <Select01
           register={props.register}
@@ -37,7 +41,7 @@ const InputLabel = (props: IInputLabelProps) => {
         />
       ) : (
         <Input01
-          width="15rem"
+          width={props.inputWidth || '15rem'}
           id={props.name}
           type={props.type}
           register={props.register}

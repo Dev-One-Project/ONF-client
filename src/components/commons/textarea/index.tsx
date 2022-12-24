@@ -6,6 +6,11 @@ interface ITextareaProps {
   register?: UseFormRegisterReturn;
   placeholder?: string;
   id?: string;
+  height?: string;
+}
+
+interface IStyle {
+  height?: string;
 }
 
 const Textarea = (props: ITextareaProps) => {
@@ -14,6 +19,7 @@ const Textarea = (props: ITextareaProps) => {
       {...props.register}
       placeholder={props.placeholder}
       id={props.id}
+      height={props.height}
     ></StyledTextarea>
   );
 };
@@ -22,7 +28,7 @@ export default Textarea;
 
 const StyledTextarea = styled.textarea`
   width: 100%;
-  min-height: 100px;
+  height: ${(props: IStyle) => props.height || '6rem'};
   resize: none;
   padding: 0.5rem;
   outline: none;

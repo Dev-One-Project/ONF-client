@@ -9,6 +9,7 @@ import AttendanceLocation from './attendanceLocation';
 import Duty from './duty';
 import MemberForm from './member';
 import OrganizationForm from './oranization';
+import ShiftTypes from './shiftTypes';
 import Wages from './wages';
 
 interface IFormProps {
@@ -29,6 +30,7 @@ const Form = (props: IFormProps) => {
     divergence = <AttendanceLocation {...props} />;
   if (props.tab === '직무') divergence = <Duty {...props} />;
   if (props.tab === '근로 정보') divergence = <Wages {...props} />;
+  if (props.tab === '근무일정 유형') divergence = <ShiftTypes {...props} />;
   return divergence;
 };
 

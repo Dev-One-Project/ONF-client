@@ -7,6 +7,7 @@ interface IMemoProps {
   placeholder?: string;
   id?: string;
   register?: UseFormRegisterReturn;
+  textareaHeight?: string;
 }
 
 const Memo = (props: IMemoProps) => {
@@ -14,6 +15,7 @@ const Memo = (props: IMemoProps) => {
     <MemoWrapper>
       <Label for={props.id}>메모</Label>
       <Textarea
+        height={props.textareaHeight}
         placeholder={props.placeholder}
         id={props.id}
         register={props.register}

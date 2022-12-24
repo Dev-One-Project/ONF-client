@@ -17,9 +17,8 @@ interface IStyle {
   isLocation: boolean;
 }
 
-const ACTIVE_TABS = ['직원', '지점', '근로 정보'];
-
 const Manage = (props: IManageProps) => {
+  const ACTIVE_TABS = ['직원', '지점', '근로 정보'];
   const { register, handleSubmit, setValue } = useForm();
   const [isOpen, setIsOpen] = useState(false);
   const [aniMode, setAniMode] = useState(false);
