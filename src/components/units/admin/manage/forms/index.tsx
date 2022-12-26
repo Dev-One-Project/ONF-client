@@ -9,6 +9,7 @@ import AttendanceLocation from './attendanceLocation';
 import Duty from './duty';
 import MemberForm from './member';
 import OrganizationForm from './oranization';
+import ShiftTemplate from './shiftTemplate';
 import ShiftTypes from './shiftTypes';
 import Wages from './wages';
 
@@ -31,6 +32,8 @@ const Form = (props: IFormProps) => {
   if (props.tab === '직무') divergence = <Duty {...props} />;
   if (props.tab === '근로 정보') divergence = <Wages {...props} />;
   if (props.tab === '근무일정 유형') divergence = <ShiftTypes {...props} />;
+  if (props.tab === '근무일정 템플릿')
+    divergence = <ShiftTemplate {...props} />;
   return divergence;
 };
 

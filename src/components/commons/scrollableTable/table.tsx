@@ -122,6 +122,36 @@ const ScrollableTable = (props: IScrollableTableProps) => {
       'O',
       '하위하위',
     ];
+  } else if (props.tab === '근무일정 템플릿') {
+    headerData = [
+      '템플릿명',
+      '시간',
+      '근무일정 유형',
+      '지점',
+      '직무',
+      '휴게시간',
+      '색깔',
+      '메모',
+    ];
+    bodyData = [
+      '오전근무',
+      '09:00 - 13:00',
+      '재택근무',
+      '패파',
+      '프론트엔드',
+      '자동 휴게시간',
+      <div
+        key="key"
+        style={{
+          width: '25px',
+          height: '25px',
+          borderRadius: '5px',
+          backgroundColor: 'gray',
+          marginLeft: '2px',
+        }}
+      ></div>,
+      '히히',
+    ];
   }
 
   const onCheckedAll = useCallback((checked) => {

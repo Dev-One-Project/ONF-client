@@ -7,7 +7,7 @@ export const Wrapper = styled.section`
   background: ${styleSet.colors.white};
   box-shadow: 0 4px 8px rgb(175 180 190 / 20%);
   position: fixed;
-  z-index: 1199;
+  z-index: 1000;
   display: flex;
   justify-content: space-between;
   align-items: center;

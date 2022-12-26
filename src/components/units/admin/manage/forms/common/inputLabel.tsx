@@ -12,15 +12,15 @@ interface IInputLabelProps {
   children: string;
   type: string;
   name: string;
-  register: UseFormRegisterReturn;
+  register?: UseFormRegisterReturn;
   data?: string[];
   setValue?: UseFormSetValue<FieldValues>;
-  fieldName?: string;
   defaultChecked?: any[];
   textFillMode?: boolean;
   noSearch?: boolean;
   labelWidth?: string;
   inputWidth?: string;
+  customInput?: JSX.Element;
 }
 
 const InputLabel = (props: IInputLabelProps) => {
@@ -33,12 +33,14 @@ const InputLabel = (props: IInputLabelProps) => {
         <Select01
           register={props.register}
           setValue={props.setValue}
-          fieldName={props.fieldName}
+          name={props.name}
           noSearch={props.noSearch}
           data={props.data}
           defaultChecked={props.defaultChecked}
           textFillMode={props.textFillMode}
         />
+      ) : props.type === 'custom' ? (
+        <>{props.customInput}</>
       ) : (
         <Input01
           width={props.inputWidth || '15rem'}

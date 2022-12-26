@@ -14,7 +14,7 @@ export const Wrapper = styled.section`
   height: 100%;
   background: ${styleSet.colors.primary};
   position: fixed;
-  z-index: 1111;
+  z-index: 999;
   padding-top: 4.5rem;
   transition: 0.3s;
   @media ${styleSet.breakPoints.tablet} {

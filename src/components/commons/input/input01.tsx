@@ -61,7 +61,7 @@ export default Input01;
 const Input = styled.input`
   width: ${(props: IStyle) => props.width};
   border-radius: 2px;
-  padding: 0.6rem;
+  padding: 0.5rem;
   border: 1px solid ${styleSet.colors.gray};
   transition: all 0.3s ease;
   outline: none;

@@ -43,7 +43,7 @@ const AdminProfileUI = (props: IAdminProfileProps) => {
             <Select01
               register={props.register('duty')}
               setValue={props.setValue}
-              fieldName={'duty'}
+              name={'duty'}
             />
           </S.FormContents>
           <S.FormContents>
@@ -51,7 +51,7 @@ const AdminProfileUI = (props: IAdminProfileProps) => {
             <Select01
               register={props.register('organization')}
               setValue={props.setValue}
-              fieldName={'oranization'}
+              name={'oranization'}
               data={['BUSKER', 'ZERO9', 'WETREKKING'] || undefined}
             />
           </S.FormContents>
