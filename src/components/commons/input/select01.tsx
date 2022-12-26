@@ -14,7 +14,7 @@ import Check01 from './check01';
 interface ISelectProps {
   register?: UseFormRegisterReturn;
   setValue?: UseFormSetValue<FieldValues>;
-  fieldName?: string;
+  name: string;
   role?: string;
   left?: boolean;
   center?: boolean;
@@ -88,8 +88,11 @@ const Select01 = (props: ISelectProps) => {
   };
 
   const onClickSaveChecked = () => {
+    if (props.name === undefined) {
+      throw Error('props.name의 값이 undefined 입니다.');
+    }
     setSaveChecked(checkedList);
-    props.setValue?.(props.fieldName ?? '', checkedList);
+    props.setValue?.(props.name, checkedList);
     setIsOpen(false);
   };
 

@@ -22,7 +22,7 @@ const ShiftTypes = (props: IFormProps) => {
           register={props.register('color')}
           name="color"
           labelWidth="6.5rem"
-          inputWidth="2rem"
+          inputWidth="1.6rem"
           type="color"
         >
           색깔

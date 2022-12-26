@@ -87,7 +87,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   padding-bottom: 5.5rem;
-  z-index: 999999;
+  z-index: 1040;
   animation: ${(props: IStyle) =>
     props.aniMode
       ? css`
