@@ -1,10 +1,11 @@
 import * as yup from 'yup';
+import { ChangeEvent } from 'react';
+import { IFormData } from './join.types';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@apollo/client';
 import JoinPresenter from './join.presenter';
 import { CREATE_ACCOUNT } from './join.queries';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { IFormData } from './join.types';
 import {
   ErrorModal,
   SuccessModal,
@@ -12,24 +13,32 @@ import {
 
 const schma = yup.object({
   email: yup.string().email('이메일 형식 확인').required('필수'),
-  password: yup.string().required('필수'),
+  password: yup
+    .string()
+    .matches(/^(?=.*[a-zA-Z])(?=.*[0-9]).{8,20}$/, '필수')
+    .required('필수'),
   passwordConfirm: yup
     .string()
     .oneOf([yup.ref('password'), null], '비밀번호가 같지 않습니다.')
     .required('필수'),
+  allTerms: yup.boolean().oneOf([true], '필수'),
 });
 
 const JoinContainer = () => {
-  const { register, handleSubmit } = useForm({
+  const [createAccount] = useMutation(CREATE_ACCOUNT);
+
+  const { register, handleSubmit, formState, setValue } = useForm({
     resolver: yupResolver(schma),
     mode: 'onChange',
   });
 
-  const [createAccount] = useMutation(CREATE_ACCOUNT);
+  const onChangeChecked = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue('allTerms', e.target.checked);
+  };
 
   const onClickSubmit = async (data: IFormData) => {
     try {
-      const result = createAccount({
+      await createAccount({
         variables: {
           email: String(data.email),
           password: String(data.password),
@@ -47,6 +56,8 @@ const JoinContainer = () => {
         onClickSubmit={onClickSubmit}
         register={register}
         handleSubmit={handleSubmit}
+        formState={formState}
+        onChangeChecked={onChangeChecked}
       />
     </>
   );

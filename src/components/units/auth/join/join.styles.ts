@@ -15,6 +15,7 @@ export const H1 = styled.h1`
   p {
     display: block;
     font-size: ${styleSet.fontSizes.small};
+    padding-top: 0.5rem;
   }
 `;
 
@@ -77,6 +78,8 @@ export const Data = styled.data`
   flex-direction: column;
   align-content: space-between;
   margin-bottom: 1rem;
+  position: relative;
+  overflow: hidden;
 
   input:focus {
     border: 1px solid ${styleSet.colors.primary};
