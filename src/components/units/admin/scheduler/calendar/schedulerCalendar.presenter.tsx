@@ -6,9 +6,20 @@ import Switch01 from '../../../../commons/switch/switch01';
 import CalendarElementContainer from '../elements/calendar/calendarElement.container';
 import { IDateData } from '../scheduler.types';
 import * as S from './schedulerCalendar.styles';
-// import { v4 as uuidV4 } from 'uuid';
+import { ISchedulerCalendarProps } from './schedulerCalendar.types';
 
-const SchedulerCalendarPresenter = (props: any) => {
+const getDateStr = (date: IDateData) => {
+  let dayStr = date.day.split('-')[2] + '일';
+  if (dayStr[0] === '0') dayStr = dayStr[1] + dayStr[2];
+  if (dayStr === '1일') {
+    let month = date.day.split('-')[1];
+    if (month[0] === '0') month = month[1];
+    dayStr = month + '월 ' + dayStr;
+  }
+  return dayStr + ` (${date.dateStr})`;
+};
+
+const SchedulerCalendarPresenter = (props: ISchedulerCalendarProps) => {
   return (
     <S.Container>
       <S.TopWrapper>
@@ -26,22 +37,22 @@ const SchedulerCalendarPresenter = (props: any) => {
       <S.OptWrapper>
         <S.OptBox>
           <S.OptSectionWrapper>
-            <S.ArrowButton>
+            <S.ArrowButton onClick={props.onClickPrevWeek}>
               <ArrowSvg
                 direction={'left'}
                 size={'big'}
                 color={styleSet.colors.primary}
               />
             </S.ArrowButton>
-            <S.ArrowButton>
+            <S.ArrowButton onClick={props.onClickNextWeek}>
               <ArrowSvg
                 direction={'right'}
                 size={'big'}
                 color={styleSet.colors.primary}
               />
             </S.ArrowButton>
-            <S.FuncButton>오늘</S.FuncButton>
-            <S.DateLabel>2022년 12월</S.DateLabel>
+            <S.FuncButton onClick={props.onClickToday}>오늘</S.FuncButton>
+            <S.DateLabel>{props.currentMonth}</S.DateLabel>
           </S.OptSectionWrapper>
           <S.OptSectionWrapper>
             <Select01 data={['이다은', '바보', '멍충이']} role="organization" />
@@ -61,50 +72,45 @@ const SchedulerCalendarPresenter = (props: any) => {
             <S.CalendarHeaderItem> </S.CalendarHeaderItem>
             {/* TODO: need type declaration */}
             {props.dateArray?.map((date: IDateData) => {
+              const dayStr = getDateStr(date);
               return (
                 <S.CalendarHeaderItem
                   key={date.index}
                   className={date.isToday ? 'today' : 'other'}
                 >
-                  <p>{`${date.day.split('-')[2]}일 (${date.dateStr})`}</p>
+                  <S.Text>{dayStr}</S.Text>
                 </S.CalendarHeaderItem>
               );
             })}
           </S.CalendarHeader>
-          {props.member ? (
-            props.member?.map((member: any) => {
-              return (
-                <S.CalendarBody key={member.id}>
-                  <S.CalendarBodyItem>{member.name}</S.CalendarBodyItem>
-                  {props.dateArray?.map((date: any) => {
-                    return (
-                      <S.CalendarBodyItem
-                        key={date.index}
-                        className={date.isToday ? 'today' : 'other'}
-                      >
-                        <CalendarElementContainer member={member} date={date} />
-                      </S.CalendarBodyItem>
-                    );
-                  })}
-                </S.CalendarBody>
-              );
-            })
-          ) : (
-            <S.CalendarBody>
-              <S.CalendarBodyItem>홍민우</S.CalendarBodyItem>
-              {props.dateArray?.map((date: any) => {
+          {props.member
+            ? props.member?.map((member: any) => {
                 return (
-                  <S.CalendarBodyItem
-                    key={date.index}
-                    className={date.isToday ? 'today' : 'other'}
-                  ></S.CalendarBodyItem>
+                  <S.CalendarBody key={member.id}>
+                    <S.CalendarBodyItem>{member.name}</S.CalendarBodyItem>
+                    {props.dateArray?.map((date: any) => {
+                      return (
+                        <S.CalendarBodyItem
+                          key={date.index}
+                          className={date.isToday ? 'today' : 'other'}
+                        >
+                          <CalendarElementContainer
+                            member={member}
+                            companyName={member.company.name}
+                            color={member.schedule.scheduleCategory.color}
+                          />
+                        </S.CalendarBodyItem>
+                      );
+                    })}
+                  </S.CalendarBody>
                 );
-              })}
-            </S.CalendarBody>
-          )}
+              })
+            : null}
 
           <S.CalendarFooter>
-            <S.CalendarFooterItem>000h</S.CalendarFooterItem>
+            <S.CalendarFooterItem>
+              <S.Text>000h</S.Text>
+            </S.CalendarFooterItem>
             {props.dateArray?.map((date: any) => {
               return (
                 <S.CalendarFooterItem
@@ -115,7 +121,9 @@ const SchedulerCalendarPresenter = (props: any) => {
             })}
           </S.CalendarFooter>
           <S.CalendarFooter>
-            <S.CalendarFooterItem>0명</S.CalendarFooterItem>
+            <S.CalendarFooterItem>
+              <S.Text>0명</S.Text>
+            </S.CalendarFooterItem>
             {props.dateArray?.map((date: any) => {
               return (
                 <S.CalendarFooterItem

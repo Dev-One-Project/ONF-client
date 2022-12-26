@@ -1,6 +1,7 @@
-import { ICalendarElementProps } from "./calendarElement.types";
+import CalendarElementPresenter from './calendarElement.presenter';
+import { ICalendarElementProps } from './calendarElement.types';
 
 const CalendarElementContainer = (props: ICalendarElementProps) => {
-  return <></>;
+  return <CalendarElementPresenter />;
 };
 export default CalendarElementContainer;

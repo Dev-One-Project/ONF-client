@@ -99,6 +99,9 @@ export const FuncButton = styled.button`
   padding: 0 0.75rem 0 0.75rem;
   margin-left: 0.5rem;
   color: ${styleSet.colors.darkGray};
+  :hover {
+    background: ${styleSet.colors.lightGray};
+  }
 `;
 
 export const ArrowButton = styled.button`
@@ -107,6 +110,9 @@ export const ArrowButton = styled.button`
   svg {
     height: 1rem;
     width: 1rem;
+  }
+  :hover {
+    background: ${styleSet.colors.lightGray};
   }
 `;
 
@@ -129,8 +135,6 @@ export const DateLabel = styled.label`
 export const CalendarWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
   width: 100%;
   ul {
     border-top: none;
@@ -149,16 +153,14 @@ export const CalendarHeader = styled.ul`
   margin-top: 2rem;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
   width: 100%;
   height: 2rem;
   border: 1px solid ${styleSet.colors.gray};
   li {
     width: 12.5%;
   }
-  li:last-of-type {
-    border-right: none;
+  li:first-of-type {
+    border-left: none;
   }
   li.today {
     color: ${styleSet.colors.primary};
@@ -170,68 +172,57 @@ export const CalendarHeaderItem = styled.li`
   justify-content: center;
   align-items: center;
   height: 100%;
-  text-align: center;
-  font-size: ${styleSet.fontSizes.small};
-  font-family: ${styleSet.fonts.B};
-  border-right: 1px solid ${styleSet.colors.gray};
+  border-left: 1px solid ${styleSet.colors.gray};
 `;
 
 export const CalendarBody = styled.ul`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
   width: 100%;
-  height: 2rem;
   border: 1px solid ${styleSet.colors.gray};
   li {
     width: 12.5%;
   }
-  li:last-of-type {
-    border-right: none;
-  }
-  li.today {
-    color: ${styleSet.colors.primary};
+  li:first-of-type {
+    border-left: none;
   }
 `;
 
 export const CalendarBodyItem = styled.li`
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  height: 100%;
   text-align: center;
-  font-size: ${styleSet.fontSizes.small};
-  font-family: ${styleSet.fonts.B};
-  border-right: 1px solid ${styleSet.colors.gray};
+  padding: 0.125rem 0.125rem 0.125rem 0.125rem;
+  gap: 0.25rem;
+  border-left: 1px solid ${styleSet.colors.gray};
+  min-height: 4.75rem;
 `;
 
 export const CalendarFooter = styled.ul`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
   width: 100%;
   height: 2rem;
   border: 1px solid ${styleSet.colors.gray};
   li {
     width: 12.5%;
   }
-  li:last-of-type {
-    border-right: none;
-  }
-  li.today {
-    color: ${styleSet.colors.primary};
+  li:first-of-type {
+    border-left: none;
   }
 `;
 
 export const CalendarFooterItem = styled.li`
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  height: 100%;
   text-align: center;
+  height: 100%;
+  border-left: 1px solid ${styleSet.colors.gray};
+`;
+
+export const Text = styled.p`
   font-size: ${styleSet.fontSizes.small};
   font-family: ${styleSet.fonts.B};
-  border-right: 1px solid ${styleSet.colors.gray};
 `;
