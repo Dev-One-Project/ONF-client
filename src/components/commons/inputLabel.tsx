@@ -4,9 +4,9 @@ import {
   UseFormRegisterReturn,
   UseFormSetValue,
 } from 'react-hook-form';
-import Input01 from '../../../../../commons/input/input01';
-import Select01 from '../../../../../commons/input/select01';
-import Label from './label';
+import Input01 from './input/input01';
+import Select01 from './input/select01';
+import Label from '../units/admin/manage/forms/common/label';
 
 interface IInputLabelProps {
   children: string;

@@ -7,6 +7,7 @@ import {
 } from 'react-hook-form';
 import AttendanceLocation from './attendanceLocation';
 import Duty from './duty';
+import LeaveTypes from './leaveTypes';
 import MemberForm from './member';
 import OrganizationForm from './oranization';
 import ShiftTemplate from './shiftTemplate';
@@ -34,6 +35,7 @@ const Form = (props: IFormProps) => {
   if (props.tab === '근무일정 유형') divergence = <ShiftTypes {...props} />;
   if (props.tab === '근무일정 템플릿')
     divergence = <ShiftTemplate {...props} />;
+  if (props.tab === '휴가 유형') divergence = <LeaveTypes {...props} />;
   return divergence;
 };
 

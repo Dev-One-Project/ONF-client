@@ -152,6 +152,17 @@ const ScrollableTable = (props: IScrollableTableProps) => {
       ></div>,
       '히히',
     ];
+  } else if (props.tab === '휴가 유형') {
+    headerData = [
+      '휴가 유형',
+      '지점',
+      '직무',
+      '시간 옵션',
+      '유급 시간',
+      '차감 일수',
+      '메모',
+    ];
+    bodyData = ['반차', '패파', '프론트엔드', '하루 종일', '8h', '1', '메모'];
   }
 
   const onCheckedAll = useCallback((checked) => {

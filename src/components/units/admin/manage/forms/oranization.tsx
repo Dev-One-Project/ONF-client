@@ -19,6 +19,7 @@ const OrganizationForm = (props: IFormProps) => {
         <FormContent>
           <span>출퇴근 장소들</span>
           <Select01
+            name="location"
             setValue={props.setValue}
             register={props.register('location')}
             data={['패파', '희현님집']}

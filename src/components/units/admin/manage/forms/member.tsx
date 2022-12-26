@@ -24,15 +24,15 @@ const MemberForm = (props: IFormProps) => {
             </FormContent>
             <FormContent>
               <Label>액세스 권한</Label>
-              <Select01 />
+              <Select01 name="accessAuth" />
             </FormContent>
             <FormContent>
               <Label>직무들</Label>
-              <Select01 />
+              <Select01 name="duty" />
             </FormContent>
             <FormContent>
               <Label>팀들</Label>
-              <Select01 />
+              <Select01 name="organization" />
             </FormContent>
             <FormContent>
               <InnerContent>
