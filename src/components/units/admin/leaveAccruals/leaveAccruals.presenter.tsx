@@ -1,15 +1,14 @@
-import { DatePicker, Space } from 'antd';
+import { DatePicker, Divider, Space } from 'antd';
 import { styleSet } from '../../../../commons/styles/styleSet';
 import Btn01 from '../../../commons/button/btn01';
 import dayjs from 'dayjs';
-import Input01 from '../../../commons/input/input01';
 import Select01 from '../../../commons/input/select01';
-import Select02 from '../../../commons/input/select02';
 import Select03 from '../../../commons/input/select03';
 import FallingModal from '../../../commons/modal/fallingModal';
 import Switch01 from '../../../commons/switch/switch01';
 import * as S from './leaveAccruals.styles';
 import { ILeaveAccrualsPresenterProps } from './leaveAccruals.types';
+import AddLeaveAccruals from './commons/addLeaveAccruals';
 
 const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
   return (
@@ -30,43 +29,65 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
           isOpen={props.isOpen}
           aniMode={props.aniMode}
           onCancel={props.onClickCloseModal}
+          width="31rem"
           title="휴가 발생 건 추가하기"
         >
-          <form onSubmit={props.handleSubmit(props.onSubmit)}>
-            <S.ModalWrapper>
-              <S.ModalField>
-                <div>
-                  <label>직원</label>
-                  <Select02 data={['짱구', '맹구', '철수']} />
-                </div>
-                <div>
-                  <label>발생 일수</label>
-                  <Input01 type="number" width="133px" />
-                </div>
-                <div>
-                  <label>발생 시점</label>
-                  <DatePicker style={{ borderRadius: '0' }} />
-                </div>
-                <div>
-                  <label>만료 시점</label>
-                  <DatePicker style={{ borderRadius: '0' }} />
-                </div>
-              </S.ModalField>
-              <S.MemoDiv>
-                <label>메모</label>
-                <textarea />
-              </S.MemoDiv>
-            </S.ModalWrapper>
+          <AddLeaveAccruals
+            handleSubmit={props.handleSubmit}
+            onSubmit={props.onSubmit}
+            onClickCloseModal={props.onClickCloseModal}
+          />
+        </FallingModal>
+      )}
+
+      {props.isSelectOpen && (
+        <FallingModal
+          setIsOpen={props.setIsSelectOpen}
+          isOpen={props.setIsOpen}
+          aniMode={props.aniMode}
+          onCancel={props.onClickCloseModal}
+          title="휴가 발생 건 관리"
+        >
+          <>
+            <S.ModalBox>
+              <S.Left>
+                <S.UlWrapper>
+                  <S.SelectListUl>
+                    <li>발생 일수</li>
+                    <li>발생 시점</li>
+                    <li>만료 시점</li>
+                    <li>메모</li>
+                  </S.SelectListUl>
+                  <S.SelectListUl onClick={props.onClickOpenList}>
+                    <li>12</li>
+                    <li>2022-12-30</li>
+                    <li>2023-12-30</li>
+                    <li>메롱</li>
+                  </S.SelectListUl>
+                </S.UlWrapper>
+                <S.AccrualsBox>
+                  <strong onClick={props.onClickOpenList}>휴가 발생하기</strong>
+                </S.AccrualsBox>
+              </S.Left>
+              {props.isMemberOpen ? (
+                <S.Right>
+                  <AddLeaveAccruals
+                    handleSubmit={props.handleSubmit}
+                    onSubmit={props.onSubmit}
+                    onClickCloseModal={props.onClickCloseList}
+                  />
+                </S.Right>
+              ) : (
+                <S.PBox>
+                  <p>선택된 휴가 발생 건이 없습니다.</p>
+                </S.PBox>
+              )}
+            </S.ModalBox>
+            <Divider style={{ margin: '0.7rem 0 0' }} />
             <S.ModalFooter>
-              <Btn01 text="닫기" bdC="#ddd" onClick={props.onClickCloseModal} />
-              <Btn01
-                text="추가하기"
-                color="#fff"
-                bgC={styleSet.colors.primary}
-                bdC={styleSet.colors.primary}
-              />
+              <Btn01 text="닫기" onClick={props.onClickCloseModal} bdC="#ddd" />
             </S.ModalFooter>
-          </form>
+          </>
         </FallingModal>
       )}
 
@@ -92,7 +113,11 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
                 setFilterInit={props.setFilterInit}
               />
             </S.OptSelect>
-            <Select01 data={props.organizationsData} role="organization" left />
+            <Select01
+              data={props.organizationsData}
+              role="organization"
+              left
+            />
           </S.OptBox>
           <S.OptBox>
             <S.OptSelect>
@@ -129,15 +154,15 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
                   defaultValue={[
                     dayjs(
                       new Date(
-                        new Date().getFullYear(),
-                        new Date().getMonth(),
+                        props.date.getFullYear(),
+                        props.date.getMonth(),
                         1,
                       ),
                     ),
                     dayjs(
                       new Date(
-                        new Date().getFullYear(),
-                        new Date().getMonth() + 1,
+                        props.date.getFullYear(),
+                        props.date.getMonth() + 1,
                         0,
                       ),
                     ),
@@ -157,7 +182,11 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
               </S.DateBox>
               <Select03 />
             </S.OptSelect>
-            <Select01 data={props.organizationsData} role="organization" left />
+            <Select01
+              data={props.organizationsData}
+              role="organization"
+              left
+            />
           </S.OptBox>
           <S.OptBox>
             <S.OptSelect>
@@ -201,7 +230,7 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
             <li>남은 휴가 일수</li>
             <li>메모</li>
           </S.ListUl>
-          <S.ListUl>
+          <S.ListUl onClick={props.onClickOpenModal}>
             <li>에스쿱스</li>
             <li>2022-12-30</li>
             <li>2023-12-30</li>

@@ -99,6 +99,9 @@ export const UlWrapper = styled.section`
     li {
       font-family: ${styleSet.fonts.M};
     }
+    :hover {
+      background-color: #eee;
+    }
   }
 `;
 

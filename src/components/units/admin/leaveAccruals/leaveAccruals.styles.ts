@@ -121,6 +121,9 @@ export const UlWrapper = styled.section`
     li {
       font-family: ${styleSet.fonts.M};
     }
+    :hover {
+      background-color: #eee;
+    }
   }
 `;
 
@@ -130,7 +133,10 @@ export const EmployeeUl = styled.ul`
   align-items: center;
   justify-content: space-between;
   padding: 0.1rem 0;
-  min-width: 1000px;
+  min-width: 700px;
+  @media ${styleSet.breakPoints.tablet} {
+    min-width: 1000px;
+  }
   li {
     min-width: 175px;
     padding: 0.5rem;
@@ -141,13 +147,30 @@ export const EmployeeUl = styled.ul`
   }
 `;
 
+export const SelectListUl = styled.ul`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.1rem 0;
+  /* min-width: 600px; */
+  li {
+    min-width: 120px;
+    padding: 0.5rem;
+    font-family: ${styleSet.fonts.EB};
+  }
+  li:nth-of-type(1) {
+    min-width: 80px;
+  }
+`;
+
 export const ListUl = styled.ul`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   padding: 0.1rem 0;
-  min-width: 1000px;
+  min-width: 950px;
   li {
     min-width: 108px;
     padding: 0.5rem;
@@ -189,15 +212,54 @@ export const MemoDiv = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: 1rem;
-  textarea {
-    width: 30rem;
-    height: 4rem;
-  }
+  gap: 1rem;
 `;
 
 export const ModalFooter = styled.div`
   display: flex;
   justify-content: flex-end;
-  padding: 0.75rem 0;
+  padding: 1rem 0 0;
   gap: 1rem;
+`;
+
+export const ModalBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  min-width: 72rem;
+  min-height: 30rem;
+`;
+
+export const Left = styled.div`
+  flex: 3;
+  border-right: 1px solid #ddd;
+`;
+export const Right = styled.div`
+  min-width: 31rem;
+  flex: 2;
+  padding: 1rem;
+`;
+
+export const PBox = styled(Right)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  p {
+    color: ${styleSet.colors.darkGray};
+  }
+`;
+
+export const AccrualsBox = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
+  strong {
+    font-size: ${styleSet.fontSizes.small};
+    color: ${styleSet.colors.primary};
+    font-family: ${styleSet.fonts.B};
+    :hover {
+      color: #111;
+      border-bottom: 1px solid #111;
+      cursor: pointer;
+    }
+  }
 `;

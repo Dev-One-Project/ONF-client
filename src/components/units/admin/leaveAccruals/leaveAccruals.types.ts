@@ -3,8 +3,8 @@ import {
   FieldValues,
   UseFormHandleSubmit,
   UseFormRegister,
+  UseFormSetValue,
 } from 'react-hook-form';
-import { IQuery } from '../../../../commons/types/generated/types';
 
 export interface ILeaveAccrualsPresenterProps {
   isSelect: boolean;
@@ -18,11 +18,19 @@ export interface ILeaveAccrualsPresenterProps {
   onSubmit: (data: any) => void;
   register: UseFormRegister<FieldValues>;
   handleSubmit: UseFormHandleSubmit<FieldValues>;
-  data?: Pick<IQuery, 'fetchVacationIssues'>;
   organizationsData?: any;
   init: boolean;
   setInit: SetStateAction<any>;
   filterInit: boolean;
   setFilterInit: SetStateAction<any>;
   onChangeDate: (value: any) => void;
+  onChangeStartEndDate: (value: any) => void;
+  date: Date;
+  isSelectOpen: boolean;
+  setIsSelectOpen: SetStateAction<any>;
+  onClickOpenSelectModal: () => void;
+  onClickOpenList: () => void;
+  isMemberOpen: boolean;
+  onClickCloseList: () => void;
+  setValue: UseFormSetValue<FieldValues>;
 }
