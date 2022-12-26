@@ -1,6 +1,11 @@
 import styled from '@emotion/styled';
 import { ChangeEvent, useState } from 'react';
-import { UseFormRegisterReturn } from 'react-hook-form';
+import {
+  FieldError,
+  FieldErrorsImpl,
+  Merge,
+  UseFormRegisterReturn,
+} from 'react-hook-form';
 import { styleSet } from '../../../commons/styles/styleSet';
 
 interface IInput01Props {
@@ -10,11 +15,25 @@ interface IInput01Props {
   width?: string;
   id?: string;
   disabled?: boolean;
+  error?:
+    | string
+    | FieldError
+    | Merge<FieldError, FieldErrorsImpl<any>>
+    | undefined;
 }
 
 interface IStyle {
   width: string;
 }
+
+type IInputProps = {
+  error?:
+    | string
+    | FieldError
+    | Merge<FieldError, FieldErrorsImpl<any>>
+    | undefined;
+  edit?: boolean;
+};
 
 const Input01 = (props: IInput01Props) => {
   const [preview, setPreview] = useState<any>('');
@@ -52,6 +71,9 @@ const Input01 = (props: IInput01Props) => {
         disabled={props.disabled || false}
         onChange={onChangeFile}
       />
+      <Error className="error" error={props.error}>
+        {props.error}
+      </Error>
     </>
   );
 };
@@ -76,4 +98,16 @@ const Div = styled.div`
 
 const Img = styled.img`
   width: 7rem;
+`;
+
+const Error = styled.p`
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  color: ${styleSet.colors.primary};
+  transition: all 0.35s;
+
+  transform: ${(P: IInputProps) =>
+    P.error ? `translate(0, -50%)` : `translate(5rem, -50%)`};
+  opacity: ${(P: IInputProps) => (P.error ? `1` : `0`)};
 `;
