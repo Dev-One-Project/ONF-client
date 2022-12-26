@@ -1,6 +1,8 @@
-import { IDateData } from '../../scheduler.types';
-
 export interface ICalendarElementProps {
-  member: any;
-  date: IDateData;
+  member?: any;
+  startTime?: string;
+  endTime?: string;
+  workType?: string;
+  companyName: string;
+  color: string;
 }

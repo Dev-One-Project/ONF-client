@@ -1,44 +1,49 @@
 import { useMemo, useState } from 'react';
 import SchedulerCalendarPresenter from './schedulerCalendar.presenter';
-import moment from 'moment';
 import { IDateData } from '../scheduler.types';
-import dayToString from '../../../../../commons/utils/dayToString';
+import getWeekData from '../../../../../commons/utils/getWeekData';
+import moment from 'moment';
 
 const SchedulerCalendarContainer = () => {
-  const [today] = useState(moment());
   const [dateArray, setDateArray] = useState<IDateData[]>([]);
+  const [currentMonth, setCurrentMonth] = useState<string>(
+    moment().format('YYYY년 MM월'),
+  );
+  // const [mode, setMode] = useState<
+  //   ['schedule', boolean] | ['vacation', boolean]
+  // >(['schedule', false]);
 
   useMemo(() => {
-    let index = 0;
-    const result: IDateData[] = [];
-    for (let i = 0; i < 7; i++) {
-      const currentDay = today
-        .clone()
-        .startOf('week')
-        .add(i, 'days')
-        .format('YYYY-MM-DD');
-      const dayOfWeek = today.clone().startOf('week').add(i, 'days').day();
-      if (today.format('YYYY-MM-DD') === currentDay) {
-        result.push({
-          index,
-          day: currentDay,
-          isToday: true,
-          dateStr: dayToString(dayOfWeek),
-        });
-      } else {
-        result.push({
-          index,
-          day: currentDay,
-          isToday: false,
-          dateStr: dayToString(dayOfWeek),
-        });
-      }
-      index++;
-    }
-    setDateArray(result);
-  }, [today]);
+    setDateArray(getWeekData());
+  }, []);
 
-  return <SchedulerCalendarPresenter dateArray={dateArray} />;
+  const onClickNextWeek = () => {
+    const weekData = getWeekData(dateArray, 'next');
+    setDateArray(weekData);
+    setCurrentMonth(moment(weekData[0].day).format('YYYY년 MM월'));
+  };
+
+  const onClickPrevWeek = () => {
+    const weekData = getWeekData(dateArray, 'prev');
+    setDateArray(weekData);
+    setCurrentMonth(moment(weekData[0].day).format('YYYY년 MM월'));
+  };
+
+  const onClickToday = () => {
+    setDateArray(getWeekData(dateArray));
+  };
+
+  return (
+    <SchedulerCalendarPresenter
+      // mode={mode}
+      dateArray={dateArray}
+      setDateArray={setDateArray}
+      currentMonth={currentMonth}
+      onClickNextWeek={onClickNextWeek}
+      onClickPrevWeek={onClickPrevWeek}
+      onClickToday={onClickToday}
+    />
+  );
 };
 
 export default SchedulerCalendarContainer;
