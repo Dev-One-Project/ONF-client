@@ -1,22 +1,23 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { styleSet } from '../../../commons/styles/styleSet';
-import UserHeaderPage from '../layoutuser/header';
-import { IUserLayoutProps } from '../layoutuser/layout.types';
-import UserRecordSideBar from '../layoutuser/sidebar/record';
-import UserRequestSideBar from '../layoutuser/sidebar/request';
-import UserScheduleSideBar from '../layoutuser/sidebar/schedule';
+import UserHeaderPage from './header';
+import { IUserLayoutProps } from './layout.types';
+import UserAttendancesSideBar from './sidebar/attendances';
+
+import UserRequestSideBar from './sidebar/requests';
+import UserScheduleSideBar from './sidebar/schedule';
 
 const HIDDEN = ['/login'];
 const SCHEDULE = ['/user/schedule'];
-const RECORD = ['/user/record'];
-const REQUEST = ['/user/request'];
+const ATTENDANCES = ['/user/attendances'];
+const REQUEST = ['/user/requests'];
 
 const UserLayout = (props: IUserLayoutProps) => {
   const router = useRouter();
   const hidden = HIDDEN.includes(router.asPath);
   const schedule = SCHEDULE.includes(router.asPath);
-  const record = RECORD.includes(router.asPath);
+  const attendances = ATTENDANCES.includes(router.asPath);
   const request = REQUEST.includes(router.asPath);
 
   return (
@@ -24,7 +25,7 @@ const UserLayout = (props: IUserLayoutProps) => {
       {!hidden && <UserHeaderPage />}
       <FlexBox>
         {schedule && <UserScheduleSideBar />}
-        {record && <UserRecordSideBar />}
+        {attendances && <UserAttendancesSideBar />}
         {request && <UserRequestSideBar />}
         <ChildrenBox>{props.children}</ChildrenBox>
       </FlexBox>

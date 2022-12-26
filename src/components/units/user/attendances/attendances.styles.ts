@@ -5,7 +5,6 @@ export const Container = styled.section`
   width: 100%;
 `;
 export const Wrapper = styled.main`
-  width: 1100px;
   margin: 0 auto;
   li.text {
     width: 180px;
@@ -58,7 +57,7 @@ export const NoticeList = styled.ul`
     background: ${styleSet.colors.lightGray};
   }
 
-   > li {
+  > li {
     white-space: nowrap;
     cursor: pointer;
     letter-spacing: -0.8px;
@@ -78,10 +77,10 @@ export const NoticeList = styled.ul`
       padding: 0.3rem;
       border-radius: 3px;
       font-size: ${styleSet.fontSizes.small};
-    
 
-    &:first-of-type {
-      font-family: ${styleSet.fonts.EB};
+      &:first-of-type {
+        font-family: ${styleSet.fonts.EB};
+      }
     }
   }
 `;

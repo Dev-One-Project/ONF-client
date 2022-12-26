@@ -3,7 +3,7 @@ import Check01 from '../../input/check01';
 import * as S from '../layout.styles';
 import { IUserSideBar } from '../layout.types';
 
-const UserRecordSideBar = (props: IUserSideBar) => {
+const UserAttendancesSideBar = (props: IUserSideBar) => {
   return (
     <>
       <S.Sidebar className="min">
@@ -31,4 +31,4 @@ const UserRecordSideBar = (props: IUserSideBar) => {
     </>
   );
 };
-export default UserRecordSideBar;
+export default UserAttendancesSideBar;
