@@ -1,8 +1,16 @@
 import { gql } from '@apollo/client';
 
-export const FETCH_V_ISSUES = gql`
-  query fetchVacationIssues($companyId: String!) {
-    fetchVacationIssues(companyId: $companyId) {
+export const FETCH_VACATION_ISSUE_DETAIL_DELETE = gql`
+  query fetchVacationIssueDetailDateDelete(
+    $baseDate: DateTime!
+    $companyId: String!
+    $organizationId: [String!]!
+  ) {
+    fetchVacationIssueDetailDateDelete(
+      baseDate: $baseDate
+      companyId: $companyId
+      organizationId: $organizationId
+    ) {
       id
       startingPoint
       expirationDate
@@ -13,16 +21,21 @@ export const FETCH_V_ISSUES = gql`
         id
         name
       }
-      #   organization {
-      #     id
-      #   }
     }
   }
 `;
 
-export const FETCH_V_I_DELETE = gql`
-  query fetchVacationIssueWithDelete {
-    fetchVacationIssueWithDelete {
+export const FETCH_VACATION_ISSUE_DETAIL = gql`
+  query fetchVacationIssueDetailDate(
+    $baseDate: DateTime!
+    $companyId: String!
+    $organizationId: [String!]!
+  ) {
+    fetchVacationIssueDetailDate(
+      baseDate: $baseDate
+      companyId: $companyId
+      organizationId: $organizationId
+    ) {
       id
       startingPoint
       expirationDate
@@ -36,9 +49,17 @@ export const FETCH_V_I_DELETE = gql`
   }
 `;
 
-export const FETCH_V_I_BASE_DATE = gql`
-  query fetchVacationIssueBaseDate($baseDate: DateTime!, $companyId: String!) {
-    fetchVacationIssueBaseDate(baseDate: $baseDate, companyId: $companyId) {
+export const FETCH_VACATION_ISSUE_BASE = gql`
+  query fetchVacationIssueBaseDate(
+    $baseDate: DateTime!
+    $companyId: String!
+    $organizationId: [String!]!
+  ) {
+    fetchVacationIssueBaseDate(
+      baseDate: $baseDate
+      companyId: $companyId
+      organizationId: $organizationId
+    ) {
       id
       startingPoint
       expirationDate
@@ -52,14 +73,16 @@ export const FETCH_V_I_BASE_DATE = gql`
   }
 `;
 
-export const FETCH_V_I_BASE_DATE_DELETE = gql`
+export const FETCH_VACATION_ISSUE_BASE_DELETE = gql`
   query fetchVacationIssueWithBaseDateDelete(
     $baseDate: DateTime!
     $companyId: String!
+    $organizationId: [String!]!
   ) {
     fetchVacationIssueWithBaseDateDelete(
       baseDate: $baseDate
       companyId: $companyId
+      organizationId: $organizationId
     ) {
       id
       startingPoint

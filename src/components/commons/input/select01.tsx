@@ -14,7 +14,7 @@ import Check01 from './check01';
 interface ISelectProps {
   register?: UseFormRegisterReturn;
   setValue?: UseFormSetValue<FieldValues>;
-  name: string;
+  name?: string;
   role?: string;
   left?: boolean;
   center?: boolean;
@@ -68,19 +68,19 @@ const Select01 = (props: ISelectProps) => {
     setIsOpen((prev) => !prev);
   };
 
-  const onChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
-    setKeyword(event.target.value);
+  const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setKeyword(e.target.value);
   };
   const label = (role: string | undefined) => {
     if (role === 'organization') {
-      return <Label>팀</Label>;
+      return <Label>조직</Label>;
     }
     if (role === 'duty') {
       return <Label>직무</Label>;
     }
   };
 
-  const onClickBackground = (e: MouseEvent) => {
+  const onClickBackground = (e: MouseEvent<HTMLDivElement>) => {
     if (e.currentTarget.id !== 'selectZone') {
       setIsOpen(false);
     }

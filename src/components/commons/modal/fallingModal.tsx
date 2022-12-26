@@ -104,7 +104,7 @@ const CustomModal = styled.div`
   height: fit-content;
   background-color: white;
 
-  min-width: ${(props: IStyle) => props.width}px;
+  min-width: ${(props: IStyle) => props.width};
   opacity: 0;
   animation: ${(props: IStyle) =>
     props.aniMode
@@ -148,7 +148,7 @@ const getBright = keyframes`
     background-color: rgba(0, 0, 0, 0.5);
   }
   50%{
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
   }
   to{
     background-color: transparent;
