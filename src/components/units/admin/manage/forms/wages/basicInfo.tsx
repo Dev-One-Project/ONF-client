@@ -1,4 +1,4 @@
-import InputLabel from '../common/inputLabel';
+import InputLabel from '../../../../../commons/inputLabel';
 import Footer from '../common/footer';
 import Memo from '../common/memo';
 import { IWagesProps } from './wages.types';

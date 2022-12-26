@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { TimePicker } from 'antd';
 import Footer from './common/footer';
 import { IFormProps } from './common/form.types';
-import InputLabel from './common/inputLabel';
+import InputLabel from '../../../../commons/inputLabel';
 import Memo from './common/memo';
 
 const { RangePicker } = TimePicker;
