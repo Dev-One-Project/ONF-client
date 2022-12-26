@@ -61,7 +61,7 @@ const ShiftTemplate = (props: IFormProps) => {
         >
           색깔
         </InputLabel>
-        <Memo register={props.register('memo')} textareaHeight={'4xrem'} />
+        <Memo register={props.register('memo')} textareaHeight={'4rem'} />
       </Wrapper>
       <Footer onCancel={props.onCancel} />
     </form>
