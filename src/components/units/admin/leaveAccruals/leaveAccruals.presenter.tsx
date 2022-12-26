@@ -116,9 +116,6 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
             <Select01
               data={props.organizationsData}
               role="organization"
-              setValue={props.setValue}
-              register={props.register('organization')}
-              name={'organization'}
               left
             />
           </S.OptBox>
@@ -189,9 +186,6 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
               data={props.organizationsData}
               role="organization"
               left
-              setValue={props.setValue}
-              register={props.register('organization')}
-              name={'organization'}
             />
           </S.OptBox>
           <S.OptBox>
