@@ -3,7 +3,6 @@ import moment from 'moment';
 import { IWeekData } from './schedule.types';
 import { useMemo, useState } from 'react';
 import ScheduleElementContainer from '../scheduleElement/scheduleElement.container';
-import { useRouter } from 'next/router';
 
 const newWeekData = (
   days: string,
@@ -28,7 +27,6 @@ const newWeekData = (
 };
 
 const ScheduleContainer = () => {
-  const router = useRouter();
   const [today, setToday] = useState(moment()); // 오늘
   const [dateArr, setDateArr] = useState<IWeekData[][]>([]);
   const dayData = [<ScheduleElementContainer key="first" />];
@@ -77,20 +75,10 @@ const ScheduleContainer = () => {
     setDateArr(result);
   }, [today, todayFirstWeek, todayLastWeek]);
 
-  const onClickCreateVacation = async () => {
-    await router.push('/user/vacation');
-  };
-
-  const onClickCreateWorking = async () => {
-    await router.push('/user/working');
-  };
-
   return (
     <SchedulePresenter
       dateArr={dateArr}
       dayData={dayData}
-      onClickCreateVacation={onClickCreateVacation}
-      onClickCreateWorking={onClickCreateWorking}
       MoveNextMonth={MoveNextMonth}
       MovePrevMonth={MovePrevMonth}
       today={today}

@@ -1,5 +1,3 @@
-import { FieldValues, UseFormRegister } from 'react-hook-form';
-
 export interface IUserHeaderProps {}
 
 export interface IUserLayoutProps extends IUserLayout {}

@@ -1,11 +1,11 @@
 import { CaretDownOutlined, CloseOutlined } from '@ant-design/icons';
-import * as S from './vacation.styles';
+import * as S from './createReq.styles';
 import Btn01 from '../../../commons/button/btn01';
 import { styleSet } from '../../../../commons/styles/styleSet';
-import { IVacationContainerProps } from './vacation.types';
-import VacationSelectComponent from './vacationSelect.presenter.';
+import VacationSelectComponent from './createReqSelect.presenter.';
+import { ICreateReqContainerProps } from './createReq.types';
 
-const VacationPresenter = (props: IVacationContainerProps) => {
+const CreateReqPresenter = (props: ICreateReqContainerProps) => {
   return (
     <S.MainWrapper>
       <S.HeaderWrapper>
@@ -48,7 +48,7 @@ const VacationPresenter = (props: IVacationContainerProps) => {
                 <></>
               )}
             </S.LabelSection>
-            <S.WorkingLabelSection>
+            <S.CreateReqLabelSection>
               <S.LabelStyle>근무일정 템플릿들</S.LabelStyle>
               <S.SelectWrapper onClick={props.onClickTemplate}>
                 선택안됨
@@ -65,7 +65,7 @@ const VacationPresenter = (props: IVacationContainerProps) => {
               ) : (
                 <></>
               )}
-            </S.WorkingLabelSection>
+            </S.CreateReqLabelSection>
           </section>
         </>
       ) : (
@@ -91,14 +91,14 @@ const VacationPresenter = (props: IVacationContainerProps) => {
         </>
       )}
 
-      <S.VacationMainWrapper>
+      <S.CreateReqMainWrapper>
         <S.CalendarWrapper>
           <S.RequireDateStyle>요청날짜</S.RequireDateStyle>
           <section>캘린더</section>
         </S.CalendarWrapper>
         {props.isWorking ? (
           <>
-            <S.VacationListWrapper>
+            <S.CreateReqListWrapper>
               <S.WorkingDateWrapper>
                 <S.WorkingDate>11/28 - 12/4</S.WorkingDate>
                 <S.TimeWrapper>
@@ -109,20 +109,20 @@ const VacationPresenter = (props: IVacationContainerProps) => {
                   <S.TimeRestStyle>소정: 40시간</S.TimeRestStyle>
                 </S.TimeWrapper>
               </S.WorkingDateWrapper>
-            </S.VacationListWrapper>
+            </S.CreateReqListWrapper>
           </>
         ) : (
           <>
-            <S.VacationListWrapper>
-              <S.VacationTotalWrapper>
+            <S.CreateReqListWrapper>
+              <S.CreateReqTotalWrapper>
                 <S.ArticleTitleWrapper>
                   <S.ArticleTitleStyle>12월 휴가 통계</S.ArticleTitleStyle>
                 </S.ArticleTitleWrapper>
-                <S.VacationContentsWrapper>
+                <S.CreateReqContentsWrapper>
                   <S.ListContentsWrapper>
-                    <S.ChangeVacationTitleStyle>
+                    <S.ChangeCreateReqTitleStyle>
                       휴가시간 변화
-                    </S.ChangeVacationTitleStyle>
+                    </S.ChangeCreateReqTitleStyle>
                     <span>0 8시간</span>
                   </S.ListContentsWrapper>
                   <S.ListContentsWrapper>
@@ -135,8 +135,8 @@ const VacationPresenter = (props: IVacationContainerProps) => {
                       입니다.
                     </span>
                   </S.ListContentsWrapper>
-                </S.VacationContentsWrapper>
-              </S.VacationTotalWrapper>
+                </S.CreateReqContentsWrapper>
+              </S.CreateReqTotalWrapper>
               <S.WorkingListWrapper>
                 <S.ArticleTitleWrapper>
                   <S.ArticleTitleStyle>근무 일정 목록</S.ArticleTitleStyle>
@@ -146,12 +146,12 @@ const VacationPresenter = (props: IVacationContainerProps) => {
                   <S.TimeofWorkingStyle>10:00~19:00</S.TimeofWorkingStyle>
                 </div>
               </S.WorkingListWrapper>
-            </S.VacationListWrapper>
+            </S.CreateReqListWrapper>
           </>
         )}
-      </S.VacationMainWrapper>
+      </S.CreateReqMainWrapper>
     </S.MainWrapper>
   );
 };
 
-export default VacationPresenter;
+export default CreateReqPresenter;

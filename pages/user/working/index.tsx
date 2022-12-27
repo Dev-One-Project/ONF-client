@@ -1,7 +1,7 @@
-import VacationContainer from '../../../src/components/units/user/vacation/vacation.container';
+import CreateReqContainer from '../../../src/components/units/user/createRequest/createReq.container';
 
 const WorkingPage = () => {
-  return <VacationContainer isWorking={true} />;
+  return <CreateReqContainer isWorking={true} />;
 };
 
 export default WorkingPage;

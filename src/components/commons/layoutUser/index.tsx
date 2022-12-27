@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { styleSet } from '../../../commons/styles/styleSet';
-import UserHeaderPage from './header';
-import { IUserLayoutProps } from './layout.types';
+import UserHeaderPage from '../layoutuser/header';
+import { IUserLayoutProps } from '../layoutuser/layout.types';
+import UserScheduleSideBar from '../layoutuser/sidebar/schedule';
 import UserAttendancesSideBar from './sidebar/attendances';
 
 import UserRequestSideBar from './sidebar/requests';
-import UserScheduleSideBar from './sidebar/schedule';
 
 const HIDDEN = ['/login'];
 const SCHEDULE = ['/user/schedule'];

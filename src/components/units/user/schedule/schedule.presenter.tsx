@@ -4,6 +4,7 @@ import * as S from './schedule.style';
 import Btn01 from '../../../commons/button/btn01';
 import { styleSet } from '../../../../commons/styles/styleSet';
 import ArrowSvg from '../../../commons/svg/arrows';
+import { useMoveToPage } from '../../../commons/hooks/useMoveToPage';
 
 const Calender = (props: IScheduleContainerProps) => {
   return (
@@ -42,6 +43,8 @@ const Calender = (props: IScheduleContainerProps) => {
 };
 
 const SchedulePresenter = (props: IScheduleContainerProps) => {
+  const { onClickMoveToPage } = useMoveToPage();
+
   return (
     <>
       <section>
@@ -71,7 +74,7 @@ const SchedulePresenter = (props: IScheduleContainerProps) => {
                 bdC="none"
                 color="white"
                 bgC={`${styleSet.colors.subColor02}`}
-                onClick={props.onClickCreateVacation}
+                onClick={onClickMoveToPage('/user/vacation')}
               />
             </S.BtnBox>
             <S.BtnBox>
@@ -80,7 +83,7 @@ const SchedulePresenter = (props: IScheduleContainerProps) => {
                 bdC="none"
                 color="white"
                 bgC={`${styleSet.colors.primary}`}
-                onClick={props.onClickCreateWorking}
+                onClick={onClickMoveToPage('/user/working')}
               />
             </S.BtnBox>
             <S.WorkingBtnBox>

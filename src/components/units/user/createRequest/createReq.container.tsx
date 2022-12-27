@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import VacationPresenter from './vacation.presenter';
-import { IVacationPageProps } from './vacation.types';
+import CreateReqPresenter from './createReq.presenter';
+import { ICreateReqPageProps } from './createReq.types';
 
-const VacationContainer = (props: IVacationPageProps) => {
+const CreateReqContainer = (props: ICreateReqPageProps) => {
   const [isPosition, setIsPosition] = useState(false);
   const [isTemplate, setIsTemplate] = useState(false);
   const [isVacation, setIsVacation] = useState(false);
@@ -26,7 +26,7 @@ const VacationContainer = (props: IVacationPageProps) => {
   };
 
   return (
-    <VacationPresenter
+    <CreateReqPresenter
       onClickCancel={onClickCancel}
       isWorking={props.isWorking}
       isPosition={isPosition}
@@ -39,4 +39,4 @@ const VacationContainer = (props: IVacationPageProps) => {
   );
 };
 
-export default VacationContainer;
+export default CreateReqContainer;
