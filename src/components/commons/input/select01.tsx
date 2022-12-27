@@ -27,10 +27,7 @@ interface ISelectProps {
   center?: boolean;
   noSearch?: boolean;
   data?: InputData[];
-  defaultChecked?: Array<{
-    id: string;
-    name: string;
-  }>;
+  defaultChecked?: InputData[];
   textFillMode?: boolean;
 }
 
