@@ -1,4 +1,4 @@
-export interface IVacationContainerProps {
+export interface ICreateReqContainerProps {
   onClickPositionOpen: () => void;
   onClickCancel: () => void;
   onClickTemplate: () => void;
@@ -9,11 +9,11 @@ export interface IVacationContainerProps {
   isVacation: boolean;
 }
 
-export interface IVacationPageProps {
+export interface ICreateReqPageProps {
   isWorking: boolean;
 }
 
-export interface IVacationSelectComponentProps {
+export interface ICreateReqSelectComponentProps {
   isTemplate: boolean;
   isPosition: boolean;
   isVacation: boolean;

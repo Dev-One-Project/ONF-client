@@ -68,7 +68,7 @@ export const SelectWrapper = styled.div`
   max-width: 150px;
 `;
 
-export const WorkingLabelSection = styled.section`
+export const CreateReqLabelSection = styled.section`
   display: flex;
   flex-direction: column;
   padding: 0 1rem;
@@ -99,7 +99,7 @@ export const LabelStyle = styled.label`
   font-family: ${styleSet.fonts.B};
 `;
 
-export const VacationMainWrapper = styled.div`
+export const CreateReqMainWrapper = styled.div`
   display: flex;
   padding-top: 2rem;
 `;
@@ -113,7 +113,7 @@ export const CalendarWrapper = styled.div`
   width: 35%;
 `;
 
-export const VacationListWrapper = styled.section`
+export const CreateReqListWrapper = styled.section`
   display: flex;
   flex-direction: column;
   padding: 0 1rem;
@@ -137,9 +137,9 @@ export const ArticleTitleWrapper = styled.div`
   border-bottom: 1px solid ${styleSet.colors.gray};
 `;
 
-export const VacationTotalWrapper = styled.article``;
+export const CreateReqTotalWrapper = styled.article``;
 
-export const ChangeVacationTitleStyle = styled.span`
+export const ChangeCreateReqTitleStyle = styled.span`
   margin-right: 1.5rem;
   font-family: ${styleSet.fonts.B};
   font-size: ${styleSet.fontSizes.small};
@@ -150,7 +150,7 @@ export const GroupOfVacationStyle = styled.span`
   font-size: ${styleSet.fontSizes.small};
 `;
 
-export const VacationContentsWrapper = styled.div`
+export const CreateReqContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   line-height: 1.5;
