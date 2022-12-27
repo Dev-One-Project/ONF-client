@@ -1,7 +1,13 @@
 import { SearchOutlined } from '@ant-design/icons';
 import styled from '@emotion/styled';
 import { Divider } from 'antd';
-import { ChangeEvent, MouseEvent, useCallback, useState } from 'react';
+import {
+  ChangeEvent,
+  MouseEvent,
+  SetStateAction,
+  useCallback,
+  useState,
+} from 'react';
 import {
   FieldValues,
   UseFormRegisterReturn,
@@ -14,14 +20,23 @@ import Check01 from './check01';
 interface ISelectProps {
   register?: UseFormRegisterReturn;
   setValue?: UseFormSetValue<FieldValues>;
+  setState?: SetStateAction<any>;
   name?: string;
   role?: string;
   left?: boolean;
   center?: boolean;
   noSearch?: boolean;
-  data?: string[];
-  defaultChecked?: string[];
+  data?: InputData[];
+  defaultChecked?: Array<{
+    id: string;
+    name: string;
+  }>;
   textFillMode?: boolean;
+}
+
+interface InputData {
+  id: string;
+  name: string;
 }
 
 interface IStyle {
@@ -32,12 +47,12 @@ interface IStyle {
 
 const Select01 = (props: ISelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [saveChecked, setSaveChecked] = useState<string[]>(
+  const [saveChecked, setSaveChecked] = useState<InputData[]>(
     props.defaultChecked && props.defaultChecked.length > 0
       ? props.defaultChecked
       : [],
   );
-  const [checkedList, setCheckedList] = useState<string[]>(
+  const [checkedList, setCheckedList] = useState<InputData[]>(
     props.defaultChecked && props.defaultChecked.length > 0
       ? props.defaultChecked
       : [],
@@ -47,7 +62,7 @@ const Select01 = (props: ISelectProps) => {
   const onCheckedAll = useCallback(
     (checked) => {
       if (checked) {
-        const checkedListArray: string[] = [];
+        const checkedListArray: InputData[] = [];
         props.data?.forEach((list) => checkedListArray.push(list));
         setCheckedList(checkedListArray);
       } else setCheckedList([]);
@@ -94,6 +109,7 @@ const Select01 = (props: ISelectProps) => {
     setSaveChecked(checkedList);
     props.setValue?.(props.name, checkedList);
     setIsOpen(false);
+    props.setState?.(checkedList);
   };
 
   return (
@@ -110,7 +126,7 @@ const Select01 = (props: ISelectProps) => {
           {checkedList.length ? (
             <span>
               {props.textFillMode
-                ? checkedList.join(',')
+                ? checkedList.map((data) => data.name).join(',')
                 : `${checkedList.length} 선택됨`}
             </span>
           ) : props.data?.length ? (
@@ -152,11 +168,11 @@ const Select01 = (props: ISelectProps) => {
                 <Divider style={{ margin: '0.5rem 0' }} />
                 {props.data && props.data.length > 0
                   ? props.data
-                      ?.filter((el) => el.includes(keyword))
+                      .filter((el) => el.name.includes(keyword))
                       .map((el) => (
                         <Check01
-                          key={el}
-                          text={el}
+                          key={el.id}
+                          text={el.name}
                           checked={checkedList.includes(el)}
                           onChange={(event) =>
                             onCheckedElement(event.target.checked, el)
