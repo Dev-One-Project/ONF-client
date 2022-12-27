@@ -1,7 +1,7 @@
 import * as S from './createReq.styles';
 import { ICreateReqSelectComponentProps } from './createReq.types';
 
-const VacationSelectComponent = (props: ICreateReqSelectComponentProps) => {
+const CreateReqSelectComponent = (props: ICreateReqSelectComponentProps) => {
   if (props.isTemplate) {
     return (
       <>
@@ -33,4 +33,4 @@ const VacationSelectComponent = (props: ICreateReqSelectComponentProps) => {
   return <></>;
 };
 
-export default VacationSelectComponent;
+export default CreateReqSelectComponent;

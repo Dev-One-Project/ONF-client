@@ -2,8 +2,8 @@ import { CaretDownOutlined, CloseOutlined } from '@ant-design/icons';
 import * as S from './createReq.styles';
 import Btn01 from '../../../commons/button/btn01';
 import { styleSet } from '../../../../commons/styles/styleSet';
-import VacationSelectComponent from './createReqSelect.presenter.';
 import { ICreateReqContainerProps } from './createReq.types';
+import CreateReqSelectComponent from './createReqSelect.presenter.';
 
 const CreateReqPresenter = (props: ICreateReqContainerProps) => {
   return (
@@ -37,7 +37,7 @@ const CreateReqPresenter = (props: ICreateReqContainerProps) => {
               {props.isPosition ? (
                 <>
                   <div>
-                    <VacationSelectComponent
+                    <CreateReqSelectComponent
                       isPosition={props.isPosition}
                       isTemplate={false}
                       isVacation={false}
@@ -56,7 +56,7 @@ const CreateReqPresenter = (props: ICreateReqContainerProps) => {
               </S.SelectWrapper>
               {props.isTemplate ? (
                 <>
-                  <VacationSelectComponent
+                  <CreateReqSelectComponent
                     isPosition={false}
                     isTemplate={props.isTemplate}
                     isVacation={false}
@@ -78,7 +78,7 @@ const CreateReqPresenter = (props: ICreateReqContainerProps) => {
             </S.SelectWrapper>
             {props.isVacation ? (
               <>
-                <VacationSelectComponent
+                <CreateReqSelectComponent
                   isTemplate={false}
                   isPosition={false}
                   isVacation={props.isVacation}
