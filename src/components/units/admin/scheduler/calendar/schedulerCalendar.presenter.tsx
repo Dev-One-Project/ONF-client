@@ -55,12 +55,24 @@ const SchedulerCalendarPresenter = (props: ISchedulerCalendarProps) => {
             <S.DateLabel>{props.currentMonth}</S.DateLabel>
           </S.OptSectionWrapper>
           <S.OptSectionWrapper>
-            <Select01 data={['이다은', '바보', '멍충이']} role="organization" />
+            <Select01
+              data={props.initOption?.organization}
+              setState={props.setSelectOrganization}
+              defaultChecked={props.initOption?.organization}
+              name={'organization'}
+              role="organization"
+            />
           </S.OptSectionWrapper>
         </S.OptBox>
         <S.OptBox>
           <S.OptSectionWrapper>
-            <Select01 data={['이다은', '바보', '멍충이']} role="duty" />
+            <Select01
+              data={props.initOption?.roleCategory}
+              setState={props.setSelectRoleCategory}
+              defaultChecked={props.initOption?.roleCategory}
+              name={'duty'}
+              role="duty"
+            />
             <S.FuncButton>모두 펼치기</S.FuncButton>
           </S.OptSectionWrapper>
         </S.OptBox>
