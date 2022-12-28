@@ -25,3 +25,12 @@ export const WriteTop = styled.div`
     width: 20%;
   }
 `;
+
+export const Form = styled.form`
+  padding-bottom: 2.5rem;
+  width: 100%;
+  height: 100%;
+`;
+export const InvisibleBtn = styled.button`
+  display: none;
+`;

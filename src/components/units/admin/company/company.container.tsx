@@ -20,17 +20,17 @@ const CompanyContainer = () => {
   const [updateGlobalConfig] = useMutation(UPDATE_GLOBAL_CONFIG);
   const { data: fetchCompany } = useQuery(FETCH_COMPANY, {
     variables: {
-      companyId: '64254cf0-ed54-4511-ab0f-5da7e7b694bc',
+      companyId: '00b9f2a4-86e7-4071-9b69-35163bdd8998',
     },
   });
   const { data: fetchHoliday } = useQuery(FETCH_HOLIDAY, {
     variables: {
-      companyId: '64254cf0-ed54-4511-ab0f-5da7e7b694bc',
+      companyId: '00b9f2a4-86e7-4071-9b69-35163bdd8998',
     },
   });
 
   const onClickUpdate = async (data: any) => {
-    let resultUrl = fetchCompany.fetchCompany.logoUrl;
+    let resultUrl = fetchCompany.fetchCompany?.logoUrl;
     if (getValues('logoUrl')) {
       resultUrl = await uploadSingleFile({
         variables: {
@@ -39,7 +39,7 @@ const CompanyContainer = () => {
       });
     }
 
-    fetchHoliday.fetchHoliday.dateName
+    fetchHoliday?.fetchHoliday?.dateName
       ? await updateHoliday({
           variables: {
             createHolidayInput: {
@@ -59,7 +59,7 @@ const CompanyContainer = () => {
 
     await updateCompany({
       variables: {
-        companyId: '64254cf0-ed54-4511-ab0f-5da7e7b694bc',
+        companyId: '00b9f2a4-86e7-4071-9b69-35163bdd8998',
         updateCompanyInput: {
           name: data.name,
           logoUrl: resultUrl.data.url,
