@@ -21,10 +21,6 @@ const ManageSidebarComponent = () => {
     { label: '근무일정 유형', path: 'shift-types' },
     { label: '근무일정 템플릿', path: 'shift-template' },
     { label: '휴가 유형', path: 'leave-types' },
-    { label: '휴가 발생 규칙', path: 'leave-accural-rule' },
-    { label: '스케쥴 패턴', path: 'schedule-patterns' },
-    { label: '커스텀 요청 유형', path: 'custom-request-types' },
-    { label: '승인 규칙', path: 'request-approval-rules' },
   ];
 
   const onClickChangeTab = (path: string) => async () => {
@@ -66,7 +62,7 @@ const TabContainer = styled.ul`
 
 const Tab = styled.li`
   display: block;
-  padding: 0.5rem 1.5rem;
+  padding: 0.75rem 1.5rem 0.5rem 1.5rem;
   cursor: pointer;
   transition: all 0.3s ease;
   :hover {

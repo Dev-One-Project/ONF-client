@@ -43,7 +43,7 @@ const MaximumLaborRules = (props: IWagesProps) => {
               </Select>
             </InputBox>
           </FormContent>
-          <Check01 text="휴일 포함" />
+          <Check01 text="휴일 포함" register={props.register('includeOff')} />
         </>
       )}
       <Footer onCancel={props.onCancel} />

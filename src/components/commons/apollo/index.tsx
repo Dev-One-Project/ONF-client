@@ -17,7 +17,8 @@ interface IApolloSettingProps {
 }
 
 export default function ApolloSetting(props: IApolloSettingProps) {
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+  const [accessToken, setAccessToken] =
+    useRecoilState<string>(accessTokenState);
 
   useEffect(() => {
     void getAccessToken().then((newAccessToken: string) => {

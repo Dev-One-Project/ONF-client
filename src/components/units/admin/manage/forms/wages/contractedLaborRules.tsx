@@ -95,18 +95,26 @@ const Select = styled.select`
   outline: none;
   border: 1px solid ${styleSet.colors.gray};
   padding: 0.5rem;
+  transition: all 0.3s ease-in-out;
+  :focus {
+    border: 1px solid ${styleSet.colors.primary};
+  }
 `;
 
 const HourBox = styled.div`
   display: flex;
-  border: 1px solid ${styleSet.colors.gray};
 `;
 
 const HourInput = styled.input`
   width: 5rem;
   padding: 0.5rem;
   outline: none;
-  border: none;
+  border: 1px solid ${styleSet.colors.gray};
+
+  transition: all 0.3s ease-in-out;
+  :focus {
+    border: 1px solid ${styleSet.colors.primary};
+  }
 `;
 
 const LabelPerHour = styled.label`
@@ -115,5 +123,6 @@ const LabelPerHour = styled.label`
   align-items: center;
   padding: 0.5rem;
   background-color: ${styleSet.colors.lightGray};
-  border-left: 1px solid ${styleSet.colors.gray};
+  border: 1px solid ${styleSet.colors.gray};
+  border-left: none;
 `;

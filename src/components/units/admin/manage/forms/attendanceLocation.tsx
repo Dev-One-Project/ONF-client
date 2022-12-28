@@ -1,14 +1,15 @@
 import { WifiOutlined } from '@ant-design/icons';
 import styled from '@emotion/styled';
 import axios from 'axios';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { styleSet } from '../../../../../commons/styles/styleSet';
 import Check01 from '../../../../commons/input/check01';
 import Input01 from '../../../../commons/input/input01';
-import Textarea from '../../../../commons/textarea';
 import Footer from './common/footer';
 import Label from './common/label';
 import { IFormProps } from './common/form.types';
+import InputLabel from '../../../../commons/inputLabel';
+import Memo from './common/memo';
 
 // API 키값 env로 ??
 const API_KEY = '726352a79674495788faaade6bbbb04d';
@@ -16,36 +17,40 @@ const API_KEY = '726352a79674495788faaade6bbbb04d';
 const AttendanceLocation = (props: IFormProps) => {
   const [positionTab, setPositionTab] = useState(false);
   const [wifiTab, setWifiTab] = useState(false);
+  const [ip, setIp] = useState('');
 
-  const getMyIp = async () => {
+  useEffect(() => {
     const getIp = async () => {
       await axios
         .get(`https://ipgeolocation.abstractapi.com/v1/?api_key=${API_KEY}`)
-        .then((res) => props.setValue?.('ip', res.data.ip_address));
+        .then((res) => setIp(res.data.ip_address));
     };
-    await getIp();
-  };
+    void getIp();
+  }, []);
+
+  const { setValue } = props;
+
+  const paintIp = useCallback(() => {
+    setValue?.('ip', ip);
+  }, [ip, setValue]);
+
   return (
     <form onSubmit={props.handleSubmit(props.onSubmit)}>
       <Wrapper>
-        <FormContent>
-          <Label for="name">출퇴근 장소명</Label>
-          <Input01
-            register={props.register('name')}
-            width="10rem"
-            type="text"
-            id="name"
-          />
-        </FormContent>
-        <FormContent>
-          <Label for="address">근무지 주소</Label>
-          <Input01
-            register={props.register('address')}
-            width="10rem"
-            type="text"
-            id="address"
-          />
-        </FormContent>
+        <InputLabel
+          register={props.register('name')}
+          type="text"
+          name="attendanceLocationName"
+        >
+          출퇴근 장소명
+        </InputLabel>
+        <InputLabel
+          register={props.register('address')}
+          type="text"
+          name="workAddress"
+        >
+          근무지 주소
+        </InputLabel>
         <FormContent>
           <Label for="method">출퇴근 수단</Label>
           <CheckBoxWrapper>
@@ -56,7 +61,6 @@ const AttendanceLocation = (props: IFormProps) => {
             <Check01 text="WiFi" onChange={() => setWifiTab((prev) => !prev)} />
           </CheckBoxWrapper>
         </FormContent>
-
         {positionTab && (
           <ConditionalTab>
             <FormContent>
@@ -72,13 +76,12 @@ const AttendanceLocation = (props: IFormProps) => {
             </KakaoMapWrapper>
           </ConditionalTab>
         )}
-
         {wifiTab && (
           <ConditionalTab>
             <FormContent style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Label for="wifi">WiFi IP주소</Label>
               <WifiBox>
-                <WifiButton type="button" onClick={getMyIp}>
+                <WifiButton type="button" onClick={paintIp}>
                   <WifiOutlined />
                 </WifiButton>
                 <Input01
@@ -91,14 +94,7 @@ const AttendanceLocation = (props: IFormProps) => {
             </FormContent>
           </ConditionalTab>
         )}
-
-        <FormContent>
-          <Label for="memo">메모</Label>
-          <Textarea
-            register={props.register('memo')}
-            placeholder="메모 입력"
-          ></Textarea>
-        </FormContent>
+        <Memo register={props.register('memo')} />
       </Wrapper>
       <Footer onCancel={props.onCancel} />
     </form>

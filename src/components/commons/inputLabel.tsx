@@ -5,7 +5,7 @@ import {
   UseFormSetValue,
 } from 'react-hook-form';
 import Input01 from './input/input01';
-import Select01 from './input/select01';
+import Select01, { InputData } from './input/select01';
 import Label from '../units/admin/manage/forms/common/label';
 
 interface IInputLabelProps {
@@ -13,7 +13,7 @@ interface IInputLabelProps {
   type: string;
   name: string;
   register?: UseFormRegisterReturn;
-  data?: string[];
+  data?: InputData[];
   setValue?: UseFormSetValue<FieldValues>;
   defaultChecked?: any[];
   textFillMode?: boolean;
@@ -59,4 +59,8 @@ const FormContent = styled.div`
   display: flex;
   align-items: center;
   gap: 2rem;
+
+  input[type='color'] {
+    padding: 0;
+  }
 `;

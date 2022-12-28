@@ -101,10 +101,12 @@ const Wrapper = styled.div`
 const CustomModal = styled.div`
   position: relative;
   top: 2rem;
+  max-width: 90%;
   height: fit-content;
   background-color: white;
 
-  min-width: ${(props: IStyle) => props.width};
+  max-width: ${(props: IStyle) => props.width};
+
   opacity: 0;
   animation: ${(props: IStyle) =>
     props.aniMode
