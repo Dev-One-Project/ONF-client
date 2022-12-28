@@ -37,12 +37,10 @@ const SchedulerCalendarContainer = () => {
   >([]);
   const [initOption, setInitOption] = useState<InitData | undefined>();
   const [identification, setIdentification] = useState<IAccount>();
-  const [accessToken] = useRecoilState(accessTokenState);
   console.log('initOption', initOption);
   console.log('selectOrganization', selectOrganization);
   console.log('selectRoleCategory', selectRoleCategory);
   console.log('identification', identification);
-  console.log('accessToken', accessToken);
 
   // graphql query
   const [getCategory, { data: roleCategory }] = useLazyQuery<
