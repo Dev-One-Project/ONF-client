@@ -31,7 +31,7 @@ interface ISelectProps {
   textFillMode?: boolean;
 }
 
-interface InputData {
+export interface InputData {
   id: string;
   name: string;
 }
@@ -43,6 +43,7 @@ interface IStyle {
 }
 
 const Select01 = (props: ISelectProps) => {
+  if (props.setState) props.register = undefined;
   const [isOpen, setIsOpen] = useState(false);
   const [saveChecked, setSaveChecked] = useState<InputData[]>(
     props.defaultChecked && props.defaultChecked.length > 0
@@ -54,6 +55,7 @@ const Select01 = (props: ISelectProps) => {
       ? props.defaultChecked
       : [],
   );
+
   const [keyword, setKeyword] = useState('');
 
   const onCheckedAll = useCallback(
@@ -68,9 +70,9 @@ const Select01 = (props: ISelectProps) => {
   );
 
   const onCheckedElement = useCallback(
-    (checked, list) => {
-      if (checked) setCheckedList([...checkedList, list]);
-      else setCheckedList(checkedList.filter((el) => el !== list));
+    (checked, selectedTarget) => {
+      if (checked) setCheckedList([...checkedList, selectedTarget]);
+      else setCheckedList(checkedList.filter((el) => el !== selectedTarget));
     },
     [checkedList],
   );
@@ -100,13 +102,17 @@ const Select01 = (props: ISelectProps) => {
   };
 
   const onClickSaveChecked = () => {
-    if (props.name === undefined) {
-      throw Error('props.name의 값이 undefined 입니다.');
-    }
+    if (props.setState === undefined) {
+      if (props.name === undefined) {
+        throw Error('name 속성이 선언되지 않았습니다.');
+      }
+      if (props.setValue === undefined) {
+        throw Error('setValue 속성이 선언되지 않았습니다.');
+      }
+      props.setValue?.(props.name, checkedList);
+    } else props.setState?.(checkedList);
     setSaveChecked(checkedList);
-    props.setValue?.(props.name, checkedList);
     setIsOpen(false);
-    props.setState?.(checkedList);
   };
 
   return (
@@ -170,7 +176,11 @@ const Select01 = (props: ISelectProps) => {
                         <Check01
                           key={el.id}
                           text={el.name}
-                          checked={checkedList.includes(el)}
+                          checked={
+                            checkedList.filter(
+                              (listItem) => listItem.id === el.id,
+                            ).length > 0
+                          }
                           onChange={(event) =>
                             onCheckedElement(event.target.checked, el)
                           }

@@ -8,7 +8,6 @@ import Memo from './common/memo';
 const { RangePicker } = TimePicker;
 
 const ShiftTemplate = (props: IFormProps) => {
-  const format = 'HH:mm';
   return (
     <form onSubmit={props.handleSubmit(props.onSubmit)}>
       <Wrapper>
@@ -22,12 +21,23 @@ const ShiftTemplate = (props: IFormProps) => {
         <InputLabel
           type="custom"
           name="time"
-          customInput={<RangePicker format={format} />}
+          customInput={
+            <RangePicker
+              onChange={(data: any) => {
+                props.setValue?.('startTime', data?.[0]?.$d);
+                props.setValue?.('endTime', data?.[1]?.$d);
+              }}
+              format={'HH:mm'}
+            />
+          }
         >
           시간
         </InputLabel>
         <InputLabel
-          data={['오전 근무', '야간 근무']}
+          data={[
+            { id: '오전 근무', name: '오전 근무' },
+            { id: '야간 근무', name: '야간 근무' },
+          ]}
           register={props.register('shiftTypes')}
           setValue={props.setValue}
           type="select"
@@ -36,7 +46,10 @@ const ShiftTemplate = (props: IFormProps) => {
           근무일정 유형
         </InputLabel>
         <InputLabel
-          data={['패스트 파이브', '영등포구청']}
+          data={[
+            { id: '패스트 파이브', name: '패스트 파이브' },
+            { id: '영등포구청', name: '영등포구청' },
+          ]}
           register={props.register('organization')}
           setValue={props.setValue}
           type="select"
@@ -45,7 +58,10 @@ const ShiftTemplate = (props: IFormProps) => {
           지점
         </InputLabel>
         <InputLabel
-          data={['프론트엔드', '백엔드']}
+          data={[
+            { id: '프론트엔드', name: '프론트엔드' },
+            { id: '백엔드', name: '백엔드' },
+          ]}
           register={props.register('duty')}
           setValue={props.setValue}
           type="select"
