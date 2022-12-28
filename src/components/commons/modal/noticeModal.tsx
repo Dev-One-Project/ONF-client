@@ -21,7 +21,16 @@ const NoticeModal = () => {
   return (
     <>
       {isOpen && (
-        <Background>
+        <Background
+          onClick={(e) => {
+            e.stopPropagation();
+            const target = e.target as HTMLDivElement;
+            const className =
+              target.className !== null ? String(target.className) : '';
+            if (className.includes('backgroud')) onClickOpen();
+          }}
+          className="backgroud"
+        >
           <Container>
             {!isWrite && <NoticeListContainer />}
             {isWrite && <WriteContainer createUpdateRef={createUpdateRef} />}
