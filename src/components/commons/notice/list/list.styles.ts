@@ -56,6 +56,12 @@ export const DateStyle = styled.span`
   color: ${styleSet.colors.darkGray};
 `;
 
+export const BtnWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+`;
+
 // detail
 
 export const DetailTop = styled.div`

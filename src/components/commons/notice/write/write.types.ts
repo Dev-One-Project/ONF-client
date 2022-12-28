@@ -1,9 +1,9 @@
 import { MutableRefObject } from 'react';
 import {
-  FieldValues,
   FormState,
-  UseFormHandleSubmit,
+  FieldValues,
   UseFormRegister,
+  UseFormHandleSubmit,
 } from 'react-hook-form';
 
 export interface IWritePresenterProps {
@@ -12,10 +12,22 @@ export interface IWritePresenterProps {
   register: UseFormRegister<FieldValues>;
   handleSubmit: UseFormHandleSubmit<FieldValues>;
   formState: FormState<FieldValues>;
+  onClickCreate: (data: any) => Promise<void>;
+  onClickUpdate: (data: any) => Promise<void>;
+  isEdit?: boolean;
+  createUpdateRef?: any;
+  // createUpdateRef:
+  //   | LegacyRef<HTMLButtonElement | undefined>
+  //   | MutableRefObject<HTMLButtonElement | undefined>;
 }
 
 export interface IEditorPageProps {
   contentsRef: MutableRefObject<any> | undefined;
   onChangeContents: (text: any) => void;
   initialValue?: string | undefined;
+}
+
+export interface IWriteContainerProps {
+  createUpdateRef: MutableRefObject<HTMLButtonElement | undefined>;
+  isEdit?: boolean;
 }
