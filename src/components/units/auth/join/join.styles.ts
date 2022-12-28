@@ -77,7 +77,7 @@ export const Data = styled.data`
   gap: 5px;
   flex-direction: column;
   align-content: space-between;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   position: relative;
   overflow: hidden;
 
@@ -211,4 +211,95 @@ export const H2 = styled.h2`
   font-family: ${styleSet.fonts.EB};
   font-size: ${styleSet.fontSizes.subTitle};
   text-align: center;
+`;
+
+export const ChooseCompany = styled.ul`
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  li {
+    padding: 1rem;
+    border: 2px dashed ${styleSet.colors.subColor05};
+    width: calc(100% / 2 - 10px);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      background: ${styleSet.colors.subColor05};
+      color: ${styleSet.colors.fail};
+    }
+  }
+  span {
+    margin-left: 0.3rem;
+    font-family: ${styleSet.fonts.B};
+  }
+  p {
+    padding-top: 0.5rem;
+  }
+`;
+
+export const ChooseModal = styled.section`
+  div {
+    margin-bottom: 1rem;
+    p {
+      font-family: ${styleSet.fonts.B};
+      &:last-of-type {
+        margin-bottom: 2rem;
+      }
+    }
+  }
+  ul {
+    border-bottom: 1px solid ${styleSet.colors.gray};
+    margin-bottom: 1rem;
+    li {
+      display: flex;
+      align-items: center;
+      padding-bottom: 1rem;
+
+      &:last-of-type {
+        margin-bottom: 2rem;
+      }
+      span {
+        width: 100px;
+      }
+      input {
+        width: 180px;
+      }
+      select {
+        height: 40px !important;
+        padding-inline: 0.5rem;
+      }
+    }
+  }
+`;
+
+export const ChooseModal2 = styled.section`
+  p {
+    color: ${styleSet.colors.darkGray};
+    padding-bottom: 2rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid ${styleSet.colors.gray};
+  }
+  div {
+    padding-block: 1rem;
+    display: flex;
+    align-items: center;
+    span {
+      width: 100px;
+    }
+    input {
+      width: 180px;
+    }
+  }
+`;
+
+export const ButtonBox = styled.article`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+export const SelectPeople = styled.select`
+  width: 285px;
 `;

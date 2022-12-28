@@ -87,6 +87,7 @@ const Input = styled.input`
   border: 1px solid ${styleSet.colors.gray};
   transition: all 0.3s ease;
   outline: none;
+
   :focus {
     border: 1px solid ${styleSet.colors.primary};
   }
