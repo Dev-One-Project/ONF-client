@@ -52,7 +52,13 @@ const AdminProfileUI = (props: IAdminProfileProps) => {
               register={props.register('organization')}
               setValue={props.setValue}
               name={'oranization'}
-              data={['BUSKER', 'ZERO9', 'WETREKKING'] || undefined}
+              data={
+                [
+                  { id: '1', name: 'BUSKER' },
+                  { id: '2', name: 'WeTrekking' },
+                  { id: '3', name: 'Zero9' },
+                ] || undefined
+              }
             />
           </S.FormContents>
           <S.FormContents>

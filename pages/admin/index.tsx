@@ -4,8 +4,8 @@ import { useEffect } from 'react';
 const AdminPage = () => {
   const router = useRouter();
   useEffect(() => {
-    router.push('/admin/home');
-  }, []);
+    router.push('/admin/home').catch(() => {});
+  });
   return <div>안녕해새요~ 어떻게 들어오션나용</div>;
 };
 

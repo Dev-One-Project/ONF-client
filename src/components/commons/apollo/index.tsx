@@ -23,7 +23,7 @@ export default function ApolloSetting(props: IApolloSettingProps) {
     void getAccessToken().then((newAccessToken: string) => {
       setAccessToken(newAccessToken);
     });
-  }, []);
+  });
 
   const errorLink = onError(({ graphQLErrors, operation, forward }) => {
     if (graphQLErrors) {

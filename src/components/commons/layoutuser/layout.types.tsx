@@ -1,4 +1,6 @@
-export interface IUserHeaderProps {}
+export interface IUserHeaderProps {
+  children?: JSX.Element;
+}
 
 export interface IUserLayoutProps extends IUserLayout {}
 

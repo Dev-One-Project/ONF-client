@@ -17,7 +17,10 @@ const LeaveTypes = (props: IFormProps) => {
           이름
         </InputLabel>
         <InputLabel
-          data={['패파', '우리집']}
+          data={[
+            { id: '1234', name: '패파' },
+            { id: '1234', name: '우리집' },
+          ]}
           register={props.register('organization')}
           setValue={props.setValue}
           type="select"
@@ -27,7 +30,10 @@ const LeaveTypes = (props: IFormProps) => {
           지점
         </InputLabel>
         <InputLabel
-          data={['프론트엔드', '백엔드']}
+          data={[
+            { id: '1234', name: '프론트엔드' },
+            { id: '1234', name: '백엔드' },
+          ]}
           register={props.register('duty')}
           setValue={props.setValue}
           type="select"

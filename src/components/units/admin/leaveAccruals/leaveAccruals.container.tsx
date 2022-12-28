@@ -29,8 +29,8 @@ const LeaveAccrualsContainer = () => {
   const [isMemberOpen, setIsMemberOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [aniMode, setAniMode] = useState(false);
-  const [baseDate, setBaseDate] = useState(date);
-  const [startEndDate, setStartEndDate] = useState([
+  const [baseDate] = useState(date);
+  const [, setStartEndDate] = useState([
     new Date(date.getFullYear(), date.getMonth(), 1),
     new Date(date.getFullYear(), date.getMonth() + 1, 0),
   ]);

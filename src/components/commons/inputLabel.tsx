@@ -13,9 +13,9 @@ interface IInputLabelProps {
   type: string;
   name: string;
   register?: UseFormRegisterReturn;
-  data?: string[];
+  data?: Array<{ id: string; name: string }>;
   setValue?: UseFormSetValue<FieldValues>;
-  defaultChecked?: any[];
+  defaultChecked?: Array<{ id: string; name: string }>;
   textFillMode?: boolean;
   noSearch?: boolean;
   labelWidth?: string;

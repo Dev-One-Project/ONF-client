@@ -31,7 +31,13 @@ const SchedulerListPresenter = (props: ISchedulerListProps) => {
             {/* 필터 추가 */}
           </S.OptSectionWrapper>
           <S.OptSectionWrapper>
-            <Select01 data={['이다은', '바보', '멍충이']} role="organization" />
+            <Select01
+              data={[
+                { id: '1', name: '이다은' },
+                { id: '2', name: '바보' },
+              ]}
+              role="organization"
+            />
           </S.OptSectionWrapper>
         </S.OptBox>
         <S.OptBox>

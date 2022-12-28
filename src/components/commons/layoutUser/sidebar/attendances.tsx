@@ -1,7 +1,7 @@
 import { DatePicker, Space } from 'antd';
 import Check01 from '../../input/check01';
-import { IUserSideBar } from '../../layoutuser/layout.types';
-import * as S from '../../layoutuser/layout.styles';
+import { IUserSideBar } from '../../layoutUser/layout.types';
+import * as S from '../../layoutUser/layout.styles';
 
 const UserAttendancesSideBar = (props: IUserSideBar) => {
   return (

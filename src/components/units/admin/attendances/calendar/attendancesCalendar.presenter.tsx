@@ -27,7 +27,7 @@ const AttendancesCalendarPresenter = (
             <S.Input placeholder="필터" />
           </S.OptSelect>
           <Select01
-            data={['이다은', '바보', '멍충이']}
+            data={[{ id: '1234', name: '이다은' }]}
             role="organization"
             left
           />

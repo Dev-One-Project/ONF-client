@@ -22,7 +22,10 @@ const OrganizationForm = (props: IFormProps) => {
             name="location"
             setValue={props.setValue}
             register={props.register('location')}
-            data={['패파', '희현님집']}
+            data={[
+              { id: '1234', name: '패파' },
+              { id: '1234', name: '희현님집' },
+            ]}
           />
         </FormContent>
         <FormContent>

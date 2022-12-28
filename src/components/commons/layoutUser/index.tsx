@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { styleSet } from '../../../commons/styles/styleSet';
-import UserHeaderPage from '../layoutuser/header';
-import { IUserLayoutProps } from '../layoutuser/layout.types';
-import UserScheduleSideBar from '../layoutuser/sidebar/schedule';
+import UserHeaderPage from '../layoutUser/header';
+import { IUserLayoutProps } from '../layoutUser/layout.types';
+import UserScheduleSideBar from '../layoutUser/sidebar/schedule';
 import UserAttendancesSideBar from './sidebar/attendances';
 
 import UserRequestSideBar from './sidebar/requests';

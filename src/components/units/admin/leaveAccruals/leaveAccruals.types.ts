@@ -33,4 +33,5 @@ export interface ILeaveAccrualsPresenterProps {
   isMemberOpen: boolean;
   onClickCloseList: () => void;
   setValue: UseFormSetValue<FieldValues>;
+  optionalFetch: any;
 }

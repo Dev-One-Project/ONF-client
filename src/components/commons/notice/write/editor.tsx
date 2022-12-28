@@ -4,9 +4,9 @@ import { Editor } from '@toast-ui/react-editor';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
-import { useMutation } from '@apollo/client';
+// import { useMutation } from '@apollo/client';
 // import { UPLOAD_IMAGE } from "../register.queries";
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import { IEditorPageProps } from './write.types';
 
 export default function EditorPage(props: IEditorPageProps) {

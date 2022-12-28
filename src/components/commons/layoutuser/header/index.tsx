@@ -14,8 +14,8 @@ import {
 import { useRouter } from 'next/router';
 import { MouseEvent, useState } from 'react';
 import Switch01 from '../../switch/switch01';
-import * as S from '../../layoutuser/layout.styles';
-import { IUserHeaderProps } from '../../layoutuser/layout.types';
+import * as S from '../../layoutUser/layout.styles';
+import { IUserHeaderProps } from '../../layoutUser/layout.types';
 
 const UserHeaderPage = (props: IUserHeaderProps) => {
   const router = useRouter();

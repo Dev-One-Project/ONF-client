@@ -27,7 +27,10 @@ const ShiftTemplate = (props: IFormProps) => {
           시간
         </InputLabel>
         <InputLabel
-          data={['오전 근무', '야간 근무']}
+          data={[
+            { id: '1234', name: '오전 근무' },
+            { id: '1234', name: '야간 근무' },
+          ]}
           register={props.register('shiftTypes')}
           setValue={props.setValue}
           type="select"
@@ -36,7 +39,10 @@ const ShiftTemplate = (props: IFormProps) => {
           근무일정 유형
         </InputLabel>
         <InputLabel
-          data={['패스트 파이브', '영등포구청']}
+          data={[
+            { id: '1234', name: '패스트 파이브' },
+            { id: '1234', name: '영등포구청' },
+          ]}
           register={props.register('organization')}
           setValue={props.setValue}
           type="select"
@@ -45,7 +51,10 @@ const ShiftTemplate = (props: IFormProps) => {
           지점
         </InputLabel>
         <InputLabel
-          data={['프론트엔드', '백엔드']}
+          data={[
+            { id: '1234', name: '프론트엔드' },
+            { id: '1234', name: '백엔드' },
+          ]}
           register={props.register('duty')}
           setValue={props.setValue}
           type="select"

@@ -2,7 +2,22 @@ import InputLabel from '../../../../../commons/inputLabel';
 import Footer from '../common/footer';
 import Memo from '../common/memo';
 import { IWagesProps } from './wages.types';
-
+const data = [
+  { id: '1', name: '일' },
+  { id: '2', name: '월' },
+  { id: '3', name: '화' },
+  { id: '4', name: '수' },
+  { id: '5', name: '목' },
+  { id: '6', name: '금' },
+  { id: '7', name: '토' },
+];
+const select = [
+  { id: '2', name: '월' },
+  { id: '3', name: '화' },
+  { id: '4', name: '수' },
+  { id: '5', name: '목' },
+  { id: '6', name: '금' },
+];
 const BasicInfo = (props: IWagesProps) => {
   return (
     <>
@@ -24,9 +39,9 @@ const BasicInfo = (props: IWagesProps) => {
         type="select"
         name="fixedWorkingDays"
         register={props.register('fixedWorkingDays')}
-        data={['일', '월', '화', '수', '목', '금', '토']}
-        defaultChecked={['월', '화', '수', '목', '금']}
-        fieldName={'fixedWorkingDays'}
+        data={data}
+        defaultChecked={select}
+        // fieldName={'fixedWorkingDays'}
         textFillMode
       >
         소정근로요일
@@ -35,10 +50,13 @@ const BasicInfo = (props: IWagesProps) => {
         type="select"
         name="weekDays"
         register={props.register('weekDays')}
-        data={['일', '월', '화', '수', '목', '금', '토']}
-        defaultChecked={['토', '일']}
+        data={data}
+        defaultChecked={[
+          { id: '1', name: '일' },
+          { id: '7', name: '토' },
+        ]}
         setValue={props.setValue}
-        fieldName={'weekDays'}
+        // fieldName={'weekDays'}
         textFillMode
       >
         주휴요일
