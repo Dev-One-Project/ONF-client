@@ -1,9 +1,8 @@
-import { CaretDownOutlined, CloseOutlined } from '@ant-design/icons';
 import * as S from './createReq.styles';
-import Btn01 from '../../../commons/button/btn01';
-import { styleSet } from '../../../../commons/styles/styleSet';
 import { ICreateReqContainerProps } from './createReq.types';
+import RequestModal from '../../../commons/modal/requestModal';
 import CreateReqSelectComponent from './createReqSelect.presenter.';
+import { CaretDownOutlined, CloseOutlined } from '@ant-design/icons';
 
 const CreateReqPresenter = (props: ICreateReqContainerProps) => {
   return (
@@ -18,11 +17,7 @@ const CreateReqPresenter = (props: ICreateReqContainerProps) => {
           </h3>
         </S.HeaderTitleWrapper>
         <S.HeaderBtnWrapper>
-          <Btn01
-            text={'다음: 승인권자 선택'}
-            bgC={`${styleSet.colors.primary}`}
-            color={`${styleSet.colors.white}`}
-          ></Btn01>
+          <RequestModal isWorking={props.isWorking} />
         </S.HeaderBtnWrapper>
       </S.HeaderWrapper>
       {props.isWorking ? (

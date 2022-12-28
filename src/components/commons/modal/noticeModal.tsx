@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { styleSet } from '../../../commons/styles/styleSet';
 import Btn01 from '../button/btn01';
 import NoticeListContainer from '../notice/list/list.container';
@@ -8,20 +8,32 @@ import WriteContainer from '../notice/write/write.container';
 const NoticeModal = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isWrite, setIsWrite] = useState(false);
+  const createUpdateRef = useRef<HTMLButtonElement>();
+
   const onClickOpen = () => {
     setIsOpen((open) => !open);
   };
   const onClickWrite = () => {
     setIsWrite((write) => !write);
+    createUpdateRef.current?.click();
   };
 
   return (
     <>
       {isOpen && (
-        <Background>
+        <Background
+          onClick={(e) => {
+            e.stopPropagation();
+            const target = e.target as HTMLDivElement;
+            const className =
+              target.className !== null ? String(target.className) : '';
+            if (className.includes('backgroud')) onClickOpen();
+          }}
+          className="backgroud"
+        >
           <Container>
             {!isWrite && <NoticeListContainer />}
-            {isWrite && <WriteContainer />}
+            {isWrite && <WriteContainer createUpdateRef={createUpdateRef} />}
             <BtnWrapper>
               {isWrite && (
                 <Btn01
