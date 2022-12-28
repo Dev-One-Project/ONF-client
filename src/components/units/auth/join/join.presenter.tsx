@@ -1,9 +1,13 @@
 import Image from 'next/image';
 import * as S from './join.styles';
 import { IJoinProps } from './join.types';
+import EmployeeModal from './join. employeeModal';
 import Btn01 from '../../../commons/button/btn01';
+import BussinessModal from './join.BussinessModal';
+import Check01 from '../../../commons/input/check01';
 import Input01 from '../../../commons/input/input01';
 import { styleSet } from '../../../../commons/styles/styleSet';
+import { ImportOutlined, PlusOutlined } from '@ant-design/icons';
 import { useMoveToPage } from '../../../commons/hooks/useMoveToPage';
 
 const JoinPresenter = (props: IJoinProps) => {
@@ -47,7 +51,7 @@ const JoinPresenter = (props: IJoinProps) => {
                 register={props.register('email')}
                 error={props.formState.errors.email?.message}
               />
-              <span>이메일을 작성해주세요.</span>
+              <span>* 이메일 형식에 맞게 입력해주세요.</span>
             </S.Data>
 
             <S.Data>
@@ -67,34 +71,70 @@ const JoinPresenter = (props: IJoinProps) => {
                 register={props.register('passwordConfirm')}
                 error={props.formState.errors.passwordConfirm?.message}
               />
-              <span>* 비밀번호를 다시 입력해주세요.</span>
+              <span>* 같은 비밀번호를 입력 해주세요.</span>
             </S.Data>
 
-            {/* <S.Article>
+            <S.Data>
+              <S.Label>이름</S.Label>
+              <Input01
+                type={'text'}
+                register={props.register('name')}
+                error={props.formState.errors.name?.message}
+              />
+              <span>* 이름을 입력해주세요.</span>
+            </S.Data>
+
+            <S.Data>
+              <S.Label>핸드폰 번호</S.Label>
+              <Input01
+                type={'number'}
+                register={props.register('phone')}
+                error={props.formState.errors.phone?.message}
+              />
+              <span>* 핸드폰 11자리를 입력해주세요.</span>
+            </S.Data>
+
+            <S.ChooseCompany>
+              <li onClick={props.onClickOpenModal}>
+                <span>
+                  <PlusOutlined /> 회사 만들기
+                </span>
+                <p>(최고관리자용)</p>
+              </li>
+              <li onClick={props.onClickOpenModal2}>
+                <span>
+                  <ImportOutlined /> 직장 합류하기
+                </span>
+                <p>(직원용)</p>
+              </li>
+            </S.ChooseCompany>
+
+            <S.Article>
               <Check01
-                register={props.register('allTerms')}
-                onChange={props.onChangeChecked}
+                onChange={(event) =>
+                  props.onChangeCheckedAll(event.target.checked)
+                }
+                checked={
+                  props.checkedList.length === 0
+                    ? false
+                    : props.checkedList.length === props.checkboxContents.length
+                }
                 text={'모두 동의합니다.'}
               />
-
-              <Check01
-                register={props.register('terms')}
-                onChange={props.onChangeChecked}
-                text={'[필수] 만 14세 이상입니다.'}
-              />
-              <Check01
-                register={props.register('terms')}
-                onChange={props.onChangeChecked}
-                text={'[필수] 최종이용자 이용약관에 동의합니다.'}
-              />
-              <Check01
-                register={props.register('terms')}
-                onChange={props.onChangeChecked}
-                text={'[필수] 개인정보 수집 및 이용에 동의합니다.'}
-              />
-            </S.Article> */}
+              {props.checkboxContents.map((content, index) => (
+                <Check01
+                  key={index}
+                  checked={props.checkedList.includes(content)}
+                  onChange={(event) =>
+                    props.onChangeChecked(event.target.checked, content)
+                  }
+                  text={content}
+                />
+              ))}
+            </S.Article>
 
             <Btn01
+              disabled={props.checkedList.length !== 3}
               text={'가입하기'}
               bgC={styleSet.colors.primary}
               color={styleSet.colors.white}
@@ -126,6 +166,19 @@ const JoinPresenter = (props: IJoinProps) => {
             </li>
           </S.Ul>
         </S.Main>
+        <EmployeeModal
+          setIsOpen2={props.setIsOpen2}
+          isOpen2={props.isOpen2}
+          aniMode={props.aniMode}
+          onClickCloseModal={props.onClickCloseModal}
+        />
+
+        <BussinessModal
+          setIsOpen={props.setIsOpen}
+          isOpen={props.isOpen}
+          aniMode={props.aniMode}
+          onClickCloseModal={props.onClickCloseModal}
+        />
       </S.Wrapper>
     </>
   );

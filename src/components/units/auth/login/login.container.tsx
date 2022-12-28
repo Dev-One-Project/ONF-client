@@ -42,7 +42,7 @@ const LoginContainer = () => {
       }
       setAccessToken(accessToken);
       sessionStorage.setItem('accessToken', accessToken);
-      void router.push('/');
+      void router.push('/user/requests');
     } catch (error) {
       ErrorModal('다시 로그인해주세요.');
     }

@@ -8,7 +8,6 @@ const RequestContainer = () => {
     setModal((prev) => !prev);
   };
 
-  console.log(modal);
   return <RequestPresenter onClickModal={onClickModal} modal={modal} />;
 };
 export default RequestContainer;

@@ -78,11 +78,11 @@ const FallingModal = (props: IFallingModalProps) => {
 export default FallingModal;
 
 const Wrapper = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100%;
+  height: 100vh;
   overflow: auto;
   display: flex;
   justify-content: center;
