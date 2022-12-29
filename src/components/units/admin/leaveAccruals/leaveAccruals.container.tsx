@@ -9,7 +9,6 @@ import {
   IQueryFetchVacationIssueDetailDateDeleteArgs,
   IQueryFetchVacationIssueWithBaseDateDeleteArgs,
 } from '../../../../commons/types/generated/types';
-import { getDate } from '../../../../commons/utils/getDate';
 import LeaveAccrualsPresenter from './leaveAccruals.presenter';
 import {
   FETCH_ORGANIZATIONS,
@@ -17,8 +16,9 @@ import {
   FETCH_VACATION_ISSUE_BASE,
   FETCH_VACATION_ISSUE_BASE_DELETE,
   FETCH_VACATION_ISSUE_DETAIL,
+  // FETCH_ACCOUNT,
 } from './leaveAccruals.queries';
-import * as S from './leaveAccruals.styles';
+import { IInputData } from './leaveAccruals.types';
 
 const LeaveAccrualsContainer = () => {
   const date = new Date();
@@ -29,14 +29,22 @@ const LeaveAccrualsContainer = () => {
   const [isMemberOpen, setIsMemberOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [aniMode, setAniMode] = useState(false);
-  const [baseDate, setBaseDate] = useState(date);
+  const [isCheckedChange, setIsCheckedChange] = useState(false);
+  const [baseDate] = useState(date);
   const [startEndDate, setStartEndDate] = useState([
     new Date(date.getFullYear(), date.getMonth(), 1),
     new Date(date.getFullYear(), date.getMonth() + 1, 0),
   ]);
 
+  const [dayChecked, setDayChecked] = useState(false);
+  const [startDateChecked, setStartDateChecked] = useState(false);
+  const [endDateChecked, setEndDateChecked] = useState(false);
+  const [memoChecked, setMemoChecked] = useState(false);
   const [init, setInit] = useState(true);
   const [filterInit, setFilterInit] = useState(true);
+  const [organizationArr, setOrganizationArr] = useState<IInputData[]>([
+    { id: '', name: '' },
+  ]);
 
   const onClickOpenModal = () => {
     setIsOpen(true);
@@ -53,20 +61,19 @@ const LeaveAccrualsContainer = () => {
     setIsMemberOpen(false);
   };
 
+  const onClickCheckedChange = () => {
+    setIsCheckedChange(true);
+    setAniMode(true);
+  };
+
   const onClickEmployee = () => {
     setIsSelect(true);
+    setFilterInit(true);
   };
 
   const onClickList = () => {
     setIsSelect(false);
-  };
-
-  const onClickOpenList = () => {
-    setIsMemberOpen(true);
-  };
-
-  const onClickCloseList = () => {
-    setIsMemberOpen(false);
+    setFilterInit(true);
   };
 
   const onSubmit = (data: any) => () => {
@@ -80,9 +87,13 @@ const LeaveAccrualsContainer = () => {
     if (value === null) return;
     await refetch({
       baseDate: value.$d,
+      // companyId: String(accountDetail?.fetchAccount.company?.id),
       companyId: '00b9f2a4-86e7-4071-9b69-35163bdd8998',
     });
   };
+
+  // const { data: accountDetail } =
+  //   useQuery<Pick<IQuery, 'fetchAccount'>>(FETCH_ACCOUNT);
 
   const onChangeStartEndDate = (value: any) => {
     if (value === null) return;
@@ -93,14 +104,18 @@ const LeaveAccrualsContainer = () => {
     Pick<IQuery, 'fetchOrganizations'>,
     IQueryFetchOrganizationsArgs
   >(FETCH_ORGANIZATIONS, {
-    variables: { companyId: '00b9f2a4-86e7-4071-9b69-35163bdd8998' },
+    variables: {
+      // companyId: String(accountDetail?.fetchAccount.company?.id)
+      companyId: '00b9f2a4-86e7-4071-9b69-35163bdd8998',
+    },
   });
 
-  // any !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  const organizationsData: any = organizations?.fetchOrganizations.map(
-    (el) => el.name,
-  );
-  // any !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  const organizationsData: IInputData[] = organizations
+    ? organizations.fetchOrganizations.map((el) => ({
+        id: String(el.id),
+        name: String(el.name),
+      }))
+    : [{ id: '', name: '' }];
 
   const { data: vDetail } = useQuery<
     Pick<IQuery, 'fetchVacationIssueDetailDate'>,
@@ -108,8 +123,11 @@ const LeaveAccrualsContainer = () => {
   >(FETCH_VACATION_ISSUE_DETAIL, {
     variables: {
       baseDate,
+      // companyId: String(accountDetail?.fetchAccount.company?.id),
       companyId: '00b9f2a4-86e7-4071-9b69-35163bdd8998',
-      organizationId: organizationsData,
+      organizationId: organizationArr?.map((organization) => organization.id),
+      startDate: startEndDate[0] ? startEndDate[0] : null,
+      endDate: startEndDate[1] ? startEndDate[1] : null,
     },
   });
 
@@ -119,8 +137,11 @@ const LeaveAccrualsContainer = () => {
   >(FETCH_VACATION_ISSUE_DETAIL_DELETE, {
     variables: {
       baseDate,
+      // companyId: String(accountDetail?.fetchAccount.company?.id),
       companyId: '00b9f2a4-86e7-4071-9b69-35163bdd8998',
-      organizationId: organizationsData,
+      organizationId: organizationArr?.map((organization) => organization.id),
+      startDate: startEndDate[0] ? startEndDate[0] : null,
+      endDate: startEndDate[1] ? startEndDate[1] : null,
     },
   });
 
@@ -130,8 +151,11 @@ const LeaveAccrualsContainer = () => {
   >(FETCH_VACATION_ISSUE_BASE, {
     variables: {
       baseDate,
+      // companyId: String(accountDetail?.fetchAccount.company?.id),
       companyId: '00b9f2a4-86e7-4071-9b69-35163bdd8998',
-      organizationId: organizationsData,
+      organizationId: organizationArr?.map((organization) => organization.id),
+      startDate: startEndDate[0] ? startEndDate[0] : null,
+      endDate: startEndDate[1] ? startEndDate[1] : null,
     },
   });
 
@@ -141,76 +165,17 @@ const LeaveAccrualsContainer = () => {
   >(FETCH_VACATION_ISSUE_BASE_DELETE, {
     variables: {
       baseDate,
+      // companyId: String(accountDetail?.fetchAccount.company?.id),
       companyId: '00b9f2a4-86e7-4071-9b69-35163bdd8998',
-      organizationId: organizationsData,
+      organizationId: organizationArr?.map((organization) => organization.id),
+      startDate: startEndDate[0] ? startEndDate[0] : null,
+      endDate: startEndDate[1] ? startEndDate[1] : null,
     },
   });
 
-  const optionalFetch = () => {
-    if (!init && !filterInit) {
-      console.log('off and off');
-      return vDetailDelete?.fetchVacationIssueDetailDateDelete
-        .flat()
-        .map((el) => (
-          <S.EmployeeUl key={el.id} onClick={onClickOpenSelectModal}>
-            <li>{el.member.name}</li>
-            <li>
-              {getDate(el.startingPoint)} - {getDate(el.expirationDate)}
-            </li>
-            <li>{el.vacationAll}</li>
-            <li>{el.useVacation}</li>
-            <li>{el.vacationAll - el.useVacation || 0}</li>
-          </S.EmployeeUl>
-        ));
-    } else if (!init && filterInit) {
-      console.log('off and on');
-      return vDetail?.fetchVacationIssueDetailDate.flat().map((el) => (
-        <S.EmployeeUl key={el.id} onClick={onClickOpenSelectModal}>
-          <li>{el.member.name}</li>
-          <li>
-            {getDate(el.startingPoint)} - {getDate(el.expirationDate)}
-          </li>
-          <li>{el.vacationAll}</li>
-          <li>{el.useVacation}</li>
-          <li>{el.vacationAll - el.useVacation || 0}</li>
-        </S.EmployeeUl>
-      ));
-    } else if (init && filterInit) {
-      console.log('on and on');
-      console.log(baseDate);
-
-      return vBase?.fetchVacationIssueBaseDate.flat().map((el) => (
-        <S.EmployeeUl key={el.id} onClick={onClickOpenSelectModal}>
-          <li>{el.member.name}</li>
-          <li>
-            {getDate(el.startingPoint)} - {getDate(el.expirationDate)}
-          </li>
-          <li>{el.vacationAll}</li>
-          <li>{el.useVacation}</li>
-          <li>{el.vacationAll - el.useVacation || 0}</li>
-        </S.EmployeeUl>
-      ));
-    } else {
-      console.log('on and off');
-      return vBaseDelete?.fetchVacationIssueWithBaseDateDelete
-        .flat()
-        .map((el) => (
-          <S.EmployeeUl key={el.id} onClick={onClickOpenSelectModal}>
-            <li>{el.member.name}</li>
-            <li>
-              {getDate(el.startingPoint)} - {getDate(el.expirationDate)}
-            </li>
-            <li>{el.vacationAll}</li>
-            <li>{el.useVacation}</li>
-            <li>{el.vacationAll - el.useVacation || 0}</li>
-          </S.EmployeeUl>
-        ));
-    }
-  };
-
   return (
     <LeaveAccrualsPresenter
-      optionalFetch={optionalFetch}
+      setOrganizationArr={setOrganizationArr}
       isSelect={isSelect}
       onClickEmployee={onClickEmployee}
       onClickList={onClickList}
@@ -233,10 +198,24 @@ const LeaveAccrualsContainer = () => {
       isSelectOpen={isSelectOpen}
       setIsSelectOpen={setIsSelectOpen}
       onClickOpenSelectModal={onClickOpenSelectModal}
-      onClickOpenList={onClickOpenList}
       isMemberOpen={isMemberOpen}
-      onClickCloseList={onClickCloseList}
       setValue={setValue}
+      vDetailDelete={vDetailDelete}
+      vDetail={vDetail}
+      vBase={vBase}
+      vBaseDelete={vBaseDelete}
+      setIsMemberOpen={setIsMemberOpen}
+      onClickCheckedChange={onClickCheckedChange}
+      isCheckedChange={isCheckedChange}
+      setIsCheckedChange={setIsCheckedChange}
+      setDayChecked={setDayChecked}
+      setStartDateChecked={setStartDateChecked}
+      setEndDateChecked={setEndDateChecked}
+      setMemoChecked={setMemoChecked}
+      dayChecked={dayChecked}
+      startDateChecked={startDateChecked}
+      endDateChecked={endDateChecked}
+      memoChecked={memoChecked}
     />
   );
 };

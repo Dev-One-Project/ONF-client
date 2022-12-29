@@ -34,7 +34,12 @@ const AdminLayout = (props: IAdminLayoutProps) => {
         ></SidebarDiv>
         <AdminSidebarPage />
         {isManage && <ManageSidebarComponent />}
-        <ChildrenBox>{props.children}</ChildrenBox>
+        <ChildrenBox
+          isAdminSidebar={isAdminSidebar}
+          isNarrowWidth={isNarrowWidth}
+        >
+          {props.children}
+        </ChildrenBox>
       </div>
     </>
   );
@@ -42,8 +47,18 @@ const AdminLayout = (props: IAdminLayoutProps) => {
 export default AdminLayout;
 
 const ChildrenBox = styled.div`
-  width: 100%;
+  width: 100vw;
   margin: 7rem 3rem 6.5rem 3rem;
+  @media ${styleSet.breakPoints.tablet} {
+    width: ${(props: IAdminLayoutProps) =>
+      props.isAdminSidebar
+        ? props.isNarrowWidth
+          ? 'calc(100vw - 18rem)'
+          : 'calc(100vw - 9rem)'
+        : props.isNarrowWidth
+        ? 'calc(100vw - 9rem)'
+        : 'calc(100vw - 18rem)'};
+  }
 `;
 
 const SidebarDiv = styled.div`

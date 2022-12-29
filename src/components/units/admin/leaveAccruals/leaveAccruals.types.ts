@@ -1,12 +1,14 @@
-import { SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import {
   FieldValues,
   UseFormHandleSubmit,
   UseFormRegister,
   UseFormSetValue,
 } from 'react-hook-form';
+import { IQuery } from '../../../../commons/types/generated/types';
 
 export interface ILeaveAccrualsPresenterProps {
+  setOrganizationArr: Dispatch<SetStateAction<IInputData[]>>;
   isSelect: boolean;
   onClickEmployee: () => void;
   onClickList: () => void;
@@ -29,8 +31,31 @@ export interface ILeaveAccrualsPresenterProps {
   isSelectOpen: boolean;
   setIsSelectOpen: SetStateAction<any>;
   onClickOpenSelectModal: () => void;
-  onClickOpenList: () => void;
   isMemberOpen: boolean;
-  onClickCloseList: () => void;
   setValue: UseFormSetValue<FieldValues>;
+  vDetailDelete?: Pick<IQuery, 'fetchVacationIssueDetailDateDelete'>;
+  vDetail?: Pick<IQuery, 'fetchVacationIssueDetailDate'>;
+  vBase?: Pick<IQuery, 'fetchVacationIssueBaseDate'>;
+  vBaseDelete?: Pick<IQuery, 'fetchVacationIssueWithBaseDateDelete'>;
+  setIsMemberOpen: SetStateAction<any>;
+  onClickCheckedChange: () => void;
+  isCheckedChange: boolean;
+  setIsCheckedChange: SetStateAction<any>;
+  setDayChecked: SetStateAction<any>;
+  setStartDateChecked: SetStateAction<any>;
+  setEndDateChecked: SetStateAction<any>;
+  setMemoChecked: SetStateAction<any>;
+  dayChecked: boolean;
+  startDateChecked: boolean;
+  endDateChecked: boolean;
+  memoChecked: boolean;
+}
+
+export interface IInputData {
+  id: string;
+  name: string;
+}
+
+export interface IStyedDate {
+  memoChecked?: boolean;
 }

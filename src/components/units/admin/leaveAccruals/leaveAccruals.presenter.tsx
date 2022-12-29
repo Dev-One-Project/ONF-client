@@ -8,7 +8,12 @@ import FallingModal from '../../../commons/modal/fallingModal';
 import Switch01 from '../../../commons/switch/switch01';
 import * as S from './leaveAccruals.styles';
 import { ILeaveAccrualsPresenterProps } from './leaveAccruals.types';
-import AddLeaveAccruals from './commons/addLeaveAccruals';
+import AddLeaveAccruals from './modules/addLeaveAccruals';
+import EmployeeOptionalFetch from './modules/employeeOptionalFetch';
+import ListOptionalFetch from './modules/listOptionalFetch';
+import Check01 from '../../../commons/input/check01';
+import Input01 from '../../../commons/input/input01';
+import Textarea from '../../../commons/textarea';
 
 const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
   return (
@@ -36,14 +41,110 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
             handleSubmit={props.handleSubmit}
             onSubmit={props.onSubmit}
             onClickCloseModal={props.onClickCloseModal}
+            register={props.register}
           />
+        </FallingModal>
+      )}
+
+      {props.isCheckedChange && (
+        <FallingModal
+          setIsOpen={props.setIsCheckedChange}
+          isOpen={props.isCheckedChange}
+          aniMode={props.aniMode}
+          onCancel={props.onClickCloseModal}
+          width="31rem"
+          title="휴가 발생 건 수정"
+        >
+          <form>
+            <S.P>* 선택된 휴가 발생 건들을 일괄 수정할 수 있습니다.</S.P>
+            <S.ModalField>
+              <S.ModalBoxRow>
+                <div>
+                  <Check01
+                    onChange={() =>
+                      props.setDayChecked((prev: boolean) => !prev)
+                    }
+                  />
+                  <label>발생 일수</label>
+                </div>
+                {props.dayChecked ? (
+                  <Input01 type="number" />
+                ) : (
+                  <S.LabelText>변화 없음</S.LabelText>
+                )}
+              </S.ModalBoxRow>
+              <S.ModalBoxRow>
+                <div>
+                  <Check01
+                    onChange={() =>
+                      props.setStartDateChecked((prev: boolean) => !prev)
+                    }
+                  />
+                  <label>발생 시점</label>
+                </div>
+                {props.startDateChecked ? (
+                  <DatePicker style={{ borderRadius: '0' }} />
+                ) : (
+                  <S.LabelText>변화 없음</S.LabelText>
+                )}
+              </S.ModalBoxRow>
+              <S.ModalBoxRow>
+                <div>
+                  <Check01
+                    onChange={() =>
+                      props.setEndDateChecked((prev: boolean) => !prev)
+                    }
+                  />
+                  <label>발생 만료</label>
+                </div>
+                {props.endDateChecked ? (
+                  <DatePicker style={{ borderRadius: '0' }} />
+                ) : (
+                  <S.LabelText>변화 없음</S.LabelText>
+                )}
+              </S.ModalBoxRow>
+              <S.ModalBoxRow memoChecked={props.memoChecked}>
+                <div>
+                  <Check01
+                    onChange={() =>
+                      props.setMemoChecked((prev: boolean) => !prev)
+                    }
+                  />
+                  <label>메모</label>
+                </div>
+                {props.memoChecked ? (
+                  <Textarea />
+                ) : (
+                  <S.LabelText>변화 없음</S.LabelText>
+                )}
+              </S.ModalBoxRow>
+              {/* )} */}
+            </S.ModalField>
+            <Divider style={{ margin: '1.8rem 0 0' }} />
+            <S.ModalFooter>
+              <div></div>
+              <Btn01
+                type={'button'}
+                text="닫기"
+                bdC="#ddd"
+                onClick={props.onClickCloseModal}
+              />
+              <Btn01
+                type={'submit'}
+                text="변경사항 저장"
+                color="#fff"
+                bgC={styleSet.colors.primary}
+                bdC={styleSet.colors.primary}
+              />
+            </S.ModalFooter>
+          </form>
         </FallingModal>
       )}
 
       {props.isSelectOpen && (
         <FallingModal
           setIsOpen={props.setIsSelectOpen}
-          isOpen={props.setIsOpen}
+          isOpen={props.isSelectOpen}
           aniMode={props.aniMode}
           onCancel={props.onClickCloseModal}
           title="휴가 발생 건 관리"
@@ -58,7 +159,7 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
                     <li>만료 시점</li>
                     <li>메모</li>
                   </S.SelectListUl>
-                  <S.SelectListUl onClick={props.onClickOpenList}>
+                  <S.SelectListUl onClick={() => props.setIsMemberOpen(true)}>
                     <li>12</li>
                     <li>2022-12-30</li>
                     <li>2023-12-30</li>
@@ -66,7 +167,9 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
                   </S.SelectListUl>
                 </S.UlWrapper>
                 <S.AccrualsBox>
-                  <strong onClick={props.onClickOpenList}>휴가 발생하기</strong>
+                  <strong onClick={() => props.setIsMemberOpen(true)}>
+                    휴가 발생하기
+                  </strong>
                 </S.AccrualsBox>
               </S.Left>
               {props.isMemberOpen ? (
@@ -74,7 +177,8 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
                   <AddLeaveAccruals
                     handleSubmit={props.handleSubmit}
                     onSubmit={props.onSubmit}
-                    onClickCloseModal={props.onClickCloseList}
+                    onClickCloseModal={() => props.setIsMemberOpen(false)}
+                    register={props.register}
                   />
                 </S.Right>
               ) : (
@@ -114,6 +218,7 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
               />
             </S.OptSelect>
             <Select01
+              setState={props.setOrganizationArr}
               data={props.organizationsData}
               role="organization"
               left
@@ -180,9 +285,13 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
                   />
                 </Space>
               </S.DateBox>
-              <Select03 />
+              <Select03
+                filterInit={props.filterInit}
+                setFilterInit={props.setFilterInit}
+              />
             </S.OptSelect>
             <Select01
+              setState={props.setOrganizationArr}
               data={props.organizationsData}
               role="organization"
               left
@@ -190,7 +299,25 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
           </S.OptBox>
           <S.OptBox>
             <S.OptSelect>
-              <Switch01 text={'기준 일자까지만 계산'} />
+              <Switch01
+                text={'기준 일자까지만 계산'}
+                init={props.init}
+                setInit={props.setInit}
+              />
+            </S.OptSelect>
+          </S.OptBox>
+          <S.OptBox>
+            <S.OptSelect>
+              <Btn01
+                text={'휴가 유형 변경'}
+                bdC={styleSet.colors.gray}
+                onClick={props.onClickCheckedChange}
+              />
+              <Btn01
+                text={'모두 삭제'}
+                bdC={styleSet.colors.gray}
+                color={styleSet.colors.fail}
+              />
             </S.OptSelect>
             <S.SelectBox
               onClick={props.onClickEmployee}
@@ -217,11 +344,22 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
             <li>사용한 휴가 일수</li>
             <li>남은 일수</li>
           </S.EmployeeUl>
-          {props.optionalFetch()}
+          <EmployeeOptionalFetch
+            init={props.init}
+            filterInit={props.filterInit}
+            vDetailDelete={props.vDetailDelete}
+            vDetail={props.vDetail}
+            vBase={props.vBase}
+            vBaseDelete={props.vBaseDelete}
+            onClickOpenSelectModal={props.onClickOpenSelectModal}
+          />
         </S.UlWrapper>
       ) : (
         <S.UlWrapper>
           <S.ListUl>
+            <li>
+              <Check01 />
+            </li>
             <li>직원</li>
             <li>발생 시점</li>
             <li>만료 시점</li>
@@ -230,15 +368,15 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
             <li>남은 휴가 일수</li>
             <li>메모</li>
           </S.ListUl>
-          <S.ListUl onClick={props.onClickOpenModal}>
-            <li>에스쿱스</li>
-            <li>2022-12-30</li>
-            <li>2023-12-30</li>
-            <li>12</li>
-            <li>0</li>
-            <li>12</li>
-            <li>메롱</li>
-          </S.ListUl>
+          <ListOptionalFetch
+            init={props.init}
+            filterInit={props.filterInit}
+            vDetailDelete={props.vDetailDelete}
+            vDetail={props.vDetail}
+            vBase={props.vBase}
+            vBaseDelete={props.vBaseDelete}
+            onClickOpenModal={props.onClickOpenModal}
+          />
         </S.UlWrapper>
       )}
     </S.Container>
