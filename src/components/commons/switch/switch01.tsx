@@ -26,7 +26,6 @@ const Switch01 = (props: ISwitch01Props) => {
         <Groove isOn={isOn}>
           <Handle isOn={isOn} />
         </Groove>
-        <Indicator isOn={isOn} />
       </Switch>
     </>
   );
@@ -74,12 +73,4 @@ const Handle = styled.div`
     isOn ? `${styleSet.colors.primary}` : `${styleSet.colors.black}`};
   transform: translateX(${({ isOn }) => (isOn ? '20px' : '3px')});
   transition: 0.35s;
-`;
-
-const Indicator = styled.div`
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: ${({ isOn }: ISwitch01Props) => (isOn ? '#6cc387' : '#ccc')};
-  transition: background 0.35s;
 `;
