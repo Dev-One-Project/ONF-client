@@ -48,7 +48,6 @@ const Select01 = (props: ISelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [saveChecked, setSaveChecked] = useState<InputData[]>([]);
   const [checkedList, setCheckedList] = useState<InputData[]>([]);
-  const [data] = useState<InputData[]>(props.data ?? []);
 
   useEffect(() => {
     if (props.defaultChecked && props.defaultChecked.length > 0) {
@@ -63,11 +62,11 @@ const Select01 = (props: ISelectProps) => {
     (checked) => {
       if (checked) {
         const checkedListArray: InputData[] = [];
-        data.forEach((list) => checkedListArray.push(list));
+        props.data?.forEach((list) => checkedListArray.push(list));
         setCheckedList(checkedListArray);
       } else setCheckedList([]);
     },
-    [data],
+    [props.data],
   );
 
   const onCheckedElement = useCallback(
@@ -134,7 +133,7 @@ const Select01 = (props: ISelectProps) => {
                 ? checkedList.map((data) => data.name).join(',')
                 : `${checkedList.length} 선택됨`}
             </span>
-          ) : data.length ? (
+          ) : props.data?.length ? (
             '선택 안됨'
           ) : (
             '선택 가능한 옵션 없음'
@@ -165,14 +164,14 @@ const Select01 = (props: ISelectProps) => {
                 checked={
                   checkedList.length === 0
                     ? false
-                    : checkedList.length === data?.length
+                    : checkedList.length === props.data?.length
                 }
                 onChange={(event) => onCheckedAll(event.target.checked)}
               />
               <Options className="options">
                 <Divider style={{ margin: '0.5rem 0' }} />
-                {data && data.length > 0
-                  ? data
+                {props.data && props.data.length > 0
+                  ? props.data
                       .filter((el) => el.name.includes(keyword))
                       .map((el) => (
                         <Check01
