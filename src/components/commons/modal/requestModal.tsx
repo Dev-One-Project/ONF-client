@@ -76,7 +76,6 @@ const Container = styled.section`
   padding: 1rem 0 1rem 0;
   width: 80%;
   max-width: 800px;
-  height: 50%;
   text-align: left;
 
   background: #ffffff;
