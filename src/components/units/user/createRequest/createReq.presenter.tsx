@@ -2,6 +2,7 @@ import * as S from './createReq.styles';
 import { ICreateReqContainerProps } from './createReq.types';
 import RequestModal from '../../../commons/modal/requestModal';
 import CreateReqSelectComponent from './createReqSelect.presenter.';
+import Calendar from '../../../commons/calendar/calendar';
 import { CaretDownOutlined, CloseOutlined } from '@ant-design/icons';
 
 const CreateReqPresenter = (props: ICreateReqContainerProps) => {
@@ -89,7 +90,9 @@ const CreateReqPresenter = (props: ICreateReqContainerProps) => {
       <S.CreateReqMainWrapper>
         <S.CalendarWrapper>
           <S.RequireDateStyle>요청날짜</S.RequireDateStyle>
-          <section>캘린더</section>
+          <section>
+            <Calendar />
+          </section>
         </S.CalendarWrapper>
         {props.isWorking ? (
           <>
