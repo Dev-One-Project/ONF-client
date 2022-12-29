@@ -19,10 +19,10 @@ export const FETCH_SCHEDULE_LIST = gql`
       member {
         id
       }
-      company {
-        id
-        name
-      }
+      # company {
+      #   id
+      #   name
+      # }
       organization {
         id
         name
@@ -66,6 +66,29 @@ export const FETCH_ACCOUNT = gql`
   query fetchAccount {
     fetchAccount {
       id
+      company {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const FETCH_MEMBERS = gql`
+  query fetchMembers($companyId: String!) {
+    fetchMembers(companyId: $companyId) {
+      id
+      name
+      roleCategory {
+        id
+        duty
+        colorCode
+      }
+      organization {
+        id
+        name
+        color
+      }
       company {
         id
         name

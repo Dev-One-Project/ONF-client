@@ -8,6 +8,7 @@ import {
   IOrganization,
   IQuery,
   IQueryFetchListTypeScheduleArgs,
+  IQueryFetchMembersArgs,
   IQueryFetchOrganizationsArgs,
   IQueryFetchRoleCategoriesArgs,
   IRoleCategory,
@@ -15,15 +16,15 @@ import {
 import { useLazyQuery, useQuery } from '@apollo/client';
 import {
   FETCH_ACCOUNT,
+  FETCH_MEMBERS,
   FETCH_ORGANIZATIONS,
   FETCH_ROLE_CATEGORIES,
   FETCH_SCHEDULE_LIST,
 } from './schedulerCalendar.queries';
 import { InitData } from './schedulerCalendar.types';
-import { useRecoilState } from 'recoil';
-import { accessTokenState } from '../../../../../commons/store';
 
 const SchedulerCalendarContainer = () => {
+  console.log('-------------------------------------');
   // state
   const [dateArray, setDateArray] = useState<IDateData[]>([]);
   const [currentMonth, setCurrentMonth] = useState<string>(
@@ -41,6 +42,7 @@ const SchedulerCalendarContainer = () => {
   console.log('selectOrganization', selectOrganization);
   console.log('selectRoleCategory', selectRoleCategory);
   console.log('identification', identification);
+  console.log(selectOrganization.map((select) => String(select.id)));
 
   // graphql query
   const [getCategory, { data: roleCategory }] = useLazyQuery<
@@ -65,16 +67,24 @@ const SchedulerCalendarContainer = () => {
     nextFetchPolicy: 'cache-only',
   });
 
-  const [getScheduleList, { data: scheduleList }] = useLazyQuery<
+  const { data: scheduleList } = useQuery<
     Pick<IQuery, 'fetchListTypeSchedule'>,
     IQueryFetchListTypeScheduleArgs
   >(FETCH_SCHEDULE_LIST, {
     variables: {
-      startDate: moment(dateArray[0]?.day).format('YYYY-MM-DD'),
-      endDate: moment(dateArray[6]?.day).format('YYYY-MM-DD'),
+      startDate: String(moment(dateArray[0]?.day).format('YYYY-MM-DD')),
+      endDate: String(moment(dateArray[6]?.day).format('YYYY-MM-DD')),
       organizationId: selectOrganization.map((select) => String(select.id)),
     },
-    fetchPolicy: 'network-only',
+  });
+
+  const [getMember, { data: memberList }] = useLazyQuery<
+    Pick<IQuery, 'fetchMembers'>,
+    IQueryFetchMembersArgs
+  >(FETCH_MEMBERS, {
+    variables: {
+      companyId: String(identification?.company?.id),
+    },
   });
 
   const { data: accountDetail } =
@@ -85,6 +95,7 @@ const SchedulerCalendarContainer = () => {
   console.log('scheduleList', scheduleList);
 
   // initializing
+
   useMemo(() => {
     if (dateArray.length === 0) {
       setDateArray(getWeekData());
@@ -94,6 +105,9 @@ const SchedulerCalendarContainer = () => {
   useMemo(() => {
     if (accountDetail) {
       setIdentification(accountDetail?.fetchAccount);
+      if (memberList === undefined) {
+        getMember().catch(() => {});
+      }
       if (roleCategory === undefined) {
         getCategory().catch(() => {});
       }
@@ -101,7 +115,6 @@ const SchedulerCalendarContainer = () => {
         getOrganization().catch(() => {});
       }
       if (roleCategory && organization) {
-        getScheduleList().catch(() => {});
         const data: InitData = {
           roleCategory: roleCategory?.fetchRoleCategories.map((data) => {
             return {
@@ -121,11 +134,12 @@ const SchedulerCalendarContainer = () => {
     }
   }, [
     accountDetail,
+    memberList,
     roleCategory,
     organization,
     getCategory,
     getOrganization,
-    getScheduleList,
+    getMember,
   ]);
 
   // event handler
@@ -144,7 +158,7 @@ const SchedulerCalendarContainer = () => {
   const onClickToday = () => {
     setDateArray(getWeekData(dateArray));
   };
-
+  console.log('-------------------------------------');
   // render
   return (
     <SchedulerCalendarPresenter
@@ -158,6 +172,7 @@ const SchedulerCalendarContainer = () => {
       onClickNextWeek={onClickNextWeek}
       onClickPrevWeek={onClickPrevWeek}
       onClickToday={onClickToday}
+      member={memberList?.fetchMembers}
     />
   );
 };
