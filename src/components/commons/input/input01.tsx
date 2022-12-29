@@ -95,6 +95,7 @@ const Input = styled.input`
 
 const Div = styled.div`
   padding: 0 0 0 1.5rem;
+  align-self: center;
 `;
 
 const Img = styled.img`
