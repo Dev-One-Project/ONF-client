@@ -2,10 +2,7 @@ import styled from '@emotion/styled';
 import { styleSet } from '../../../../commons/styles/styleSet';
 
 export const Container = styled.div`
-  width: calc(100vw - 18rem);
-  @media ${styleSet.breakPoints.tablet} {
-    width: calc(100vw - 9.5rem);
-  }
+  width: 100%;
 `;
 
 export const TopWrapper = styled.section`
@@ -45,30 +42,12 @@ export const OptBox = styled.div`
   :nth-of-type(2) {
     align-items: flex-end;
   }
-  input {
-    width: 119px;
-    height: 32px;
-    border: 1px solid ${styleSet.colors.gray};
-    border-radius: 2px;
-    @media ${styleSet.breakPoints.mobile} {
-      width: 100%;
-    }
-  }
 `;
 
 export const OptSelect = styled.div`
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
-  :first-of-type {
-    width: 100%;
-  }
-  input {
-    width: 100px;
-    @media ${styleSet.breakPoints.mobile} {
-      width: 100%;
-    }
-  }
 `;
 
 export const SelectBox = styled.nav`
@@ -125,5 +104,54 @@ export const Ul = styled.ul`
     @media ${styleSet.breakPoints.tablet} {
       max-width: 15%;
     }
+  }
+`;
+
+export const ModalWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const ModalField = styled.fieldset`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 31rem;
+  label {
+    width: 100px;
+  }
+`;
+
+export const MemoBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+  gap: 1rem;
+`;
+
+export const ModalFooter = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0 0;
+`;
+
+export const BtnBox = styled.div`
+  display: flex;
+  gap: 0.5rem;
+`;
+
+export const LabelBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 0.5rem;
+`;
+
+export const P = styled.p`
+  color: #777;
+  font-size: ${styleSet.fontSizes.small};
+
+  :nth-of-type(1) {
+    width: 110px;
   }
 `;

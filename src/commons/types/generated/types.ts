@@ -1,8 +1,14 @@
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -193,7 +199,7 @@ export enum IMembership_Type {
   Basic = 'BASIC',
   Enterprise = 'ENTERPRISE',
   Free = 'FREE',
-  Pro = 'PRO'
+  Pro = 'PRO',
 }
 
 export type IMember = {
@@ -317,12 +323,10 @@ export type IMutation = {
   uploadSingleFile: IFile;
 };
 
-
 export type IMutationCheckInvitationCodeArgs = {
   invitationCode: Scalars['String'];
   memberId: Scalars['String'];
 };
-
 
 export type IMutationCreateAccountArgs = {
   email: Scalars['String'];
@@ -331,171 +335,138 @@ export type IMutationCreateAccountArgs = {
   phone: Scalars['String'];
 };
 
-
 export type IMutationCreateAdminWorkCheckArgs = {
   companyId: Scalars['String'];
   createWorkCheckInput: ICreateWorkCheckInput;
 };
 
-
 export type IMutationCreateCompanyArgs = {
   createCompanyInput: ICreateCompanyInput;
 };
-
 
 export type IMutationCreateEndWorkCheckArgs = {
   workCheckId: Scalars['String'];
 };
 
-
 export type IMutationCreateGlobalConfigArgs = {
   createGlobalConfigInput: ICreateGlobalConfigInput;
 };
-
 
 export type IMutationCreateHolidayArgs = {
   companyId: Scalars['String'];
   createHolidayInput: ICreateHolidayInput;
 };
 
-
 export type IMutationCreateMemberArgs = {
   createMemberInput: ICreateMemberInput;
 };
-
 
 export type IMutationCreateNoticeBoardArgs = {
   createNoticeBoardInput: ICreateNoticeBoardInput;
 };
 
-
 export type IMutationCreateOrganizationArgs = {
   createOrganizationInput: ICreateOrganizationInput;
 };
 
-
 export type IMutationCreateRoleCategoryArgs = {
   createRoleCategoryInput: ICreateRoleCategoryInput;
 };
-
 
 export type IMutationCreateScheduleArgs = {
   createScheduleInput: ICreateScheduleInput;
   dates: Array<Scalars['DateTime']>;
 };
 
-
 export type IMutationCreateScheduleCategoryArgs = {
   createScheduleCategoryInput: ICreateScheduleCategoryInput;
 };
-
 
 export type IMutationCreateScheduleTemplateArgs = {
   createScheduleTemplateInput: ICreateScheduleTemplateInput;
 };
 
-
 export type IMutationCreateStartWorkCheckArgs = {
   memberId: Scalars['String'];
 };
-
 
 export type IMutationCreateVacationArgs = {
   createVacaionInput: ICreateVacationInput;
 };
 
-
 export type IMutationCreateVacationCategoryArgs = {
   createVacationCategoryInput: ICreateVacationCategoryInput;
 };
 
-
 export type IMutationCreateVacationIssueArgs = {
   createVacationIssueInput: ICreateVacationIssueInput;
 };
-
 
 export type IMutationCreateWorkCheckMemoArgs = {
   workCheckId: Scalars['String'];
   workCheckMemo: Scalars['String'];
 };
 
-
 export type IMutationDeleteCompanyArgs = {
   companyId: Scalars['String'];
 };
-
 
 export type IMutationDeleteManyScheduleArgs = {
   scheduleId: Array<Scalars['String']>;
 };
 
-
 export type IMutationDeleteManyScheduleTemplateArgs = {
   scheduleTemplateId: Array<Scalars['String']>;
 };
-
 
 export type IMutationDeleteMemberArgs = {
   memberId: Scalars['String'];
 };
 
-
 export type IMutationDeleteNoticeBoardArgs = {
   noticeBoardId: Scalars['String'];
 };
-
 
 export type IMutationDeleteOneScheduleArgs = {
   scheduleId: Scalars['String'];
 };
 
-
 export type IMutationDeleteOneScheduleTemplateArgs = {
   scheduleTemplateId: Scalars['String'];
 };
-
 
 export type IMutationDeleteOrganizationArgs = {
   organizationid: Scalars['String'];
 };
 
-
 export type IMutationDeleteRoleCategoryArgs = {
   roleCategoryId: Scalars['String'];
 };
-
 
 export type IMutationDeleteScheduleCategoryArgs = {
   scheduleCategoryId: Scalars['String'];
 };
 
-
 export type IMutationDeleteVacationArgs = {
   vacationId: Scalars['String'];
 };
-
 
 export type IMutationDeleteVacationCategoryArgs = {
   vacationCategoryId: Scalars['String'];
 };
 
-
 export type IMutationDeleteVacationIssueArgs = {
   vacationIssueId: Scalars['String'];
 };
-
 
 export type IMutationDeleteWorkCheckArgs = {
   workCheckId: Scalars['String'];
 };
 
-
 export type IMutationLoginArgs = {
   email: Scalars['String'];
   password: Scalars['String'];
 };
-
 
 export type IMutationSendCodeToEmailArgs = {
   companyId: Scalars['String'];
@@ -503,110 +474,91 @@ export type IMutationSendCodeToEmailArgs = {
   memberId: Scalars['String'];
 };
 
-
 export type IMutationSoftDeleteMemberArgs = {
   memberId: Scalars['String'];
 };
 
-
 export type IMutationSoftdeleteVacationArgs = {
   vacationId: Scalars['String'];
 };
-
 
 export type IMutationUpdateAllScheduleArgs = {
   scheduleId: Array<Scalars['String']>;
   updateScheduleInput: IUpdateScheduleInput;
 };
 
-
 export type IMutationUpdateCompanyArgs = {
   companyId: Scalars['String'];
   updateCompanyInput: IUpdateCompanyInput;
 };
 
-
 export type IMutationUpdateGlobalConfigArgs = {
   updateGlobalConfigInput: IUpdateGlobalConfigInput;
 };
-
 
 export type IMutationUpdateHolidayArgs = {
   holidayId: Scalars['String'];
   updateHolidayInput: IUpdateHolidayInput;
 };
 
-
 export type IMutationUpdateMemberArgs = {
   memberId: Scalars['String'];
   updateMemberInput: IUpdateMemberInput;
 };
-
 
 export type IMutationUpdateNoticeBoardArgs = {
   noticeBoardId: Scalars['String'];
   updateNoticeBoardInput: IUpdateNoticeBoardInput;
 };
 
-
 export type IMutationUpdateOneScheduleArgs = {
   scheduleId: Scalars['String'];
   updateScheduleInput: IUpdateScheduleInput;
 };
-
 
 export type IMutationUpdateOrganizationArgs = {
   organizationId: Scalars['String'];
   updateOrganizationInput: IUpdateOrganizationInput;
 };
 
-
 export type IMutationUpdateRoleCategoryArgs = {
   roleCategoryId: Scalars['String'];
   updateRoleCategoryInput: IUpdateRoleCategoryInput;
 };
-
 
 export type IMutationUpdateScheduleCategoryArgs = {
   scheduleCategoryId: Scalars['String'];
   updateScheduleCategoryInput: IUpdateScheduleCategoryInput;
 };
 
-
 export type IMutationUpdateScheduleTemplateArgs = {
   scheduleTemplateId: Scalars['String'];
   updateScheduleTemplateInput: IUpdateScheduleTemplatInput;
 };
-
 
 export type IMutationUpdateVacationArgs = {
   updateVacationInput: IUpdateVacationInput;
   vacationId: Scalars['String'];
 };
 
-
 export type IMutationUpdateVacationCategoryArgs = {
   updateVacationCategoryInput: IUpdateVacationCategoryInput;
   vacationCategoryId: Scalars['String'];
 };
-
 
 export type IMutationUpdateVacationIssueArgs = {
   updateVacationIssueInput: IUpdateVacationIssueInput;
   vacationIssueId: Scalars['String'];
 };
 
-
 export type IMutationUpdateWorkCheckArgs = {
   updateWorkCheckInput: IUpdateWorkCheckInput;
   workCheckId: Scalars['String'];
 };
 
-
 export type IMutationUploadMultipleFilesArgs = {
   files: Array<Scalars['Upload']>;
 };
-
 
 export type IMutationUploadSingleFileArgs = {
   file: Scalars['Upload'];
@@ -707,16 +659,13 @@ export type IQuery = {
   fetchWeekSchedule: Array<ISchedule>;
 };
 
-
 export type IQueryFetchCompanyDetailArgs = {
   companyId: Scalars['String'];
 };
 
-
 export type IQueryFetchCompanyWorkChecksArgs = {
   companyId: Scalars['String'];
 };
-
 
 export type IQueryFetchDateMemberWorkChecksArgs = {
   companyId: Scalars['String'];
@@ -725,16 +674,13 @@ export type IQueryFetchDateMemberWorkChecksArgs = {
   startDate: Scalars['DateTime'];
 };
 
-
 export type IQueryFetchGlobalConfigArgs = {
   companyId: Scalars['String'];
 };
 
-
 export type IQueryFetchHolidayArgs = {
   companyId: Scalars['String'];
 };
-
 
 export type IQueryFetchListTypeScheduleArgs = {
   endDate: Scalars['DateTime'];
@@ -742,72 +688,58 @@ export type IQueryFetchListTypeScheduleArgs = {
   startDate: Scalars['DateTime'];
 };
 
-
 export type IQueryFetchMemberArgs = {
   memberId: Scalars['String'];
 };
-
 
 export type IQueryFetchMemberWorkChecksArgs = {
   memberId: Scalars['String'];
 };
 
-
 export type IQueryFetchMembersArgs = {
   companyId: Scalars['String'];
 };
-
 
 export type IQueryFetchMonthWorkChecksArgs = {
   comapnyId: Scalars['String'];
   month: Scalars['String'];
 };
 
-
 export type IQueryFetchOneNoticeBoardArgs = {
   noticeBoardId: Scalars['String'];
 };
-
 
 export type IQueryFetchOrganizationDetailArgs = {
   organizationId: Scalars['String'];
 };
 
-
 export type IQueryFetchOrganizationsArgs = {
   companyId: Scalars['String'];
 };
-
 
 export type IQueryFetchRoleCategoriesArgs = {
   companyId: Scalars['String'];
 };
 
-
 export type IQueryFetchRoleCategoryArgs = {
   roleCategoryId: Scalars['String'];
 };
-
 
 export type IQueryFetchVacationArgs = {
   vacationId: Scalars['String'];
 };
 
-
 export type IQueryFetchVacationCategoryArgs = {
   vacationCategoryId: Scalars['String'];
 };
-
 
 export type IQueryFetchVacationCategorysArgs = {
   organizationid: Scalars['String'];
 };
 
-
 export type IQueryFetchVacationIssueArgs = {
   vacationIssueId: Scalars['String'];
 };
-
 
 export type IQueryFetchVacationIssueBaseDateArgs = {
   baseDate: Scalars['DateTime'];
@@ -817,7 +749,6 @@ export type IQueryFetchVacationIssueBaseDateArgs = {
   startDate?: InputMaybe<Scalars['DateTime']>;
 };
 
-
 export type IQueryFetchVacationIssueDetailDateArgs = {
   baseDate: Scalars['DateTime'];
   companyId: Scalars['String'];
@@ -825,7 +756,6 @@ export type IQueryFetchVacationIssueDetailDateArgs = {
   organizationId: Array<Scalars['String']>;
   startDate?: InputMaybe<Scalars['DateTime']>;
 };
-
 
 export type IQueryFetchVacationIssueDetailDateDeleteArgs = {
   baseDate: Scalars['DateTime'];
@@ -835,7 +765,6 @@ export type IQueryFetchVacationIssueDetailDateDeleteArgs = {
   startDate?: InputMaybe<Scalars['DateTime']>;
 };
 
-
 export type IQueryFetchVacationIssueWithBaseDateDeleteArgs = {
   baseDate: Scalars['DateTime'];
   companyId: Scalars['String'];
@@ -844,17 +773,14 @@ export type IQueryFetchVacationIssueWithBaseDateDeleteArgs = {
   startDate?: InputMaybe<Scalars['DateTime']>;
 };
 
-
 export type IQueryFetchVacationWithDateArgs = {
   vacationEnd: Scalars['DateTime'];
   vacationStart: Scalars['DateTime'];
 };
 
-
 export type IQueryFetchVacationsArgs = {
   companyId: Scalars['String'];
 };
-
 
 export type IQueryFetchWeekScheduleArgs = {
   organizationId: Array<Scalars['String']>;

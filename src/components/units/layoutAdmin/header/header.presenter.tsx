@@ -4,6 +4,7 @@ import {
   ReloadOutlined,
   SettingOutlined,
 } from '@ant-design/icons';
+import Image from 'next/image';
 import Switch01 from '../../../commons/switch/switch01';
 import * as S from './header.styles';
 import { IAdminHeaderPresenterProps } from './header.types';
@@ -18,7 +19,7 @@ const AdminHeaderPresenter = (props: IAdminHeaderPresenterProps) => {
               <MenuOutlined onClick={props.onClickMenu} />
             </li>
           </S.Ul>
-          <img src="/" alt="로고" />
+          <Image src="/logo.png" alt="logo" width={16} height={16} />
         </S.Section>
       </S.Header>
       <S.Section>
