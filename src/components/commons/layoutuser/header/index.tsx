@@ -14,10 +14,10 @@ import {
 import { useRouter } from 'next/router';
 import { MouseEvent, useState } from 'react';
 import Switch01 from '../../switch/switch01';
-import * as S from '../../layoutUser/layout.styles';
-import { IUserHeaderProps } from '../../layoutUser/layout.types';
+import * as S from '../../layoutuser/layout.styles';
 import { useQuery } from '@apollo/client';
 import { FETCH_MEMBER } from '../../layoutUser/layout.queries';
+import { IUserHeaderProps } from '../layout.types';
 
 const UserHeaderPage = (props: IUserHeaderProps) => {
   const router = useRouter();
