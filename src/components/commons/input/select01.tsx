@@ -6,6 +6,7 @@ import {
   MouseEvent,
   SetStateAction,
   useCallback,
+  useEffect,
   useState,
 } from 'react';
 import {
@@ -43,18 +44,18 @@ interface IStyle {
 }
 
 const Select01 = (props: ISelectProps) => {
-  if (props.setState) props.register = undefined;
+  if (props.setState && props.register) props.register = undefined;
   const [isOpen, setIsOpen] = useState(false);
-  const [saveChecked, setSaveChecked] = useState<InputData[]>(
-    props.defaultChecked && props.defaultChecked.length > 0
-      ? props.defaultChecked
-      : [],
-  );
-  const [checkedList, setCheckedList] = useState<InputData[]>(
-    props.defaultChecked && props.defaultChecked.length > 0
-      ? props.defaultChecked
-      : [],
-  );
+  const [saveChecked, setSaveChecked] = useState<InputData[]>([]);
+  const [checkedList, setCheckedList] = useState<InputData[]>([]);
+  const [data] = useState<InputData[]>(props.data ?? []);
+
+  useEffect(() => {
+    if (props.defaultChecked && props.defaultChecked.length > 0) {
+      setSaveChecked(props.defaultChecked);
+      setCheckedList(props.defaultChecked);
+    }
+  }, [props.defaultChecked]);
 
   const [keyword, setKeyword] = useState('');
 
@@ -62,17 +63,18 @@ const Select01 = (props: ISelectProps) => {
     (checked) => {
       if (checked) {
         const checkedListArray: InputData[] = [];
-        props.data?.forEach((list) => checkedListArray.push(list));
+        data.forEach((list) => checkedListArray.push(list));
         setCheckedList(checkedListArray);
       } else setCheckedList([]);
     },
-    [props.data],
+    [data],
   );
 
   const onCheckedElement = useCallback(
     (checked, selectedTarget) => {
       if (checked) setCheckedList([...checkedList, selectedTarget]);
-      else setCheckedList(checkedList.filter((el) => el !== selectedTarget));
+      else
+        setCheckedList(checkedList.filter((el) => el.id !== selectedTarget.id));
     },
     [checkedList],
   );
@@ -132,7 +134,7 @@ const Select01 = (props: ISelectProps) => {
                 ? checkedList.map((data) => data.name).join(',')
                 : `${checkedList.length} 선택됨`}
             </span>
-          ) : props.data?.length ? (
+          ) : data.length ? (
             '선택 안됨'
           ) : (
             '선택 가능한 옵션 없음'
@@ -163,14 +165,14 @@ const Select01 = (props: ISelectProps) => {
                 checked={
                   checkedList.length === 0
                     ? false
-                    : checkedList.length === props.data?.length
+                    : checkedList.length === data?.length
                 }
                 onChange={(event) => onCheckedAll(event.target.checked)}
               />
               <Options className="options">
                 <Divider style={{ margin: '0.5rem 0' }} />
-                {props.data && props.data.length > 0
-                  ? props.data
+                {data && data.length > 0
+                  ? data
                       .filter((el) => el.name.includes(keyword))
                       .map((el) => (
                         <Check01
