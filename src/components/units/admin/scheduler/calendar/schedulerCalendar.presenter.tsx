@@ -1,4 +1,5 @@
 import { styleSet } from '../../../../../commons/styles/styleSet';
+import { getStaticDateStr } from '../../../../../commons/utils/getDate';
 import Btn01 from '../../../../commons/button/btn01';
 import Select01 from '../../../../commons/input/select01';
 import ArrowSvg from '../../../../commons/svg/arrows';
@@ -7,6 +8,7 @@ import CalendarElementContainer from '../elements/calendar/calendarElement.conta
 import { IDateData } from '../scheduler.types';
 import * as S from './schedulerCalendar.styles';
 import { ISchedulerCalendarProps } from './schedulerCalendar.types';
+import { v4 } from 'uuid';
 
 const getDateStr = (date: IDateData) => {
   let dayStr = date.day.split('-')[2] + '일';
@@ -18,8 +20,19 @@ const getDateStr = (date: IDateData) => {
   }
   return dayStr + ` (${date.dateStr})`;
 };
+const getTimeStr = (date: Date) => {
+  const hour = date.getHours().toString();
+  const minute = date.getMinutes().toString();
+  let timeStr = '';
+  if (hour.length !== 2) timeStr += '0';
+  timeStr += hour + ':';
+  if (minute.length !== 2) timeStr += '0';
+  timeStr += minute;
+  return timeStr;
+};
 
 const SchedulerCalendarPresenter = (props: ISchedulerCalendarProps) => {
+  console.log(props.member);
   return (
     <S.Container>
       <S.TopWrapper>
@@ -61,6 +74,7 @@ const SchedulerCalendarPresenter = (props: ISchedulerCalendarProps) => {
               defaultChecked={props.initOption?.organization}
               name={'organization'}
               role="organization"
+              left
             />
           </S.OptSectionWrapper>
         </S.OptBox>
@@ -82,12 +96,11 @@ const SchedulerCalendarPresenter = (props: ISchedulerCalendarProps) => {
         <S.CalendarWrapper>
           <S.CalendarHeader>
             <S.CalendarHeaderItem> </S.CalendarHeaderItem>
-            {/* TODO: need type declaration */}
             {props.dateArray?.map((date: IDateData) => {
               const dayStr = getDateStr(date);
               return (
                 <S.CalendarHeaderItem
-                  key={date.index}
+                  key={v4()}
                   className={date.isToday ? 'today' : 'other'}
                 >
                   <S.Text>{dayStr}</S.Text>
@@ -103,14 +116,36 @@ const SchedulerCalendarPresenter = (props: ISchedulerCalendarProps) => {
                     {props.dateArray?.map((date: any) => {
                       return (
                         <S.CalendarBodyItem
-                          key={date.index}
+                          key={v4()}
                           className={date.isToday ? 'today' : 'other'}
                         >
-                          <CalendarElementContainer
+                          {props.scheduleList?.map((schedule: any) => {
+                            if (
+                              schedule.member.id === member.id &&
+                              getStaticDateStr(new Date(schedule.date)) ===
+                                date.day
+                            ) {
+                              return (
+                                <CalendarElementContainer
+                                  key={String(schedule.id)}
+                                  startTime={getTimeStr(
+                                    new Date(schedule.startWorkTime),
+                                  )}
+                                  endTime={getTimeStr(
+                                    new Date(schedule.endWorkTime),
+                                  )}
+                                  member={member}
+                                  companyName={member.company.name}
+                                  color={styleSet.colors.primary}
+                                />
+                              );
+                            } else return <></>;
+                          })}
+                          {/* <CalendarElementContainer
                             member={member}
                             companyName={member.company.name}
-                            color={member.schedule.scheduleCategory.color}
-                          />
+                            color={styleSet.colors.primary}
+                          /> */}
                         </S.CalendarBodyItem>
                       );
                     })}
@@ -126,7 +161,7 @@ const SchedulerCalendarPresenter = (props: ISchedulerCalendarProps) => {
             {props.dateArray?.map((date: any) => {
               return (
                 <S.CalendarFooterItem
-                  key={date.index}
+                  key={v4()}
                   className={date.isToday ? 'today' : 'other'}
                 ></S.CalendarFooterItem>
               );
@@ -139,7 +174,7 @@ const SchedulerCalendarPresenter = (props: ISchedulerCalendarProps) => {
             {props.dateArray?.map((date: any) => {
               return (
                 <S.CalendarFooterItem
-                  key={date.index}
+                  key={v4()}
                   className={date.isToday ? 'today' : 'other'}
                 ></S.CalendarFooterItem>
               );
