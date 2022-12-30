@@ -92,6 +92,9 @@ export const OptSelect = styled.div`
 
 export const UlWrapper = styled.section`
   overflow: auto;
+  div {
+    min-width: 85.625rem;
+  }
 `;
 
 export const FuncButton = styled.button`
@@ -140,20 +143,33 @@ export const List = styled.ul`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  gap: 1rem;
   align-items: center;
   width: 100%;
   height: 1.5rem;
   label {
     padding-left: 2rem;
+    gap: unset;
   }
   li {
     min-width: 6.875rem;
   }
   li:nth-of-type(1) {
-    min-width: 3.125rem;
+    min-width: 4rem;
   }
   li:nth-of-type(2) {
     min-width: 10.625rem;
+  }
+  li:nth-of-type(3) {
+    min-width: 7.625rem;
+  }
+  li:nth-of-type(5) {
+    max-width: 4rem;
+    min-width: 4rem;
+  }
+  li:nth-of-type(6) {
+    max-width: 4rem;
+    min-width: 4rem;
   }
   li:nth-of-type(7) {
     min-width: 7.625rem;
