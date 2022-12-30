@@ -45,8 +45,8 @@ export const FETCH_SCHEDULE_LIST = gql`
 `;
 
 export const FETCH_ROLE_CATEGORIES = gql`
-  query fetchRoleCategories($companyId: String!) {
-    fetchRoleCategories(companyId: $companyId) {
+  query fetchRoleCategories {
+    fetchRoleCategories {
       id
       duty
     }
@@ -54,29 +54,17 @@ export const FETCH_ROLE_CATEGORIES = gql`
 `;
 
 export const FETCH_ORGANIZATIONS = gql`
-  query fetchOrganizations($companyId: String!) {
-    fetchOrganizations(companyId: $companyId) {
+  query fetchOrganizations {
+    fetchOrganizations {
       id
       name
     }
   }
 `;
 
-export const FETCH_ACCOUNT = gql`
-  query fetchAccount {
-    fetchAccount {
-      id
-      company {
-        id
-        name
-      }
-    }
-  }
-`;
-
 export const FETCH_MEMBERS = gql`
-  query fetchMembers($companyId: String!) {
-    fetchMembers(companyId: $companyId) {
+  query fetchMembers {
+    fetchMembers {
       id
       name
       roleCategory {

@@ -24,7 +24,7 @@ export default function ApolloSetting(props: IApolloSettingProps) {
     void getAccessToken().then((newAccessToken: string) => {
       setAccessToken(newAccessToken);
     });
-  }, []);
+  }, [setAccessToken]);
   console.log(accessToken, 'accessToken');
 
   const errorLink = onError(({ graphQLErrors, operation, forward }) => {
@@ -34,7 +34,6 @@ export default function ApolloSetting(props: IApolloSettingProps) {
           return fromPromise(
             getAccessToken().then((newAccessToken: string) => {
               setAccessToken(newAccessToken);
-
               operation.setContext({
                 headers: {
                   ...operation.getContext().headers,
@@ -45,7 +44,7 @@ export default function ApolloSetting(props: IApolloSettingProps) {
           ).flatMap(() => forward(operation));
         }
       }
-    }
+    } else return forward(operation);
   });
 
   const uploadLink = createUploadLink({

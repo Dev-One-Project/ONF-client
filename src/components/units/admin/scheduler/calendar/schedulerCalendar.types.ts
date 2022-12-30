@@ -22,6 +22,8 @@ export interface ISchedulerCalendarProps {
     SetStateAction<Array<Partial<IOrganization>>>
   >;
   scheduleList: ISchedule[] | undefined;
+  workHours: number[];
+  workNumbers: number[];
 }
 
 export interface InitData {

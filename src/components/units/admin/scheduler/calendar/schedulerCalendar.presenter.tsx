@@ -127,7 +127,7 @@ const SchedulerCalendarPresenter = (props: ISchedulerCalendarProps) => {
                             ) {
                               return (
                                 <CalendarElementContainer
-                                  key={String(schedule.id)}
+                                  key={schedule.id}
                                   startTime={getTimeStr(
                                     new Date(schedule.startWorkTime),
                                   )}
@@ -139,7 +139,7 @@ const SchedulerCalendarPresenter = (props: ISchedulerCalendarProps) => {
                                   color={styleSet.colors.primary}
                                 />
                               );
-                            } else return <></>;
+                            } else return null;
                           })}
                           {/* <CalendarElementContainer
                             member={member}
@@ -156,27 +156,31 @@ const SchedulerCalendarPresenter = (props: ISchedulerCalendarProps) => {
 
           <S.CalendarFooter>
             <S.CalendarFooterItem>
-              <S.Text>000h</S.Text>
+              <S.Text>{props.workHours[7]}h</S.Text>
             </S.CalendarFooterItem>
-            {props.dateArray?.map((date: any) => {
+            {props.dateArray?.map((date: IDateData, idx: number) => {
               return (
                 <S.CalendarFooterItem
                   key={v4()}
                   className={date.isToday ? 'today' : 'other'}
-                ></S.CalendarFooterItem>
+                >
+                  {props.workHours[idx]}
+                </S.CalendarFooterItem>
               );
             })}
           </S.CalendarFooter>
           <S.CalendarFooter>
             <S.CalendarFooterItem>
-              <S.Text>0명</S.Text>
+              <S.Text>{props.workNumbers[7]}명</S.Text>
             </S.CalendarFooterItem>
-            {props.dateArray?.map((date: any) => {
+            {props.dateArray?.map((date: IDateData, idx: number) => {
               return (
                 <S.CalendarFooterItem
                   key={v4()}
                   className={date.isToday ? 'today' : 'other'}
-                ></S.CalendarFooterItem>
+                >
+                  {props.workNumbers[idx]}
+                </S.CalendarFooterItem>
               );
             })}
           </S.CalendarFooter>

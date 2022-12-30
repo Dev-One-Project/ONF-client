@@ -16,6 +16,7 @@ export const getAccessToken = async () => {
 
     const result = await graphGLClient.request(RESTORE_ACCESS_TOKEN);
     const newAccessToken = result.restoreAccessToken;
+    sessionStorage.setItem('accessToken', newAccessToken);
     return newAccessToken;
   } catch (error) {
     if (error instanceof Error) console.log(error.message);
