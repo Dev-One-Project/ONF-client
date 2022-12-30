@@ -2,9 +2,17 @@ import * as S from './schedulerList.styles';
 import { styleSet } from '../../../../../commons/styles/styleSet';
 import Btn01 from '../../../../commons/button/btn01';
 import Select01 from '../../../../commons/input/select01';
-import { DatePicker, Space } from 'antd';
+import { ConfigProvider, DatePicker, Space } from 'antd';
 import { ISchedulerListProps } from './schedulerList.types';
 import Check01 from '../../../../commons/input/check01';
+import { ISchedule } from '../../../../../commons/types/generated/types';
+import moment from 'moment';
+import dayjs from 'dayjs';
+import dayToString from '../../../../../commons/utils/dayToString';
+import { getTimeStr } from '../../../../../commons/utils/getDate';
+import { getRestStr, getWorkHourStr } from '../../../../../commons/utils/work';
+import 'dayjs/locale/zh-cn';
+import locale from 'antd/locale/ko_KR';
 
 const SchedulerListPresenter = (props: ISchedulerListProps) => {
   return (
@@ -24,19 +32,49 @@ const SchedulerListPresenter = (props: ISchedulerListProps) => {
         <S.OptBox>
           <S.OptSectionWrapper>
             <Space direction="vertical">
-              <DatePicker.RangePicker
-                style={{ width: '244px', borderRadius: '2px' }}
-              />
+              <ConfigProvider locale={locale}>
+                <DatePicker.RangePicker
+                  style={{
+                    borderRadius: '0',
+                    padding: '0.4rem 1rem',
+                  }}
+                  defaultValue={[
+                    dayjs(
+                      new Date(
+                        new Date(props.startDate).getFullYear(),
+                        new Date(props.startDate).getMonth(),
+                        new Date(props.startDate).getDate(),
+                      ),
+                    ),
+                    dayjs(
+                      new Date(
+                        new Date(props.endDate).getFullYear(),
+                        new Date(props.endDate).getMonth(),
+                        new Date(props.endDate).getDate(),
+                      ),
+                    ),
+                  ]}
+                  onChange={props.onChangeStartEndDate}
+                />
+              </ConfigProvider>
             </Space>
+            <S.FuncButton onClick={props.onClickToday}>오늘</S.FuncButton>
             {/* 필터 추가 */}
           </S.OptSectionWrapper>
           <S.OptSectionWrapper>
-            <Select01 data={['이다은', '바보', '멍충이']} role="organization" />
+            <Select01
+              data={props.initOption?.organization}
+              setState={props.setSelectOrganization}
+              defaultChecked={props.initOption?.organization}
+              name={'organization'}
+              role="organization"
+              left
+            />
           </S.OptSectionWrapper>
         </S.OptBox>
         <S.OptBox>
           <S.OptSectionWrapper>
-            <S.Label>총 시간 : 000h</S.Label>
+            <S.Label>총 시간 : {props.workHour}h</S.Label>
           </S.OptSectionWrapper>
         </S.OptBox>
       </S.OptWrapper>
@@ -58,20 +96,46 @@ const SchedulerListPresenter = (props: ISchedulerListProps) => {
           </S.List>
         </S.ListHeaderWrapper>
         {/* TOOD: need type declaration */}
-        {props.data?.map((el: any) => (
-          <S.ListBodyWrapper key={el.index}>
+        {props.scheduleList?.map((schedule: ISchedule) => (
+          <S.ListBodyWrapper key={schedule.id}>
             <S.List>
               <Check01 />
-              <S.ListBodyContent>{el.name}</S.ListBodyContent>
-              <S.ListBodyContent>{el.date}</S.ListBodyContent>
-              <S.ListBodyContent>{el.time}</S.ListBodyContent>
-              <S.ListBodyContent>{el.type}</S.ListBodyContent>
-              <S.ListBodyContent>{el.organization}</S.ListBodyContent>
-              <S.ListBodyContent>{el.job}</S.ListBodyContent>
-              <S.ListBodyContent>{el.template}</S.ListBodyContent>
-              <S.ListBodyContent>{el.note}</S.ListBodyContent>
-              <S.ListBodyContent>{el.restTime}</S.ListBodyContent>
-              <S.ListBodyContent>{el.totalTime}</S.ListBodyContent>
+              <S.ListBodyContent>{schedule.member.name}</S.ListBodyContent>
+              <S.ListBodyContent>
+                {moment(schedule.startWorkTime).format('MM/DD')}
+                {` (${dayToString(moment(schedule.startWorkTime).day())})`}
+              </S.ListBodyContent>
+              <S.ListBodyContent>
+                {getTimeStr(
+                  String(schedule.startWorkTime),
+                  String(schedule.endWorkTime),
+                )}
+              </S.ListBodyContent>
+              <S.ListBodyContent>
+                {schedule.scheduleCategory.scheduleCategoryName || ''}
+              </S.ListBodyContent>
+              <S.ListBodyContent>
+                {schedule.organization.name || ''}
+              </S.ListBodyContent>
+              <S.ListBodyContent>
+                {schedule.roleCategory.duty || ''}
+              </S.ListBodyContent>
+              <S.ListBodyContent>
+                {schedule.scheduleTemplate.name || ''}
+              </S.ListBodyContent>
+              <S.ListBodyContent>{schedule.memo || ''}</S.ListBodyContent>
+              <S.ListBodyContent>
+                {getRestStr(
+                  String(schedule.startWorkTime),
+                  String(schedule.endWorkTime),
+                )}
+              </S.ListBodyContent>
+              <S.ListBodyContent>
+                {getWorkHourStr(
+                  String(schedule.startWorkTime),
+                  String(schedule.endWorkTime),
+                )}
+              </S.ListBodyContent>
             </S.List>
           </S.ListBodyWrapper>
         ))}
