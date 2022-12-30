@@ -1,27 +1,29 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import SchedulerCalendarPresenter from './schedulerCalendar.presenter';
 import { IDateData } from '../scheduler.types';
 import getWeekData from '../../../../../commons/utils/getWeekData';
 import moment from 'moment';
 import {
-  IAccount,
   IOrganization,
   IQuery,
   IQueryFetchListTypeScheduleArgs,
-  IQueryFetchMembersArgs,
-  IQueryFetchOrganizationsArgs,
-  IQueryFetchRoleCategoriesArgs,
   IRoleCategory,
+  ISchedule,
 } from '../../../../../commons/types/generated/types';
-import { useLazyQuery, useQuery } from '@apollo/client';
 import {
-  FETCH_ACCOUNT,
+  OperationVariables,
+  QueryResult,
+  useLazyQuery,
+  useQuery,
+} from '@apollo/client';
+import {
   FETCH_MEMBERS,
   FETCH_ORGANIZATIONS,
   FETCH_ROLE_CATEGORIES,
   FETCH_SCHEDULE_LIST,
 } from './schedulerCalendar.queries';
 import { InitData } from './schedulerCalendar.types';
+import { getWorkHour } from '../../../../../commons/utils/work';
 
 const SchedulerCalendarContainer = () => {
   console.log('-------------------------------------');
@@ -37,32 +39,29 @@ const SchedulerCalendarContainer = () => {
     Array<Partial<IRoleCategory>>
   >([]);
   const [initOption, setInitOption] = useState<InitData | undefined>();
-  const [identification, setIdentification] = useState<IAccount>();
+  const [workHours, setWorkHours] = useState<number[]>([
+    0, 0, 0, 0, 0, 0, 0, 0,
+  ]);
+  const [workNumbers, setWorkNumbers] = useState<number[]>([
+    0, 0, 0, 0, 0, 0, 0, 0,
+  ]);
+  // const [memberList, setMemberList] = useState<IMember[]>([]);
   console.log('initOption', initOption);
   console.log('selectOrganization', selectOrganization);
   console.log('selectRoleCategory', selectRoleCategory);
-  console.log('identification', identification);
-  console.log(selectOrganization.map((select) => String(select.id)));
+  console.log(selectOrganization?.map((select) => String(select.id)));
 
   // graphql query
   const [getCategory, { data: roleCategory }] = useLazyQuery<
-    Pick<IQuery, 'fetchRoleCategories'>,
-    IQueryFetchRoleCategoriesArgs
+    Pick<IQuery, 'fetchRoleCategories'>
   >(FETCH_ROLE_CATEGORIES, {
-    variables: {
-      companyId: String(identification?.company?.id),
-    },
     fetchPolicy: 'network-only',
     nextFetchPolicy: 'cache-only',
   });
 
   const [getOrganization, { data: organization }] = useLazyQuery<
-    Pick<IQuery, 'fetchOrganizations'>,
-    IQueryFetchOrganizationsArgs
+    Pick<IQuery, 'fetchOrganizations'>
   >(FETCH_ORGANIZATIONS, {
-    variables: {
-      companyId: String(identification?.company?.id),
-    },
     fetchPolicy: 'network-only',
     nextFetchPolicy: 'cache-only',
   });
@@ -74,27 +73,36 @@ const SchedulerCalendarContainer = () => {
     variables: {
       startDate: String(moment(dateArray[0]?.day).format('YYYY-MM-DD')),
       endDate: String(moment(dateArray[6]?.day).format('YYYY-MM-DD')),
-      organizationId: selectOrganization.map((select) => String(select.id)),
+      organizationId: selectOrganization?.map((select) => String(select.id)),
     },
   });
 
-  const [getMember, { data: memberList }] = useLazyQuery<
-    Pick<IQuery, 'fetchMembers'>,
-    IQueryFetchMembersArgs
-  >(FETCH_MEMBERS, {
-    variables: {
-      companyId: String(identification?.company?.id),
-    },
-  });
-
-  const { data: accountDetail } =
-    useQuery<Pick<IQuery, 'fetchAccount'>>(FETCH_ACCOUNT);
-
-  console.log('organization', organization);
-  console.log('roleCategory', roleCategory);
-  console.log('scheduleList', scheduleList);
+  const [getMember, { data: memberList }] =
+    useLazyQuery<Pick<IQuery, 'fetchMembers'>>(FETCH_MEMBERS);
 
   // initializing
+  useEffect(() => {
+    const weekWorkHours = [0, 0, 0, 0, 0, 0, 0, 0];
+    const weekNumbers = [0, 0, 0, 0, 0, 0, 0, 0];
+
+    scheduleList?.fetchListTypeSchedule.forEach((schedule: ISchedule) => {
+      const day = moment(schedule.startWorkTime).day();
+      weekWorkHours[day] = getWorkHour(
+        String(schedule.startWorkTime),
+        String(schedule.endWorkTime),
+      );
+      weekWorkHours[7] += getWorkHour(
+        String(schedule.startWorkTime),
+        String(schedule.endWorkTime),
+      );
+      weekNumbers[day] += 1;
+      weekNumbers[7] += 1;
+    });
+    setWorkHours(weekWorkHours);
+    setWorkNumbers(weekNumbers);
+    console.log('weekWorkHours', weekWorkHours);
+    console.log('weekNumbers', weekNumbers);
+  }, [scheduleList]);
 
   useMemo(() => {
     if (dateArray.length === 0) {
@@ -103,37 +111,41 @@ const SchedulerCalendarContainer = () => {
   }, [dateArray]);
 
   useMemo(() => {
-    if (accountDetail) {
-      setIdentification(accountDetail?.fetchAccount);
-      if (memberList === undefined) {
-        getMember().catch(() => {});
-      }
-      if (roleCategory === undefined) {
-        getCategory().catch(() => {});
-      }
-      if (organization === undefined) {
-        getOrganization().catch(() => {});
-      }
-      if (roleCategory && organization) {
-        const data: InitData = {
-          roleCategory: roleCategory?.fetchRoleCategories.map((data) => {
-            return {
-              id: data.id,
-              name: data.duty,
-            };
-          }),
-          organization: organization?.fetchOrganizations.map((data) => {
-            return {
-              id: String(data.id),
-              name: String(data.name),
-            };
-          }),
-        };
-        setInitOption(data);
-      }
+    if (memberList === undefined) {
+      getMember()
+        .then(
+          (
+            res: QueryResult<Pick<IQuery, 'fetchMembers'>, OperationVariables>,
+          ) => {},
+        )
+        .catch(() => {});
+    }
+    if (roleCategory === undefined) {
+      getCategory().catch(() => {});
+    }
+    if (organization === undefined) {
+      getOrganization().catch(() => {});
+    }
+    if (roleCategory && organization) {
+      const data: InitData = {
+        roleCategory: roleCategory?.fetchRoleCategories.map((data) => {
+          return {
+            id: data.id,
+            name: data.duty,
+          };
+        }),
+        organization: organization?.fetchOrganizations.map((data) => {
+          return {
+            id: String(data.id),
+            name: String(data.name),
+          };
+        }),
+      };
+      setInitOption(data);
+      setSelectOrganization(data.organization ?? []);
+      setSelectRoleCategory(data.roleCategory ?? []);
     }
   }, [
-    accountDetail,
     memberList,
     roleCategory,
     organization,
@@ -173,6 +185,8 @@ const SchedulerCalendarContainer = () => {
       onClickPrevWeek={onClickPrevWeek}
       onClickToday={onClickToday}
       member={memberList?.fetchMembers}
+      workHours={workHours}
+      workNumbers={workNumbers}
     />
   );
 };
