@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import * as S from './join.styles';
 import { IJoinProps } from './join.types';
-import EmployeeModal from './join. employeeModal';
+import EmployeeModal from './join.employeeModal';
 import Btn01 from '../../../commons/button/btn01';
-import BussinessModal from './join.BussinessModal';
+import AdminModal from './join.adminModal';
 import Check01 from '../../../commons/input/check01';
 import Input01 from '../../../commons/input/input01';
 import { styleSet } from '../../../../commons/styles/styleSet';
@@ -95,13 +95,13 @@ const JoinPresenter = (props: IJoinProps) => {
             </S.Data>
 
             <S.ChooseCompany>
-              <li onClick={props.onClickOpenModal}>
+              <li onClick={props.onClickAdminModal}>
                 <span>
                   <PlusOutlined /> 회사 만들기
                 </span>
                 <p>(최고관리자용)</p>
               </li>
-              <li onClick={props.onClickOpenModal2}>
+              <li onClick={props.onClickEmployeeModal}>
                 <span>
                   <ImportOutlined /> 직장 합류하기
                 </span>
@@ -167,15 +167,15 @@ const JoinPresenter = (props: IJoinProps) => {
           </S.Ul>
         </S.Main>
         <EmployeeModal
-          setIsOpen2={props.setIsOpen2}
-          isOpen2={props.isOpen2}
+          setIsOpenEmployee={props.setIsOpenEmployee}
+          isOpenEmployee={props.isOpenEmployee}
           aniMode={props.aniMode}
           onClickCloseModal={props.onClickCloseModal}
         />
 
-        <BussinessModal
-          setIsOpen={props.setIsOpen}
-          isOpen={props.isOpen}
+        <AdminModal
+          setIsOpenAdmin={props.setIsOpenAdmin}
+          isOpenAdmin={props.isOpenAdmin}
           aniMode={props.aniMode}
           onClickCloseModal={props.onClickCloseModal}
         />

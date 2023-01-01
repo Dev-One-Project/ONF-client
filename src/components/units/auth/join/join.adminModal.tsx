@@ -5,19 +5,19 @@ import FallingModal from '../../../commons/modal/fallingModal';
 import { styleSet } from '../../../../commons/styles/styleSet';
 import { IModalDate } from './join.types';
 
-const BussinessModal = (props: IModalDate) => {
+const AdminModal = (props: IModalDate) => {
   return (
     <>
-      {props.isOpen && (
+      {props.isOpenAdmin && (
         <FallingModal
-          setIsOpen={props.setIsOpen}
-          isOpen={props.isOpen}
+          setIsOpen={props.setIsOpenAdmin}
+          isOpen={props.isOpenAdmin}
           aniMode={props.aniMode}
           onCancel={props.onClickCloseModal}
           width={'600px'}
           title={'회사 만들기 (최고관리자)'}
         >
-          <S.ChooseModal>
+          <S.AdminModal>
             <div>
               <p>별도의 기기 설치나 계약 없이</p>
               <p>
@@ -65,10 +65,10 @@ const BussinessModal = (props: IModalDate) => {
                 color="#fff"
               />
             </S.ButtonBox>
-          </S.ChooseModal>
+          </S.AdminModal>
         </FallingModal>
       )}
     </>
   );
 };
-export default BussinessModal;
+export default AdminModal;

@@ -97,7 +97,7 @@ export const Ul2 = styled.ul`
 
 export const Mypage = styled.article`
   width: 240px;
-  height: 180px;
+  height: 150px;
   background: ${styleSet.colors.white};
   position: absolute;
   top: 50px;
@@ -278,7 +278,7 @@ export const Check = styled.ul`
     font-size: ${styleSet.fontSizes.small};
     font-family: ${styleSet.fonts.B};
 
-    padding-bottom: 10px;
+    padding-bottom: 20px;
   }
 `;
 

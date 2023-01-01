@@ -1,7 +1,7 @@
 import { DatePicker, Space } from 'antd';
 import Check01 from '../../input/check01';
-import { IUserSideBar } from '../../layoutuser/layout.types';
-import * as S from '../../layoutuser/layout.styles';
+import { IUserSideBar } from '../../layoutUser/layout.types';
+import * as S from '../../layoutUser/layout.styles';
 
 const UserAttendancesSideBar = (props: IUserSideBar) => {
   return (
@@ -19,6 +19,12 @@ const UserAttendancesSideBar = (props: IUserSideBar) => {
         <S.Check>
           <li>
             <Check01 register={props.register} text={'정상적인 기록'} />
+          </li>
+          <li>
+            <Check01 register={props.register} text={'지각 기록'} />
+          </li>
+          <li>
+            <Check01 register={props.register} text={'조퇴 기록'} />
           </li>
           <li>
             <Check01 register={props.register} text={'출근 누락된 기록'} />

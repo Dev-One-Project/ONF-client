@@ -240,7 +240,7 @@ export const ChooseCompany = styled.ul`
   }
 `;
 
-export const ChooseModal = styled.section`
+export const AdminModal = styled.section`
   div {
     margin-bottom: 1rem;
     p {
@@ -275,7 +275,7 @@ export const ChooseModal = styled.section`
   }
 `;
 
-export const ChooseModal2 = styled.section`
+export const EmployeeModal = styled.section`
   p {
     color: ${styleSet.colors.darkGray};
     padding-bottom: 2rem;

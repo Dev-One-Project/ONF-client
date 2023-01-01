@@ -4,7 +4,6 @@ import {
   ClockCircleOutlined,
   CloseOutlined,
   FileDoneOutlined,
-  HomeOutlined,
   LogoutOutlined,
   ReloadOutlined,
   SettingOutlined,
@@ -14,9 +13,9 @@ import {
 import { useRouter } from 'next/router';
 import { MouseEvent, useState } from 'react';
 import Switch01 from '../../switch/switch01';
-import * as S from '../../layoutuser/layout.styles';
+import * as S from '../../layoutUser/layout.styles';
 import { useQuery } from '@apollo/client';
-import { FETCH_MEMBER } from '../../layoutUser/layout.queries';
+import { FETCH_ACCOUNT } from '../../layoutUser/layout.queries';
 import { IUserHeaderProps } from '../layout.types';
 
 const UserHeaderPage = (props: IUserHeaderProps) => {
@@ -30,13 +29,14 @@ const UserHeaderPage = (props: IUserHeaderProps) => {
     { id: 2, address: '/user/requests', name: '요청 내역' },
   ];
 
+  const { data: fetchAccount } = useQuery(FETCH_ACCOUNT);
+
   const onClickMoveMenu = (path: string) => () => {
     void router.push(path);
     setSideMenu(false);
   };
 
-  const { data } = useQuery(FETCH_MEMBER);
-  console.log(data, 'data');
+  console.log(fetchAccount, 'fetchAccount');
 
   const onClickMypage = () => {
     setMypage((prev) => !prev);
@@ -88,14 +88,12 @@ const UserHeaderPage = (props: IUserHeaderProps) => {
               <S.Mypage>
                 <ul>
                   <li>
-                    <UserOutlined /> 신미연
+                    <UserOutlined /> {fetchAccount?.fetchAccount?.name}
                   </li>
                   <li>
                     <SettingOutlined /> 계정 설정
                   </li>
-                  <li>
-                    <HomeOutlined /> 회사 선택
-                  </li>
+
                   <li>
                     <LogoutOutlined /> 로그아웃
                   </li>
@@ -120,7 +118,8 @@ const UserHeaderPage = (props: IUserHeaderProps) => {
               <CloseOutlined className="close" onClick={onClickSideMenu} />
               <S.TopText>
                 <li>
-                  <S.Name>신미연 </S.Name>직원
+                  <S.Name>{fetchAccount?.fetchAccount?.name} </S.Name>
+                  {fetchAccount?.fetchAccount?.roles}
                 </li>
                 <li>
                   <span>내 계정</span> <span>내 프로필</span>
