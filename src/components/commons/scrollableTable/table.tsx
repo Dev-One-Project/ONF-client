@@ -174,13 +174,14 @@ const ScrollableTable = (props: IScrollableTableProps) => {
   }, []); // 외부에서 들어오는 데이터 props.data
 
   const onCheckedElement = useCallback(
-    (checked, list) => {
-      if (checked) setCheckedList([...checkedList, list]);
-      else setCheckedList(checkedList.filter((el) => el !== list));
+    (checked, target) => {
+      console.log(target);
+      if (checked) setCheckedList([...checkedList, target]);
+      else setCheckedList(checkedList.filter((el) => el !== target));
     },
     [checkedList],
   );
-
+  console.log(checkedList);
   return (
     <Wrapper
       isAdminSidebar={isAdminSidebar}
