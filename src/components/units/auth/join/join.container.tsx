@@ -35,21 +35,21 @@ const JoinContainer = () => {
     '[필수] 개인정보 수집 및 이용에 동의합니다.',
   ];
   const [checkedList, setCheckedList] = useState<string[]>([]);
-  const [isOpen, setIsOpen] = useState(false);
-  const [isOpen2, setIsOpen2] = useState(false);
+  const [isOpenAdmin, setIsOpenAdmin] = useState(false);
+  const [isOpenEmployee, setIsOpenEmployee] = useState(false);
   const [aniMode, setAniMode] = useState(false);
 
   const onClickCloseModal = () => {
     setAniMode(false);
   };
 
-  const onClickOpenModal = () => {
-    setIsOpen(true);
+  const onClickAdminModal = () => {
+    setIsOpenAdmin(true);
     setAniMode(true);
   };
 
-  const onClickOpenModal2 = () => {
-    setIsOpen2(true);
+  const onClickEmployeeModal = () => {
+    setIsOpenEmployee(true);
     setAniMode(true);
   };
 
@@ -94,22 +94,22 @@ const JoinContainer = () => {
   return (
     <>
       <JoinPresenter
-        onClickSubmit={onClickSubmit}
+        aniMode={aniMode}
         register={register}
-        handleSubmit={handleSubmit}
         formState={formState}
+        checkedList={checkedList}
+        handleSubmit={handleSubmit}
+        onClickSubmit={onClickSubmit}
+        onChangeChecked={onChangeChecked}
         checkboxContents={checkboxContents}
         onChangeCheckedAll={onChangeCheckedAll}
-        checkedList={checkedList}
-        onChangeChecked={onChangeChecked}
-        setIsOpen={setIsOpen}
-        isOpen={isOpen}
-        setIsOpen2={setIsOpen2}
-        aniMode={aniMode}
         onClickCloseModal={onClickCloseModal}
-        onClickOpenModal={onClickOpenModal}
-        onClickOpenModal2={onClickOpenModal2}
-        isOpen2={isOpen2}
+        onClickAdminModal={onClickAdminModal}
+        onClickEmployeeModal={onClickEmployeeModal}
+        isOpenAdmin={isOpenAdmin}
+        setIsOpenAdmin={setIsOpenAdmin}
+        isOpenEmployee={isOpenEmployee}
+        setIsOpenEmployee={setIsOpenEmployee}
       />
     </>
   );

@@ -3,20 +3,20 @@ import { FieldValues, FormState, UseFormRegister } from 'react-hook-form';
 
 export interface IJoinProps {
   onError?: any;
-  isOpen: boolean;
-  isOpen2: boolean;
+  isOpenEmployee: boolean;
+  isOpenAdmin: boolean;
   aniMode: boolean;
   handleSubmit: any;
   checkedList: string[];
   checkboxContents: string[];
-  onClickOpenModal: () => void;
-  onClickOpenModal2: () => void;
+  onClickAdminModal: () => void;
+  onClickEmployeeModal: () => void;
   onClickCloseModal: () => void;
   formState: FormState<FieldValues>;
   register: UseFormRegister<FieldValues>;
   onClickSubmit: (data: IFormData) => void;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
-  setIsOpen2: Dispatch<SetStateAction<boolean>>;
+  setIsOpenEmployee: Dispatch<SetStateAction<boolean>>;
+  setIsOpenAdmin: Dispatch<SetStateAction<boolean>>;
   onChangeCheckedAll: (checked: boolean) => void;
   onChangeChecked: (checked: boolean, content: string) => void;
 }
@@ -30,7 +30,9 @@ export interface IFormData {
 }
 
 export interface IModalDate {
-  onClickOpenModal?: () => void;
+  setIsOpenAdmin?: any;
+  isOpenAdmin?: boolean;
+  onClickAdminModal?: () => void;
   onClickCloseModal?: () => void;
   setIsOpen?: Dispatch<SetStateAction<boolean>>;
   isOpen?: boolean;

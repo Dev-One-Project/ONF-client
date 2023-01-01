@@ -7,17 +7,17 @@ import { styleSet } from '../../../../commons/styles/styleSet';
 const EmployeeModal = (props: any) => {
   return (
     <>
-      {props.isOpen2 && (
+      {props.isOpenEmployee && (
         <FallingModal
-          setIsOpen={props.setIsOpen2}
-          isOpen={props.isOpen2}
+          setIsOpen={props.setIsOpenEmployee}
+          isOpen={props.isOpenEmployee}
           aniMode={props.aniMode}
           onCancel={props.onClickCloseModal}
           width={'600px'}
           title={'직장 합류 (직원용)'}
         >
           <>
-            <S.ChooseModal2>
+            <S.EmployeeModal>
               <div>
                 <span>합류코드</span> <Input01 type={'text'} />
               </div>
@@ -36,7 +36,7 @@ const EmployeeModal = (props: any) => {
                   color="#fff"
                 />
               </S.ButtonBox>
-            </S.ChooseModal2>
+            </S.EmployeeModal>
           </>
         </FallingModal>
       )}

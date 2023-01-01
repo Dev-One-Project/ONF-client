@@ -1,23 +1,17 @@
 import { gql } from '@apollo/client';
 
-export const FETCH_MEMBER = gql`
-  query fetchMember($memberId: String!) {
-    fetchMember(memberId: $memberId) {
+export const FETCH_ACCOUNT = gql`
+  query fetchAccount {
+    fetchAccount {
       id
+      email
+      roles
       name
       phone
-      joinDate
-      exitDate
-      memo
-      isJoin
-      leave
+      member {
+        id
+      }
       company {
-        id
-      }
-      roleCategory {
-        id
-      }
-      organization {
         id
       }
     }
