@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   IQuery,
-  IQueryFetchOrganizationsArgs,
   IQueryFetchVacationIssueBaseDateArgs,
   IQueryFetchVacationIssueDetailDateArgs,
   IQueryFetchVacationIssueDetailDateDeleteArgs,
@@ -100,15 +99,8 @@ const LeaveAccrualsContainer = () => {
     setStartEndDate([value[0].$d, value[1].$d]);
   };
 
-  const { data: organizations } = useQuery<
-    Pick<IQuery, 'fetchOrganizations'>,
-    IQueryFetchOrganizationsArgs
-  >(FETCH_ORGANIZATIONS, {
-    variables: {
-      // companyId: String(accountDetail?.fetchAccount.company?.id)
-      companyId: '00b9f2a4-86e7-4071-9b69-35163bdd8998',
-    },
-  });
+  const { data: organizations } =
+    useQuery<Pick<IQuery, 'fetchOrganizations'>>(FETCH_ORGANIZATIONS);
 
   const organizationsData: IInputData[] = organizations
     ? organizations.fetchOrganizations.map((el) => ({

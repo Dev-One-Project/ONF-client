@@ -117,8 +117,8 @@ export const FETCH_VACATION_ISSUE_BASE_DELETE = gql`
 `;
 
 export const FETCH_ORGANIZATIONS = gql`
-  query fetchOrganizations($companyId: String!) {
-    fetchOrganizations(companyId: $companyId) {
+  query fetchOrganizations {
+    fetchOrganizations {
       id
       name
       # color

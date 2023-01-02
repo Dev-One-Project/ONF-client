@@ -116,7 +116,7 @@ export const ModalField = styled.fieldset`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  width: 31rem;
+  width: 29rem;
   label {
     width: 100px;
   }
