@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, MouseEvent } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 import { styleSet } from '../../../commons/styles/styleSet';
 
@@ -7,12 +7,14 @@ interface ICheck01Props {
   register?: UseFormRegisterReturn;
   text?: string;
   checked?: boolean;
+  defaultChecked?: boolean;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onClick?: (e: MouseEvent<HTMLLabelElement>) => void;
 }
 
 const Check01 = (props: ICheck01Props) => {
   return (
-    <Label>
+    <Label onClick={props.onClick}>
       {props.onChange ? (
         <InputInvisible
           type={'checkbox'}
@@ -21,8 +23,9 @@ const Check01 = (props: ICheck01Props) => {
         />
       ) : (
         <InputInvisible
-          checked={props.checked}
           type={'checkbox'}
+          checked={props.checked}
+          defaultChecked={props.defaultChecked}
           {...props.register}
         />
       )}
