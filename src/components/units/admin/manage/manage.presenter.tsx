@@ -43,7 +43,7 @@ const ManagePresenter = (props: IManagePresenterProps) => {
               총 직원 수: {'직원 수 데이터'}
             </S.TotalMembersCount>
           )}
-          {props.tab === '지점' && (
+          {(props.tab === '지점' || props.tab === '출퇴근 장소') && (
             <S.OrganizationTabBox>
               <S.ButtonBox>
                 <S.ToggleButton

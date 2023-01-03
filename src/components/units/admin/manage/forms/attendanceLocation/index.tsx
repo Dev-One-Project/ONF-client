@@ -13,7 +13,8 @@ import Memo from '../common/memo';
 import KakaoMapLauncher from './kakaoMapLauncher';
 import { InputNumber } from 'antd';
 import { valueType } from 'antd/es/statistic/utils';
-
+import Btn01 from '../../../../../commons/button/btn01';
+import DaumPostCode, { Address } from 'react-daum-postcode';
 // API 키값 env로 ??
 const IP_API_KEY = '726352a79674495788faaade6bbbb04d';
 
@@ -27,6 +28,7 @@ const AttendanceLocation = (props: IFormProps) => {
     useState<Partial<GeolocationCoordinates>>();
   const [radius, setRadius] = useState<valueType | null>(150);
   const [address, setAddress] = useState<string>('');
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   // IP 와 현재 위치 좌표를 얻어옴.
   useEffect(() => {
@@ -45,6 +47,7 @@ const AttendanceLocation = (props: IFormProps) => {
     };
 
     void getLocation();
+    console.log('useEffect!');
   }, []);
 
   const { setValue } = props;
@@ -52,6 +55,17 @@ const AttendanceLocation = (props: IFormProps) => {
   const paintIp = useCallback(() => {
     setValue?.('ip', ip);
   }, [ip, setValue]);
+
+  const onCompleteSearch = (e: Address) => {
+    setAddress(e.address);
+    setIsOpenModal(false);
+  };
+
+  const onChangeMarkerPosition = (args: Partial<GeolocationCoordinates>) => {
+    setMarkerPosition(args);
+    props.setValue?.('coords', args);
+    // useFrom 타입 정의 후 다시 확인
+  };
 
   return (
     <>
@@ -65,18 +79,20 @@ const AttendanceLocation = (props: IFormProps) => {
             출퇴근 장소명
           </InputLabel>
           <InputLabel
-            type="text"
+            type="custom"
             name="address"
             customInput={
-              <input
-                type="text"
-                value={address}
-                onChange={(event) => setAddress(event.target.value)}
+              <Btn01
+                type="button"
+                text="주소찾기"
+                bdC="#ddd"
+                onClick={() => setIsOpenModal((prev) => !prev)}
               />
             }
           >
             근무지 주소
           </InputLabel>
+          {isOpenModal && <DaumPostCodeModal onComplete={onCompleteSearch} />}
           <FormContent>
             <Label for="method">출퇴근 수단</Label>
             <CheckBoxWrapper>
@@ -107,18 +123,25 @@ const AttendanceLocation = (props: IFormProps) => {
                 <InputNumber
                   id="radius"
                   value={radius}
-                  onChange={(value) => setRadius(value)}
+                  onChange={(value) => {
+                    setRadius(value);
+                    props.setValue?.('radius', value);
+                  }}
                 />
+                <input type="number" {...props.register('radius')} />
+                <input type="number" {...props.register('coords')} />
               </FormContent>
               <KakaoMapWrapper>
-                <KakaoMapLauncher
-                  setMarkerPosition={setMarkerPosition}
-                  markerPosition={markerPosition}
-                  setCurrentPosition={setCurrentPosition}
-                  currentPosition={currentPosition}
-                  radius={radius}
-                  address={address}
-                />
+                {currentPosition && (
+                  <KakaoMapLauncher
+                    setMarkerPosition={onChangeMarkerPosition}
+                    markerPosition={markerPosition}
+                    setCurrentPosition={setCurrentPosition}
+                    currentPosition={currentPosition}
+                    radius={radius}
+                    address={address}
+                  />
+                )}
               </KakaoMapWrapper>
               <GuideLine>
                 * 지도 내 마커를 움직여 정확한 근무지의 좌표를 설정하세요.
@@ -154,6 +177,8 @@ const AttendanceLocation = (props: IFormProps) => {
 };
 
 export default AttendanceLocation;
+
+const DaumPostCodeModal = styled(DaumPostCode)``;
 
 const Wrapper = styled.div`
   display: flex;
