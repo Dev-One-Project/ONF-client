@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import {
   FieldError,
   FieldErrorsImpl,
@@ -20,6 +20,8 @@ interface IInput01Props {
     | FieldError
     | Merge<FieldError, FieldErrorsImpl<any>>
     | undefined;
+  defaultValue?: string | number;
+  defalutPreview?: string;
 }
 
 interface IStyle {
@@ -36,7 +38,10 @@ type IInputProps = {
 };
 
 const Input01 = (props: IInput01Props) => {
-  const [preview, setPreview] = useState<any>('');
+  const [preview, setPreview] = useState<Blob | string | ArrayBuffer | any>('');
+  useEffect(() => {
+    setPreview(props.defalutPreview);
+  }, [props.defalutPreview]);
 
   const onChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files?.[0]) return;
@@ -45,7 +50,6 @@ const Input01 = (props: IInput01Props) => {
     fileReader.readAsDataURL(file);
     fileReader.onload = (e) => {
       const fileResult = e.target?.result;
-      console.log(e.target);
       if (!fileResult) return;
       setPreview(fileResult);
     };
@@ -70,6 +74,7 @@ const Input01 = (props: IInput01Props) => {
         placeholder={props.placeholder}
         disabled={props.disabled || false}
         onChange={onChangeFile}
+        defaultValue={props.defaultValue}
       />
       <Error className="error" error={props.error}>
         {props.error}

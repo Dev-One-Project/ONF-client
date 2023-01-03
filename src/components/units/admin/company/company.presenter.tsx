@@ -26,7 +26,11 @@ const CompanyPresenter = (props: ICompanyPresenterProps) => {
           </S.RowWrapper>
           <S.RowWrapper>
             <S.Label>회사로고</S.Label>
-            <Input01 type={'file'} register={props.register('logoUrl')} />
+            <Input01
+              type={'file'}
+              register={props.register('logoUrl')}
+              defalutPreview={props.fetchCompanyDetail?.logoUrl}
+            />
           </S.RowWrapper>
           <S.RowWrapper>
             <S.Label>회사 지정 휴일</S.Label>
@@ -128,8 +132,6 @@ const CompanyPresenter = (props: ICompanyPresenterProps) => {
               <Check01
                 register={props.register('isWorkLogEnabled')}
                 text={'출퇴근기록 생성 요청 기능을 사용합니다.'}
-                // checked={}
-                // onChange={}
               />
               <S.Explanation>
                 (출근을 누락한 경우, 출퇴근기록 생성 요청을 보낼 수 있습니다.)
