@@ -40,6 +40,7 @@ export const QuickBtnWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  gap: 1rem;
 `;
 
 export const StatusWrapper = styled.div`
