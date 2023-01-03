@@ -1,36 +1,42 @@
-import { styleSet } from '../../../../commons/styles/styleSet';
-import Btn01 from '../../../commons/button/btn01';
-import * as S from './home.styles';
 import { DatePicker } from 'antd';
+import * as S from './home.styles';
+import Btn01 from '../../../commons/button/btn01';
 import NoticeModal from '../../../commons/modal/noticeModal';
+import { styleSet } from '../../../../commons/styles/styleSet';
+import { useMoveToPage } from '../../../commons/hooks/useMoveToPage';
 const { RangePicker } = DatePicker;
 
 const HomePresenter = () => {
+  const { onClickMoveToPage } = useMoveToPage();
   return (
     <S.Container>
       <S.TopRow>
         <S.CommonBox>
-          <S.BoxTitle>ON&OFF 빠른 메뉴</S.BoxTitle>
+          <S.BoxTitle>괸라자 빠른 메뉴</S.BoxTitle>
           <S.QuickBtnWrapper>
             <Btn01
               text="근무일정"
               bgC={styleSet.colors.primary}
               color={styleSet.colors.white}
+              onClick={onClickMoveToPage('/admin/scheduler/calendar')}
             />
             <Btn01
               text="출퇴근기록"
               bgC={styleSet.colors.primary}
               color={styleSet.colors.white}
+              onClick={onClickMoveToPage('/admin/attendances/calendar')}
             />
             <Btn01
               text="휴가"
               bgC={styleSet.colors.primary}
               color={styleSet.colors.white}
+              onClick={onClickMoveToPage('/admin/leaves')}
             />
             <Btn01
               text="회사설정"
               bgC={styleSet.colors.primary}
               color={styleSet.colors.white}
+              onClick={onClickMoveToPage('/admin/company')}
             />
           </S.QuickBtnWrapper>
         </S.CommonBox>
