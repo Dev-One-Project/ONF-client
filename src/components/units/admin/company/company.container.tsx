@@ -4,45 +4,107 @@ import CompanyPresenter from './company.presenter';
 import {
   CREATE_HOLIDAY,
   FETCH_COMPANY,
+  FETCH_CONFIG,
   FETCH_HOLIDAY,
   UPDATE_COMPANY,
   UPDATE_GLOBAL_CONFIG,
   UPDATE_HOLIDAY,
   UPLOAD_SINGLE_FILE,
 } from './company.queries';
+import { useEffect } from 'react';
+import { ErrorModal } from '../../../commons/modal/sweetAlertModal';
 
 const CompanyContainer = () => {
-  const { register, handleSubmit, getValues } = useForm();
   const [updateCompany] = useMutation(UPDATE_COMPANY);
   const [createHoliday] = useMutation(CREATE_HOLIDAY);
   const [updateHoliday] = useMutation(UPDATE_HOLIDAY);
   const [uploadSingleFile] = useMutation(UPLOAD_SINGLE_FILE);
   const [updateGlobalConfig] = useMutation(UPDATE_GLOBAL_CONFIG);
   const { data: fetchCompany } = useQuery(FETCH_COMPANY, {
-    variables: {
-      companyId: '00b9f2a4-86e7-4071-9b69-35163bdd8998',
-    },
+    fetchPolicy: 'network-only',
   });
-  const { data: fetchHoliday } = useQuery(FETCH_HOLIDAY, {
-    variables: {
-      companyId: '00b9f2a4-86e7-4071-9b69-35163bdd8998',
-    },
-  });
+  const { data: fetchHoliday } = useQuery(FETCH_HOLIDAY);
+  const { data: fetchGlobalConfig } = useQuery(FETCH_CONFIG);
+  const { register, handleSubmit, watch, setValue } = useForm();
+  useEffect(() => {
+    setValue('name', fetchCompany?.fetchCompanyDetail.name);
+    setValue('rules', fetchCompany?.fetchCompanyDetail.rules);
+  }, [setValue, fetchCompany]);
+  useEffect(() => {
+    setValue(
+      'allowedCheckInBefore',
+      fetchGlobalConfig?.fetchGlobalConfig?.allowedCheckInBefore,
+    );
+    setValue(
+      'allowedCheckInAfter',
+      fetchGlobalConfig?.fetchGlobalConfig?.allowedCheckInAfter,
+    );
+    setValue(
+      'isWorkLogEnabled',
+      fetchGlobalConfig?.fetchGlobalConfig?.isWorkLogEnabled,
+    );
+    setValue(
+      'isVacationEnabled',
+      fetchGlobalConfig?.fetchGlobalConfig?.isVacationEnabled,
+    );
+    setValue(
+      'isScheduleEnabled',
+      fetchGlobalConfig?.fetchGlobalConfig?.isScheduleEnabled,
+    );
+    setValue(
+      'isCheckInEnabled',
+      fetchGlobalConfig?.fetchGlobalConfig?.isCheckInEnabled,
+    );
+    setValue(
+      'isCheckOutEnabled',
+      fetchGlobalConfig?.fetchGlobalConfig?.isCheckOutEnabled,
+    );
+  }, [setValue, fetchGlobalConfig]);
+  useEffect(() => {
+    setValue('dateName', fetchHoliday?.fetchHoliday[0]?.dateName);
+    setValue('locdate', fetchHoliday?.fetchHoliday[0]?.locdate);
+  }, [setValue, fetchHoliday]);
 
   const onClickUpdate = async (data: any) => {
-    let resultUrl = fetchCompany.fetchCompany?.logoUrl;
-    if (getValues('logoUrl')) {
-      resultUrl = await uploadSingleFile({
+    if (watch('logoUrl')?.length) {
+      uploadSingleFile({
         variables: {
           file: data.logoUrl[0],
+        },
+      })
+        .then(async (res) => {
+          await updateCompany({
+            variables: {
+              updateCompanyInput: {
+                name: data.name,
+                logoUrl: res.data.uploadSingleFile.url,
+                rules: data.rules,
+                membership: 'ENTERPRISE',
+              },
+            },
+          });
+        })
+        .catch((error) => {
+          if (error instanceof Error) ErrorModal(String(error));
+        });
+    } else {
+      await updateCompany({
+        variables: {
+          updateCompanyInput: {
+            name: data.name,
+            logoUrl: fetchCompany?.fetchCompanyDetail.logoUrl,
+            rules: data.rules,
+            membership: 'ENTERPRISE',
+          },
         },
       });
     }
 
-    fetchHoliday?.fetchHoliday?.dateName
+    watch('dateName')?.length
       ? await updateHoliday({
           variables: {
-            createHolidayInput: {
+            holidayId: fetchHoliday.fetchHoliday[0].id,
+            updateHolidayInput: {
               dateName: data.dateName,
               locdate: data.locdate,
             },
@@ -57,25 +119,13 @@ const CompanyContainer = () => {
           },
         });
 
-    await updateCompany({
-      variables: {
-        companyId: '00b9f2a4-86e7-4071-9b69-35163bdd8998',
-        updateCompanyInput: {
-          name: data.name,
-          logoUrl: resultUrl.data.url,
-          rules: data.rules,
-          membership: 'ENTERPRISE',
-        },
-      },
-    });
-
     await updateGlobalConfig({
       variables: {
         updateGlobalConfigInput: {
-          allowedCheckInBefore: data.allowedCheckInBefore,
-          allowedCheckInAfter: data.allowedCheckInAfter,
+          allowedCheckInBefore: Number(data.allowedCheckInBefore),
+          allowedCheckInAfter: Number(data.allowedCheckInAfter),
           isWorkLogEnabled: data.isWorkLogEnabled,
-          isVacationEnabled: data.isWorkLogEnabled,
+          isVacationEnabled: data.isVacationEnabled,
           isScheduleEnabled: data.isScheduleEnabled,
           isCheckInEnabled: data.isCheckInEnabled,
           isCheckOutEnabled: data.isCheckOutEnabled,
@@ -89,6 +139,8 @@ const CompanyContainer = () => {
       register={register}
       handleSubmit={handleSubmit}
       onClickUpdate={onClickUpdate}
+      fetchCompanyDetail={fetchCompany?.fetchCompanyDetail}
+      fetchGlobalConfig={fetchGlobalConfig?.fetchGlobalConfig}
     />
   );
 };

@@ -6,31 +6,50 @@ export const UPDATE_GLOBAL_CONFIG = gql`
   ) {
     updateGlobalConfig(updateGlobalConfigInput: $updateGlobalConfigInput) {
       id
+      allowedCheckInBefore
+      allowedCheckInAfter
+      isWorkLogEnabled
+      isVacationEnabled
+      isScheduleEnabled
+      isCheckInEnabled
+      isCheckOutEnabled
     }
   }
 `;
 
 export const UPDATE_COMPANY = gql`
-  mutation updateCompany(
-    $companyId: String!
-    $updateCompanyInput: UpdateCompanyInput!
-  ) {
-    updateCompany(
-      companyId: $companyId
-      updateCompanyInput: $updateCompanyInput
-    ) {
+  mutation updateCompany($updateCompanyInput: UpdateCompanyInput!) {
+    updateCompany(updateCompanyInput: $updateCompanyInput) {
       id
+      name
+      logoUrl
+      rules
     }
   }
 `;
 
 export const FETCH_COMPANY = gql`
-  query fetchCompanyDetail($companyId: String!) {
-    fetchCompanyDetail(companyId: $companyId) {
+  query fetchCompanyDetail {
+    fetchCompanyDetail {
       id
       name
       logoUrl
       rules
+    }
+  }
+`;
+
+export const FETCH_CONFIG = gql`
+  query fetchGlobalConfig {
+    fetchGlobalConfig {
+      id
+      allowedCheckInBefore
+      allowedCheckInAfter
+      isWorkLogEnabled
+      isVacationEnabled
+      isScheduleEnabled
+      isCheckInEnabled
+      isCheckOutEnabled
     }
   }
 `;
@@ -44,17 +63,25 @@ export const CREATE_HOLIDAY = gql`
 `;
 
 export const UPDATE_HOLIDAY = gql`
-  mutation updateHoliday($updateHolidayInput: UpdateHolidayInput!) {
-    updateHoliday(updateHolidayInput: $updateHolidayInput) {
+  mutation updateHoliday(
+    $holidayId: String!
+    $updateHolidayInput: UpdateHolidayInput!
+  ) {
+    updateHoliday(
+      holidayId: $holidayId
+      updateHolidayInput: $updateHolidayInput
+    ) {
       id
     }
   }
 `;
 
 export const FETCH_HOLIDAY = gql`
-  query fetchHoliday($companyId: String!) {
-    fetchHoliday(companyId: $companyId) {
+  query fetchHoliday {
+    fetchHoliday {
       id
+      dateName
+      locdate
     }
   }
 `;
