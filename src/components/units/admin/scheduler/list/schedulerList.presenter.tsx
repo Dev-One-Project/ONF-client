@@ -17,7 +17,7 @@ import { getRestStr, getWorkHourStr } from '../../../../../commons/utils/work';
 import 'dayjs/locale/zh-cn';
 import locale from 'antd/locale/ko_KR';
 import FallingModal from '../../../../commons/modal/fallingModal';
-import DetailModal from '../elements/detailModal/detailModal';
+import DetailModal from '../modules/detailModal/detailModal';
 import Check02 from '../../../../commons/input/check02';
 
 const SchedulerListPresenter = (props: ISchedulerListProps) => {
