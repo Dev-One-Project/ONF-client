@@ -11,7 +11,7 @@ const WritePresenter = (props: IWritePresenterProps) => {
     <>
       <S.H2>공지사항</S.H2>
       <S.Container>
-        <S.Form>
+        <S.Form onSubmit={props.handleSubmit(props.onClickCreate)}>
           <S.WriteTop>
             <Input01
               placeholder="제목을 입력하세요."
@@ -52,15 +52,7 @@ const WritePresenter = (props: IWritePresenterProps) => {
                 />
               )} */}
           </div>
-          <S.InvisibleBtn
-            ref={props.createUpdateRef}
-            onSubmit={props.handleSubmit(props.onClickCreate)}
-            // onSubmit={
-            //   props.isEdit
-            //     ? props.handleSubmit(props.onClickUpdate)
-            //     : props.handleSubmit(props.onClickCreate)
-            // }
-          ></S.InvisibleBtn>
+          <S.InvisibleBtn ref={props.createUpdateRef}></S.InvisibleBtn>
         </S.Form>
       </S.Container>
     </>
