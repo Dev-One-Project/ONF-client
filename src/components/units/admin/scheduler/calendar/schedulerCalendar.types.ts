@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { MouseEvent, Dispatch, SetStateAction } from 'react';
 import { IDateData } from '../scheduler.types';
 import {
   IOrganization,
@@ -21,9 +21,18 @@ export interface ISchedulerCalendarProps {
   setSelectOrganization: Dispatch<
     SetStateAction<Array<Partial<IOrganization>>>
   >;
+  onClickCalendarElement: (e: MouseEvent<HTMLDivElement>) => void;
   scheduleList: ISchedule[] | undefined;
   workHours: number[];
   workNumbers: number[];
+  aniMode: boolean;
+  isOpen: boolean;
+  isOpenDetail: boolean;
+  onClickOpenModal: () => void;
+  onClickCloseModal: () => void;
+  setIsOpenDetail: Dispatch<SetStateAction<boolean>>;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+  selectSchedule: Partial<ISchedule> | undefined;
 }
 
 export interface InitData {
@@ -34,6 +43,12 @@ export interface InitData {
       }>
     | undefined;
   organization:
+    | Array<{
+        id: string;
+        name: string;
+      }>
+    | undefined;
+  workType:
     | Array<{
         id: string;
         name: string;

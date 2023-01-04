@@ -41,19 +41,20 @@ export type ICompany = {
 
 export type ICreateCompanyInput = {
   logoUrl?: InputMaybe<Scalars['String']>;
+  memberCount?: InputMaybe<Scalars['Int']>;
   membership?: InputMaybe<IMembership_Type>;
   name?: InputMaybe<Scalars['String']>;
   rules?: InputMaybe<Scalars['String']>;
 };
 
 export type ICreateGlobalConfigInput = {
-  allowedCheckInAfter?: Scalars['Int'];
-  allowedCheckInBefore?: Scalars['Int'];
-  isCheckInEnabled?: Scalars['Boolean'];
-  isCheckOutEnabled?: Scalars['Boolean'];
-  isScheduleEnabled?: Scalars['Boolean'];
-  isVacationEnabled?: Scalars['Boolean'];
-  isWorkLogEnabled?: Scalars['Boolean'];
+  allowedCheckInAfter?: InputMaybe<Scalars['Int']>;
+  allowedCheckInBefore?: InputMaybe<Scalars['Int']>;
+  isCheckInEnabled?: InputMaybe<Scalars['Boolean']>;
+  isCheckOutEnabled?: InputMaybe<Scalars['Boolean']>;
+  isScheduleEnabled?: InputMaybe<Scalars['Boolean']>;
+  isVacationEnabled?: InputMaybe<Scalars['Boolean']>;
+  isWorkLogEnabled?: InputMaybe<Scalars['Boolean']>;
 };
 
 export type ICreateHolidayInput = {
@@ -62,9 +63,8 @@ export type ICreateHolidayInput = {
 };
 
 export type ICreateMemberInput = {
-  exitDate?: InputMaybe<Scalars['String']>;
-  isAdmin?: InputMaybe<Scalars['Boolean']>;
-  joinDate: Scalars['String'];
+  exitDate?: InputMaybe<Scalars['DateTime']>;
+  joinDate?: InputMaybe<Scalars['DateTime']>;
   memo?: InputMaybe<Scalars['String']>;
   name: Scalars['String'];
   organizationId?: InputMaybe<Scalars['String']>;
@@ -195,10 +195,10 @@ export enum IMembership_Type {
 export type IMember = {
   __typename?: 'Member';
   company: ICompany;
-  exitDate?: Maybe<Scalars['String']>;
+  exitDate?: Maybe<Scalars['DateTime']>;
   id: Scalars['String'];
   isJoin: Scalars['Boolean'];
-  joinDate: Scalars['String'];
+  joinDate?: Maybe<Scalars['DateTime']>;
   leave?: Maybe<Scalars['Float']>;
   memo?: Maybe<Scalars['String']>;
   name: Scalars['String'];
@@ -219,7 +219,7 @@ export type IMutation = {
    * @deprecated 회원가입 시 자동으로 회사가 생성됩니다. 테스트용으로 수동생성시에만 사용하여 주세요
    */
   createCompany: ICompany;
-  /** 퇴근기록 자동 생성 */
+  /** 퇴근하기 */
   createEndWorkCheck: IWorkCheck;
   createGlobalConfig: IGlobalConfig;
   /** Create Holiday such as company founding anniversary */
@@ -238,7 +238,7 @@ export type IMutation = {
   createScheduleCategory: IScheduleCategory;
   /** 근무일정 템플릿 생성 */
   createScheduleTemplate: IScheduleTemplate;
-  /** 출근기록 자동 생성 */
+  /** 출근하기 */
   createStartWorkCheck: IWorkCheck;
   /** (관리자) 휴가관리 만들기 */
   createVacation: Array<IVacation>;
@@ -294,6 +294,8 @@ export type IMutation = {
   updateNoticeBoard: INoticeBoard;
   /** 근무일정 단일 수정 */
   updateOneSchedule: ISchedule;
+  /** 출퇴근기록 수정 */
+  updateOneWorkCheck: IWorkCheck;
   /** 조직 정보 수정 */
   updateOrganization: IOrganization;
   /** Update RoleCategory */
@@ -308,8 +310,6 @@ export type IMutation = {
   updateVacationCategory: IVacationCategory;
   /** 관리자 휴가 발생 수정하기 */
   updateVacationIssue: IVacationIssue;
-  /** 출퇴근기록 수정 */
-  updateWorkCheck: IWorkCheck;
   /** Upload multiple files / Max total size approximatly 10M */
   uploadMultipleFiles: Array<IFile>;
   /** Upload a single file / Max file size apporximatly 10M */
@@ -329,7 +329,7 @@ export type IMutationCreateAccountArgs = {
   invitationCode?: InputMaybe<Scalars['String']>;
   name: Scalars['String'];
   password: Scalars['String'];
-  phone: Scalars['String'];
+  phone?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -350,7 +350,7 @@ export type IMutationCreateEndWorkCheckArgs = {
 
 
 export type IMutationCreateGlobalConfigArgs = {
-  createGlobalConfigInput: ICreateGlobalConfigInput;
+  createGlobalConfigInput?: InputMaybe<ICreateGlobalConfigInput>;
 };
 
 
@@ -493,7 +493,6 @@ export type IMutationLoginArgs = {
 
 
 export type IMutationSendCodeToEmailArgs = {
-  companyId: Scalars['String'];
   email: Scalars['String'];
   memberId: Scalars['String'];
 };
@@ -549,6 +548,12 @@ export type IMutationUpdateOneScheduleArgs = {
 };
 
 
+export type IMutationUpdateOneWorkCheckArgs = {
+  updateWorkCheckInput: IUpdateWorkCheckInput;
+  workCheckId: Scalars['String'];
+};
+
+
 export type IMutationUpdateOrganizationArgs = {
   organizationId: Scalars['String'];
   updateOrganizationInput: IUpdateOrganizationInput;
@@ -588,12 +593,6 @@ export type IMutationUpdateVacationCategoryArgs = {
 export type IMutationUpdateVacationIssueArgs = {
   updateVacationIssueInput: IUpdateVacationIssueInput;
   vacationIssueId: Scalars['String'];
-};
-
-
-export type IMutationUpdateWorkCheckArgs = {
-  updateWorkCheckInput: IUpdateWorkCheckInput;
-  workCheckId: Scalars['String'];
 };
 
 
@@ -647,25 +646,23 @@ export type IQuery = {
    * @deprecated Initializing Status / Need Update
    */
   fetchCompanyDetail: ICompany;
-  /** 해당 회사에 속하는 member들의 출퇴근 기록 조회 */
-  fetchCompanyWorkChecks: Array<IWorkCheck>;
-  /** 지정된 기간동안의 회사+지점에 속한 멤버들의 출퇴근 기록 조회 */
+  /** 지정된 기간동안의 회사+지점에 속한 멤버들의 출퇴근 기록 조회 - 목록형 - 관리자 */
   fetchDateMemberWorkChecks: Array<IWorkCheck>;
   fetchGlobalConfig: IGlobalConfig;
   /** Fetch Holiday such as companyAnniversary */
   fetchHoliday: Array<IHoliday>;
   /** Fetch Holidays in ASC order */
   fetchHolidays: Array<IHoliday>;
-  /** 선택한 기간동안의 지점 근무일정 조회 - 목록형 */
+  /** 선택한 기간동안의 근무일정 조회 - 목록형 */
   fetchListTypeSchedule: Array<ISchedule>;
   /** memberId(사원ID)로 개별 조회, memberId 입력시 입력한 member 조회, 아니면 로그인한 유저 정보 조회 */
   fetchMember: IMember;
-  /** member개인의 출퇴근 기록 조회 */
+  /** member개인(나)의 출퇴근 기록 조회 - 직원모드 */
   fetchMemberWorkChecks: Array<IWorkCheck>;
   /** comanyId에 해당하는 멤버 전체 조회 */
   fetchMembers: Array<IMember>;
-  /** 회사 지점에 속한 멤버들의 출퇴근 기록을 월별로 조회 */
-  fetchMonthWorkChecks: Array<Array<IWorkCheck>>;
+  /** 회사 지점에 속한 멤버들의 출퇴근 기록을 월별로 조회 - 달력형 - 관리자 */
+  fetchMonthWorkChecks: Array<Array<Array<IWorkCheck>>>;
   fetchOneNoticeBoard: INoticeBoard;
   /** 조직 상세 조회 */
   fetchOrganizationDetail: IOrganization;
@@ -702,11 +699,6 @@ export type IQuery = {
 };
 
 
-export type IQueryFetchCompanyWorkChecksArgs = {
-  companyId: Scalars['String'];
-};
-
-
 export type IQueryFetchDateMemberWorkChecksArgs = {
   companyId: Scalars['String'];
   endDate: Scalars['DateTime'];
@@ -728,13 +720,16 @@ export type IQueryFetchMemberArgs = {
 
 
 export type IQueryFetchMemberWorkChecksArgs = {
+  endDate: Scalars['DateTime'];
   memberId: Scalars['String'];
+  startDate: Scalars['DateTime'];
 };
 
 
 export type IQueryFetchMonthWorkChecksArgs = {
   comapnyId: Scalars['String'];
   month: Scalars['String'];
+  organizationId: Array<Scalars['String']>;
 };
 
 
@@ -775,7 +770,6 @@ export type IQueryFetchVacationIssueArgs = {
 
 export type IQueryFetchVacationIssueBaseDateArgs = {
   baseDate: Scalars['DateTime'];
-  companyId: Scalars['String'];
   endDate?: InputMaybe<Scalars['DateTime']>;
   organizationId: Array<Scalars['String']>;
   startDate?: InputMaybe<Scalars['DateTime']>;
@@ -784,7 +778,6 @@ export type IQueryFetchVacationIssueBaseDateArgs = {
 
 export type IQueryFetchVacationIssueDetailDateArgs = {
   baseDate: Scalars['DateTime'];
-  companyId: Scalars['String'];
   endDate?: InputMaybe<Scalars['DateTime']>;
   organizationId: Array<Scalars['String']>;
   startDate?: InputMaybe<Scalars['DateTime']>;
@@ -793,7 +786,6 @@ export type IQueryFetchVacationIssueDetailDateArgs = {
 
 export type IQueryFetchVacationIssueDetailDateDeleteArgs = {
   baseDate: Scalars['DateTime'];
-  companyId: Scalars['String'];
   endDate?: InputMaybe<Scalars['DateTime']>;
   organizationId: Array<Scalars['String']>;
   startDate?: InputMaybe<Scalars['DateTime']>;
@@ -802,7 +794,6 @@ export type IQueryFetchVacationIssueDetailDateDeleteArgs = {
 
 export type IQueryFetchVacationIssueWithBaseDateDeleteArgs = {
   baseDate: Scalars['DateTime'];
-  companyId: Scalars['String'];
   endDate?: InputMaybe<Scalars['DateTime']>;
   organizationId: Array<Scalars['String']>;
   startDate?: InputMaybe<Scalars['DateTime']>;
@@ -871,6 +862,7 @@ export type IScheduleTemplate = {
 
 export type IUpdateCompanyInput = {
   logoUrl?: InputMaybe<Scalars['String']>;
+  memberCount?: InputMaybe<Scalars['Int']>;
   membership?: InputMaybe<IMembership_Type>;
   name?: InputMaybe<Scalars['String']>;
   rules?: InputMaybe<Scalars['String']>;
@@ -892,9 +884,8 @@ export type IUpdateHolidayInput = {
 };
 
 export type IUpdateMemberInput = {
-  exitDate?: InputMaybe<Scalars['String']>;
-  isAdmin?: InputMaybe<Scalars['Boolean']>;
-  joinDate?: InputMaybe<Scalars['String']>;
+  exitDate?: InputMaybe<Scalars['DateTime']>;
+  joinDate?: InputMaybe<Scalars['DateTime']>;
   memo?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
   organizationId?: InputMaybe<Scalars['String']>;
@@ -1026,7 +1017,6 @@ export type IWorkCheck = {
   __typename?: 'WorkCheck';
   company: ICompany;
   createdAt?: Maybe<Scalars['DateTime']>;
-  deletedAt?: Maybe<Scalars['DateTime']>;
   id: Scalars['String'];
   member: IMember;
   organization: IOrganization;

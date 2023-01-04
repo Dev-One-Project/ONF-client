@@ -9,14 +9,48 @@ import { ISchedule } from '../../../../../commons/types/generated/types';
 import moment from 'moment';
 import dayjs from 'dayjs';
 import dayToString from '../../../../../commons/utils/dayToString';
-import { getTimeStr } from '../../../../../commons/utils/getDate';
+import {
+  getDateKoreanStr,
+  getTimeStr,
+} from '../../../../../commons/utils/getDate';
 import { getRestStr, getWorkHourStr } from '../../../../../commons/utils/work';
 import 'dayjs/locale/zh-cn';
 import locale from 'antd/locale/ko_KR';
+import FallingModal from '../../../../commons/modal/fallingModal';
+import DetailModal from '../elements/detailModal/detailModal';
+import Check02 from '../../../../commons/input/check02';
 
 const SchedulerListPresenter = (props: ISchedulerListProps) => {
   return (
     <S.Container>
+      {props.isOpen ? (
+        <FallingModal
+          isOpen={props.isOpen}
+          setIsOpen={props.setIsOpen}
+          aniMode={props.aniMode}
+          onCancel={props.onClickCloseModal}
+        ></FallingModal>
+      ) : null}
+      {props.isOpenDetail && props.selectSchedule ? (
+        <FallingModal
+          isOpen={props.isOpenDetail}
+          setIsOpen={props.setIsOpenDetail}
+          aniMode={props.aniMode}
+          onCancel={props.onClickCloseModal}
+          title={`${
+            props.selectSchedule?.member?.name || ''
+          }의 근무일정 바꾸기 (${getDateKoreanStr(
+            new Date(String(props.selectSchedule.startWorkTime)),
+          )})`}
+        >
+          <DetailModal
+            onClickCloseModal={props.onClickCloseModal}
+            initData={props.initOption}
+            createdAt={'아직 데이터를 안줘서 모름..... 줘....'}
+            schedule={props.selectSchedule}
+          />
+        </FallingModal>
+      ) : null}
       <S.TopWrapper>
         <S.TopTitleBox>
           <S.H1>근무일정</S.H1>
@@ -25,9 +59,9 @@ const SchedulerListPresenter = (props: ISchedulerListProps) => {
           text={'근무일정 추가하기'}
           bgC={styleSet.colors.primary}
           color={styleSet.colors.white}
+          onClick={props.onClickOpenModal}
         />
       </S.TopWrapper>
-
       <S.OptWrapper>
         <S.OptBox>
           <S.OptSectionWrapper>
@@ -82,7 +116,12 @@ const SchedulerListPresenter = (props: ISchedulerListProps) => {
       <S.UlWrapper>
         <S.ListHeaderWrapper>
           <S.List>
-            <Check01 />
+            {Number(props.scheduleList?.length) > 0 &&
+            props.checkedList?.length === props.scheduleList?.length ? (
+              <Check01 checked={true} onChange={props.onChangeCheckAll} />
+            ) : (
+              <Check01 checked={false} onChange={props.onChangeCheckAll} />
+            )}
             <S.ListHeaderContent>직원</S.ListHeaderContent>
             <S.ListHeaderContent>날짜</S.ListHeaderContent>
             <S.ListHeaderContent>일정시간</S.ListHeaderContent>
@@ -95,11 +134,28 @@ const SchedulerListPresenter = (props: ISchedulerListProps) => {
             <S.ListHeaderContent>총시간</S.ListHeaderContent>
           </S.List>
         </S.ListHeaderWrapper>
-        {/* TOOD: need type declaration */}
         {props.scheduleList?.map((schedule: ISchedule) => (
-          <S.ListBodyWrapper key={schedule.id}>
+          <S.ListBodyWrapper
+            key={schedule.id}
+            id={schedule.id}
+            onClick={props.onClickListContent}
+          >
             <S.List>
-              <Check01 />
+              {props.checkedList?.includes(schedule.id) ? (
+                <Check02
+                  id={schedule.id}
+                  checked={true}
+                  onChange={props.onChangeCheckList}
+                  onClick={(e) => e.stopPropagation()}
+                />
+              ) : (
+                <Check02
+                  id={schedule.id}
+                  checked={false}
+                  onChange={props.onChangeCheckList}
+                  onClick={(e) => e.stopPropagation()}
+                />
+              )}
               <S.ListBodyContent>{schedule.member.name}</S.ListBodyContent>
               <S.ListBodyContent>
                 {moment(schedule.startWorkTime).format('MM/DD')}

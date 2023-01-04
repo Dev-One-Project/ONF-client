@@ -4,14 +4,15 @@ import { styleSet } from '../../../../../commons/styles/styleSet';
 export const Container = styled.div`
   width: calc(100vw - 18rem);
   @media ${styleSet.breakPoints.tablet} {
-    width: 95%;
+    width: 100%;
   }
   @media ${styleSet.breakPoints.mobile} {
-    width: 90%;
+    width: 100%;
   }
 `;
 
 export const TopWrapper = styled.section`
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -37,6 +38,7 @@ export const H1 = styled.h1`
 `;
 
 export const OptWrapper = styled.header`
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -183,13 +185,16 @@ export const ListHeaderContent = styled.li`
 `;
 
 export const ListBodyWrapper = styled.div`
-  margin: 0.5rem 0 0 0;
-  padding: 0 0 0.5rem 0;
+  margin: 0;
+  padding: 0.5rem 0 0.5rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   border-bottom: 1px solid ${styleSet.colors.gray};
+  :hover {
+    background: ${styleSet.colors.lightGray};
+  }
 `;
 
 export const ListBodyContent = styled.li`

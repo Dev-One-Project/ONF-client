@@ -12,6 +12,6 @@ export const isNarrowWidthState = atom({
 });
 
 export const accessTokenState = atom({
-  key: 'accessTokenState',
+  key: `accessTokenState/${v4()}`,
   default: '',
 });
