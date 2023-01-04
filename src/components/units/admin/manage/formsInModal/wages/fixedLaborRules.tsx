@@ -6,7 +6,7 @@ import Footer from '../common/footer';
 import Label from '../common/label';
 import { IWagesProps } from './wages.types';
 
-const ContractedLaborRules = (props: IWagesProps) => {
+const FixedLaborRules = (props: IWagesProps) => {
   const [open, setOpen] = useState(true);
   return (
     <>
@@ -78,7 +78,7 @@ const ContractedLaborRules = (props: IWagesProps) => {
   );
 };
 
-export default ContractedLaborRules;
+export default FixedLaborRules;
 
 const FormContent = styled.div`
   display: flex;

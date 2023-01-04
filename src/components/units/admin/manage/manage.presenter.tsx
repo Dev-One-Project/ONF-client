@@ -2,10 +2,10 @@ import * as S from './manage.styles';
 import { styleSet } from '../../../../commons/styles/styleSet';
 import Btn01 from '../../../commons/button/btn01';
 import FallingModal from '../../../commons/modal/fallingModal';
-import ScrollableTable from '../../../commons/scrollableTable/table';
 import Switch01 from '../../../commons/switch/switch01';
-import Form from './forms';
+import Form from './formsInModal';
 import { IManagePresenterProps } from './manage.types';
+import ScrollableTable from './scrollableTable/index';
 
 const ManagePresenter = (props: IManagePresenterProps) => {
   return (
@@ -16,9 +16,13 @@ const ManagePresenter = (props: IManagePresenterProps) => {
           isOpen={props.isOpen}
           aniMode={props.aniMode}
           onCancel={props.onClickCloseModal}
-          title={`${props.tab} 추가하기`}
+          title={`${props.tab} ${props.editTarget ? `수정하기` : `추가하기`} `}
         >
-          <Form {...props.formProps} tab={props.tab} />
+          <Form
+            {...props.formProps}
+            tab={props.tab}
+            editTarget={props.editTarget}
+          />
         </FallingModal>
       )}
       <S.Wrapper>
@@ -63,7 +67,11 @@ const ManagePresenter = (props: IManagePresenterProps) => {
               </S.ButtonBox>
             </S.OrganizationTabBox>
           )}
-          <ScrollableTable tab={props.tab} isLocation={props.isLocation} />
+          <ScrollableTable
+            onOpenEdit={props.onOpenEdit}
+            tab={props.tab}
+            isLocation={props.isLocation}
+          />
         </S.ContentBox>
       </S.Wrapper>
     </>

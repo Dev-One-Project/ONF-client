@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { DatePicker, Divider } from 'antd';
 import type { DatePickerProps } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { styleSet } from '../../../../../commons/styles/styleSet';
 import Check01 from '../../../../commons/input/check01';
 import InputLabel from '../../../../commons/inputLabel';
@@ -17,6 +17,12 @@ const MemberForm = (props: IFormProps) => {
   const [isActiveStartDate, setIsActiveStartDate] = useState(false);
   const [isActiveEndDate, setIsActiveEndDate] = useState(false);
   const [isActiveWagesInput, setIsActiveWagesInput] = useState(false);
+
+  useEffect(() => {
+    if (props.editTarget) {
+      props.reset(props.editTarget);
+    }
+  }, []);
 
   const onChangeStartDate: DatePickerProps['onChange'] = (
     date: Dayjs | null,
@@ -36,6 +42,11 @@ const MemberForm = (props: IFormProps) => {
     setInvitationRadio(invitationRadio.map((_, i) => index === i));
   };
 
+  const accessAuth = {
+    id: props.editTarget?.accessAuth,
+    name: props.editTarget?.accessAuth,
+  };
+
   return (
     <form onSubmit={props.handleSubmit(props.onSubmit)}>
       <WrapperM>
@@ -51,10 +62,24 @@ const MemberForm = (props: IFormProps) => {
                 이름
               </InputLabel>
               <InputLabel
+                noSearch
                 type="select"
-                name="duty"
+                name="accessAuth"
                 setValue={props.setValue}
-                register={props.register('duty')}
+                register={props.register('accessAuth')}
+                data={[
+                  { id: '최고관리자', name: '최고관리자' },
+                  { id: '직원', name: '직원' },
+                ]}
+                defaultChecked={[accessAuth]}
+              >
+                액세스 권한
+              </InputLabel>
+              <InputLabel
+                type="select"
+                name="roleCategory"
+                setValue={props.setValue}
+                register={props.register('roleCategory')}
               >
                 직무들
               </InputLabel>

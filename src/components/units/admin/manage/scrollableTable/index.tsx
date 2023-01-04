@@ -1,14 +1,20 @@
+import { useQuery } from '@apollo/client';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { useCallback, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { isAdminSidebarState } from '../../../commons/store';
-import { styleSet } from '../../../commons/styles/styleSet';
-import Check01 from '../input/check01';
+import { isAdminSidebarState } from '../../../../../commons/store';
+import { styleSet } from '../../../../../commons/styles/styleSet';
+import { IMember, IQuery } from '../../../../../commons/types/generated/types';
+import { FETCH_MEMBERS } from '../manage.queries';
+import Check01 from '../../../../commons/input/check01';
+import RowDataCells from './rowDataCells';
 
 interface IScrollableTableProps {
   tab: string;
   isLocation?: boolean;
+  data?: any;
+  onOpenEdit: (el: any) => void;
 }
 
 interface IStyle {
@@ -17,39 +23,39 @@ interface IStyle {
 }
 
 let headerData: string[] = [];
-let bodyData: Array<string | JSX.Element> = [];
+let bodyData: IMember[] | string[] = [];
+
+const HTML_TD_TAG = 'TD';
 
 const ScrollableTable = (props: IScrollableTableProps) => {
-  const [checkedList, setCheckedList] = useState<Array<string | JSX.Element>>(
-    [],
-  );
+  const { data } = useQuery<Pick<IQuery, 'fetchMembers'>>(FETCH_MEMBERS);
+
+  const [checkedList, setCheckedList] = useState<
+    Array<string | {} | JSX.Element>
+  >([]);
   const router = useRouter();
   const [isAdminSidebar] = useRecoilState(isAdminSidebarState);
-
+  console.log('checkedList:', checkedList);
   if (props.tab === '직원') {
+    // fetchMember
+    // 얻어와야하는 것
+    // - roles
     headerData = [
       '이름',
       '액세스 권한',
       '입사일',
-      '팀',
+      '지점',
       '직무',
       '근로정보명',
       '시급',
       '소정근로규칙',
       '최대근로규칙',
+      '적용시점',
+      '합류 여부',
+      '메모',
     ];
-    bodyData = [
-      '김민겸',
-      '최고 관리자',
-      '',
-      '',
-      '프론트엔드 개발자',
-      '일반근무',
-      '',
-      '1주 40시간',
-      '1주 52시간',
-    ];
-  } else if (props.tab === '지점') {
+    bodyData = data?.fetchMembers ?? [];
+  } else if (props.tab === '지점' || props.tab === '출퇴근 장소') {
     if (props.isLocation) {
       headerData = ['출퇴근 장소', '근무지 주소', '좌표', 'WiFi', '메모'];
       bodyData = [
@@ -67,16 +73,16 @@ const ScrollableTable = (props: IScrollableTableProps) => {
     headerData = ['직무명', '색깔', '메모'];
     bodyData = [
       '데브옵스',
-      <div
-        key="key"
-        style={{
-          width: '25px',
-          height: '25px',
-          borderRadius: '5px',
-          backgroundColor: 'blue',
-          marginLeft: '2px',
-        }}
-      ></div>,
+      // <div
+      //   key="key"
+      //   style={{
+      //     width: '25px',
+      //     height: '25px',
+      //     borderRadius: '5px',
+      //     backgroundColor: 'blue',
+      //     marginLeft: '2px',
+      //   }}
+      // ></div>,
       '배포낄낄',
     ];
   } else if (props.tab === '근로 정보') {
@@ -108,16 +114,16 @@ const ScrollableTable = (props: IScrollableTableProps) => {
     ];
     bodyData = [
       '외근',
-      <div
-        key="key"
-        style={{
-          width: '25px',
-          height: '25px',
-          borderRadius: '5px',
-          backgroundColor: 'tomato',
-          marginLeft: '2px',
-        }}
-      ></div>,
+      // <div
+      //   key="key"
+      //   style={{
+      //     width: '25px',
+      //     height: '25px',
+      //     borderRadius: '5px',
+      //     backgroundColor: 'tomato',
+      //     marginLeft: '2px',
+      //   }}
+      // ></div>,
       'X',
       'O',
       '하위하위',
@@ -140,16 +146,16 @@ const ScrollableTable = (props: IScrollableTableProps) => {
       '패파',
       '프론트엔드',
       '자동 휴게시간',
-      <div
-        key="key"
-        style={{
-          width: '25px',
-          height: '25px',
-          borderRadius: '5px',
-          backgroundColor: 'gray',
-          marginLeft: '2px',
-        }}
-      ></div>,
+      // <div
+      //   key="key"
+      //   style={{
+      //     width: '25px',
+      //     height: '25px',
+      //     borderRadius: '5px',
+      //     backgroundColor: 'gray',
+      //     marginLeft: '2px',
+      //   }}
+      // ></div>,
       '히히',
     ];
   } else if (props.tab === '휴가 유형') {
@@ -167,7 +173,7 @@ const ScrollableTable = (props: IScrollableTableProps) => {
 
   const onCheckedAll = useCallback((checked) => {
     if (checked) {
-      const checkedListArray: Array<JSX.Element | string> = [];
+      const checkedListArray: Array<JSX.Element | string | {}> = [];
       bodyData.forEach((el) => checkedListArray.push(el));
       setCheckedList(checkedListArray);
     } else setCheckedList([]);
@@ -175,13 +181,12 @@ const ScrollableTable = (props: IScrollableTableProps) => {
 
   const onCheckedElement = useCallback(
     (checked, target) => {
-      console.log(target);
       if (checked) setCheckedList([...checkedList, target]);
       else setCheckedList(checkedList.filter((el) => el !== target));
     },
     [checkedList],
   );
-  console.log(checkedList);
+
   return (
     <Wrapper
       isAdminSidebar={isAdminSidebar}
@@ -208,8 +213,17 @@ const ScrollableTable = (props: IScrollableTableProps) => {
           </Row>
         </Header>
         <Body>
-          {new Array(3).fill(1).map((el, index) => (
-            <Row key={index} className="bodyRow">
+          {bodyData?.map((el: any, index: number) => (
+            <Row
+              key={index}
+              className="bodyRow"
+              onClick={(e) => {
+                const target = e.target as HTMLInputElement | HTMLSpanElement;
+                if (target.nodeName === HTML_TD_TAG) {
+                  props.onOpenEdit(el);
+                }
+              }}
+            >
               <BodyContent>
                 <Check01
                   checked={checkedList.includes(el)}
@@ -218,11 +232,8 @@ const ScrollableTable = (props: IScrollableTableProps) => {
                   }
                 />
               </BodyContent>
-              {bodyData.map((el, i) => (
-                <BodyContent key={i}>
-                  <>{el}</>
-                </BodyContent>
-              ))}
+              <RowDataCells data={el} tab={props.tab} />
+              <BodyContent>{el.memo}</BodyContent>
             </Row>
           ))}
         </Body>
@@ -296,5 +307,9 @@ const BodyContent = styled.td`
   :first-of-type {
     min-width: 65px;
     padding: 1rem 0 1rem 1rem;
+  }
+
+  :not(:first-of-type) {
+    font-size: ${styleSet.fontSizes.small};
   }
 `;

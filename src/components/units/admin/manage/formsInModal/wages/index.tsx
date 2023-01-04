@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { styleSet } from '../../../../../../commons/styles/styleSet';
 import { IFormProps } from '../common/form.types';
 import BasicInfo from './basicInfo';
-import ContractedLaborRules from './contractedLaborRules';
+import ContractedLaborRules from './fixedLaborRules';
 import MaximumLaborRules from './maximumLaborRules';
 
 interface IStyle {

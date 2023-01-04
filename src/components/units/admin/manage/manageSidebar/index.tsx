@@ -16,7 +16,7 @@ const ManageSidebarComponent = () => {
   const ManageList = [
     { label: '직원', path: 'members' },
     { label: '지점', path: 'organization' },
-    { label: '직무', path: 'duty' },
+    { label: '직무', path: 'role-category' },
     { label: '근로정보', path: 'wages' },
     { label: '근무일정 유형', path: 'shift-types' },
     { label: '근무일정 템플릿', path: 'shift-template' },

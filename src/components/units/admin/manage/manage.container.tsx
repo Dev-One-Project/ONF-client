@@ -4,11 +4,13 @@ import ManagePresenter from './manage.presenter';
 import { IManageProps } from './manage.types';
 
 const Manage = (props: IManageProps) => {
-  const { register, handleSubmit, setValue } = useForm();
+  const { register, handleSubmit, setValue, reset, control } = useForm();
   const [isOpen, setIsOpen] = useState(false);
   const [aniMode, setAniMode] = useState(false);
 
   const [isLocation, setIsLocation] = useState(false);
+
+  const [editTarget, setEditTarget] = useState();
 
   const onClickOpenModal = () => {
     setIsOpen(true);
@@ -17,13 +19,23 @@ const Manage = (props: IManageProps) => {
 
   const onClickCloseModal = () => {
     setAniMode(false);
+    setEditTarget(undefined);
   };
 
   const onSubmit = (data: any) => {
-    if (data) {
-      console.log(data);
-      setAniMode(false);
+    if (typeof data.accessAuth === 'object') {
+      data.accessAuth = data.accessAuth[0].name;
     }
+    if (data) {
+      console.log('onSubmit:', data);
+      onClickCloseModal();
+    }
+  };
+
+  const onOpenEdit = (el: any) => {
+    console.log(el);
+    setEditTarget(el);
+    onClickOpenModal();
   };
 
   const formProps = {
@@ -32,11 +44,15 @@ const Manage = (props: IManageProps) => {
     setValue,
     onSubmit,
     onCancel: onClickCloseModal,
+    reset,
+    control,
   };
 
   const tab = props.tab === '지점' && isLocation ? '출퇴근 장소' : props.tab;
   return (
     <ManagePresenter
+      editTarget={editTarget}
+      onOpenEdit={onOpenEdit}
       isOpen={isOpen}
       setIsOpen={setIsOpen}
       aniMode={aniMode}
