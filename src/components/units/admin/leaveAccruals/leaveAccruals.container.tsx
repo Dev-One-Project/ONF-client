@@ -1,7 +1,8 @@
 import { useQuery } from '@apollo/client';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
+  IVacationIssue,
   IQuery,
   IQueryFetchVacationIssueBaseDateArgs,
   IQueryFetchVacationIssueDetailDateArgs,
@@ -15,9 +16,9 @@ import {
   FETCH_VACATION_ISSUE_BASE,
   FETCH_VACATION_ISSUE_BASE_DELETE,
   FETCH_VACATION_ISSUE_DETAIL,
-  // FETCH_ACCOUNT,
 } from './leaveAccruals.queries';
 import { IInputData } from './leaveAccruals.types';
+import { Dayjs } from 'dayjs';
 
 const LeaveAccrualsContainer = () => {
   const date = new Date();
@@ -29,6 +30,8 @@ const LeaveAccrualsContainer = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [aniMode, setAniMode] = useState(false);
   const [isCheckedChange, setIsCheckedChange] = useState(false);
+  const [checkedList, setCheckedList] = useState<IVacationIssue[]>([]);
+  const [dataLength, setDataLength] = useState(0);
   const [baseDate] = useState(date);
   const [startEndDate, setStartEndDate] = useState([
     new Date(date.getFullYear(), date.getMonth(), 1),
@@ -82,30 +85,28 @@ const LeaveAccrualsContainer = () => {
     }
   };
 
-  const onChangeDate = async (value: any) => {
+  const onChangeDate = async (value: Dayjs | null) => {
     if (value === null) return;
     await refetch({
-      baseDate: value.$d,
-      // companyId: String(accountDetail?.fetchAccount.company?.id),
-      companyId: '00b9f2a4-86e7-4071-9b69-35163bdd8998',
+      baseDate: new Date(value.format('YYYY-MM-DD')),
     });
   };
 
-  // const { data: accountDetail } =
-  //   useQuery<Pick<IQuery, 'fetchAccount'>>(FETCH_ACCOUNT);
-
-  const onChangeStartEndDate = (value: any) => {
-    if (value === null) return;
-    setStartEndDate([value[0].$d, value[1].$d]);
+  const onChangeStartEndDate = (
+    dates: null | Array<Dayjs | null>,
+    dateString: string[],
+  ) => {
+    if (dates === null) return;
+    setStartEndDate([new Date(dateString[0]), new Date(dateString[1])]);
   };
 
   const { data: organizations } =
     useQuery<Pick<IQuery, 'fetchOrganizations'>>(FETCH_ORGANIZATIONS);
 
   const organizationsData: IInputData[] = organizations
-    ? organizations.fetchOrganizations.map((el) => ({
-        id: String(el.id),
-        name: String(el.name),
+    ? organizations.fetchOrganizations.map((organization) => ({
+        id: String(organization.id),
+        name: String(organization.name),
       }))
     : [{ id: '', name: '' }];
 
@@ -115,8 +116,6 @@ const LeaveAccrualsContainer = () => {
   >(FETCH_VACATION_ISSUE_DETAIL, {
     variables: {
       baseDate,
-      // companyId: String(accountDetail?.fetchAccount.company?.id),
-      companyId: '00b9f2a4-86e7-4071-9b69-35163bdd8998',
       organizationId: organizationArr?.map((organization) => organization.id),
       startDate: startEndDate[0] ? startEndDate[0] : null,
       endDate: startEndDate[1] ? startEndDate[1] : null,
@@ -129,8 +128,6 @@ const LeaveAccrualsContainer = () => {
   >(FETCH_VACATION_ISSUE_DETAIL_DELETE, {
     variables: {
       baseDate,
-      // companyId: String(accountDetail?.fetchAccount.company?.id),
-      companyId: '00b9f2a4-86e7-4071-9b69-35163bdd8998',
       organizationId: organizationArr?.map((organization) => organization.id),
       startDate: startEndDate[0] ? startEndDate[0] : null,
       endDate: startEndDate[1] ? startEndDate[1] : null,
@@ -143,8 +140,6 @@ const LeaveAccrualsContainer = () => {
   >(FETCH_VACATION_ISSUE_BASE, {
     variables: {
       baseDate,
-      // companyId: String(accountDetail?.fetchAccount.company?.id),
-      companyId: '00b9f2a4-86e7-4071-9b69-35163bdd8998',
       organizationId: organizationArr?.map((organization) => organization.id),
       startDate: startEndDate[0] ? startEndDate[0] : null,
       endDate: startEndDate[1] ? startEndDate[1] : null,
@@ -157,57 +152,104 @@ const LeaveAccrualsContainer = () => {
   >(FETCH_VACATION_ISSUE_BASE_DELETE, {
     variables: {
       baseDate,
-      // companyId: String(accountDetail?.fetchAccount.company?.id),
-      companyId: '00b9f2a4-86e7-4071-9b69-35163bdd8998',
       organizationId: organizationArr?.map((organization) => organization.id),
       startDate: startEndDate[0] ? startEndDate[0] : null,
       endDate: startEndDate[1] ? startEndDate[1] : null,
     },
   });
 
+  const onCheckedAll = useCallback(
+    (checked) => {
+      if (checked) {
+        const checkedListArray: IVacationIssue[] = [];
+        if (!init && !filterInit) {
+          vDetailDelete?.fetchVacationIssueDetailDateDelete.forEach((list) =>
+            checkedListArray.push(...list),
+          );
+          setCheckedList(checkedListArray);
+          setDataLength(checkedListArray.length);
+        } else if (!init && filterInit) {
+          vDetail?.fetchVacationIssueDetailDate.forEach((list) =>
+            checkedListArray.push(...list),
+          );
+          setCheckedList(checkedListArray);
+          setDataLength(checkedListArray.length);
+        } else if (init && filterInit) {
+          vBase?.fetchVacationIssueBaseDate.forEach((list) =>
+            checkedListArray.push(...list),
+          );
+          setCheckedList(checkedListArray);
+          setDataLength(checkedListArray.length);
+        } else {
+          vBaseDelete?.fetchVacationIssueWithBaseDateDelete.forEach((list) =>
+            checkedListArray.push(...list),
+          );
+          setCheckedList(checkedListArray);
+          setDataLength(checkedListArray.length);
+        }
+      } else setCheckedList([]);
+    },
+    [init, filterInit, vDetail, vDetailDelete, vBase, vBaseDelete],
+  );
+
+  console.log(checkedList);
+
+  const onCheckedElement = useCallback(
+    (checked, selectedTarget) => {
+      if (checked) setCheckedList([...checkedList, selectedTarget]);
+      else
+        setCheckedList(checkedList.filter((el) => el.id !== selectedTarget.id));
+    },
+    [checkedList],
+  );
+
   return (
     <LeaveAccrualsPresenter
-      setOrganizationArr={setOrganizationArr}
-      isSelect={isSelect}
-      onClickEmployee={onClickEmployee}
-      onClickList={onClickList}
-      isOpen={isOpen}
-      setIsOpen={setIsOpen}
-      aniMode={aniMode}
-      onClickOpenModal={onClickOpenModal}
-      onClickCloseModal={onClickCloseModal}
-      onSubmit={onSubmit}
-      register={register}
-      handleSubmit={handleSubmit}
-      organizationsData={organizationsData}
-      init={init}
-      setInit={setInit}
-      filterInit={filterInit}
-      setFilterInit={setFilterInit}
-      onChangeDate={onChangeDate}
-      onChangeStartEndDate={onChangeStartEndDate}
       date={date}
-      isSelectOpen={isSelectOpen}
-      setIsSelectOpen={setIsSelectOpen}
-      onClickOpenSelectModal={onClickOpenSelectModal}
-      isMemberOpen={isMemberOpen}
-      setValue={setValue}
+      organizationsData={organizationsData}
       vDetailDelete={vDetailDelete}
       vDetail={vDetail}
       vBase={vBase}
       vBaseDelete={vBaseDelete}
-      setIsMemberOpen={setIsMemberOpen}
-      onClickCheckedChange={onClickCheckedChange}
+      dayChecked={dayChecked}
+      aniMode={aniMode}
+      init={init}
+      filterInit={filterInit}
+      dataLength={dataLength}
+      checkedList={checkedList}
+      isOpen={isOpen}
+      isSelect={isSelect}
+      isSelectOpen={isSelectOpen}
+      isMemberOpen={isMemberOpen}
       isCheckedChange={isCheckedChange}
+      memoChecked={memoChecked}
+      startDateChecked={startDateChecked}
+      endDateChecked={endDateChecked}
       setIsCheckedChange={setIsCheckedChange}
       setDayChecked={setDayChecked}
       setStartDateChecked={setStartDateChecked}
       setEndDateChecked={setEndDateChecked}
       setMemoChecked={setMemoChecked}
-      dayChecked={dayChecked}
-      startDateChecked={startDateChecked}
-      endDateChecked={endDateChecked}
-      memoChecked={memoChecked}
+      setOrganizationArr={setOrganizationArr}
+      setIsOpen={setIsOpen}
+      setInit={setInit}
+      setFilterInit={setFilterInit}
+      setIsSelectOpen={setIsSelectOpen}
+      setIsMemberOpen={setIsMemberOpen}
+      register={register}
+      handleSubmit={handleSubmit}
+      setValue={setValue}
+      onSubmit={onSubmit}
+      onClickEmployee={onClickEmployee}
+      onClickList={onClickList}
+      onClickOpenModal={onClickOpenModal}
+      onClickCloseModal={onClickCloseModal}
+      onChangeDate={onChangeDate}
+      onChangeStartEndDate={onChangeStartEndDate}
+      onClickOpenSelectModal={onClickOpenSelectModal}
+      onClickCheckedChange={onClickCheckedChange}
+      onCheckedAll={onCheckedAll}
+      onCheckedElement={onCheckedElement}
     />
   );
 };

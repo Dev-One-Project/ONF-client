@@ -8,19 +8,19 @@ const AdminSidebarPresenter = (props: IAdminSidebarPresenterProps) => {
       isNarrowWidth={props.isNarrowWidth}
     >
       <S.Container>
-        {props.sidebarLink?.map((el) => (
+        {props.sidebarLink?.map((link) => (
           <S.List
-            key={el.id}
-            id={el.address}
+            key={link.id}
+            id={link.address}
             onClick={props.onClickList}
             isAdminSidebar={props.isAdminSidebar}
           >
-            <S.Svg>{el.svg}</S.Svg>
+            <S.Svg>{link.svg}</S.Svg>
             <S.Text
               isAdminSidebar={props.isAdminSidebar}
               isNarrowWidth={props.isNarrowWidth}
             >
-              {el.name}
+              {link.name}
             </S.Text>
           </S.List>
         ))}

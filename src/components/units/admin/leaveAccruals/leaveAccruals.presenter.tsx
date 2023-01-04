@@ -358,7 +358,14 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
         <S.UlWrapper>
           <S.ListUl>
             <li>
-              <Check01 />
+              <Check01
+                checked={
+                  props.checkedList.length === 0
+                    ? false
+                    : props.checkedList.length === props.dataLength
+                }
+                onChange={(event) => props.onCheckedAll(event.target.checked)}
+              />
             </li>
             <li>직원</li>
             <li>발생 시점</li>
@@ -376,6 +383,8 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
             vBase={props.vBase}
             vBaseDelete={props.vBaseDelete}
             onClickOpenModal={props.onClickOpenModal}
+            onCheckedElement={props.onCheckedElement}
+            checkedList={props.checkedList}
           />
         </S.UlWrapper>
       )}

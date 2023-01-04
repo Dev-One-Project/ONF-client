@@ -1,4 +1,7 @@
-import { IQuery } from '../../../../../commons/types/generated/types';
+import {
+  IQuery,
+  IVacationIssue,
+} from '../../../../../commons/types/generated/types';
 import { getDate } from '../../../../../commons/utils/getDate';
 import Check01 from '../../../../commons/input/check01';
 import * as S from '../leaveAccruals.styles';
@@ -11,6 +14,8 @@ interface IEmployeeOptionalFetchProps {
   vBase?: Pick<IQuery, 'fetchVacationIssueBaseDate'>;
   vBaseDelete?: Pick<IQuery, 'fetchVacationIssueWithBaseDateDelete'>;
   onClickOpenModal: () => void;
+  onCheckedElement: (checked: boolean, selectedTarget: IVacationIssue) => void;
+  checkedList: IVacationIssue[];
 }
 
 const ListOptionalFetch = (props: IEmployeeOptionalFetchProps) => {
@@ -22,7 +27,15 @@ const ListOptionalFetch = (props: IEmployeeOptionalFetchProps) => {
         .map((fetchData) => (
           <S.ListUl key={fetchData.id} onClick={props.onClickOpenModal}>
             <li>
-              <Check01 />
+              <Check01
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+                onChange={(e) =>
+                  props.onCheckedElement(e.target.checked, fetchData)
+                }
+                checked={props.checkedList.includes(fetchData)}
+              />
             </li>
             <li>{fetchData.member.name}</li>
             <li>{getDate(fetchData.startingPoint)}</li>
@@ -40,7 +53,15 @@ const ListOptionalFetch = (props: IEmployeeOptionalFetchProps) => {
         .map((fetchData) => (
           <S.ListUl key={fetchData.id} onClick={props.onClickOpenModal}>
             <li>
-              <Check01 />
+              <Check01
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+                onChange={(e) =>
+                  props.onCheckedElement(e.target.checked, fetchData)
+                }
+                checked={props.checkedList.includes(fetchData)}
+              />
             </li>
             <li>{fetchData.member.name}</li>
             <li>{getDate(fetchData.startingPoint)}</li>
@@ -53,11 +74,18 @@ const ListOptionalFetch = (props: IEmployeeOptionalFetchProps) => {
         ));
     } else if (props.init && props.filterInit) {
       console.log('리스트 on and on');
-
       return props.vBase?.fetchVacationIssueBaseDate.flat().map((fetchData) => (
         <S.ListUl key={fetchData.id} onClick={props.onClickOpenModal}>
           <li>
-            <Check01 />
+            <Check01
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+              onChange={(e) =>
+                props.onCheckedElement(e.target.checked, fetchData)
+              }
+              checked={props.checkedList.includes(fetchData)}
+            />
           </li>
           <li>{fetchData.member.name}</li>
           <li>{getDate(fetchData.startingPoint)}</li>
@@ -75,7 +103,15 @@ const ListOptionalFetch = (props: IEmployeeOptionalFetchProps) => {
         .map((fetchData) => (
           <S.ListUl key={fetchData.id} onClick={props.onClickOpenModal}>
             <li>
-              <Check01 />
+              <Check01
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+                onChange={(e) =>
+                  props.onCheckedElement(e.target.checked, fetchData)
+                }
+                checked={props.checkedList.includes(fetchData)}
+              />
             </li>
             <li>{fetchData.member.name}</li>
             <li>{getDate(fetchData.startingPoint)}</li>
