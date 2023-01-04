@@ -21,14 +21,3 @@ export const UPDATE_NOTICE_BOARD = gql`
     }
   }
 `;
-
-export const FETCH_ACCOUNT = gql`
-  query fetchAccount {
-    fetchAccount {
-      id
-      company {
-        id
-      }
-    }
-  }
-`;
