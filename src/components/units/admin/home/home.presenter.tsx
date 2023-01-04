@@ -4,9 +4,11 @@ import Btn01 from '../../../commons/button/btn01';
 import NoticeModal from '../../../commons/modal/noticeModal';
 import { styleSet } from '../../../../commons/styles/styleSet';
 import { useMoveToPage } from '../../../commons/hooks/useMoveToPage';
+import { getStaticDateStr } from '../../../../commons/utils/getDate';
+import { FetchAllNoticeBoards, IHomePresenterProps } from './home.types';
 const { RangePicker } = DatePicker;
 
-const HomePresenter = () => {
+const HomePresenter = (props: IHomePresenterProps) => {
   const { onClickMoveToPage } = useMoveToPage();
   return (
     <S.Container>
@@ -89,16 +91,17 @@ const HomePresenter = () => {
         <S.CommonBox className="notice">
           <S.BoxTitle>공지사항</S.BoxTitle>
           <S.NoticeUl>
-            <li>
-              <S.Preface>머릿말</S.Preface>
-              <span>제목이다이야</span>
-              <S.DateStyle>2022-12-09</S.DateStyle>
-            </li>
-            <li>
-              <S.Preface>머릿말</S.Preface>
-              <span>제목이다이야</span>
-              <S.DateStyle>2022-12-09</S.DateStyle>
-            </li>
+            {(
+              props.fetchAllNoticeBoards as unknown as FetchAllNoticeBoards[]
+            )?.map((board, i) =>
+              i < 5 ? (
+                <li key={i} onClick={props.onClickNoticeBoard(board.id)}>
+                  <S.Preface>{board.preface}</S.Preface>
+                  <span>{board.title}</span>
+                  <S.DateStyle>{getStaticDateStr(board.createdAt)}</S.DateStyle>
+                </li>
+              ) : null,
+            )}
           </S.NoticeUl>
           <S.AlignRight>
             <NoticeModal />

@@ -1,54 +1,28 @@
 import * as S from './list.styles';
-import Btn01 from '../../button/btn01';
-import { styleSet } from '../../../../commons/styles/styleSet';
+import NoticeDetail from './list.presenterDetail';
+import { getStaticDateStr } from '../../../../commons/utils/getDate';
+import { FetchAllNoticeBoards, INoticeListPresenterProps } from './list.types';
 
-const NoticeListPresenter = () => {
+const NoticeListPresenter = (props: INoticeListPresenterProps) => {
   return (
     <>
       <S.H2>공지사항</S.H2>
       <S.Container>
         <S.ColWrapper right={true}>
           <S.ListUl>
-            <li>
-              <S.Preface>머릿말</S.Preface>
-              <span>제목</span>
-              <S.DateStyle>2022-12-12</S.DateStyle>
-            </li>
-            <li>
-              <S.Preface>머릿말</S.Preface>
-              <span>제목</span>
-              <S.DateStyle>2022-12-12</S.DateStyle>
-            </li>
-            <li>
-              <S.Preface>머릿말</S.Preface>
-              <span>제목</span>
-              <S.DateStyle>2022-12-17</S.DateStyle>
-            </li>
-            <li>
-              <S.Preface>머릿말</S.Preface>
-              <span>제목</span>
-              <S.DateStyle>2022-12-17</S.DateStyle>
-            </li>
+            {(
+              props.fetchAllNoticeBoards as unknown as FetchAllNoticeBoards[]
+            )?.map((board, i) => (
+              <li key={i} onClick={props.onClickBoard(board.id)}>
+                <S.Preface>{board.preface}</S.Preface>
+                <span>{board.title}</span>
+                <S.DateStyle>{getStaticDateStr(board.createdAt)}</S.DateStyle>
+              </li>
+            ))}
           </S.ListUl>
         </S.ColWrapper>
         <S.ColWrapper right={false}>
-          <S.DetailTop>
-            <S.Title>제목</S.Title>
-            <S.DateStyle>2022-12-17</S.DateStyle>
-          </S.DetailTop>
-          <S.Contents>내용</S.Contents>
-          <S.BtnWrapper>
-            <Btn01
-              text="수정"
-              // onClick={onClickWrite}
-              bdC={styleSet.colors.gray}
-            />
-            <Btn01
-              text="삭제"
-              // onClick={onClickWrite}
-              bdC={styleSet.colors.gray}
-            />
-          </S.BtnWrapper>
+          <NoticeDetail boardId={props.boardId} />
         </S.ColWrapper>
       </S.Container>
     </>

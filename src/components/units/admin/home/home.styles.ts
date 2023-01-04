@@ -155,11 +155,15 @@ export const NoticeUl = styled.ul`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    gap: 0.5rem;
+
+    cursor: pointer;
   }
 `;
 
 export const Preface = styled.span`
   padding: 4px;
+  min-width: 2.5rem;
   font-size: ${styleSet.fontSizes.small};
   color: ${styleSet.colors.white};
   background-color: ${styleSet.colors.subColor02};
@@ -168,6 +172,7 @@ export const Preface = styled.span`
 `;
 
 export const DateStyle = styled.span`
+  min-width: 4.7rem;
   font-size: ${styleSet.fontSizes.small};
   color: ${styleSet.colors.darkGray};
 `;
