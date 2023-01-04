@@ -1,7 +1,7 @@
 import Manage from '../../../../src/components/units/admin/manage/manage.container';
 
-const Duty = () => {
+const RoleCategory = () => {
   return <Manage tab="직무" />;
 };
 
-export default Duty;
+export default RoleCategory;

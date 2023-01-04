@@ -6,11 +6,7 @@ import { IWagesProps } from './wages.types';
 const BasicInfo = (props: IWagesProps) => {
   return (
     <>
-      <InputLabel
-        type="text"
-        name="wageName"
-        register={props.register('wageName')}
-      >
+      <InputLabel type="text" name="wageName" register={props.register('name')}>
         근로정보명
       </InputLabel>
       <InputLabel
@@ -22,8 +18,8 @@ const BasicInfo = (props: IWagesProps) => {
       </InputLabel>
       <InputLabel
         type="select"
-        name="fixedWorkingDays"
-        register={props.register('fixedWorkingDays')}
+        name="fixedLaborDays"
+        register={props.register('fixedLaborDays')}
         data={[
           { id: '0', name: '월' },
           { id: '1', name: '화' },
@@ -46,8 +42,8 @@ const BasicInfo = (props: IWagesProps) => {
       </InputLabel>
       <InputLabel
         type="select"
-        name="weekDays"
-        register={props.register('weekDays')}
+        name="weekOffDays"
+        register={props.register('weekOffDays')}
         data={[
           { id: '0', name: '월' },
           { id: '1', name: '화' },

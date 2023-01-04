@@ -4,7 +4,7 @@ import Footer from './common/footer';
 import { IFormProps } from './common/form.types';
 import Memo from './common/memo';
 
-const Duty = (props: IFormProps) => {
+const RoleCategoryForm = (props: IFormProps) => {
   return (
     <form onSubmit={props.handleSubmit(props.onSubmit)}>
       <Wrapper>
@@ -30,7 +30,7 @@ const Duty = (props: IFormProps) => {
   );
 };
 
-export default Duty;
+export default RoleCategoryForm;
 
 const Wrapper = styled.div`
   width: 31.5rem;

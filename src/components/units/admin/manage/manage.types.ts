@@ -1,9 +1,11 @@
 import { Dispatch, SetStateAction } from 'react';
 import {
+  Control,
   FieldValues,
   SubmitHandler,
   UseFormHandleSubmit,
   UseFormRegister,
+  UseFormReset,
   UseFormSetValue,
 } from 'react-hook-form';
 
@@ -12,7 +14,7 @@ export interface IManagePresenterProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   aniMode: boolean;
   onClickCloseModal: () => void;
-  onClickOpenModal: () => void;
+  onClickOpenModal: (el: any) => void;
   tab: string;
   formProps: {
     register: UseFormRegister<FieldValues>;
@@ -20,9 +22,13 @@ export interface IManagePresenterProps {
     onSubmit: SubmitHandler<FieldValues>;
     handleSubmit: UseFormHandleSubmit<FieldValues>;
     setValue: UseFormSetValue<FieldValues>;
+    reset: UseFormReset<FieldValues>;
+    control: Control;
   };
   setIsLocation: Dispatch<SetStateAction<boolean>>;
   isLocation: boolean;
+  onOpenEdit: (el: any) => void;
+  editTarget: any;
 }
 
 export interface IManageProps {

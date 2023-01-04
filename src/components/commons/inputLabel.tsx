@@ -6,7 +6,7 @@ import {
 } from 'react-hook-form';
 import Input01 from './input/input01';
 import Select01, { InputData } from './input/select01';
-import Label from '../units/admin/manage/forms/common/label';
+import Label from '../units/admin/manage/formsInModal/common/label';
 
 interface IInputLabelProps {
   children: string;
