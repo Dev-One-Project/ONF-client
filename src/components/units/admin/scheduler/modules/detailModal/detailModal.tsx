@@ -33,7 +33,6 @@ const DetailModal = (props: IProps) => {
   const [deleteSchedule] = useMutation(DELETE_SCHEDULE);
 
   const onSubmit = (data: any) => {
-    console.log(data);
     const startWork = new Date(
       new Date(String(props.schedule.startWorkTime)).setHours(
         Number(data.startWorkHour),
@@ -60,8 +59,7 @@ const DetailModal = (props: IProps) => {
         },
       },
     })
-      .then((res) => {
-        console.log(res);
+      .then(() => {
         props.onClickCloseModal();
       })
       .catch(() => {});
@@ -73,8 +71,7 @@ const DetailModal = (props: IProps) => {
         scheduleId: String(props.schedule.id),
       },
     })
-      .then((res) => {
-        console.log(res);
+      .then(() => {
         props.onClickCloseModal();
       })
       .catch(() => {});

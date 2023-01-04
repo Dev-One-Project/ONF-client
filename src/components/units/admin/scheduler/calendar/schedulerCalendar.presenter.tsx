@@ -37,7 +37,6 @@ const getTimeStr = (date: Date) => {
 };
 
 const SchedulerCalendarPresenter = (props: ISchedulerCalendarProps) => {
-  console.log(props.member);
   return (
     <S.Container>
       {props.isOpen ? (

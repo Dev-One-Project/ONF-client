@@ -26,7 +26,6 @@ import { InitData } from './schedulerCalendar.types';
 import { getWorkHour } from '../../../../../commons/utils/work';
 
 const SchedulerCalendarContainer = () => {
-  console.log('-------------------------------------');
   // state
   const [dateArray, setDateArray] = useState<IDateData[]>([]);
   const [currentMonth, setCurrentMonth] = useState<string>(
@@ -35,9 +34,7 @@ const SchedulerCalendarContainer = () => {
   const [selectOrganization, setSelectOrganization] = useState<
     Array<Partial<IOrganization>>
   >([]);
-  const [selectRoleCategory, setSelectRoleCategory] = useState<
-    Array<Partial<IRoleCategory>>
-  >([]);
+  const [, setSelectRoleCategory] = useState<Array<Partial<IRoleCategory>>>([]);
   const [initOption, setInitOption] = useState<InitData | undefined>();
   const [workHours, setWorkHours] = useState<number[]>([
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -49,11 +46,6 @@ const SchedulerCalendarContainer = () => {
   const [isOpenDetail, setIsOpenDetail] = useState<boolean>(false);
   const [aniMode, setAniMode] = useState<boolean>(false);
   const [selectSchedule, setSelectSchedule] = useState<Partial<ISchedule>>();
-  // const [memberList, setMemberList] = useState<IMember[]>([]);
-  console.log('initOption', initOption);
-  console.log('selectOrganization', selectOrganization);
-  console.log('selectRoleCategory', selectRoleCategory);
-  console.log(selectOrganization?.map((select) => String(select.id)));
 
   // function
   const getSelectedSchedule = (id: string) => {
@@ -114,8 +106,6 @@ const SchedulerCalendarContainer = () => {
     });
     setWorkHours(weekWorkHours);
     setWorkNumbers(weekNumbers);
-    console.log('weekWorkHours', weekWorkHours);
-    console.log('weekNumbers', weekNumbers);
   }, [scheduleList]);
 
   useMemo(() => {
@@ -201,13 +191,11 @@ const SchedulerCalendarContainer = () => {
   };
 
   const onClickCalendarElement = (e: MouseEvent<HTMLDivElement>) => {
-    console.log('event', e.currentTarget.id);
     setSelectSchedule(getSelectedSchedule(e.currentTarget.id)?.[0]);
     setIsOpenDetail(true);
     setAniMode(true);
   };
 
-  console.log('-------------------------------------');
   // render
   return (
     <SchedulerCalendarPresenter

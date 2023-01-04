@@ -18,7 +18,6 @@ import { Dayjs } from 'dayjs';
 import { getWorkHour } from '../../../../../commons/utils/work';
 
 const SchedulerListContainer = () => {
-  console.log('-------------------------------------');
   // state
   const [startDate, setStartDate] = useState<string>(
     moment().startOf('month').format('YYYY-MM-DD'),
@@ -34,8 +33,6 @@ const SchedulerListContainer = () => {
   const [aniMode, setAniMode] = useState<boolean>(false);
   const [selectSchedule, setSelectSchedule] = useState<Partial<ISchedule>>();
   const [checkedList, setCheckedList] = useState<string[] | undefined>([]);
-
-  console.log('checkedList', checkedList);
 
   // graphql query
   const [getOrganization, { data: organization }] = useLazyQuery<
@@ -63,9 +60,6 @@ const SchedulerListContainer = () => {
     fetchPolicy: 'network-only',
     nextFetchPolicy: 'cache-only',
   });
-
-  console.log('scheduleList', scheduleList);
-  console.log('selectSchedule', selectSchedule);
 
   // initializing
   useEffect(() => {
@@ -146,7 +140,6 @@ const SchedulerListContainer = () => {
   };
 
   const onClickListContent = (e: MouseEvent<HTMLDivElement>) => {
-    console.log('event', e.currentTarget.id);
     setSelectSchedule(getSelectedSchedule(e.currentTarget.id)?.[0]);
     setIsOpenDetail(true);
     setAniMode(true);
@@ -168,17 +161,12 @@ const SchedulerListContainer = () => {
       const data = checkedList?.filter((id) => {
         return id !== e.currentTarget.id;
       });
-      console.log('hello filter');
-      console.log('filtered data', data);
       setCheckedList(data);
     } else {
       const data = checkedList?.concat(e.currentTarget.id);
-      console.log('hello concat');
       setCheckedList(data);
     }
   };
-
-  console.log('-------------------------------------');
 
   // render
   return (
