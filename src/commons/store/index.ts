@@ -15,3 +15,13 @@ export const accessTokenState = atom({
   key: `accessTokenState/${v4()}`,
   default: '',
 });
+
+export const isNoticeModalState = atom({
+  key: `isNoticeModalState/${v4()}`,
+  default: false,
+});
+
+export const changeNoticeBoardIdState = atom({
+  key: `changeNoticeBoardIdState/${v4()}`,
+  default: '',
+});

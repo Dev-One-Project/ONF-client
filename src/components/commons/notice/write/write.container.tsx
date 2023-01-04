@@ -7,6 +7,7 @@ import { IWriteContainerProps } from './write.types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ErrorModal } from '../../modal/sweetAlertModal';
 import { CREATE_NOTICE_BOARD, UPDATE_NOTICE_BOARD } from './write.queries';
+import { FETCH_ALL_NOTICE_BOARDS } from '../list/list.queries';
 
 const schema = yup.object({
   title: yup.string().required('필수'),
@@ -36,6 +37,11 @@ const WriteContainer = (props: IWriteContainerProps) => {
             ...data,
           },
         },
+        refetchQueries: [
+          {
+            query: FETCH_ALL_NOTICE_BOARDS,
+          },
+        ],
       });
     } catch (error) {
       if (error instanceof Error) ErrorModal(String(error));

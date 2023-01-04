@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { styleSet } from '../../../../commons/styles/styleSet';
 import { IStlyesProps } from './list.types';
+import { styleSet } from '../../../../commons/styles/styleSet';
 
 export const Container = styled.div`
   margin-bottom: 1rem;
@@ -39,6 +39,8 @@ export const ListUl = styled.ul`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+
+    cursor: pointer;
   }
 `;
 

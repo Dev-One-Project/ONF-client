@@ -1,17 +1,34 @@
-import styled from '@emotion/styled';
-import { useRef, useState } from 'react';
-import { styleSet } from '../../../commons/styles/styleSet';
 import Btn01 from '../button/btn01';
-import NoticeListContainer from '../notice/list/list.container';
+import styled from '@emotion/styled';
+import { useRecoilState } from 'recoil';
+import { useRef, useState } from 'react';
+import {
+  changeNoticeBoardIdState,
+  isNoticeModalState,
+} from '../../../commons/store';
+import { styleSet } from '../../../commons/styles/styleSet';
 import WriteContainer from '../notice/write/write.container';
+import NoticeListContainer from '../notice/list/list.container';
+import { gql, useQuery } from '@apollo/client';
+
+const FETCH_ALL_NOTICE_BOARDS = gql`
+  query fetchAllNoticeBoards {
+    fetchAllNoticeBoards {
+      id
+    }
+  }
+`;
 
 const NoticeModal = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useRecoilState(isNoticeModalState);
+  const [, setBoardId] = useRecoilState(changeNoticeBoardIdState);
   const [isWrite, setIsWrite] = useState(false);
   const createUpdateRef = useRef<HTMLButtonElement>();
+  const { data: fetchAllNoticeBoards } = useQuery(FETCH_ALL_NOTICE_BOARDS);
 
   const onClickOpen = () => {
     setIsOpen((open) => !open);
+    setBoardId(fetchAllNoticeBoards?.fetchAllNoticeBoards[0].id);
   };
   const onClickWrite = () => {
     setIsWrite((write) => !write);
@@ -82,7 +99,7 @@ const Container = styled.section`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 10000;
+  z-index: 1040;
 `;
 
 const Background = styled.div`
@@ -92,7 +109,7 @@ const Background = styled.div`
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.2);
-  z-index: 9999;
+  z-index: 1039;
   backdrop-filter: blur(4px);
 `;
 
