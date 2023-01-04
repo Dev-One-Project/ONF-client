@@ -1,3 +1,5 @@
+import dayToString from './dayToString';
+
 export const getDate = (createdAt: string) => {
   const date = new Date(createdAt);
   const yyyy = date.getFullYear();
@@ -11,6 +13,13 @@ export const getStaticDateStr = (date: Date) => {
   const mm = String(date.getMonth() + 1).padStart(2, '0');
   const dd = String(date.getDate()).padStart(2, '0');
   return `${yyyy}-${mm}-${dd}`;
+};
+
+export const getDateKoreanStr = (date: Date) => {
+  const mm = String(date.getMonth() + 1).padStart(2, '0');
+  const dd = String(date.getDate()).padStart(2, '0');
+  const day = dayToString(date.getDay());
+  return `${mm}월 ${dd}일, ${day}`;
 };
 
 export const getTimeStr = (start: string, end: string) => {

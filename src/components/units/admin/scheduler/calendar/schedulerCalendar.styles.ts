@@ -96,7 +96,7 @@ export const UlWrapper = styled.section`
 
 export const FuncButton = styled.button`
   border: solid 1px ${styleSet.colors.primary};
-  padding: 0 0.75rem 0 0.75rem;
+  padding: 0 0.75rem;
   margin-left: 0.5rem;
   color: ${styleSet.colors.darkGray};
   :hover {
@@ -193,7 +193,7 @@ export const CalendarBodyItem = styled.li`
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  padding: 0.125rem 0.125rem 0.125rem 0.125rem;
+  padding: 0.125rem;
   gap: 0.25rem;
   border-left: 1px solid ${styleSet.colors.gray};
   min-height: 4.75rem;

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { MouseEvent, useEffect, useMemo, useState } from 'react';
 import SchedulerCalendarPresenter from './schedulerCalendar.presenter';
 import { IDateData } from '../scheduler.types';
 import getWeekData from '../../../../../commons/utils/getWeekData';
@@ -26,7 +26,6 @@ import { InitData } from './schedulerCalendar.types';
 import { getWorkHour } from '../../../../../commons/utils/work';
 
 const SchedulerCalendarContainer = () => {
-  console.log('-------------------------------------');
   // state
   const [dateArray, setDateArray] = useState<IDateData[]>([]);
   const [currentMonth, setCurrentMonth] = useState<string>(
@@ -35,9 +34,7 @@ const SchedulerCalendarContainer = () => {
   const [selectOrganization, setSelectOrganization] = useState<
     Array<Partial<IOrganization>>
   >([]);
-  const [selectRoleCategory, setSelectRoleCategory] = useState<
-    Array<Partial<IRoleCategory>>
-  >([]);
+  const [, setSelectRoleCategory] = useState<Array<Partial<IRoleCategory>>>([]);
   const [initOption, setInitOption] = useState<InitData | undefined>();
   const [workHours, setWorkHours] = useState<number[]>([
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -45,11 +42,20 @@ const SchedulerCalendarContainer = () => {
   const [workNumbers, setWorkNumbers] = useState<number[]>([
     0, 0, 0, 0, 0, 0, 0, 0,
   ]);
-  // const [memberList, setMemberList] = useState<IMember[]>([]);
-  console.log('initOption', initOption);
-  console.log('selectOrganization', selectOrganization);
-  console.log('selectRoleCategory', selectRoleCategory);
-  console.log(selectOrganization?.map((select) => String(select.id)));
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpenDetail, setIsOpenDetail] = useState<boolean>(false);
+  const [aniMode, setAniMode] = useState<boolean>(false);
+  const [selectSchedule, setSelectSchedule] = useState<Partial<ISchedule>>();
+
+  // function
+  const getSelectedSchedule = (id: string) => {
+    const selectedSchedule = scheduleList?.fetchListTypeSchedule.filter(
+      (schedule) => {
+        return String(schedule.id) === id;
+      },
+    );
+    return selectedSchedule;
+  };
 
   // graphql query
   const [getCategory, { data: roleCategory }] = useLazyQuery<
@@ -66,7 +72,7 @@ const SchedulerCalendarContainer = () => {
     nextFetchPolicy: 'cache-only',
   });
 
-  const { data: scheduleList } = useQuery<
+  const { data: scheduleList, refetch } = useQuery<
     Pick<IQuery, 'fetchListTypeSchedule'>,
     IQueryFetchListTypeScheduleArgs
   >(FETCH_SCHEDULE_LIST, {
@@ -100,8 +106,6 @@ const SchedulerCalendarContainer = () => {
     });
     setWorkHours(weekWorkHours);
     setWorkNumbers(weekNumbers);
-    console.log('weekWorkHours', weekWorkHours);
-    console.log('weekNumbers', weekNumbers);
   }, [scheduleList]);
 
   useMemo(() => {
@@ -140,6 +144,7 @@ const SchedulerCalendarContainer = () => {
             name: String(data.name),
           };
         }),
+        workType: [{ id: '', name: '' }],
       };
       setInitOption(data);
       setSelectOrganization(data.organization ?? []);
@@ -170,7 +175,27 @@ const SchedulerCalendarContainer = () => {
   const onClickToday = () => {
     setDateArray(getWeekData(dateArray));
   };
-  console.log('-------------------------------------');
+
+  const onClickOpenModal = () => {
+    setIsOpen(true);
+    setAniMode(true);
+  };
+
+  const onClickCloseModal = async () => {
+    setAniMode(false);
+    await refetch({
+      startDate: String(moment(dateArray[0]?.day).format('YYYY-MM-DD')),
+      endDate: String(moment(dateArray[6]?.day).format('YYYY-MM-DD')),
+      organizationId: selectOrganization?.map((select) => String(select.id)),
+    });
+  };
+
+  const onClickCalendarElement = (e: MouseEvent<HTMLDivElement>) => {
+    setSelectSchedule(getSelectedSchedule(e.currentTarget.id)?.[0]);
+    setIsOpenDetail(true);
+    setAniMode(true);
+  };
+
   // render
   return (
     <SchedulerCalendarPresenter
@@ -184,9 +209,18 @@ const SchedulerCalendarContainer = () => {
       onClickNextWeek={onClickNextWeek}
       onClickPrevWeek={onClickPrevWeek}
       onClickToday={onClickToday}
+      onClickCalendarElement={onClickCalendarElement}
       member={memberList?.fetchMembers}
       workHours={workHours}
       workNumbers={workNumbers}
+      aniMode={aniMode}
+      isOpen={isOpen}
+      isOpenDetail={isOpenDetail}
+      onClickOpenModal={onClickOpenModal}
+      onClickCloseModal={onClickCloseModal}
+      setIsOpenDetail={setIsOpenDetail}
+      setIsOpen={setIsOpen}
+      selectSchedule={selectSchedule}
     />
   );
 };

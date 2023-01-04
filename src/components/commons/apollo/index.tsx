@@ -23,6 +23,7 @@ export default function ApolloSetting(props: IApolloSettingProps) {
   useEffect(() => {
     void getAccessToken().then((newAccessToken: string) => {
       setAccessToken(newAccessToken);
+      sessionStorage.setItem('accessToken', newAccessToken);
     });
   }, [setAccessToken]);
   console.log(accessToken, 'accessToken');
@@ -34,6 +35,7 @@ export default function ApolloSetting(props: IApolloSettingProps) {
           return fromPromise(
             getAccessToken().then((newAccessToken: string) => {
               setAccessToken(newAccessToken);
+              sessionStorage.setItem('accessToken', newAccessToken);
               operation.setContext({
                 headers: {
                   ...operation.getContext().headers,
@@ -54,7 +56,7 @@ export default function ApolloSetting(props: IApolloSettingProps) {
   });
 
   const client = new ApolloClient({
-    link: ApolloLink.from([uploadLink, errorLink]),
+    link: ApolloLink.from([errorLink, uploadLink]),
     cache: new InMemoryCache(),
   });
 

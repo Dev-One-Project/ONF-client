@@ -18,6 +18,7 @@ export const FETCH_SCHEDULE_LIST = gql`
       date
       member {
         id
+        name
       }
       # company {
       #   id

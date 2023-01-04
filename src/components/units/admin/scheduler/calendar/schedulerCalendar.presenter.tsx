@@ -1,10 +1,15 @@
 import { styleSet } from '../../../../../commons/styles/styleSet';
-import { getStaticDateStr } from '../../../../../commons/utils/getDate';
+import {
+  getDateKoreanStr,
+  getStaticDateStr,
+} from '../../../../../commons/utils/getDate';
 import Btn01 from '../../../../commons/button/btn01';
 import Select01 from '../../../../commons/input/select01';
+import FallingModal from '../../../../commons/modal/fallingModal';
 import ArrowSvg from '../../../../commons/svg/arrows';
 import Switch01 from '../../../../commons/switch/switch01';
-import CalendarElementContainer from '../elements/calendar/calendarElement.container';
+import CalendarElementContainer from '../modules/calendar/calendarElement.container';
+import DetailModal from '../modules/detailModal/detailModal';
 import { IDateData } from '../scheduler.types';
 import * as S from './schedulerCalendar.styles';
 import { ISchedulerCalendarProps } from './schedulerCalendar.types';
@@ -32,9 +37,36 @@ const getTimeStr = (date: Date) => {
 };
 
 const SchedulerCalendarPresenter = (props: ISchedulerCalendarProps) => {
-  console.log(props.member);
   return (
     <S.Container>
+      {props.isOpen ? (
+        <FallingModal
+          isOpen={props.isOpen}
+          setIsOpen={props.setIsOpen}
+          aniMode={props.aniMode}
+          onCancel={props.onClickCloseModal}
+        ></FallingModal>
+      ) : null}
+      {props.isOpenDetail && props.selectSchedule ? (
+        <FallingModal
+          isOpen={props.isOpenDetail}
+          setIsOpen={props.setIsOpenDetail}
+          aniMode={props.aniMode}
+          onCancel={props.onClickCloseModal}
+          title={`${
+            props.selectSchedule?.member?.name || ''
+          }의 근무일정 바꾸기 (${getDateKoreanStr(
+            new Date(String(props.selectSchedule.startWorkTime)),
+          )})`}
+        >
+          <DetailModal
+            onClickCloseModal={props.onClickCloseModal}
+            initData={props.initOption}
+            createdAt={'아직 데이터를 안줘서 모름..... 줘....'}
+            schedule={props.selectSchedule}
+          />
+        </FallingModal>
+      ) : null}
       <S.TopWrapper>
         <S.TopTitleBox>
           <S.H1>근무일정</S.H1>
@@ -44,6 +76,7 @@ const SchedulerCalendarPresenter = (props: ISchedulerCalendarProps) => {
           text={'근무일정 추가하기'}
           bgC={styleSet.colors.primary}
           color={styleSet.colors.white}
+          onClick={props.onClickOpenModal}
         />
       </S.TopWrapper>
 
@@ -128,6 +161,7 @@ const SchedulerCalendarPresenter = (props: ISchedulerCalendarProps) => {
                               return (
                                 <CalendarElementContainer
                                   key={schedule.id}
+                                  id={schedule.id}
                                   startTime={getTimeStr(
                                     new Date(schedule.startWorkTime),
                                   )}
@@ -137,6 +171,7 @@ const SchedulerCalendarPresenter = (props: ISchedulerCalendarProps) => {
                                   member={member}
                                   companyName={member.company.name}
                                   color={styleSet.colors.primary}
+                                  onClick={props.onClickCalendarElement}
                                 />
                               );
                             } else return null;
