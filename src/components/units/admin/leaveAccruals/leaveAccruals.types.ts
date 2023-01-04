@@ -5,7 +5,11 @@ import {
   UseFormRegister,
   UseFormSetValue,
 } from 'react-hook-form';
-import { IQuery } from '../../../../commons/types/generated/types';
+import {
+  IQuery,
+  IVacationIssue,
+} from '../../../../commons/types/generated/types';
+import { Dayjs } from 'dayjs';
 
 export interface ILeaveAccrualsPresenterProps {
   setOrganizationArr: Dispatch<SetStateAction<IInputData[]>>;
@@ -16,20 +20,23 @@ export interface ILeaveAccrualsPresenterProps {
   aniMode: boolean;
   onClickOpenModal: () => void;
   onClickCloseModal: () => void;
-  setIsOpen: SetStateAction<any>;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
   onSubmit: (data: any) => void;
   register: UseFormRegister<FieldValues>;
   handleSubmit: UseFormHandleSubmit<FieldValues>;
-  organizationsData?: any;
+  organizationsData?: IInputData[];
   init: boolean;
-  setInit: SetStateAction<any>;
+  setInit: Dispatch<SetStateAction<boolean>>;
   filterInit: boolean;
-  setFilterInit: SetStateAction<any>;
-  onChangeDate: (value: any) => void;
-  onChangeStartEndDate: (value: any) => void;
+  setFilterInit: Dispatch<SetStateAction<boolean>>;
+  onChangeDate: (value: Dayjs | null) => void;
+  onChangeStartEndDate: (
+    dates: null | Array<Dayjs | null>,
+    dateString: string[],
+  ) => void;
   date: Date;
   isSelectOpen: boolean;
-  setIsSelectOpen: SetStateAction<any>;
+  setIsSelectOpen: Dispatch<SetStateAction<boolean>>;
   onClickOpenSelectModal: () => void;
   isMemberOpen: boolean;
   setValue: UseFormSetValue<FieldValues>;
@@ -37,18 +44,22 @@ export interface ILeaveAccrualsPresenterProps {
   vDetail?: Pick<IQuery, 'fetchVacationIssueDetailDate'>;
   vBase?: Pick<IQuery, 'fetchVacationIssueBaseDate'>;
   vBaseDelete?: Pick<IQuery, 'fetchVacationIssueWithBaseDateDelete'>;
-  setIsMemberOpen: SetStateAction<any>;
+  setIsMemberOpen: Dispatch<SetStateAction<boolean>>;
   onClickCheckedChange: () => void;
   isCheckedChange: boolean;
-  setIsCheckedChange: SetStateAction<any>;
-  setDayChecked: SetStateAction<any>;
-  setStartDateChecked: SetStateAction<any>;
-  setEndDateChecked: SetStateAction<any>;
-  setMemoChecked: SetStateAction<any>;
+  setIsCheckedChange: Dispatch<SetStateAction<boolean>>;
+  setDayChecked: Dispatch<SetStateAction<boolean>>;
+  setStartDateChecked: Dispatch<SetStateAction<boolean>>;
+  setEndDateChecked: Dispatch<SetStateAction<boolean>>;
+  setMemoChecked: Dispatch<SetStateAction<boolean>>;
   dayChecked: boolean;
   startDateChecked: boolean;
   endDateChecked: boolean;
   memoChecked: boolean;
+  onCheckedAll: (checked: boolean) => void;
+  onCheckedElement: (checked: boolean, selectedTarget: IVacationIssue) => void;
+  checkedList: IVacationIssue[];
+  dataLength: number;
 }
 
 export interface IInputData {

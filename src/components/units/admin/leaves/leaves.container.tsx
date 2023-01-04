@@ -58,9 +58,9 @@ const LeavesContainer = () => {
   });
 
   const organizationsData: IInputData[] = organizations
-    ? organizations.fetchOrganizations.map((el) => ({
-        id: String(el.id),
-        name: String(el.name),
+    ? organizations.fetchOrganizations.map((organization) => ({
+        id: String(organization.id),
+        name: String(organization.name),
       }))
     : [{ id: '', name: '' }];
 

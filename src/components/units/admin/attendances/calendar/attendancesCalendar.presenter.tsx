@@ -46,15 +46,15 @@ const AttendancesCalendarPresenter = (
       <S.UlWrapper>
         <S.DateUl>
           <div>공백</div>
-          {props.monthArr.map((el) => (
-            <li key={uuidV4()}>{el}</li>
+          {props.monthArr.map((day) => (
+            <li key={uuidV4()}>{day}</li>
           ))}
           <div>합계</div>
         </S.DateUl>
         <S.DateUl>
           <div>이다은</div>
-          {props.monthArr.map((el) => (
-            <li key={uuidV4()}>{el}</li>
+          {props.monthArr.map((day) => (
+            <li key={uuidV4()}>{day}</li>
           ))}
           <div>{props.monthArr.length}</div>
         </S.DateUl>

@@ -47,7 +47,14 @@ const AdminLayout = (props: IAdminLayoutProps) => {
 export default AdminLayout;
 
 const ChildrenBox = styled.div`
-  width: 100vw;
+  width: ${(props: IAdminLayoutProps) =>
+    props.isAdminSidebar
+      ? props.isNarrowWidth
+        ? 'calc(100vw - 9rem)'
+        : 'calc(100vw - 18rem)'
+      : props.isNarrowWidth
+      ? 'calc(100vw - 18rem)'
+      : 'calc(100vw - 9rem)'};
   margin: 7rem 3rem 6.5rem 3rem;
   @media ${styleSet.breakPoints.tablet} {
     width: ${(props: IAdminLayoutProps) =>
