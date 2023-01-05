@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic';
 import * as S from './write.styles';
 import Input01 from '../../input/input01';
 import { IWritePresenterProps } from './write.types';
-const EditorPage = dynamic(async () => await import('./editor'), {
+const EditorPage = dynamic(async () => await import('./modules/editor'), {
   ssr: false,
 });
 
@@ -11,18 +11,25 @@ const WritePresenter = (props: IWritePresenterProps) => {
     <>
       <S.H2>공지사항</S.H2>
       <S.Container>
-        <S.Form onSubmit={props.handleSubmit(props.onClickCreate)}>
+        <S.Form
+          onSubmit={
+            props.isEdit
+              ? props.handleSubmit(props.onClickUpdate)
+              : props.handleSubmit(props.onClickCreate)
+          }
+        >
           <S.WriteTop>
             <Input01
               placeholder="제목을 입력하세요."
               register={props.register('title')}
+              error={props.formState.errors.title}
             />
             <select
               style={{ padding: '0.5rem' }}
               defaultValue={'disabled'}
               {...props.register('preface')}
             >
-              <option value="disabled" disabled>
+              <option value="공지" disabled>
                 머릿말 선택
               </option>
               <option value={'공지'}>공지</option>
@@ -31,26 +38,20 @@ const WritePresenter = (props: IWritePresenterProps) => {
             </select>
           </S.WriteTop>
           <div style={{ width: '100%', height: '100%', paddingTop: '1rem' }}>
-            <EditorPage
-              contentsRef={props.contentsRef}
-              onChangeContents={props.onChangeContents}
-              // initialValue={fetchProduct?.fetchProduct.content}
-            />
-            {/* {fetchProduct?.fetchProduct.content ? (
-            <EditorPage
-            contentsRef={contentsRef}
-            onChangeContents={onChangeContents}
-            initialValue={fetchProduct?.fetchProduct.content}
-            />
-            ) : isEdit ? (
+            {props.fetchContents ? (
+              <EditorPage
+                contentsRef={props.contentsRef}
+                onChangeContents={props.onChangeContents}
+                initialValue={props.fetchContents}
+              />
+            ) : props.isEdit ? (
               <div>loadding...</div>
-              ) : (
-                <EditorPage
-                contentsRef={contentsRef}
-                onChangeContents={onChangeContents}
-                initialValue={fetchProduct?.fetchProduct.content}
-                />
-              )} */}
+            ) : (
+              <EditorPage
+                contentsRef={props.contentsRef}
+                onChangeContents={props.onChangeContents}
+              />
+            )}
           </div>
           <S.InvisibleBtn ref={props.createUpdateRef}></S.InvisibleBtn>
         </S.Form>

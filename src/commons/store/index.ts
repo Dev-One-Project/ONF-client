@@ -25,3 +25,13 @@ export const changeNoticeBoardIdState = atom({
   key: `changeNoticeBoardIdState/${v4()}`,
   default: '',
 });
+
+export const isNoticeWriteState = atom({
+  key: `isNoticeWriteState/${v4()}`,
+  default: false,
+});
+
+export const isNoticeEditState = atom({
+  key: `isNoticeWriteState/${v4()}`,
+  default: { edit: false as boolean, boardId: '' as string | undefined },
+});

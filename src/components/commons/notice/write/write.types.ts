@@ -14,11 +14,12 @@ export interface IWritePresenterProps {
   formState: FormState<FieldValues>;
   onClickCreate: (data: any) => Promise<void>;
   onClickUpdate: (data: any) => Promise<void>;
-  isEdit?: boolean;
   createUpdateRef?: any;
   // createUpdateRef:
   //   | LegacyRef<HTMLButtonElement | undefined>
   //   | MutableRefObject<HTMLButtonElement | undefined>;
+  isEdit?: boolean;
+  fetchContents: string;
 }
 
 export interface IEditorPageProps {
@@ -29,5 +30,4 @@ export interface IEditorPageProps {
 
 export interface IWriteContainerProps {
   createUpdateRef: MutableRefObject<HTMLButtonElement | undefined>;
-  isEdit?: boolean;
 }

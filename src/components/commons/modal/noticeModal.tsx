@@ -1,15 +1,17 @@
+import { useRef } from 'react';
 import Btn01 from '../button/btn01';
 import styled from '@emotion/styled';
 import { useRecoilState } from 'recoil';
-import { useRef, useState } from 'react';
-import {
-  changeNoticeBoardIdState,
-  isNoticeModalState,
-} from '../../../commons/store';
 import { styleSet } from '../../../commons/styles/styleSet';
 import WriteContainer from '../notice/write/write.container';
 import NoticeListContainer from '../notice/list/list.container';
 import { gql, useQuery } from '@apollo/client';
+import {
+  changeNoticeBoardIdState,
+  isNoticeEditState,
+  isNoticeModalState,
+  isNoticeWriteState,
+} from '../../../commons/store';
 
 const FETCH_ALL_NOTICE_BOARDS = gql`
   query fetchAllNoticeBoards {
@@ -20,10 +22,11 @@ const FETCH_ALL_NOTICE_BOARDS = gql`
 `;
 
 const NoticeModal = () => {
+  const createUpdateRef = useRef<HTMLButtonElement>();
+  const [, setIsEdit] = useRecoilState(isNoticeEditState);
   const [isOpen, setIsOpen] = useRecoilState(isNoticeModalState);
   const [, setBoardId] = useRecoilState(changeNoticeBoardIdState);
-  const [isWrite, setIsWrite] = useState(false);
-  const createUpdateRef = useRef<HTMLButtonElement>();
+  const [isWrite, setIsWrite] = useRecoilState(isNoticeWriteState);
   const { data: fetchAllNoticeBoards } = useQuery(FETCH_ALL_NOTICE_BOARDS);
 
   const onClickOpen = () => {
@@ -32,7 +35,11 @@ const NoticeModal = () => {
   };
   const onClickWrite = () => {
     setIsWrite((write) => !write);
+    setIsEdit({ edit: false, boardId: '' });
+  };
+  const onClickComplete = () => {
     createUpdateRef.current?.click();
+    // onClickWrite();
   };
 
   return (
@@ -55,7 +62,7 @@ const NoticeModal = () => {
               {isWrite && (
                 <Btn01
                   text="작성완료"
-                  onClick={onClickWrite}
+                  onClick={onClickComplete}
                   bdC={styleSet.colors.gray}
                 />
               )}

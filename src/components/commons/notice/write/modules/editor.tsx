@@ -7,7 +7,7 @@ import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-sy
 import { useMutation } from '@apollo/client';
 // import { UPLOAD_IMAGE } from "../register.queries";
 import { useEffect } from 'react';
-import { IEditorPageProps } from './write.types';
+import { IEditorPageProps } from '../write.types';
 
 export default function EditorPage(props: IEditorPageProps) {
   //   const { contentsRef, onChangeContents, initialValue } = P;
