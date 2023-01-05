@@ -7,7 +7,7 @@ const MemberData = (props: { data?: IMember }) => {
     <>
       <Td>{props.data?.name}</Td>
       {/* <Td>{props.data?.accessAuth ?? ''}</Td> */}
-      <Td>{''}</Td>
+      <Td>{'개발 예정'}</Td>
       <Td>{props.data?.joinDate ? getDate(props.data?.joinDate) : ''}</Td>
       <Td>{props.data?.organization?.name}</Td>
       <Td>{props.data?.roleCategory?.duty}</Td>

@@ -23,7 +23,7 @@ const RowDataCells = (props: IRowDataCellsProps) => {
     case '휴가 유형':
       return <>휴가 유형탭</>;
     default:
-      return <>직웝탭</>;
+      return <MemberData data={props.data} />;
   }
 };
 

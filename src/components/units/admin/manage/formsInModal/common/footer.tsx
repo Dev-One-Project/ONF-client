@@ -5,14 +5,26 @@ import Btn01 from '../../../../../commons/button/btn01';
 
 interface IFooterProps {
   onCancel: () => void;
+  isEdit?: boolean;
+  onDelete?: () => void;
 }
 
 const Footer = (props: IFooterProps) => {
   return (
     <>
-      <Divider style={{ marginBottom: '0.5rem' }} />
+      <Divider style={{ marginBottom: '0.5rem', transform: 'scaleX(1.05)' }} />
       <Wrapper>
-        <div></div>
+        <DeleteButtonBox>
+          {props.isEdit && (
+            <Btn01
+              onClick={props.onDelete}
+              text="비활성화하기"
+              type="button"
+              bdC="#ddd"
+              color="red"
+            />
+          )}
+        </DeleteButtonBox>
         <ButtonBox>
           <Btn01
             onClick={props.onCancel}
@@ -21,7 +33,7 @@ const Footer = (props: IFooterProps) => {
             bdC="#ddd"
           />
           <Btn01
-            text="추가하기"
+            text={props.isEdit ? '수정하기' : '추가하기'}
             color="#fff"
             bgC={styleSet.colors.primary}
             bdC={styleSet.colors.primary}
@@ -38,7 +50,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0rem;
 `;
 
 const ButtonBox = styled.div`
@@ -47,3 +59,5 @@ const ButtonBox = styled.div`
   align-items: center;
   gap: 1rem;
 `;
+
+const DeleteButtonBox = styled.div``;

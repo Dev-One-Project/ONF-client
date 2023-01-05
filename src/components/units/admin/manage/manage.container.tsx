@@ -4,6 +4,8 @@ import ManagePresenter from './manage.presenter';
 import { IManageProps } from './manage.types';
 
 const Manage = (props: IManageProps) => {
+  console.log('container start');
+  console.log(props.data);
   const { register, handleSubmit, setValue, reset, control } = useForm();
   const [isOpen, setIsOpen] = useState(false);
   const [aniMode, setAniMode] = useState(false);
@@ -51,6 +53,7 @@ const Manage = (props: IManageProps) => {
   const tab = props.tab === '지점' && isLocation ? '출퇴근 장소' : props.tab;
   return (
     <ManagePresenter
+      data={props.data}
       editTarget={editTarget}
       onOpenEdit={onOpenEdit}
       isOpen={isOpen}

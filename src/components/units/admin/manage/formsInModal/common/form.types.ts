@@ -7,6 +7,7 @@ import {
   UseFormReset,
   UseFormSetValue,
 } from 'react-hook-form';
+import { IQuery } from '../../../../../../commons/types/generated/types';
 
 export interface IFormProps {
   register: UseFormRegister<FieldValues>;
@@ -18,4 +19,9 @@ export interface IFormProps {
   control: Control;
   editTarget: any;
   tab: string;
+  data?: {
+    members?: Pick<IQuery, 'fetchMembers'>;
+    organizations?: Pick<IQuery, 'fetchOrganizations'>;
+    roleCategories?: Pick<IQuery, 'fetchRoleCategories'>;
+  };
 }
