@@ -16,12 +16,19 @@ const ManagePresenter = (props: IManagePresenterProps) => {
           isOpen={props.isOpen}
           aniMode={props.aniMode}
           onCancel={props.onClickCloseModal}
-          title={`${props.tab} ${props.editTarget ? `수정하기` : `추가하기`} `}
+          title={` ${
+            props.editTarget
+              ? props.tab === '직원'
+                ? `${String(props.editTarget?.name)}의 정보 수정하기`
+                : `${props.tab} 수정하기`
+              : `${props.tab} 추가하기`
+          } `}
         >
           <Form
             {...props.formProps}
             tab={props.tab}
             editTarget={props.editTarget}
+            data={props.data}
           />
         </FallingModal>
       )}
@@ -68,6 +75,7 @@ const ManagePresenter = (props: IManagePresenterProps) => {
             </S.OrganizationTabBox>
           )}
           <ScrollableTable
+            data={props.data}
             onOpenEdit={props.onOpenEdit}
             tab={props.tab}
             isLocation={props.isLocation}

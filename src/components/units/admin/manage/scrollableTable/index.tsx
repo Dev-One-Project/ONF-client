@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { useCallback, useState } from 'react';
@@ -6,15 +5,19 @@ import { useRecoilState } from 'recoil';
 import { isAdminSidebarState } from '../../../../../commons/store';
 import { styleSet } from '../../../../../commons/styles/styleSet';
 import { IMember, IQuery } from '../../../../../commons/types/generated/types';
-import { FETCH_MEMBERS } from '../manage.queries';
+
 import Check01 from '../../../../commons/input/check01';
 import RowDataCells from './rowDataCells';
 
 interface IScrollableTableProps {
   tab: string;
   isLocation?: boolean;
-  data?: any;
   onOpenEdit: (el: any) => void;
+  data?: {
+    members?: Pick<IQuery, 'fetchMembers'>;
+    organizations?: Pick<IQuery, 'fetchOrganizations'>;
+    roleCategories?: Pick<IQuery, 'fetchRoleCategories'>;
+  };
 }
 
 interface IStyle {
@@ -28,14 +31,14 @@ let bodyData: IMember[] | string[] = [];
 const HTML_TD_TAG = 'TD';
 
 const ScrollableTable = (props: IScrollableTableProps) => {
-  const { data } = useQuery<Pick<IQuery, 'fetchMembers'>>(FETCH_MEMBERS);
+  console.log('table is re-redering!');
 
   const [checkedList, setCheckedList] = useState<
     Array<string | {} | JSX.Element>
   >([]);
   const router = useRouter();
   const [isAdminSidebar] = useRecoilState(isAdminSidebarState);
-  console.log('checkedList:', checkedList);
+
   if (props.tab === '직원') {
     // fetchMember
     // 얻어와야하는 것
@@ -54,7 +57,7 @@ const ScrollableTable = (props: IScrollableTableProps) => {
       '합류 여부',
       '메모',
     ];
-    bodyData = data?.fetchMembers ?? [];
+    bodyData = props.data?.members?.fetchMembers ?? [];
   } else if (props.tab === '지점' || props.tab === '출퇴근 장소') {
     if (props.isLocation) {
       headerData = ['출퇴근 장소', '근무지 주소', '좌표', 'WiFi', '메모'];
