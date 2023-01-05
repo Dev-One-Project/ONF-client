@@ -21,3 +21,14 @@ export const UPDATE_NOTICE_BOARD = gql`
     }
   }
 `;
+
+export const FETCH_ONE_NOTICE_BOARD = gql`
+  query fetchOneNoticeBoard($noticeBoardId: String!) {
+    fetchOneNoticeBoard(noticeBoardId: $noticeBoardId) {
+      id
+      preface
+      title
+      contents
+    }
+  }
+`;
