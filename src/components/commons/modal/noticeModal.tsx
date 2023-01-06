@@ -90,6 +90,7 @@ export default NoticeModal;
 const Container = styled.section`
   padding: 1rem 0 1rem 0;
   width: 90%;
+  min-width: 850px;
   height: 80%;
   text-align: left;
 
