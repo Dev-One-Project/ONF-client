@@ -1,3 +1,5 @@
+import { Moment } from 'moment';
+
 export interface IWeekData {
   index: number;
   day: string;
@@ -15,4 +17,7 @@ export interface IWeekData {
 
 export interface ICalendarContainerProps {
   dateArr: IWeekData[][];
+  MoveNextMonth?: () => void;
+  MovePrevMonth?: () => void;
+  today?: Moment;
 }

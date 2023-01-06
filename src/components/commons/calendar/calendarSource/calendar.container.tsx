@@ -26,8 +26,16 @@ const newWeekData = (
 };
 
 const CalendarContainer = () => {
-  const [today] = useState(moment());
+  const [today, setToday] = useState(moment());
   const [dateArr, setDateArr] = useState<IWeekData[][]>([]);
+
+  const MoveNextMonth = () => {
+    setToday(today.clone().add(1, 'month'));
+  };
+
+  const MovePrevMonth = () => {
+    setToday(today.clone().subtract(1, 'month'));
+  };
 
   const todayFirstWeek = today.clone().startOf('month').week(); // 이번달의 첫째 주
   const todayLastWeek =
@@ -62,7 +70,14 @@ const CalendarContainer = () => {
     setDateArr(result);
   }, [today, todayFirstWeek, todayLastWeek]);
 
-  return <CalendarPresenter dateArr={dateArr} />;
+  return (
+    <CalendarPresenter
+      dateArr={dateArr}
+      MoveNextMonth={MoveNextMonth}
+      MovePrevMonth={MovePrevMonth}
+      today={today}
+    />
+  );
 };
 
 export default CalendarContainer;
