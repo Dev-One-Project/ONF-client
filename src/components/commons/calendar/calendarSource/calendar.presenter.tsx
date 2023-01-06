@@ -1,6 +1,8 @@
 import * as S from './calendar.styles';
 import { ICalendarContainerProps, IWeekData } from './calendar.types';
 import { v4 } from 'uuid';
+import ArrowSvg from '../../svg/arrows';
+import { styleSet } from '../../../../commons/styles/styleSet';
 
 const Calendar = (props: ICalendarContainerProps) => {
   return (
@@ -38,11 +40,30 @@ const Calendar = (props: ICalendarContainerProps) => {
 };
 
 const CalendarPresenter = (props: ICalendarContainerProps) => {
+  console.log(props.today);
   return (
     <>
-      <div>
+      <section>
+        <S.BtnWrapper>
+          <S.ArrowButton onClick={props.MovePrevMonth}>
+            <ArrowSvg
+              direction={'left'}
+              size={'big'}
+              color={styleSet.colors.primary}
+            />
+          </S.ArrowButton>
+          <S.YearStyle>{props.today?.format('YYYY년')}</S.YearStyle>
+          <S.DateStyle>{props.today?.format('MM월')}</S.DateStyle>
+          <S.ArrowButton onClick={props.MoveNextMonth}>
+            <ArrowSvg
+              direction={'right'}
+              size={'big'}
+              color={styleSet.colors.primary}
+            />
+          </S.ArrowButton>
+        </S.BtnWrapper>
         <Calendar dateArr={props.dateArr} />
-      </div>
+      </section>
     </>
   );
 };
