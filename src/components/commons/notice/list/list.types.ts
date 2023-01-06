@@ -1,12 +1,21 @@
+import { Dispatch, SetStateAction } from 'react';
+
 export interface INoticeListPresenterProps {
-  fetchAllNoticeBoards: {
-    id: string;
-    preface: string;
-    title: string;
-    createdAt: string;
-  };
+  boards:
+    | {
+        id: string;
+        preface: string;
+        title: string;
+        createdAt: string;
+        length?: number;
+      }
+    | undefined;
   onClickBoard: (id: string) => () => void;
   boardId: string | undefined;
+  page: number;
+  limit: number;
+  offset: number;
+  setPage: Dispatch<SetStateAction<number>>;
 }
 
 export interface INoticeDetailProps {

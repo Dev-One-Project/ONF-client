@@ -25,6 +25,11 @@ export const ColWrapper = styled.div`
   width: 100%;
   border-right: ${(props: IStlyesProps) =>
     props.right ? `1.2px solid ${styleSet.colors.darkGray}` : 'none'};
+
+  display: flex;
+  flex-direction: column;
+  justify-content: ${(props: IStlyesProps) =>
+    props.right ? `space-between` : 'flex-start'};
 `;
 
 // list
