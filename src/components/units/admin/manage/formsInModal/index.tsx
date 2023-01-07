@@ -1,7 +1,7 @@
 import { IFormProps } from './common/form.types';
 import AttendanceLocation from './attendanceLocation';
 import LeaveTypes from './leaveTypes';
-import MemberForm from './member';
+import MemberForm from './member/member';
 import OrganizationForm from './oranization';
 import ShiftTemplate from './shiftTemplate';
 import ShiftTypes from './shiftTypes';

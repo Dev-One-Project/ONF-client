@@ -31,8 +31,6 @@ let bodyData: IMember[] | string[] = [];
 const HTML_TD_TAG = 'TD';
 
 const ScrollableTable = (props: IScrollableTableProps) => {
-  console.log('table is re-redering!');
-
   const [checkedList, setCheckedList] = useState<
     Array<string | {} | JSX.Element>
   >([]);

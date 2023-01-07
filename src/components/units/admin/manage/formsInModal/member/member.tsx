@@ -1,16 +1,43 @@
 import styled from '@emotion/styled';
-import { DatePicker, Divider } from 'antd';
+import { DatePicker, Divider, Modal } from 'antd';
 import type { DatePickerProps } from 'antd';
 import { useEffect, useState } from 'react';
-import { styleSet } from '../../../../../commons/styles/styleSet';
-import Check01 from '../../../../commons/input/check01';
-import InputLabel from '../../../../commons/inputLabel';
-import Footer from './common/footer';
-import { IFormProps } from './common/form.types';
+import { styleSet } from '../../../../../../commons/styles/styleSet';
+import Check01 from '../../../../../commons/input/check01';
+import InputLabel from '../../../../../commons/inputLabel';
+import Footer from '../common/footer';
+import { IFormProps } from '../common/form.types';
 import dayjs, { Dayjs } from 'dayjs';
-import Memo from './common/memo';
+import Memo from '../common/memo';
+import { useForm } from 'react-hook-form';
+import { useMutation } from '@apollo/client';
+import {
+  CREATE_MEMBER,
+  SOFT_DELETE_MEMBER,
+  UPDATE_MEMBER,
+} from './member.queries';
+import {
+  IMutation,
+  IMutationCreateMemberArgs,
+  IMutationSoftDeleteMemberArgs,
+  IMutationUpdateMemberArgs,
+} from '../../../../../../commons/types/generated/types';
 
 const MemberForm = (props: IFormProps) => {
+  const [createMember] = useMutation<
+    Pick<IMutation, 'createMember'>,
+    IMutationCreateMemberArgs
+  >(CREATE_MEMBER);
+  const [updateMember] = useMutation<
+    Pick<IMutation, 'updateMember'>,
+    IMutationUpdateMemberArgs
+  >(UPDATE_MEMBER);
+  const [softDeleteMember] = useMutation<
+    Pick<IMutation, 'softDeleteMember'>,
+    IMutationSoftDeleteMemberArgs
+  >(SOFT_DELETE_MEMBER);
+
+  const { register, handleSubmit, setValue, reset } = useForm();
   const invitationArray = ['전송 안함', '즉시 전송', '예약 전송'];
 
   const [invitationRadio, setInvitationRadio] = useState([true, false, false]);
@@ -24,34 +51,31 @@ const MemberForm = (props: IFormProps) => {
 
   useEffect(() => {
     if (props.editTarget) {
-      props.reset(props.editTarget);
+      reset(props.editTarget);
     }
 
     return () => {
-      props.reset({});
+      reset({});
     };
   }, []);
 
   const onChangeStartDate: DatePickerProps['onChange'] = (
     date: Dayjs | null,
   ) => {
-    props.setValue?.('startDate', new Date(String(date?.format('YYYY-MM-DD'))));
+    setValue('startDate', new Date(String(date?.format('YYYY-MM-DD'))));
   };
   const onChangeEndDate: DatePickerProps['onChange'] = (date: Dayjs | null) => {
-    props.setValue?.('endDate', new Date(String(date?.format('YYYY-MM-DD'))));
+    setValue('endDate', new Date(String(date?.format('YYYY-MM-DD'))));
   };
   const onChangeAppliedPeriod: DatePickerProps['onChange'] = (
     date: Dayjs | null,
   ) => {
-    props.setValue?.('applyFrom', new Date(String(date?.format('YYYY-MM-DD'))));
+    setValue('applidePeriod', new Date(String(date?.format('YYYY-MM-DD'))));
   };
   const onChangeTransmissionDate: DatePickerProps['onChange'] = (
     date: Dayjs | null,
   ) => {
-    props.setValue?.(
-      'transmissionDate',
-      new Date(String(date?.format('YYYY-MM-DD'))),
-    );
+    setValue('transmissionDate', new Date(String(date?.format('YYYY-MM-DD'))));
   };
 
   const onChangeInvitation = (index: number) => () => {
@@ -102,26 +126,55 @@ const MemberForm = (props: IFormProps) => {
     ? dayjs(props.editTarget?.exitDate, 'YYYY-MM-DD')
     : undefined;
 
+  const onSubmit = async (data: any) => {
+    console.log('추가', data);
+    try {
+      await createMember({ variables: { createMemberInput: data } });
+    } catch (error) {
+      if (error instanceof Error) alert(error.message);
+    }
+  };
+
+  const onEdit = async (data: any) => {
+    console.log('수정', data);
+    try {
+      await updateMember({
+        variables: { memberId: props.editTarget?.id, updateMemberInput: data },
+      });
+    } catch (error) {
+      if (error instanceof Error) alert(error.message);
+    }
+  };
+
+  const onSoftDelete = async () => {
+    console.log('삭제');
+    try {
+      await softDeleteMember({ variables: { memberId: props.editTarget?.id } });
+      Modal.success({
+        content: `${String(props.editTarget?.name)} 님이 비활성화 되었습니다.`,
+      });
+    } catch (error) {
+      if (error instanceof Error) alert(error.message);
+    }
+  };
+
   return (
-    <form onSubmit={props.handleSubmit(props.onSubmit)}>
+    <form onSubmit={handleSubmit(props.editTarget ? onEdit : onSubmit)}>
       <WrapperM>
         <Left>
           <div>
             <h3>직원정보</h3>
             <FormWrapper>
-              <InputLabel
-                type="text"
-                name="name"
-                register={props.register('name')}
-              >
+              <InputLabel type="text" name="name" register={register('name')}>
                 이름
               </InputLabel>
               <InputLabel
                 noSearch
                 type="select"
                 name="accessAuth"
-                setValue={props.setValue}
-                register={props.register('accessAuth')}
+                // api 개발 중...
+                // setValue={setValue}
+                // register={register('accessAuth')}
                 data={[
                   { id: '최고관리자', name: '최고관리자' },
                   { id: '직원', name: '직원' },
@@ -133,8 +186,8 @@ const MemberForm = (props: IFormProps) => {
               <InputLabel
                 type="select"
                 name="roleCategory"
-                setValue={props.setValue}
-                register={props.register('roleCategory')}
+                setValue={setValue}
+                register={register('roleCategoryId')}
                 data={roleCategories}
                 defaultChecked={roleCategoryDefaultValue}
               >
@@ -143,8 +196,8 @@ const MemberForm = (props: IFormProps) => {
               <InputLabel
                 type="select"
                 name="organization"
-                setValue={props.setValue}
-                register={props.register('organization')}
+                setValue={setValue}
+                register={register('organizationId')}
                 data={organizations}
                 defaultChecked={organizationDefaultValue}
               >
@@ -198,8 +251,8 @@ const MemberForm = (props: IFormProps) => {
                   <InputLabel
                     type="text"
                     name="email"
-                    setValue={props.setValue}
-                    register={props.register('email')}
+                    setValue={setValue}
+                    register={register('email')}
                   >
                     이메일
                   </InputLabel>
@@ -231,7 +284,7 @@ const MemberForm = (props: IFormProps) => {
                   </>
                 )}
                 <CustomDivider />
-                <Memo register={props.register('memo')} />
+                <Memo register={register('memo')} />
               </FormWrapper>
             </div>
           )}
@@ -249,8 +302,8 @@ const MemberForm = (props: IFormProps) => {
                   <InputLabel
                     type="select"
                     name="wages"
-                    setValue={props.setValue}
-                    register={props.register('wages')}
+                    setValue={setValue}
+                    register={register('wages')}
                   >
                     근로정보
                   </InputLabel>
@@ -269,7 +322,11 @@ const MemberForm = (props: IFormProps) => {
           </div>
         </Right>
       </WrapperM>
-      <Footer isEdit={props.editTarget} onCancel={props.onCancel} />
+      <Footer
+        onSoftDelete={onSoftDelete}
+        isEdit={props.editTarget}
+        onCancel={props.onCancel}
+      />
     </form>
   );
 };

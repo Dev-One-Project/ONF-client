@@ -6,7 +6,7 @@ import Btn01 from '../../../../../commons/button/btn01';
 interface IFooterProps {
   onCancel: () => void;
   isEdit?: boolean;
-  onDelete?: () => void;
+  onSoftDelete?: () => void;
 }
 
 const Footer = (props: IFooterProps) => {
@@ -17,7 +17,7 @@ const Footer = (props: IFooterProps) => {
         <DeleteButtonBox>
           {props.isEdit && (
             <Btn01
-              onClick={props.onDelete}
+              onClick={props.onSoftDelete}
               text="비활성화하기"
               type="button"
               bdC="#ddd"

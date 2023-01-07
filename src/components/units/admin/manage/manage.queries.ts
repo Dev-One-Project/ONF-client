@@ -12,7 +12,7 @@ export const FETCH_MEMBERS = gql`
       }
       roleCategory {
         id
-        duty
+        name
       }
     }
   }
@@ -31,7 +31,7 @@ export const FETCH_ROLE_CATEGORIES = gql`
   query {
     fetchRoleCategories {
       id
-      duty
+      name
       colorCode
     }
   }
