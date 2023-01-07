@@ -25,7 +25,7 @@ const ManagePresenter = (props: IManagePresenterProps) => {
           } `}
         >
           <Form
-            {...props.formProps}
+            onCancel={props.onClickCloseModal}
             tab={props.tab}
             editTarget={props.editTarget}
             data={props.data}

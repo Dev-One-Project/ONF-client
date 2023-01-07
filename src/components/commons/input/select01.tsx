@@ -53,6 +53,10 @@ const Select01 = (props: ISelectProps) => {
     if (props.defaultChecked && props.defaultChecked.length > 0) {
       setSaveChecked(props.defaultChecked);
       setCheckedList(props.defaultChecked);
+      props.setValue?.(
+        String(props.name),
+        props.defaultChecked.map((el) => el.id),
+      );
     }
   }, [props.defaultChecked]);
 
@@ -110,7 +114,10 @@ const Select01 = (props: ISelectProps) => {
       if (props.setValue === undefined) {
         throw Error('setValue 속성이 선언되지 않았습니다.');
       }
-      props.setValue?.(props.name, checkedList);
+      props.setValue?.(
+        props.name,
+        checkedList.map((el) => el.id),
+      );
     } else props.setState?.(checkedList);
     setSaveChecked(checkedList);
     setIsOpen(false);
@@ -172,7 +179,7 @@ const Select01 = (props: ISelectProps) => {
                 <Divider style={{ margin: '0.5rem 0' }} />
                 {props.data && props.data.length > 0
                   ? props.data
-                      .filter((el) => el.name.includes(keyword))
+                      .filter((el) => el.name === keyword)
                       .map((el) => (
                         <Check01
                           key={el.id}
