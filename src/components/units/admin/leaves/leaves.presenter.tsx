@@ -37,7 +37,11 @@ const LeavesPresenter = (props: ILeavesPresenterProps) => {
               <S.LabelBox>
                 <label>휴가 유형</label>
                 <Select02
-                  data={['짱구', '맹구', '철수']}
+                  data={[
+                    { id: '123', name: '짱구' },
+                    { id: '456', name: ' 맹구' },
+                    { id: '789', name: '철수' },
+                  ]}
                   register={props.register('member')}
                 />
               </S.LabelBox>
@@ -80,7 +84,11 @@ const LeavesPresenter = (props: ILeavesPresenterProps) => {
                 <S.LabelBox>
                   <label>휴가 유형</label>
                   <Select02
-                    data={['짱구', '맹구', '철수']}
+                    data={[
+                      { id: '123', name: '짱구' },
+                      { id: '456', name: ' 맹구' },
+                      { id: '789', name: '철수' },
+                    ]}
                     register={props.register('member')}
                   />
                 </S.LabelBox>

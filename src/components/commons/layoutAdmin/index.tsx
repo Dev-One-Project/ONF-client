@@ -50,20 +50,20 @@ const ChildrenBox = styled.div`
   width: ${(props: IAdminLayoutProps) =>
     props.isAdminSidebar
       ? props.isNarrowWidth
-        ? 'calc(100vw - 9rem)'
+        ? 'calc(100vw - 9.25rem)'
         : 'calc(100vw - 18rem)'
       : props.isNarrowWidth
       ? 'calc(100vw - 18rem)'
-      : 'calc(100vw - 9rem)'};
+      : 'calc(100vw - 9.25rem)'};
   margin: 7rem 3rem 6.5rem 3rem;
   @media ${styleSet.breakPoints.tablet} {
     width: ${(props: IAdminLayoutProps) =>
       props.isAdminSidebar
         ? props.isNarrowWidth
           ? 'calc(100vw - 18rem)'
-          : 'calc(100vw - 9rem)'
+          : 'calc(100vw - 9.25rem)'
         : props.isNarrowWidth
-        ? 'calc(100vw - 9rem)'
+        ? 'calc(100vw - 9.25rem)'
         : 'calc(100vw - 18rem)'};
   }
 `;

@@ -9,7 +9,7 @@ import {
 export interface ILeavesPresenterProps {
   filterInit: boolean;
   setFilterInit: SetStateAction<any>;
-  organizationsData: IInputData[];
+  organizationsData?: IInputData[];
   date: Date;
   setOrganizationArr: Dispatch<SetStateAction<IInputData[]>>;
   onChangeStartEndDate: (value: any) => void;

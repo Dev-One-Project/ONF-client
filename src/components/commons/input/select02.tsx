@@ -7,21 +7,29 @@ import {
   UseFormSetValue,
 } from 'react-hook-form';
 import { styleSet } from '../../../commons/styles/styleSet';
-import Btn01 from '../button/btn01';
 
 interface ISelectProps {
   register?: UseFormRegisterReturn;
-  setValue?: UseFormSetValue<FieldValues>;
-  data?: string[];
+  data?: IInputData[];
   role?: string;
   left?: boolean;
   center?: boolean;
+  category?: string[];
+  customWidth?: string;
+  setValue?: UseFormSetValue<FieldValues>;
+  name?: string;
+}
+
+interface IInputData {
+  id: string;
+  name: string;
 }
 
 interface IStyle {
   active?: boolean;
   isLeft?: boolean;
   isCenter?: boolean;
+  customWidth?: string;
 }
 
 const Select02 = (props: ISelectProps) => {
@@ -51,12 +59,13 @@ const Select02 = (props: ISelectProps) => {
     }
   };
 
-  const onClickSaveChecked = () => {
-    setIsOpen(false);
-  };
-
   const onClickLabel = (event: MouseEvent<HTMLParagraphElement>) => {
-    setIsSelect(event.currentTarget.id);
+    setIsSelect(event.currentTarget.className);
+    if (props.name === undefined) {
+      return;
+    } else {
+      props.setValue?.(props.name, event.currentTarget.id);
+    }
     setIsOpen(false);
   };
 
@@ -71,13 +80,16 @@ const Select02 = (props: ISelectProps) => {
           onClick={onClickToggleModal}
         >
           {label(props.role)}
-          <span>{isSelect || '선택 안됨'}</span>
+          <span>
+            {props.data ? isSelect || '선택 안됨' : '선택 가능한 옵션 없음'}
+          </span>
         </ToggleButton>
         {isOpen && (
           <DropDownMenu
             isLeft={props.left}
             isCenter={props.center}
             id="selectZone"
+            customWidth={props.customWidth}
           >
             <SearchBox>
               <SearchOutlined className="searchIcon" />
@@ -86,42 +98,47 @@ const Select02 = (props: ISelectProps) => {
                 onChange={onChangeInput}
                 type="text"
                 placeholder="검색"
+                customWidth={props.customWidth}
               />
             </SearchBox>
             <OptionBox>
-              <p>최고관리자</p>
+              {props.data && props.category && <p>{props.category?.[0]}</p>}
               <Options className="options">
                 <div style={{ margin: '0.1rem 0' }} />
                 {props.data
-                  ?.filter((el) => el.includes(keyword))
+                  ?.filter((el) => el.name.includes(keyword))
                   .map((el) => (
-                    <p key={el} id={el} onClick={onClickLabel}>
-                      {el}
+                    <p
+                      key={el.id}
+                      id={el.id}
+                      className={el.name}
+                      onClick={onClickLabel}
+                    >
+                      {el.name}
                     </p>
                   ))}
               </Options>
             </OptionBox>
-            <OptionBox>
-              <p>직원</p>
-              <Options className="options">
-                <div style={{ margin: '0.1rem 0' }} />
-                {props.data
-                  ?.filter((el) => el.includes(keyword))
-                  .map((el) => (
-                    <p key={el} id={el} onClick={onClickLabel}>
-                      {el}
-                    </p>
-                  ))}
-              </Options>
-            </OptionBox>
-            <Btn01
-              text="적용하기"
-              type="button"
-              bdC={styleSet.colors.primary}
-              bgC={styleSet.colors.primary}
-              color="#fff"
-              onClick={onClickSaveChecked}
-            />
+            {props.data && props.category?.[1] && (
+              <OptionBox>
+                {props.category && <p>{props.category?.[1]}</p>}
+                <Options className="options">
+                  <div style={{ margin: '0.1rem 0' }} />
+                  {props.data
+                    ?.filter((el) => el.name.includes(keyword))
+                    .map((el) => (
+                      <p
+                        key={el.id}
+                        id={el.id}
+                        className={el.name}
+                        onClick={onClickLabel}
+                      >
+                        {el.name}
+                      </p>
+                    ))}
+                </Options>
+              </OptionBox>
+            )}
           </DropDownMenu>
         )}
       </Wrapper>
@@ -148,7 +165,7 @@ const ToggleButton = styled.button`
   border: 1px solid
     ${(props: IStyle) => (props.active ? styleSet.colors.primary : '#ddd')};
   background-color: ${(props: IStyle) =>
-    props.active ? styleSet.colors.subColor05 : '#fff'};
+    props.active ? styleSet.colors.subColor05 : ''};
 
   ::after {
     display: inline-block;
@@ -164,7 +181,7 @@ const ToggleButton = styled.button`
 
   :hover {
     background-color: ${(props: IStyle) =>
-      props.active ? styleSet.colors.subColor05 : '#ffdddd'};
+      props.active ? styleSet.colors.subColor05 : '#eee'};
   }
 `;
 
@@ -173,7 +190,7 @@ const DropDownMenu = styled.div`
   flex-direction: column !important;
   gap: 0.3rem;
   max-width: 500px;
-  min-width: 15rem;
+  min-width: ${(props: IStyle) => (props.customWidth ? '17.5rem' : '15rem')};
   position: absolute;
   top: 100%;
   ${(props: IStyle) =>
@@ -193,7 +210,8 @@ const DropDownMenu = styled.div`
   z-index: 99;
 
   & > * {
-    max-width: 220px;
+    max-width: ${(props: IStyle) =>
+      props.customWidth ? props.customWidth : '220px'};
     width: 100%;
     margin: 0 auto;
   }
@@ -212,6 +230,7 @@ const SearchInput = styled.input`
   border: 1px solid #ddd;
   outline: none;
   padding: 0.5rem 1rem 0.5rem 2rem;
+  min-width: ${(props: IStyle) => (props.customWidth ? props.customWidth : '')};
   :focus {
     border: 1px solid ${styleSet.colors.primary};
   }
@@ -222,7 +241,7 @@ const OptionBox = styled.div`
   flex-direction: column !important;
   align-items: flex-start !important;
   & > p {
-    background-color: #ddd;
+    background-color: #eee;
     width: 100%;
     height: 2rem;
     display: flex;
@@ -233,12 +252,14 @@ const OptionBox = styled.div`
 const Options = styled.ul`
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
   width: 100%;
-  p:hover {
-    width: 100%;
-    background-color: #ddd;
-    cursor: pointer;
+  p {
+    padding: 0.5rem 0;
+    :hover {
+      width: 100%;
+      background-color: #eee;
+      cursor: pointer;
+    }
   }
 `;
 
