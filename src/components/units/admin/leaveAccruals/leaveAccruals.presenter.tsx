@@ -118,7 +118,6 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
                   <S.LabelText>변화 없음</S.LabelText>
                 )}
               </S.ModalBoxRow>
-              {/* )} */}
             </S.ModalField>
             <Divider style={{ margin: '1.8rem 0 0' }} />
             <S.ModalFooter>

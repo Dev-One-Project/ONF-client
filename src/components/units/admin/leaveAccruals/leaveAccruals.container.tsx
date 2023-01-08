@@ -103,12 +103,12 @@ const LeaveAccrualsContainer = () => {
   const { data: organizations } =
     useQuery<Pick<IQuery, 'fetchOrganizations'>>(FETCH_ORGANIZATIONS);
 
-  const organizationsData: IInputData[] = organizations
-    ? organizations.fetchOrganizations.map((organization) => ({
-        id: String(organization.id),
-        name: String(organization.name),
-      }))
-    : [{ id: '', name: '' }];
+  const organizationsData = organizations?.fetchOrganizations.map(
+    (organization) => ({
+      id: String(organization.id),
+      name: String(organization.name),
+    }),
+  );
 
   const { data: vDetail } = useQuery<
     Pick<IQuery, 'fetchVacationIssueDetailDate'>,
@@ -191,8 +191,6 @@ const LeaveAccrualsContainer = () => {
     },
     [init, filterInit, vDetail, vDetailDelete, vBase, vBaseDelete],
   );
-
-  console.log(checkedList);
 
   const onCheckedElement = useCallback(
     (checked, selectedTarget) => {

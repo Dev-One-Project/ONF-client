@@ -67,13 +67,14 @@ export const globalStyles = css`
     src: url('/fonts/SCDream5.otf');
   }
   .ant-picker:hover {
-    border-color: ${styleSet.colors.primary};
+    border-color: #d9d9d9;
     color: #e47e7e;
+    background-color: #eee;
   }
 
   .ant-picker-focused {
     border-color: ${styleSet.colors.primary};
-    box-shadow: 0 0 0 2px rgb(228 126 126 / 10%);
+    box-shadow: none;
   }
 
   .ant-picker-range .ant-picker-active-bar {

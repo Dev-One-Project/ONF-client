@@ -71,7 +71,10 @@ const AdminHeaderPresenter = (props: IAdminHeaderPresenterProps) => {
           <S.Section>
             <S.Ul>
               <li>
-                <MenuOutlined onClick={props.onClickMenu} />
+                <MenuOutlined
+                  onClick={props.onClickMenu}
+                  style={{ padding: '0 0.5rem' }}
+                />
               </li>
             </S.Ul>
             <Image src="/logo.png" alt="logo" width={16} height={16} />
@@ -79,11 +82,17 @@ const AdminHeaderPresenter = (props: IAdminHeaderPresenterProps) => {
         </S.Header>
         <S.Section>
           <S.Ul>
-            <li onClick={props.onClickModalOpen}>
+            <li
+              onClick={props.onClickModalOpen}
+              style={{ padding: '0 0.5rem' }}
+            >
               <Switch01 />
             </li>
             <li>
-              <ReloadOutlined onClick={props.onClickReload} />
+              <ReloadOutlined
+                onClick={props.onClickReload}
+                style={{ padding: '0 0.5rem' }}
+              />
             </li>
             <li>
               <SettingOutlined

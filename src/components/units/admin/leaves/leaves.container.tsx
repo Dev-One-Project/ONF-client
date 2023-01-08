@@ -1,10 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import {
-  IQuery,
-  IQueryFetchOrganizationsArgs,
-} from '../../../../commons/types/generated/types';
+import { IQuery } from '../../../../commons/types/generated/types';
 import { FETCH_ORGANIZATIONS } from '../leaveAccruals/leaveAccruals.queries';
 import LeavesPresenter from './leaves.presenter';
 import { IInputData } from './leaves.types';
@@ -50,19 +47,15 @@ const LeavesContainer = () => {
     }
   };
 
-  const { data: organizations } = useQuery<
-    Pick<IQuery, 'fetchOrganizations'>,
-    IQueryFetchOrganizationsArgs
-  >(FETCH_ORGANIZATIONS, {
-    variables: { companyId: '00b9f2a4-86e7-4071-9b69-35163bdd8998' },
-  });
+  const { data: organizations } =
+    useQuery<Pick<IQuery, 'fetchOrganizations'>>(FETCH_ORGANIZATIONS);
 
-  const organizationsData: IInputData[] = organizations
-    ? organizations.fetchOrganizations.map((organization) => ({
-        id: String(organization.id),
-        name: String(organization.name),
-      }))
-    : [{ id: '', name: '' }];
+  const organizationsData = organizations?.fetchOrganizations.map(
+    (organization) => ({
+      id: String(organization.id),
+      name: String(organization.name),
+    }),
+  );
 
   return (
     <LeavesPresenter
