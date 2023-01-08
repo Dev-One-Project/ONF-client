@@ -179,7 +179,7 @@ const Select01 = (props: ISelectProps) => {
                 <Divider style={{ margin: '0.5rem 0' }} />
                 {props.data && props.data.length > 0
                   ? props.data
-                      .filter((el) => el.name === keyword)
+                      .filter((el) => el.name.includes(keyword))
                       .map((el) => (
                         <Check01
                           key={el.id}
