@@ -5,7 +5,11 @@ import Check01 from '../../../commons/input/check01';
 import Btn01 from '../../../commons/button/btn01';
 import { styleSet } from '../../../../commons/styles/styleSet';
 const { RangePicker } = DatePicker;
-const selectArray = ['승인이 필요한 요청들', '내 요청들', '완료된 요청들'];
+const selectArray = [
+  { id: '0', name: '승인이 필요한 요청들' },
+  { id: '1', name: '내 요청들' },
+  { id: '2', name: '완료된 요청들' },
+];
 
 const RequestPresenter = () => {
   return (
