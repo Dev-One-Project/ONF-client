@@ -168,13 +168,13 @@ const SchedulerListPresenter = (props: ISchedulerListProps) => {
                 )}
               </S.ListBodyContent>
               <S.ListBodyContent>
-                {schedule.scheduleCategory.scheduleCategoryName || ''}
+                {schedule.scheduleCategory.name || ''}
               </S.ListBodyContent>
               <S.ListBodyContent>
                 {schedule.organization.name || ''}
               </S.ListBodyContent>
               <S.ListBodyContent>
-                {schedule.roleCategory.duty || ''}
+                {schedule.roleCategory.name || ''}
               </S.ListBodyContent>
               <S.ListBodyContent>
                 {schedule.scheduleTemplate.name || ''}
