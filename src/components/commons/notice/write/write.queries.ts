@@ -32,3 +32,12 @@ export const FETCH_ONE_NOTICE_BOARD = gql`
     }
   }
 `;
+
+export const UPLOAD_SINGLE_FILE = gql`
+  mutation uploadSingleFile($file: Upload!) {
+    uploadSingleFile(file: $file) {
+      id
+      url
+    }
+  }
+`;
