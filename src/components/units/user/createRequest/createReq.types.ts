@@ -1,8 +1,12 @@
+import { Dispatch, SetStateAction } from 'react';
+
 export interface ICreateReqContainerProps {
   onClickPositionOpen: () => void;
   onClickCancel: () => void;
   onClickTemplate: () => void;
   onClickVaction: () => void;
+  setSelected: Dispatch<SetStateAction<string[]>>;
+  selected: string[];
   isTemplate: boolean;
   isWorking: boolean;
   isPosition: boolean;

@@ -1,31 +1,19 @@
 import moment from 'moment';
-import { useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import CalendarPresenter from './calendar.presenter';
-import { IWeekData } from './calendar.types';
+import { ICalendarProps, IWeekData } from './calendar.types';
 
-const newWeekData = (
-  days: string,
-  i: number,
-  option: boolean,
-  bgC?: string,
-): IWeekData => {
+const newWeekData = (days: string, i: number, option: boolean): IWeekData => {
   return {
     index: i,
     day: days,
     work: '',
     tardy: '',
-    css: {
-      color: '',
-      backgroundColor: bgC,
-      display: '',
-    },
-    func: {
-      onClick: option,
-    },
+    option,
   };
 };
 
-const CalendarContainer = () => {
+const CalendarContainer = (props: ICalendarProps) => {
   const [today, setToday] = useState(moment());
   const [dateArr, setDateArr] = useState<IWeekData[][]>([]);
 
@@ -59,7 +47,7 @@ const CalendarContainer = () => {
           .format('YYYY-MM-DD'); // 그날의 시간 정보
         if (days.split('-')[1] !== today.format('MM')) {
           // 현재 월이 아닌경우
-          weekArray.push(newWeekData(days, index, false, 'lightgray'));
+          weekArray.push(newWeekData(days, index, false));
         } else {
           weekArray.push(newWeekData(days, index, true));
         }
@@ -70,12 +58,26 @@ const CalendarContainer = () => {
     setDateArr(result);
   }, [today, todayFirstWeek, todayLastWeek]);
 
+  const onClickElement = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (props.selected.includes(e.currentTarget.id)) {
+      props.setSelected(
+        props.selected.filter((date) => date !== e.currentTarget.id),
+      );
+    } else {
+      props.setSelected(props.selected.concat(e.currentTarget.id));
+    }
+  };
+
+  console.log(props.selected);
+
   return (
     <CalendarPresenter
       dateArr={dateArr}
       MoveNextMonth={MoveNextMonth}
       MovePrevMonth={MovePrevMonth}
       today={today}
+      selected={props.selected}
+      onClickElement={onClickElement}
     />
   );
 };

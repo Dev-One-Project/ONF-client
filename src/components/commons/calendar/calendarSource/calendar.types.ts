@@ -1,18 +1,12 @@
 import { Moment } from 'moment';
+import React, { Dispatch, SetStateAction } from 'react';
 
 export interface IWeekData {
   index: number;
   day: string;
   work: string;
   tardy: string;
-  css: {
-    color: string;
-    backgroundColor: string | undefined;
-    display: string;
-  };
-  func: {
-    onClick: boolean;
-  };
+  option: boolean;
 }
 
 export interface ICalendarContainerProps {
@@ -20,4 +14,11 @@ export interface ICalendarContainerProps {
   MoveNextMonth?: () => void;
   MovePrevMonth?: () => void;
   today?: Moment;
+  selected: string[];
+  onClickElement: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+}
+
+export interface ICalendarProps {
+  selected: string[];
+  setSelected: Dispatch<SetStateAction<string[]>>;
 }
