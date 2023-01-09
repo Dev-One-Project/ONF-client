@@ -449,11 +449,9 @@ export type IMutationDeleteManyScheduleTemplateArgs = {
   scheduleTemplateId: Array<Scalars['String']>;
 };
 
-
 export type IMutationDeleteManyVacationIssueArgs = {
   vacationIssueId: Array<Scalars['String']>;
 };
-
 
 export type IMutationDeleteManyWorkCheckArgs = {
   workCheckId: Array<Scalars['String']>;

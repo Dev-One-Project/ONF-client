@@ -51,6 +51,7 @@ export const OptSelect = styled.div`
   flex-direction: row;
   align-items: center;
   gap: 0.5rem;
+
   :last-of-type {
     width: 100%;
   }

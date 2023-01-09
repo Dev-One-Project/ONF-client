@@ -2,10 +2,7 @@ import styled from '@emotion/styled';
 import { styleSet } from '../../../../../commons/styles/styleSet';
 
 export const Container = styled.div`
-  width: calc(100vw - 18rem);
-  @media ${styleSet.breakPoints.tablet} {
-    width: calc(100vw - 9.5rem);
-  }
+  width: 100%;
 `;
 
 export const TopWrapper = styled.section`
@@ -40,18 +37,10 @@ export const OptBox = styled.div`
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
-    }
-  }
-  :nth-of-type(2) {
-    align-items: flex-end;
-  }
-  input {
-    width: 119px;
-    height: 32px;
-    border: 1px solid ${styleSet.colors.gray};
-    border-radius: 2px;
-    @media ${styleSet.breakPoints.mobile} {
-      width: 100%;
+
+      & > div:first-of-type {
+        width: 100%;
+      }
     }
   }
 `;
@@ -60,14 +49,9 @@ export const OptSelect = styled.div`
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
-  :first-of-type {
+
+  :last-of-type {
     width: 100%;
-  }
-  input {
-    width: 100px;
-    @media ${styleSet.breakPoints.mobile} {
-      width: 100%;
-    }
   }
 `;
 
@@ -118,4 +102,8 @@ export const Ul = styled.ul`
   li:nth-of-type(15) {
     width: 11%;
   }
+`;
+
+export const EmptyBox = styled.div`
+  height: 37px;
 `;
