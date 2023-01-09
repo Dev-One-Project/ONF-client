@@ -42,8 +42,8 @@ const WriteContainer = (props: IWriteContainerProps) => {
 
   useEffect(() => {
     if (isEdit.edit) {
-      setValue('title', fetchOneNoticeBoard.fetchOneNoticeBoard.title);
-      setValue('preface', fetchOneNoticeBoard.fetchOneNoticeBoard.preface);
+      setValue('title', fetchOneNoticeBoard?.fetchOneNoticeBoard.title);
+      setValue('preface', fetchOneNoticeBoard?.fetchOneNoticeBoard.preface);
     }
   }, [fetchOneNoticeBoard, setValue, isEdit]);
 
