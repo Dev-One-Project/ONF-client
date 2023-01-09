@@ -91,7 +91,7 @@ const SchedulerListContainer = () => {
         roleCategory: roleCategory?.fetchRoleCategories.map((data) => {
           return {
             id: String(data.id),
-            name: String(data.duty),
+            name: String(data.name),
           };
         }),
         workType: [{ id: '', name: '' }],

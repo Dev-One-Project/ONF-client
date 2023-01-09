@@ -135,7 +135,7 @@ const SchedulerCalendarContainer = () => {
         roleCategory: roleCategory?.fetchRoleCategories.map((data) => {
           return {
             id: data.id,
-            name: data.duty,
+            name: data.name,
           };
         }),
         organization: organization?.fetchOrganizations.map((data) => {

@@ -30,7 +30,7 @@ export const FETCH_SCHEDULE_LIST = gql`
       }
       roleCategory {
         id
-        duty
+        name
       }
       scheduleTemplate {
         id
@@ -38,8 +38,8 @@ export const FETCH_SCHEDULE_LIST = gql`
       }
       scheduleCategory {
         id
-        scheduleCategoryName
-        colorCode
+        name
+        color
       }
     }
   }
@@ -49,7 +49,7 @@ export const FETCH_ROLE_CATEGORIES = gql`
   query fetchRoleCategories {
     fetchRoleCategories {
       id
-      duty
+      name
     }
   }
 `;
@@ -70,7 +70,7 @@ export const FETCH_MEMBERS = gql`
       name
       roleCategory {
         id
-        duty
+        name
         colorCode
       }
       organization {

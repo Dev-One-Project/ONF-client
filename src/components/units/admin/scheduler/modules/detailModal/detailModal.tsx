@@ -89,9 +89,7 @@ const DetailModal = (props: IProps) => {
               register={register('workType')}
               defaultValue={{
                 id: String(props.schedule.scheduleCategory?.id),
-                name: String(
-                  props.schedule.scheduleCategory?.scheduleCategoryName,
-                ),
+                name: String(props.schedule.scheduleCategory?.name),
               }}
               setValue={setValue}
             />
@@ -117,7 +115,7 @@ const DetailModal = (props: IProps) => {
               register={register('roleCategory')}
               defaultValue={{
                 id: String(props.schedule.roleCategory?.id),
-                name: String(props.schedule.roleCategory?.duty),
+                name: String(props.schedule.roleCategory?.name),
               }}
               setValue={setValue}
             />
