@@ -42,7 +42,8 @@ const LoginContainer = () => {
       }
       setAccessToken(accessToken);
       sessionStorage.setItem('accessToken', accessToken);
-      void router.push('/user/requests');
+      // void router.push('/user/requests');
+      await router.push('/admin/manage/organization');
     } catch (error) {
       ErrorModal('다시 로그인해주세요.');
     }

@@ -1,10 +1,28 @@
 import styled from '@emotion/styled';
-import InputLabel from '../../../../commons/inputLabel';
-import Footer from './common/footer';
-import { IFormProps } from './common/form.types';
-import Memo from './common/memo';
+import {
+  FieldValues,
+  SubmitHandler,
+  UseFormHandleSubmit,
+  UseFormRegister,
+  UseFormSetValue,
+} from 'react-hook-form';
+import { IQuery } from '../../../../../../commons/types/generated/types';
+import InputLabel from '../../../../../commons/inputLabel';
+import Footer from '../common/footer';
+import Memo from '../common/memo';
 
-const OrganizationForm = (props: IFormProps) => {
+interface OrganizationFormPresenterProps {
+  register: UseFormRegister<FieldValues>;
+  handleSubmit: UseFormHandleSubmit<FieldValues>;
+  onSubmit: SubmitHandler<FieldValues>;
+  setValue: UseFormSetValue<FieldValues>;
+  onCancel: () => void;
+  data?: {
+    organizations?: Pick<IQuery, 'fetchOrganizations'>;
+  };
+}
+
+const OrganizationFormPresenter = (props: OrganizationFormPresenterProps) => {
   return (
     <form onSubmit={props.handleSubmit(props.onSubmit)}>
       <Wrapper>
@@ -34,7 +52,7 @@ const OrganizationForm = (props: IFormProps) => {
   );
 };
 
-export default OrganizationForm;
+export default OrganizationFormPresenter;
 
 const Wrapper = styled.div`
   width: 30rem;

@@ -10,7 +10,7 @@ const MemberData = (props: { data?: IMember }) => {
       <Td>{'개발 예정'}</Td>
       <Td>{props.data?.joinDate ? getDate(props.data?.joinDate) : ''}</Td>
       <Td>{props.data?.organization?.name}</Td>
-      <Td>{props.data?.roleCategory?.duty}</Td>
+      <Td>{props.data?.roleCategory?.name}</Td>
       {/* <Td>{props.data?.workInfo?.name ?? '개발 예정'}</Td> */}
       <Td>{'개발 예정'}</Td>
       <Td>{'₩ 9,620'}</Td>

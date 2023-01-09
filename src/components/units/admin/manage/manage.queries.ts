@@ -6,14 +6,16 @@ export const FETCH_MEMBERS = gql`
       id
       name
       joinDate
-      organization {
-        id
-        name
-      }
-      roleCategory {
-        id
-        name
-      }
+      isJoin
+      memo
+      # organization {
+      #   id
+      #   name
+      # }
+      # roleCategory {
+      #   id
+      #   name
+      # }
     }
   }
 `;
@@ -23,6 +25,18 @@ export const FETCH_ORGANIZATIONS = gql`
     fetchOrganizations {
       id
       name
+      address
+      lat
+      lng
+      description
+      color
+      # scheduleTemplate {
+      #   id
+      #   name
+      #   startTime
+      #   endTime
+      #   colorCode
+      # }
     }
   }
 `;
@@ -32,7 +46,15 @@ export const FETCH_ROLE_CATEGORIES = gql`
     fetchRoleCategories {
       id
       name
+      memo
       colorCode
+      # scheduleTemplate {
+      #   id
+      #   name
+      #   startTime
+      #   endTime
+      #   colorCode
+      # }
     }
   }
 `;

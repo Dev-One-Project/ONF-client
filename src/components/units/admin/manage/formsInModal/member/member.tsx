@@ -82,16 +82,16 @@ const MemberForm = (props: IFormProps) => {
     setInvitationRadio(invitationRadio.map((_, i) => index === i));
   };
 
-  const accessAuth = {
-    id: props.editTarget?.accessAuth,
-    name: props.editTarget?.accessAuth,
-  };
+  // const accessAuth = {
+  //   id: props.editTarget?.accessAuth,
+  //   name: props.editTarget?.accessAuth,
+  // };
 
   const roleCategories = props.data?.roleCategories?.fetchRoleCategories?.map(
     (role) => {
       return {
         id: String(role.id),
-        name: String(role.duty),
+        name: String(role.name),
       };
     },
   );
@@ -179,7 +179,7 @@ const MemberForm = (props: IFormProps) => {
                   { id: '최고관리자', name: '최고관리자' },
                   { id: '직원', name: '직원' },
                 ]}
-                defaultChecked={[accessAuth]}
+                // defaultChecked={[accessAuth]}
               >
                 액세스 권한
               </InputLabel>
