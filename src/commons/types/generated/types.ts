@@ -210,6 +210,8 @@ export type IMember = {
 
 export type IMutation = {
   __typename?: 'Mutation';
+  /** 관리자 휴가발생 다수 수정하기  */
+  UpdateManyVacationsIssue: Array<IVacationIssue>;
   /** 초대코드 확인 */
   checkInvitationCode: Scalars['String'];
   createAccount: IAccount;
@@ -258,6 +260,8 @@ export type IMutation = {
   deleteManyScheduleCategory: Scalars['Boolean'];
   /** 근무일정 템플릿 다수 삭제 */
   deleteManyScheduleTemplate: Scalars['Boolean'];
+  /** 관리자 휴가발생 다수 삭제하기 */
+  deleteManyVacationIssue: Scalars['Boolean'];
   /** 출근기록 다수 삭제 */
   deleteManyWorkCheck: Scalars['Boolean'];
   /** 멤버 정보 완전 삭제 */
@@ -324,6 +328,12 @@ export type IMutation = {
   uploadMultipleFiles: Array<IFile>;
   /** Upload a single file / Max file size apporximatly 10M */
   uploadSingleFile: IFile;
+};
+
+
+export type IMutationUpdateManyVacationsIssueArgs = {
+  updateVacationIssueInput?: InputMaybe<IUpdateVacationIssueInput>;
+  vacationIssueId: Array<Scalars['String']>;
 };
 
 
@@ -439,6 +449,9 @@ export type IMutationDeleteManyScheduleTemplateArgs = {
   scheduleTemplateId: Array<Scalars['String']>;
 };
 
+export type IMutationDeleteManyVacationIssueArgs = {
+  vacationIssueId: Array<Scalars['String']>;
+};
 
 export type IMutationDeleteManyWorkCheckArgs = {
   workCheckId: Array<Scalars['String']>;
@@ -1018,9 +1031,9 @@ export type IVacationIssue = {
   id: Scalars['String'];
   member: IMember;
   organization: IOrganization;
-  remaining: Scalars['Int'];
+  remaining?: Maybe<Scalars['Int']>;
   startingPoint: Scalars['DateTime'];
-  useVacation: Scalars['Int'];
+  useVacation?: Maybe<Scalars['Int']>;
   vacationAll: Scalars['Int'];
 };
 
