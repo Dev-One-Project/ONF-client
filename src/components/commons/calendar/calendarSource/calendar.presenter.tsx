@@ -20,11 +20,20 @@ const Calendar = (props: ICalendarContainerProps) => {
         <S.WeekWrapper key={v4()}>
           <br />
           {week.map((day: IWeekData, j: number) => {
-            if (!day.func.onClick) {
-              day.css.color = 'gray';
-            }
+            // if (!day.func.onClick) {
+            //   day.css.color = 'gray';
+            // }
+            const css = {
+              backgroundColor: day.option ? 'white' : 'lightGray',
+            };
+            if (props.selected.includes(day.day)) css.backgroundColor = 'blue';
             return (
-              <S.DayWrapper key={v4()} id={`${i + 1}-${j + 1}`} style={day.css}>
+              <S.DayWrapper
+                key={v4()}
+                id={String(day.day)}
+                style={css}
+                onClick={props.onClickElement}
+              >
                 <label style={{ paddingTop: '10px' }}>
                   {day.day.split('-')[2] === '01'
                     ? `${day.day.split('-')[1]}/${day.day.split('-')[2]}`
@@ -62,7 +71,11 @@ const CalendarPresenter = (props: ICalendarContainerProps) => {
             />
           </S.ArrowButton>
         </S.BtnWrapper>
-        <Calendar dateArr={props.dateArr} />
+        <Calendar
+          dateArr={props.dateArr}
+          selected={props.selected}
+          onClickElement={props.onClickElement}
+        />
       </section>
     </>
   );

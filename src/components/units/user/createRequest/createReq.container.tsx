@@ -7,6 +7,7 @@ const CreateReqContainer = (props: ICreateReqPageProps) => {
   const [isPosition, setIsPosition] = useState(false);
   const [isTemplate, setIsTemplate] = useState(false);
   const [isVacation, setIsVacation] = useState(false);
+  const [selected, setSelected] = useState<string[]>([]);
   const router = useRouter();
 
   const onClickCancel = () => {
@@ -24,7 +25,7 @@ const CreateReqContainer = (props: ICreateReqPageProps) => {
   const onClickVaction = () => {
     setIsVacation((prev) => !prev);
   };
-
+  console.log(selected);
   return (
     <CreateReqPresenter
       onClickCancel={onClickCancel}
@@ -35,6 +36,8 @@ const CreateReqContainer = (props: ICreateReqPageProps) => {
       onClickPositionOpen={onClickPositionOpen}
       onClickTemplate={onClickTemplate}
       onClickVaction={onClickVaction}
+      selected={selected}
+      setSelected={setSelected}
     />
   );
 };

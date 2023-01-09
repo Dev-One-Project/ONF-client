@@ -91,7 +91,10 @@ const CreateReqPresenter = (props: ICreateReqContainerProps) => {
         <S.CalendarWrapper>
           <S.RequireDateStyle>요청날짜</S.RequireDateStyle>
           <section>
-            <Calendar />
+            <Calendar
+              selected={props.selected}
+              setSelected={props.setSelected}
+            />
           </section>
         </S.CalendarWrapper>
         {props.isWorking ? (
