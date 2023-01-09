@@ -1,7 +1,9 @@
 import { MouseEvent, Dispatch, SetStateAction, ChangeEvent } from 'react';
 import {
+  IMember,
   IOrganization,
   ISchedule,
+  IScheduleTemplate,
 } from '../../../../../commons/types/generated/types';
 import { Dayjs } from 'dayjs';
 
@@ -16,6 +18,8 @@ export interface ISchedulerListProps {
   aniMode: boolean;
   selectSchedule: Partial<ISchedule> | undefined;
   checkedList: string[] | undefined;
+  templates: IScheduleTemplate[] | undefined;
+  member: IMember[] | undefined;
   setSelectOrganization: Dispatch<
     SetStateAction<Array<Partial<IOrganization>>>
   >;
@@ -49,6 +53,12 @@ export interface InitData {
       }>
     | undefined;
   workType:
+    | Array<{
+        id: string;
+        name: string;
+      }>
+    | undefined;
+  scheduleTemplate:
     | Array<{
         id: string;
         name: string;

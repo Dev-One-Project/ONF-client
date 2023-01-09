@@ -1,9 +1,11 @@
 import { MouseEvent, Dispatch, SetStateAction } from 'react';
 import { IDateData } from '../scheduler.types';
 import {
+  IMember,
   IOrganization,
   IRoleCategory,
   ISchedule,
+  IScheduleTemplate,
 } from '../../../../../commons/types/generated/types';
 
 export interface ISchedulerCalendarProps {
@@ -12,7 +14,7 @@ export interface ISchedulerCalendarProps {
   onClickNextWeek: () => void;
   onClickPrevWeek: () => void;
   onClickToday: () => void;
-  member?: any;
+  member: IMember[] | undefined;
   currentMonth: string;
   initOption: InitData | undefined;
   setSelectRoleCategory: Dispatch<
@@ -33,6 +35,7 @@ export interface ISchedulerCalendarProps {
   setIsOpenDetail: Dispatch<SetStateAction<boolean>>;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   selectSchedule: Partial<ISchedule> | undefined;
+  templates: IScheduleTemplate[] | undefined;
 }
 
 export interface InitData {
@@ -49,6 +52,12 @@ export interface InitData {
       }>
     | undefined;
   workType:
+    | Array<{
+        id: string;
+        name: string;
+      }>
+    | undefined;
+  scheduleTemplate:
     | Array<{
         id: string;
         name: string;

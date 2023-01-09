@@ -9,6 +9,7 @@ import FallingModal from '../../../../commons/modal/fallingModal';
 import ArrowSvg from '../../../../commons/svg/arrows';
 import Switch01 from '../../../../commons/switch/switch01';
 import CalendarElementContainer from '../modules/calendar/calendarElement.container';
+import CreateModal from '../modules/createModal/createModal';
 import DetailModal from '../modules/detailModal/detailModal';
 import { IDateData } from '../scheduler.types';
 import * as S from './schedulerCalendar.styles';
@@ -45,7 +46,15 @@ const SchedulerCalendarPresenter = (props: ISchedulerCalendarProps) => {
           setIsOpen={props.setIsOpen}
           aniMode={props.aniMode}
           onCancel={props.onClickCloseModal}
-        ></FallingModal>
+          title={`근무일정 추가하기`}
+        >
+          <CreateModal
+            member={props.member}
+            templates={props.templates}
+            onClickCloseModal={props.onClickCloseModal}
+            initData={props.initOption}
+          />
+        </FallingModal>
       ) : null}
       {props.isOpenDetail && props.selectSchedule ? (
         <FallingModal

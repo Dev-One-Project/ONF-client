@@ -20,13 +20,12 @@ const Calendar = (props: ICalendarContainerProps) => {
         <S.WeekWrapper key={v4()}>
           <br />
           {week.map((day: IWeekData, j: number) => {
-            // if (!day.func.onClick) {
-            //   day.css.color = 'gray';
-            // }
             const css = {
               backgroundColor: day.option ? 'white' : 'lightGray',
             };
-            if (props.selected.includes(day.day)) css.backgroundColor = 'blue';
+            if (props.selected.includes(day.day))
+              css.backgroundColor =
+                props.selectedColor || styleSet.colors.subColor05;
             return (
               <S.DayWrapper
                 key={v4()}
@@ -52,9 +51,9 @@ const CalendarPresenter = (props: ICalendarContainerProps) => {
   console.log(props.today);
   return (
     <>
-      <section>
+      <section style={{ width: props.width || '100%' }}>
         <S.BtnWrapper>
-          <S.ArrowButton onClick={props.MovePrevMonth}>
+          <S.ArrowButton type="button" onClick={props.MovePrevMonth}>
             <ArrowSvg
               direction={'left'}
               size={'big'}
@@ -63,7 +62,7 @@ const CalendarPresenter = (props: ICalendarContainerProps) => {
           </S.ArrowButton>
           <S.YearStyle>{props.today?.format('YYYY년')}</S.YearStyle>
           <S.DateStyle>{props.today?.format('MM월')}</S.DateStyle>
-          <S.ArrowButton onClick={props.MoveNextMonth}>
+          <S.ArrowButton type="button" onClick={props.MoveNextMonth}>
             <ArrowSvg
               direction={'right'}
               size={'big'}

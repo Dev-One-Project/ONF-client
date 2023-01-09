@@ -2,13 +2,7 @@ import styled from '@emotion/styled';
 import { styleSet } from '../../../../../commons/styles/styleSet';
 
 export const Container = styled.div`
-  width: calc(100vw - 18rem);
-  @media ${styleSet.breakPoints.tablet} {
-    width: 100%;
-  }
-  @media ${styleSet.breakPoints.mobile} {
-    width: 100%;
-  }
+  width: 100%;
 `;
 
 export const TopWrapper = styled.section`

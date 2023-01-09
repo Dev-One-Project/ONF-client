@@ -1,1 +1,3 @@
-export interface IUserAttenancesProps {}
+export interface IUserAttenancesProps {
+  any?: any;
+}
