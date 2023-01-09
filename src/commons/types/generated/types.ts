@@ -68,7 +68,6 @@ export type ICreateMemberInput = {
   memo?: InputMaybe<Scalars['String']>;
   name: Scalars['String'];
   organizationId?: InputMaybe<Scalars['String']>;
-  phone?: InputMaybe<Scalars['String']>;
   roleCategoryId?: InputMaybe<Scalars['String']>;
 };
 
@@ -80,11 +79,13 @@ export type ICreateNoticeBoardInput = {
 
 export type ICreateOrganizationInput = {
   address: Scalars['String'];
+  checkPoint?: InputMaybe<Scalars['String']>;
   color: Scalars['String'];
   description?: InputMaybe<Scalars['String']>;
   lat?: InputMaybe<Scalars['String']>;
   lng?: InputMaybe<Scalars['String']>;
   name: Scalars['String'];
+  range?: InputMaybe<Scalars['Int']>;
 };
 
 export type ICreateRoleCategoryInput = {
@@ -143,15 +144,16 @@ export type ICreateVacationIssueInput = {
 };
 
 export type ICreateWorkCheckInput = {
+  isComfirmed?: Scalars['Boolean'];
   isWorking?: InputMaybe<Scalars['Boolean']>;
   memberId: Scalars['String'];
   organizationId?: InputMaybe<Scalars['String']>;
-  quittingTime?: InputMaybe<Scalars['DateTime']>;
+  quittingTime?: InputMaybe<Scalars['String']>;
   roleCategoryId?: InputMaybe<Scalars['String']>;
   scheduleId?: InputMaybe<Scalars['String']>;
   workCheckMemo?: InputMaybe<Scalars['String']>;
   workDay: Scalars['DateTime'];
-  workingTime?: InputMaybe<Scalars['DateTime']>;
+  workingTime: Scalars['String'];
 };
 
 export type IFile = {
@@ -203,9 +205,9 @@ export type IMember = {
   leave?: Maybe<Scalars['Float']>;
   memo?: Maybe<Scalars['String']>;
   name: Scalars['String'];
-  organization?: Maybe<IOrganization>;
+  organization: IOrganization;
   phone?: Maybe<Scalars['String']>;
-  roleCategory?: Maybe<IRoleCategory>;
+  roleCategory: IRoleCategory;
 };
 
 export type IMutation = {
@@ -449,9 +451,11 @@ export type IMutationDeleteManyScheduleTemplateArgs = {
   scheduleTemplateId: Array<Scalars['String']>;
 };
 
+
 export type IMutationDeleteManyVacationIssueArgs = {
   vacationIssueId: Array<Scalars['String']>;
 };
+
 
 export type IMutationDeleteManyWorkCheckArgs = {
   workCheckId: Array<Scalars['String']>;
@@ -653,7 +657,7 @@ export type INoticeBoard = {
 export type IOrganization = {
   __typename?: 'Organization';
   address?: Maybe<Scalars['String']>;
-  color?: Maybe<Scalars['String']>;
+  checkPoint?: Maybe<Scalars['String']>;
   company?: Maybe<ICompany>;
   createdAt?: Maybe<Scalars['DateTime']>;
   deletedAt?: Maybe<Scalars['DateTime']>;
@@ -662,6 +666,7 @@ export type IOrganization = {
   lat?: Maybe<Scalars['String']>;
   lng?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
+  range?: Maybe<Scalars['Int']>;
   scheduleTemplate: Array<IScheduleTemplate>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -721,12 +726,10 @@ export type IQuery = {
   fetchVacationIssueDetailDateDelete: Array<Array<IVacationIssue>>;
   /** 관지라 EndDate가 기준일자이고, 퇴사자랑 같이 조회 */
   fetchVacationIssueWithBaseDateDelete: Array<Array<IVacationIssue>>;
-  /** (관리자) 기간 내 휴가 조회 */
-  fetchVacationWithDate: Array<IVacation>;
-  /** (관리자) 퇴사자와 함께 조회 */
-  fetchVacationWithDelete: Array<IVacation>;
-  /** (관리자) 휴가 전체 조회 */
-  fetchVacations: Array<IVacation>;
+  /** (관리자) 활성직원 조회 */
+  fetchVacationWithDate: Array<Array<IVacation>>;
+  /** (관리자) 비활성화 된 직원 함께 조회 */
+  fetchVacationWithDelete: Array<Array<IVacation>>;
 };
 
 
@@ -756,6 +759,7 @@ export type IQueryFetchMemberWorkChecksArgs = {
 
 
 export type IQueryFetchMonthWorkChecksArgs = {
+  isActiveMember?: Scalars['Boolean'];
   month: Scalars['String'];
   organizationId: Array<Scalars['String']>;
 };
@@ -829,8 +833,16 @@ export type IQueryFetchVacationIssueWithBaseDateDeleteArgs = {
 
 
 export type IQueryFetchVacationWithDateArgs = {
-  vacationEnd: Scalars['DateTime'];
-  vacationStart: Scalars['DateTime'];
+  EndDate?: InputMaybe<Scalars['DateTime']>;
+  StartDate?: InputMaybe<Scalars['DateTime']>;
+  organizationId: Array<Scalars['String']>;
+};
+
+
+export type IQueryFetchVacationWithDeleteArgs = {
+  EndDate?: InputMaybe<Scalars['DateTime']>;
+  StartDate?: InputMaybe<Scalars['DateTime']>;
+  organizationId: Array<Scalars['String']>;
 };
 
 export type IRoleCategory = {
@@ -871,6 +883,7 @@ export type IScheduleCategory = {
 
 export type IScheduleTemplate = {
   __typename?: 'ScheduleTemplate';
+  breakTime?: Maybe<Scalars['String']>;
   colorCode: Scalars['String'];
   company: ICompany;
   endTime: Scalars['String'];
@@ -912,7 +925,6 @@ export type IUpdateMemberInput = {
   memo?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
   organizationId?: InputMaybe<Scalars['String']>;
-  phone?: InputMaybe<Scalars['String']>;
   roleCategoryId?: InputMaybe<Scalars['String']>;
 };
 
@@ -924,11 +936,13 @@ export type IUpdateNoticeBoardInput = {
 
 export type IUpdateOrganizationInput = {
   address?: InputMaybe<Scalars['String']>;
+  checkPoint?: InputMaybe<Scalars['String']>;
   color?: InputMaybe<Scalars['String']>;
   description?: InputMaybe<Scalars['String']>;
   lat?: InputMaybe<Scalars['String']>;
   lng?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
+  range?: InputMaybe<Scalars['Int']>;
 };
 
 export type IUpdateRoleCategoryInput = {
@@ -989,15 +1003,16 @@ export type IUpdateVacationIssueInput = {
 };
 
 export type IUpdateWorkCheckInput = {
+  isComfirmed?: InputMaybe<Scalars['Boolean']>;
   isWorking?: InputMaybe<Scalars['Boolean']>;
   memberId?: InputMaybe<Scalars['String']>;
   organizationId?: InputMaybe<Scalars['String']>;
-  quittingTime?: InputMaybe<Scalars['DateTime']>;
+  quittingTime?: InputMaybe<Scalars['String']>;
   roleCategoryId?: InputMaybe<Scalars['String']>;
   scheduleId?: InputMaybe<Scalars['String']>;
   workCheckMemo?: InputMaybe<Scalars['String']>;
   workDay?: InputMaybe<Scalars['DateTime']>;
-  workingTime?: InputMaybe<Scalars['DateTime']>;
+  workingTime?: InputMaybe<Scalars['String']>;
 };
 
 export type IVacation = {
@@ -1006,6 +1021,7 @@ export type IVacation = {
   description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['String']>;
   member?: Maybe<IMember>;
+  organization?: Maybe<IOrganization>;
   vacationCategory?: Maybe<IVacationCategory>;
   vacationEndDate?: Maybe<Scalars['DateTime']>;
   vacationStartDate: Scalars['DateTime'];
@@ -1042,6 +1058,7 @@ export type IWorkCheck = {
   company: ICompany;
   createdAt?: Maybe<Scalars['DateTime']>;
   id: Scalars['String'];
+  isComfirmed: Scalars['Boolean'];
   member: IMember;
   organization?: Maybe<IOrganization>;
   quittingTime?: Maybe<Scalars['DateTime']>;

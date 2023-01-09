@@ -4,6 +4,8 @@ import { ICalendarProps } from './calendarSource/calendar.types';
 const Calendar = (props: ICalendarProps) => {
   return (
     <CalendarContainer
+      selectedColor={props.selectedColor}
+      width={props.width}
       selected={props.selected}
       setSelected={props.setSelected}
     />

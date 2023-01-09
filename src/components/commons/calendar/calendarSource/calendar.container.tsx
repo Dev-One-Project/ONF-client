@@ -72,6 +72,8 @@ const CalendarContainer = (props: ICalendarProps) => {
 
   return (
     <CalendarPresenter
+      selectedColor={props.selectedColor}
+      width={props.width}
       dateArr={dateArr}
       MoveNextMonth={MoveNextMonth}
       MovePrevMonth={MovePrevMonth}

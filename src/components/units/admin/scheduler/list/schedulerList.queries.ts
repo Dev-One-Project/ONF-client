@@ -76,9 +76,31 @@ export const FETCH_MEMBERS = gql`
       organization {
         id
         name
-        color
       }
       company {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const FETCH_SCHEDULE_TEMPLATE = gql`
+  query fetchAllScheduleTemplates {
+    fetchAllScheduleTemplates {
+      id
+      name
+      startTime
+      endTime
+      scheduleCategory {
+        id
+        name
+      }
+      organization {
+        id
+        name
+      }
+      roleCategory {
         id
         name
       }

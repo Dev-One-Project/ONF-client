@@ -19,6 +19,7 @@ import locale from 'antd/locale/ko_KR';
 import FallingModal from '../../../../commons/modal/fallingModal';
 import DetailModal from '../modules/detailModal/detailModal';
 import Check02 from '../../../../commons/input/check02';
+import CreateModal from '../modules/createModal/createModal';
 
 const SchedulerListPresenter = (props: ISchedulerListProps) => {
   return (
@@ -29,7 +30,15 @@ const SchedulerListPresenter = (props: ISchedulerListProps) => {
           setIsOpen={props.setIsOpen}
           aniMode={props.aniMode}
           onCancel={props.onClickCloseModal}
-        ></FallingModal>
+          title={`근무일정 추가하기`}
+        >
+          <CreateModal
+            member={props.member}
+            templates={props.templates}
+            onClickCloseModal={props.onClickCloseModal}
+            initData={props.initOption}
+          />
+        </FallingModal>
       ) : null}
       {props.isOpenDetail && props.selectSchedule ? (
         <FallingModal

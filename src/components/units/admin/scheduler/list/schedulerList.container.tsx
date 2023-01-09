@@ -9,9 +9,11 @@ import {
 } from '../../../../../commons/types/generated/types';
 import { useLazyQuery, useQuery } from '@apollo/client';
 import {
+  FETCH_MEMBERS,
   FETCH_ORGANIZATIONS,
   FETCH_ROLE_CATEGORIES,
   FETCH_SCHEDULE_LIST,
+  FETCH_SCHEDULE_TEMPLATE,
 } from './schedulerList.queries';
 import { InitData } from './schedulerList.types';
 import { Dayjs } from 'dayjs';
@@ -61,6 +63,13 @@ const SchedulerListContainer = () => {
     nextFetchPolicy: 'cache-only',
   });
 
+  const [getScheduleTemplates, { data: scheduleTemplates }] = useLazyQuery<
+    Pick<IQuery, 'fetchAllScheduleTemplates'>
+  >(FETCH_SCHEDULE_TEMPLATE);
+
+  const [getMember, { data: memberList }] =
+    useLazyQuery<Pick<IQuery, 'fetchMembers'>>(FETCH_MEMBERS);
+
   // initializing
   useEffect(() => {
     let count = 0;
@@ -74,13 +83,19 @@ const SchedulerListContainer = () => {
   }, [scheduleList]);
 
   useMemo(() => {
+    if (memberList === undefined) {
+      getMember().catch(() => {});
+    }
     if (organization === undefined) {
       getOrganization().catch(() => {});
     }
     if (roleCategory === undefined) {
       getCategory().catch(() => {});
     }
-    if (organization && roleCategory) {
+    if (scheduleTemplates === undefined) {
+      getScheduleTemplates().catch(() => {});
+    }
+    if (organization && roleCategory && scheduleTemplates) {
       const data: InitData = {
         organization: organization?.fetchOrganizations.map((data) => {
           return {
@@ -95,11 +110,28 @@ const SchedulerListContainer = () => {
           };
         }),
         workType: [{ id: '', name: '' }],
+        scheduleTemplate: scheduleTemplates?.fetchAllScheduleTemplates.map(
+          (data) => {
+            return {
+              id: data.id,
+              name: data.name,
+            };
+          },
+        ),
       };
       setInitOption(data);
       setSelectOrganization(data.organization ?? []);
     }
-  }, [organization, roleCategory, getOrganization, getCategory]);
+  }, [
+    organization,
+    roleCategory,
+    scheduleTemplates,
+    memberList,
+    getScheduleTemplates,
+    getOrganization,
+    getCategory,
+    getMember,
+  ]);
 
   // functions
   const getSelectedSchedule = (id: string) => {
@@ -171,6 +203,7 @@ const SchedulerListContainer = () => {
   // render
   return (
     <SchedulerListPresenter
+      templates={scheduleTemplates?.fetchAllScheduleTemplates}
       scheduleList={scheduleList?.fetchListTypeSchedule}
       initOption={initOption}
       startDate={startDate}
@@ -181,6 +214,7 @@ const SchedulerListContainer = () => {
       aniMode={aniMode}
       selectSchedule={selectSchedule}
       checkedList={checkedList}
+      member={memberList?.fetchMembers}
       setEndDate={setEndDate}
       setStartDate={setStartDate}
       setIsOpen={setIsOpen}
