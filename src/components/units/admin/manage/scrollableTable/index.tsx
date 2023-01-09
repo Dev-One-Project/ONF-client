@@ -4,7 +4,12 @@ import { useCallback, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { isAdminSidebarState } from '../../../../../commons/store';
 import { styleSet } from '../../../../../commons/styles/styleSet';
-import { IMember, IQuery } from '../../../../../commons/types/generated/types';
+import {
+  IMember,
+  IOrganization,
+  IQuery,
+  IRoleCategory,
+} from '../../../../../commons/types/generated/types';
 
 import Check01 from '../../../../commons/input/check01';
 import RowDataCells from './rowDataCells';
@@ -26,7 +31,7 @@ interface IStyle {
 }
 
 let headerData: string[] = [];
-let bodyData: IMember[] | string[] = [];
+let bodyData: IMember[] | IOrganization[] | string[] | IRoleCategory[] = [];
 
 const HTML_TD_TAG = 'TD';
 
@@ -57,35 +62,18 @@ const ScrollableTable = (props: IScrollableTableProps) => {
     ];
     bodyData = props.data?.members?.fetchMembers ?? [];
   } else if (props.tab === '지점' || props.tab === '출퇴근 장소') {
-    if (props.isLocation) {
-      headerData = ['출퇴근 장소', '근무지 주소', '좌표', 'WiFi', '메모'];
-      bodyData = [
-        '뭐 이딴 기능이',
-        '다있냐 웃기네',
-        '허 참 나',
-        '아몰라',
-        '안할거야~',
-      ];
-    } else {
-      headerData = ['지점명', '출퇴근 장소들', '메모'];
-      bodyData = ['패스파인더', '패스트파이브', '아몰랑 출근 안 해'];
-    }
+    headerData = [
+      '지점명',
+      '출퇴근 장소',
+      '근무지 주소',
+      '좌표',
+      'WiFi',
+      '메모',
+    ];
+    bodyData = props.data?.organizations?.fetchOrganizations ?? [];
   } else if (props.tab === '직무') {
     headerData = ['직무명', '색깔', '메모'];
-    bodyData = [
-      '데브옵스',
-      // <div
-      //   key="key"
-      //   style={{
-      //     width: '25px',
-      //     height: '25px',
-      //     borderRadius: '5px',
-      //     backgroundColor: 'blue',
-      //     marginLeft: '2px',
-      //   }}
-      // ></div>,
-      '배포낄낄',
-    ];
+    bodyData = props.data?.roleCategories?.fetchRoleCategories ?? [];
   } else if (props.tab === '근로 정보') {
     headerData = [
       '근로정보명',
@@ -187,7 +175,7 @@ const ScrollableTable = (props: IScrollableTableProps) => {
     },
     [checkedList],
   );
-
+  console.log(props.data);
   return (
     <Wrapper
       isAdminSidebar={isAdminSidebar}
@@ -234,7 +222,6 @@ const ScrollableTable = (props: IScrollableTableProps) => {
                 />
               </BodyContent>
               <RowDataCells data={el} tab={props.tab} />
-              <BodyContent>{el.memo}</BodyContent>
             </Row>
           ))}
         </Body>
