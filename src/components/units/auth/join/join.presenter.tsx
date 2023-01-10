@@ -133,6 +133,26 @@ const JoinPresenter = (props: IJoinProps) => {
               ))}
             </S.Article>
 
+            <EmployeeModal
+              setIsOpenEmployee={props.setIsOpenEmployee}
+              isOpenEmployee={props.isOpenEmployee}
+              aniMode={props.aniMode}
+              register={props.register}
+              formState={props.formState}
+              onClickCloseModal={props.onClickCloseModal}
+              onClickCloseEmployeeModal={props.onClickCloseEmployeeModal}
+            />
+
+            <AdminModal
+              setIsOpenAdmin={props.setIsOpenAdmin}
+              isOpenAdmin={props.isOpenAdmin}
+              aniMode={props.aniMode}
+              onClickCloseModal={props.onClickCloseModal}
+              register={props.register}
+              formState={props.formState}
+              onClickCloseAdminModal={props.onClickCloseAdminModal}
+            />
+
             <Btn01
               disabled={props.checkedList.length !== 3}
               text={'가입하기'}
@@ -166,19 +186,6 @@ const JoinPresenter = (props: IJoinProps) => {
             </li>
           </S.Ul>
         </S.Main>
-        <EmployeeModal
-          setIsOpenEmployee={props.setIsOpenEmployee}
-          isOpenEmployee={props.isOpenEmployee}
-          aniMode={props.aniMode}
-          onClickCloseModal={props.onClickCloseModal}
-        />
-
-        <AdminModal
-          setIsOpenAdmin={props.setIsOpenAdmin}
-          isOpenAdmin={props.isOpenAdmin}
-          aniMode={props.aniMode}
-          onClickCloseModal={props.onClickCloseModal}
-        />
       </S.Wrapper>
     </>
   );

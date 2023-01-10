@@ -216,7 +216,7 @@ export const H2 = styled.h2`
 export const ChooseCompany = styled.ul`
   margin-bottom: 2rem;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   li {
     padding: 1rem;
@@ -298,8 +298,4 @@ export const EmployeeModal = styled.section`
 export const ButtonBox = styled.article`
   display: flex;
   justify-content: flex-end;
-`;
-
-export const SelectPeople = styled.select`
-  width: 285px;
 `;

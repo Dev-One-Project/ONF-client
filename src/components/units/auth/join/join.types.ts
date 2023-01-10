@@ -19,6 +19,8 @@ export interface IJoinProps {
   setIsOpenAdmin: Dispatch<SetStateAction<boolean>>;
   onChangeCheckedAll: (checked: boolean) => void;
   onChangeChecked: (checked: boolean, content: string) => void;
+  onClickCloseAdminModal: () => void;
+  onClickCloseEmployeeModal: () => void;
 }
 
 export interface IFormData {
@@ -27,14 +29,19 @@ export interface IFormData {
   password: string;
   phone?: number;
   passwordConfirm: string;
+  companyName?: string;
+  code?: string;
 }
 
 export interface IModalDate {
   setIsOpenAdmin?: any;
+  onClickCloseAdminModal: () => void;
   isOpenAdmin?: boolean;
   onClickAdminModal?: () => void;
   onClickCloseModal?: () => void;
   setIsOpen?: Dispatch<SetStateAction<boolean>>;
   isOpen?: boolean;
   aniMode: boolean;
+  register: UseFormRegister<FieldValues>;
+  formState: FormState<FieldValues>;
 }

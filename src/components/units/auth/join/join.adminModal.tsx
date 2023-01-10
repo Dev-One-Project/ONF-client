@@ -21,13 +21,18 @@ const AdminModal = (props: IModalDate) => {
             <div>
               <p>별도의 기기 설치나 계약 없이</p>
               <p>
-                시프티의 모든 기능을 이용해보실 수 있습니다. 지금 바로
+                웹체크의 모든 기능을 이용해보실 수 있습니다. 지금 바로
                 시작하세요.
               </p>
             </div>
             <ul>
               <li>
-                <span>회사명</span> <Input01 type={'text'} />
+                <span>회사명</span>{' '}
+                <Input01
+                  type={'text'}
+                  register={props.register('companyName')}
+                  error={props.formState.errors.companyName?.message}
+                />
               </li>
               <li>
                 <span>도입 인원 수</span>{' '}
@@ -40,21 +45,6 @@ const AdminModal = (props: IModalDate) => {
                   <option value="300 - 499">300 - 499</option>
                 </select>
               </li>
-              <li>
-                <span>유입경로</span>{' '}
-                <S.SelectPeople>
-                  <option disabled>선택안됨</option>
-                  <option value="구글 검색">구글 검색</option>
-                  <option value="네이버 검색">네이버 검색</option>
-                  <option value="블로그 (시프티 공식 블로그, 네이버 블로그 등)">
-                    블로그 (시프티 공식 블로그, 네이버 블로그 등)
-                  </option>
-                  <option value="SNS (페이스북, 인스타그램 등)">
-                    SNS (페이스북, 인스타그램 등)
-                  </option>
-                  <option value="지인 추천">지인 추천</option>
-                </S.SelectPeople>
-              </li>
             </ul>
             <S.ButtonBox>
               <Btn01
@@ -63,6 +53,7 @@ const AdminModal = (props: IModalDate) => {
                 bdC={styleSet.colors.primary}
                 bgC={styleSet.colors.primary}
                 color="#fff"
+                onClick={props.onClickCloseAdminModal}
               />
             </S.ButtonBox>
           </S.AdminModal>
