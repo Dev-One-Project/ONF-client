@@ -119,13 +119,13 @@ export type ICreateScheduleTemplateInput = {
 };
 
 export type ICreateVacationCategoryInput = {
-  deductionDays: Scalars['Float'];
+  deductionDays?: InputMaybe<Scalars['Float']>;
   memo?: InputMaybe<Scalars['String']>;
-  name: Scalars['String'];
-  organizationId: Scalars['String'];
-  paidTime: Scalars['Int'];
-  roleCategoryId: Scalars['String'];
-  timeOption: Scalars['String'];
+  name?: InputMaybe<Scalars['String']>;
+  organizationId?: InputMaybe<Scalars['String']>;
+  paidTime?: InputMaybe<Scalars['Int']>;
+  roleCategoryId?: InputMaybe<Scalars['String']>;
+  timeOption?: InputMaybe<Scalars['String']>;
 };
 
 export type ICreateVacationInput = {
@@ -248,7 +248,7 @@ export type IMutation = {
   createStartWorkCheck: IWorkCheck;
   /** (관리자) 휴가관리 만들기 */
   createVacation: Array<IVacation>;
-  /** 휴가유형 만들기 */
+  /** (관리자) 휴가유형 만들기 */
   createVacationCategory: IVacationCategory;
   /** 관리자 휴가 발생 만들기 */
   createVacationIssue: IVacationIssue;
@@ -262,6 +262,10 @@ export type IMutation = {
   deleteManyScheduleCategory: Scalars['Boolean'];
   /** 근무일정 템플릿 다수 삭제 */
   deleteManyScheduleTemplate: Scalars['Boolean'];
+  /** (관리자) 휴가 완전 삭제 */
+  deleteManyVacation: Scalars['Boolean'];
+  /** (관리자) 다수의 휴가유형 삭제하기 */
+  deleteManyVacationCategory: Scalars['Boolean'];
   /** 관리자 휴가발생 다수 삭제하기 */
   deleteManyVacationIssue: Scalars['Boolean'];
   /** 출근기록 다수 삭제 */
@@ -283,7 +287,7 @@ export type IMutation = {
   deleteRoleCategory: Scalars['Boolean'];
   /** (관리자) 휴가 완전 삭제 */
   deleteVacation: Scalars['Boolean'];
-  /** 휴가유형ID로 데이터 완전 삭제하기 */
+  /** (관리자) 휴가유형ID로 데이터 완전 삭제하기 */
   deleteVacationCategory: Scalars['Boolean'];
   /** 관리자 휴가 발생 삭제하기 */
   deleteVacationIssue: Scalars['Boolean'];
@@ -303,6 +307,10 @@ export type IMutation = {
   updateHoliday: IHoliday;
   /** scheduleId로 찾은 근무일정 다수 수정 */
   updateManySchedule: Array<ISchedule>;
+  /** (관리자) 다수의 휴가 수정하기 */
+  updateManyVacation: Array<IVacation>;
+  /** (관리자) 다수의 휴가유형 수정하기 */
+  updateManyVacationCategorys: Array<IVacationCategory>;
   /** 출퇴근기록 다수 수정 */
   updateManyWorkCheck: Array<IWorkCheck>;
   /** 멤버 정보 수정 */
@@ -322,7 +330,7 @@ export type IMutation = {
   updateScheduleTemplate: IScheduleTemplate;
   /** (관리자) 휴가 수정하기 */
   updateVacation: IVacation;
-  /** 휴가유형Id와 Input을 적어 데이터 수정하기 */
+  /** (관리자) 휴가유형Id와 Input을 적어 데이터 수정하기 */
   updateVacationCategory: IVacationCategory;
   /** 관리자 휴가 발생 수정하기 */
   updateVacationIssue: IVacationIssue;
@@ -452,6 +460,16 @@ export type IMutationDeleteManyScheduleTemplateArgs = {
 };
 
 
+export type IMutationDeleteManyVacationArgs = {
+  vacationId: Array<Scalars['String']>;
+};
+
+
+export type IMutationDeleteManyVacationCategoryArgs = {
+  vacationCategoryId: Array<Scalars['String']>;
+};
+
+
 export type IMutationDeleteManyVacationIssueArgs = {
   vacationIssueId: Array<Scalars['String']>;
 };
@@ -558,6 +576,18 @@ export type IMutationUpdateHolidayArgs = {
 export type IMutationUpdateManyScheduleArgs = {
   scheduleId: Array<Scalars['String']>;
   updateScheduleInput: IUpdateScheduleInput;
+};
+
+
+export type IMutationUpdateManyVacationArgs = {
+  updateVacationInput?: InputMaybe<IUpdateVacationInput>;
+  vacationId: Array<Scalars['String']>;
+};
+
+
+export type IMutationUpdateManyVacationCategorysArgs = {
+  updateVacationCategoryInput?: InputMaybe<IUpdateVacationCategoryInput>;
+  vacationCategoryId: Array<Scalars['String']>;
 };
 
 
@@ -695,6 +725,7 @@ export type IQuery = {
   fetchListTypeSchedule: Array<ISchedule>;
   /** memberId(사원ID)로 개별 조회, memberId 입력시 입력한 member 조회, 아니면 로그인한 유저 정보 조회 */
   fetchMember: IMember;
+  fetchMemberSchedule?: Maybe<ISchedule>;
   /** member개인(나)의 출퇴근 기록 조회 - 직원모드 */
   fetchMemberWorkChecks: Array<IWorkCheck>;
   /** comanyId에 해당하는 멤버 전체 조회 */
@@ -712,9 +743,9 @@ export type IQuery = {
   fetchRoleCategory: IRoleCategory;
   /** (관리자) 휴가 ID를 통한 휴가 조회 */
   fetchVacation: IVacation;
-  /** 휴가유형ID를 적어서 하나의 유형 찾기 */
+  /** (관리자) 휴가유형ID를 적어서 하나의 유형 찾기 */
   fetchVacationCategory: IVacationCategory;
-  /** 휴가유형 전체 찾기 */
+  /** (관리자) 휴가유형 전체 찾기 */
   fetchVacationCategorys: Array<IVacationCategory>;
   /** 관리자 휴가 발생Id 조회 */
   fetchVacationIssue: IVacationIssue;
@@ -735,6 +766,7 @@ export type IQuery = {
 
 export type IQueryFetchDateMemberWorkChecksArgs = {
   endDate: Scalars['DateTime'];
+  isActiveMember?: Scalars['Boolean'];
   organizationId?: InputMaybe<Array<Scalars['String']>>;
   startDate: Scalars['DateTime'];
 };
@@ -749,6 +781,12 @@ export type IQueryFetchListTypeScheduleArgs = {
 
 export type IQueryFetchMemberArgs = {
   memberId?: InputMaybe<Scalars['String']>;
+};
+
+
+export type IQueryFetchMemberScheduleArgs = {
+  date: Scalars['DateTime'];
+  memberId: Scalars['String'];
 };
 
 
@@ -787,11 +825,6 @@ export type IQueryFetchVacationArgs = {
 
 export type IQueryFetchVacationCategoryArgs = {
   vacationCategoryId: Scalars['String'];
-};
-
-
-export type IQueryFetchVacationCategorysArgs = {
-  organizationid: Scalars['String'];
 };
 
 
@@ -858,16 +891,18 @@ export type IRoleCategory = {
 export type ISchedule = {
   __typename?: 'Schedule';
   company: ICompany;
+  createdAt: Scalars['DateTime'];
   date: Scalars['DateTime'];
-  endWorkTime?: Maybe<Scalars['String']>;
-  id: Scalars['String'];
+  endWorkTime: Scalars['String'];
+  id?: Maybe<Scalars['String']>;
   member: IMember;
-  memo?: Maybe<Scalars['String']>;
+  memo: Scalars['String'];
   organization: IOrganization;
   roleCategory: IRoleCategory;
   scheduleCategory: IScheduleCategory;
   scheduleTemplate: IScheduleTemplate;
-  startWorkTime?: Maybe<Scalars['String']>;
+  startWorkTime: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
 };
 
 export type IScheduleCategory = {
@@ -980,18 +1015,21 @@ export type IUpdateScheduleTemplatInput = {
 };
 
 export type IUpdateVacationCategoryInput = {
-  description?: InputMaybe<Scalars['String']>;
-  memberId: Scalars['String'];
-  vacationCategoryId?: InputMaybe<Scalars['String']>;
-  vacations?: InputMaybe<Scalars['String']>;
+  deductionDays?: InputMaybe<Scalars['Float']>;
+  memo?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  organizationId?: InputMaybe<Scalars['String']>;
+  paidTime?: InputMaybe<Scalars['Int']>;
+  roleCategoryId?: InputMaybe<Scalars['String']>;
+  timeOption?: InputMaybe<Scalars['String']>;
 };
 
 export type IUpdateVacationInput = {
   description?: InputMaybe<Scalars['String']>;
-  memberId: Scalars['String'];
-  vacationCategoryId: Scalars['String'];
-  vacationEndDate: Scalars['DateTime'];
-  vacationStartDate: Scalars['DateTime'];
+  memberId?: InputMaybe<Scalars['String']>;
+  vacationCategoryId?: InputMaybe<Scalars['String']>;
+  vacationEndDate?: InputMaybe<Scalars['DateTime']>;
+  vacationStartDate?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type IUpdateVacationIssueInput = {

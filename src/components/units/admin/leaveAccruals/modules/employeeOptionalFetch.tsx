@@ -30,7 +30,7 @@ const EmployeeOptionalFetch = (props: IEmployeeOptionalFetchProps) => {
             </li>
             <li>{fetchData.vacationAll}</li>
             <li>{fetchData.useVacation}</li>
-            <li>{fetchData.vacationAll - fetchData.useVacation || 0}</li>
+            <li>{fetchData.member.leave}</li>
           </S.EmployeeUl>
         ));
     } else if (!props.init && props.filterInit) {
@@ -49,7 +49,7 @@ const EmployeeOptionalFetch = (props: IEmployeeOptionalFetchProps) => {
             </li>
             <li>{fetchData.vacationAll}</li>
             <li>{fetchData.useVacation}</li>
-            <li>{fetchData.vacationAll - fetchData.useVacation || 0}</li>
+            <li>{fetchData.member.leave}</li>
           </S.EmployeeUl>
         ));
     } else if (props.init && props.filterInit) {
@@ -64,7 +64,7 @@ const EmployeeOptionalFetch = (props: IEmployeeOptionalFetchProps) => {
           </li>
           <li>{fetchData.vacationAll}</li>
           <li>{fetchData.useVacation}</li>
-          <li>{fetchData.vacationAll - fetchData.useVacation || 0}</li>
+          <li>{fetchData.member.leave}</li>
         </S.EmployeeUl>
       ));
     } else {
@@ -83,7 +83,7 @@ const EmployeeOptionalFetch = (props: IEmployeeOptionalFetchProps) => {
             </li>
             <li>{fetchData.vacationAll}</li>
             <li>{fetchData.useVacation}</li>
-            <li>{fetchData.vacationAll - fetchData.useVacation || 0}</li>
+            <li>{fetchData.member.leave}</li>
           </S.EmployeeUl>
         ));
     }

@@ -11,7 +11,6 @@ import { styleSet } from '../../../commons/styles/styleSet';
 interface ISelectProps {
   register?: UseFormRegisterReturn;
   data?: IInputData[];
-  role?: string;
   left?: boolean;
   center?: boolean;
   category?: string[];
@@ -44,14 +43,6 @@ const Select02 = (props: ISelectProps) => {
   const onChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
     setKeyword(event.target.value);
   };
-  const label = (role: string | undefined) => {
-    if (role === 'organization') {
-      return <Label>팀</Label>;
-    }
-    if (role === 'duty') {
-      return <Label>직무</Label>;
-    }
-  };
 
   const onClickBackground = (e: MouseEvent) => {
     if (e.currentTarget.id !== 'selectZone') {
@@ -79,7 +70,6 @@ const Select02 = (props: ISelectProps) => {
           type="button"
           onClick={onClickToggleModal}
         >
-          {label(props.role)}
           <span>
             {props.data ? isSelect || '선택 안됨' : '선택 가능한 옵션 없음'}
           </span>
@@ -261,10 +251,6 @@ const Options = styled.ul`
       cursor: pointer;
     }
   }
-`;
-
-const Label = styled.label`
-  padding-right: 1rem;
 `;
 
 const Background = styled.div`

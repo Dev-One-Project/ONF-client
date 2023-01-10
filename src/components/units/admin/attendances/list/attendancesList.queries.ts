@@ -18,22 +18,24 @@ export const FETCH_ORGANIZATIONS = gql`
   }
 `;
 
-export const FETCH_LIST_TYPE_SCHEDULE = gql`
-  query fetchListTypeSchedule(
+export const FETCH_DATE_MEMBER_WORK_CHECKS = gql`
+  query fetchDateMemberWorkChecks(
     $startDate: DateTime!
     $endDate: DateTime!
     $organizationId: [String!]!
+    $isActiveMember: Boolean!
   ) {
-    fetchListTypeSchedule(
+    fetchDateMemberWorkChecks(
       startDate: $startDate
       endDate: $endDate
       organizationId: $organizationId
+      isActiveMember: $isActiveMember
     ) {
       id
-      startWorkTime
-      endWorkTime
-      memo
-      date
+      workDay
+      workingTime
+      quittingTime
+      workCheckMemo
       member {
         id
         name
@@ -41,20 +43,16 @@ export const FETCH_LIST_TYPE_SCHEDULE = gql`
       organization {
         id
         name
+        checkPoint
       }
       roleCategory {
         id
         name
       }
-      scheduleTemplate {
+      schedule {
         id
-        name
-        startTime
-        endTime
-      }
-      scheduleCategory {
-        id
-        name
+        startWorkTime
+        endWorkTime
       }
     }
   }

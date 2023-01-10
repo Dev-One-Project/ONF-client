@@ -10,6 +10,7 @@ import {
   IVacationIssue,
 } from '../../../../commons/types/generated/types';
 import { Dayjs } from 'dayjs';
+import { InputData } from '../../../commons/input/select01';
 
 export interface ILeaveAccrualsPresenterProps {
   setOrganizationArr: Dispatch<SetStateAction<IInputData[]>>;
@@ -60,6 +61,7 @@ export interface ILeaveAccrualsPresenterProps {
   onCheckedElement: (checked: boolean, selectedTarget: IVacationIssue) => void;
   checkedList: IVacationIssue[];
   dataLength: number;
+  organizationArr: InputData[];
 }
 
 export interface IInputData {

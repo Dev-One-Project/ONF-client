@@ -18,10 +18,12 @@ export const FETCH_VACATION_ISSUE_DETAIL_DELETE = gql`
       expirationDate
       vacationAll
       useVacation
+      remaining
       description
       member {
         id
         name
+        leave
       }
     }
   }
@@ -45,10 +47,12 @@ export const FETCH_VACATION_ISSUE_DETAIL = gql`
       expirationDate
       vacationAll
       useVacation
+      remaining
       description
       member {
         id
         name
+        leave
       }
     }
   }
@@ -72,10 +76,12 @@ export const FETCH_VACATION_ISSUE_BASE = gql`
       expirationDate
       vacationAll
       useVacation
+      remaining
       description
       member {
         id
         name
+        leave
       }
     }
   }
@@ -99,10 +105,12 @@ export const FETCH_VACATION_ISSUE_BASE_DELETE = gql`
       expirationDate
       vacationAll
       useVacation
+      remaining
       description
       member {
         id
         name
+        leave
       }
     }
   }

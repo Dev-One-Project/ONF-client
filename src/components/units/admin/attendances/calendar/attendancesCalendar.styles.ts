@@ -51,9 +51,9 @@ export const OptBox = styled.div`
 
 export const Input = styled.input`
   width: 119px;
-  height: 32px;
-  border: 1px solid ${styleSet.colors.gray};
-  border-radius: 2px;
+  height: 36px;
+  border: 1px solid #ddd;
+  padding: 0.5rem;
   @media ${styleSet.breakPoints.tablet} {
     width: 100%;
   }

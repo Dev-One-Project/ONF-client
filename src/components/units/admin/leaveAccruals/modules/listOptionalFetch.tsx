@@ -42,7 +42,7 @@ const ListOptionalFetch = (props: IEmployeeOptionalFetchProps) => {
             <li>{getDate(fetchData.expirationDate)}</li>
             <li>{fetchData.vacationAll}</li>
             <li>{fetchData.useVacation}</li>
-            <li>{fetchData.vacationAll - fetchData.useVacation || 0}</li>
+            <li>{fetchData.member.leave}</li>
             <li>{fetchData.description}</li>
           </S.ListUl>
         ));
@@ -68,7 +68,7 @@ const ListOptionalFetch = (props: IEmployeeOptionalFetchProps) => {
             <li>{getDate(fetchData.expirationDate)}</li>
             <li>{fetchData.vacationAll}</li>
             <li>{fetchData.useVacation}</li>
-            <li>{fetchData.vacationAll - fetchData.useVacation || 0}</li>
+            <li>{fetchData.member.leave}</li>
             <li>{fetchData.description}</li>
           </S.ListUl>
         ));
@@ -92,7 +92,7 @@ const ListOptionalFetch = (props: IEmployeeOptionalFetchProps) => {
           <li>{getDate(fetchData.expirationDate)}</li>
           <li>{fetchData.vacationAll}</li>
           <li>{fetchData.useVacation}</li>
-          <li>{fetchData.vacationAll - fetchData.useVacation || 0}</li>
+          <li>{fetchData.member.leave}</li>
           <li>{fetchData.description}</li>
         </S.ListUl>
       ));
@@ -118,7 +118,7 @@ const ListOptionalFetch = (props: IEmployeeOptionalFetchProps) => {
             <li>{getDate(fetchData.expirationDate)}</li>
             <li>{fetchData.vacationAll}</li>
             <li>{fetchData.useVacation}</li>
-            <li>{fetchData.vacationAll - fetchData.useVacation || 0}</li>
+            <li>{fetchData.member.leave}</li>
             <li>{fetchData.description}</li>
           </S.ListUl>
         ));
