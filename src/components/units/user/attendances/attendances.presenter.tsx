@@ -11,6 +11,7 @@ const AttendancesPresenter = (props: IUserAttenancesProps) => {
           <li>근무시간</li>
           <li>근무일정</li>
           <li>조직</li>
+          <li>직무</li>
           <li>근무노트</li>
           <li>휴게시간</li>
           <li>총 시간</li>

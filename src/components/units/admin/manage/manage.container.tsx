@@ -5,9 +5,7 @@ import { IManageProps } from './manage.types';
 const Manage = (props: IManageProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [aniMode, setAniMode] = useState(false);
-
   const [isLocation, setIsLocation] = useState(false);
-
   const [editTarget, setEditTarget] = useState();
 
   const onClickOpenModal = () => {

@@ -6,7 +6,7 @@ import { IFormProps } from './common/form.types';
 import InputLabel from '../../../../commons/inputLabel';
 import Memo from './common/memo';
 
-const ShiftTypes = (props: IFormProps) => {
+const ScheduleCategory = (props: IFormProps) => {
   return (
     <form onSubmit={props.handleSubmit(props.onSubmit)}>
       <Wrapper>
@@ -43,7 +43,7 @@ const ShiftTypes = (props: IFormProps) => {
   );
 };
 
-export default ShiftTypes;
+export default ScheduleCategory;
 
 const Wrapper = styled.div`
   width: 30rem;

@@ -7,7 +7,7 @@ import Memo from './common/memo';
 
 const { RangePicker } = TimePicker;
 
-const ShiftTemplate = (props: IFormProps) => {
+const ScheduleTemplate = (props: IFormProps) => {
   return (
     <form onSubmit={props.handleSubmit(props.onSubmit)}>
       <Wrapper>
@@ -84,7 +84,7 @@ const ShiftTemplate = (props: IFormProps) => {
   );
 };
 
-export default ShiftTemplate;
+export default ScheduleTemplate;
 
 const Wrapper = styled.div`
   width: 30rem;
