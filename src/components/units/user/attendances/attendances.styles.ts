@@ -5,35 +5,43 @@ export const Container = styled.section`
   /* max-width: 1270px; */
   max-width: calc(100vw - 300px);
   overflow: auto;
+  padding-bottom: 1rem;
 `;
 
 export const Notice = styled.ul`
-  gap: 20px;
   display: flex;
   align-items: center;
-  padding: 1rem 1.5rem;
-  justify-content: space-between;
+  padding: 1rem;
   border-bottom: 2px solid ${styleSet.colors.gray};
-  width: 100vw;
+  width: fit-content;
 
   li {
-    min-width: 100px;
+    min-width: 10rem;
+    padding: 0.5rem 0 0.5rem 1rem;
+    text-align: left;
+    white-space: nowrap;
     flex: 0;
+    :first-of-type {
+      min-width: 6rem;
+    }
   }
 `;
 
 export const NoticeList = styled.ul`
-  gap: 20px;
   display: flex;
   align-items: center;
-  padding: 1rem 1.5rem;
-  justify-content: space-between;
+  padding: 1rem;
   border-bottom: 1px solid ${styleSet.colors.gray};
-  width: 100vw;
-  min-height: 70px;
+  width: fit-content;
+  min-height: 4rem;
+
   li {
-    min-width: 100px;
-    white-space: nowrap;
+    min-width: 10rem;
+    text-align: left;
+    padding: 0.5rem 0 0.5rem 1rem;
+    :first-of-type {
+      min-width: 6rem;
+    }
     .anticon {
       display: inline-block;
       color: ${styleSet.colors.fail};

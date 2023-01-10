@@ -270,15 +270,6 @@ const HeaderContent = styled.th`
 
 const BodyContent = styled.td`
   text-align: left;
-  padding: 0.5rem 0.25rem 0.5rem 0.5rem;
-  min-width: 100px;
-
-  :first-of-type {
-    min-width: 65px;
-    padding: 1rem 0 1rem 1rem;
-  }
-
-  :not(:first-of-type) {
-    font-size: ${styleSet.fontSizes.small};
-  }
+  width: 3rem;
+  padding: 1rem 0 1rem 1rem;
 `;

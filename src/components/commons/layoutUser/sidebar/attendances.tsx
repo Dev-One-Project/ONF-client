@@ -2,8 +2,13 @@ import { DatePicker, Space } from 'antd';
 import Check01 from '../../input/check01';
 import { IUserSideBar } from '../../layoutUser/layout.types';
 import * as S from '../../layoutUser/layout.styles';
+import { useSetRecoilState } from 'recoil';
+import { attendanceDateState } from '../../../../commons/store';
 
 const UserAttendancesSideBar = (props: IUserSideBar) => {
+  const setAttendanceDate = useSetRecoilState(attendanceDateState);
+  const dateFormat = 'YYYY-MM-DD';
+
   return (
     <>
       <S.Sidebar className="min">
@@ -11,7 +16,13 @@ const UserAttendancesSideBar = (props: IUserSideBar) => {
         <S.Date>
           <li className="tab2">
             <Space direction="vertical">
-              <DatePicker.RangePicker style={{ height: '30px' }} />
+              <DatePicker.RangePicker
+                onChange={(_: any, dateString: string[]) =>
+                  setAttendanceDate(dateString)
+                }
+                format={dateFormat}
+                style={{ height: '30px' }}
+              />
             </Space>
           </li>
         </S.Date>

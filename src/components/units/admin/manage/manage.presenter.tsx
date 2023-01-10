@@ -51,7 +51,10 @@ const ManagePresenter = (props: IManagePresenterProps) => {
           </S.SwitchBox>
           {props.tab === '직원' && (
             <S.TotalMembersCount>
-              총 직원 수: {'직원 수 데이터'}
+              총 직원 수:{' '}
+              {Number(
+                props.data?.members?.fetchMembers[0].company.memberCount,
+              ) + 1}
             </S.TotalMembersCount>
           )}
           {(props.tab === '지점' || props.tab === '출퇴근 장소') && (

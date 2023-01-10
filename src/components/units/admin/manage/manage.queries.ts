@@ -8,6 +8,10 @@ export const FETCH_MEMBERS = gql`
       joinDate
       isJoin
       memo
+      company {
+        id
+        memberCount
+      }
       # organization {
       #   id
       #   name
@@ -113,14 +117,14 @@ export const FETCH_VACATION_CATEGORYS = gql`
       memo
       paidTime
       deductionDays
-      organization {
-        id
-        name
-      }
-      roleCategory {
-        id
-        name
-      }
+      # organization {
+      #   id
+      #   name
+      # }
+      # roleCategory {
+      #   id
+      #   name
+      # }
     }
   }
 `;
