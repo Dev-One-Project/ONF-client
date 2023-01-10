@@ -1,5 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Modal } from 'antd';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
@@ -42,8 +43,15 @@ const LoginContainer = () => {
       }
       setAccessToken(accessToken);
       sessionStorage.setItem('accessToken', accessToken);
+      Modal.confirm({
+        content: '킬킬... 으디로 뫼실까유?',
+        okText: 'admin',
+        cancelText: 'user',
+        onOk: async () => await router.push('/admin/home'),
+        onCancel: async () => await router.push('/user/schedule'),
+      });
       // void router.push('/user/requests');
-      await router.push('/admin/manage/organization');
+      // void router.push('/admin/manage/vacation-category');
     } catch (error) {
       ErrorModal('다시 로그인해주세요.');
     }

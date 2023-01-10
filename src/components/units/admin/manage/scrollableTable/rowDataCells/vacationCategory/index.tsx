@@ -4,8 +4,8 @@ const VacationCategoryData = (props: { data?: IVacationCategory }) => {
   return (
     <>
       <Td>{props.data?.name}</Td>
-      <Td>{props.data?.organization.name}</Td>
-      <Td>{props.data?.roleCategory.name}</Td>
+      <Td>{props.data?.organization?.name ?? '모든 지점'}</Td>
+      <Td>{props.data?.roleCategory?.name ?? '모든 직무'}</Td>
       <Td>{props.data?.timeOption}</Td>
       <Td>{props.data?.paidTime}h</Td>
       <Td>{props.data?.deductionDays}</Td>

@@ -1,3 +1,5 @@
+import { IQuery } from '../../../../commons/types/generated/types';
+
 export interface IUserAttenancesProps {
-  any?: any;
+  data?: Pick<IQuery, 'fetchMemberWorkChecks'>;
 }

@@ -35,3 +35,8 @@ export const isNoticeEditState = atom({
   key: `isNoticeWriteState/${v4()}`,
   default: { edit: false as boolean, boardId: '' as string | undefined },
 });
+
+export const attendanceDateState = atom({
+  key: `attendanceDateState/${v4()}`,
+  default: ['', ''],
+});

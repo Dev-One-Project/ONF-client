@@ -1,15 +1,19 @@
 import { gql } from '@apollo/client';
 
 export const FETCH_MEMBER_WORK_CHECKS = gql`
-  query fetchMemberWorkChecks($startDate: DateTIme!, $endDate: DateTime!) {
+  query fetchMemberWorkChecks($startDate: DateTime!, $endDate: DateTime!) {
     fetchMemberWorkChecks(startDate: $startDate, endDate: $endDate) {
       id
       workDay
       workingTime
       quittingTime
       workCheckMemo
-      isConfirmed
       createdAt
+      schedule {
+        id
+        startWorkTime
+        endWorkTime
+      }
       member {
         id
         name
