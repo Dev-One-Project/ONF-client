@@ -57,7 +57,6 @@ export const OptSelect = styled.div`
 
 export const UlWrapper = styled.section`
   overflow: auto;
-  max-width: 1152px;
   ul:first-of-type {
     border-bottom: 2px double ${styleSet.colors.gray};
     li {
@@ -79,6 +78,9 @@ export const Ul = styled.ul`
   justify-content: space-between;
   padding: 0.1rem 0;
   min-width: 1900px;
+  :hover {
+    background: #ddd;
+  }
   li:not(:first-of-type) {
     min-width: 115px;
     padding: 0.5rem;

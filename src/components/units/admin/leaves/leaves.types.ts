@@ -5,6 +5,7 @@ import {
   UseFormRegister,
   UseFormSetValue,
 } from 'react-hook-form';
+import { InputData } from '../../../commons/input/select01';
 
 export interface ILeavesPresenterProps {
   filterInit: boolean;
@@ -25,6 +26,7 @@ export interface ILeavesPresenterProps {
   onClickCheckedChange: () => void;
   isCheckedChange: boolean;
   setIsCheckedChange: SetStateAction<any>;
+  organizationArr: InputData[];
 }
 
 export interface IInputData {

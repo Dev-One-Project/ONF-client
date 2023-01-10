@@ -221,6 +221,7 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
               data={props.organizationsData}
               role="organization"
               left
+              defaultChecked={props.organizationArr}
             />
           </S.OptBox>
           <S.OptBox>
@@ -292,6 +293,7 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
             <Select01
               setState={props.setOrganizationArr}
               data={props.organizationsData}
+              defaultChecked={props.organizationArr}
               role="organization"
               left
             />

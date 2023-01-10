@@ -26,7 +26,11 @@ const AddLeaveAccruals = (props: IAddLeaveAccrualsProps) => {
           <div>
             <S.Label>직원</S.Label>
             <Select02
-              data={['짱구', '맹구', '철수']}
+              data={[
+                { id: '123', name: '짱구' },
+                { id: '456', name: '맹구' },
+                { id: '789', name: '철수' },
+              ]}
               register={props.register('member')}
             />
           </div>

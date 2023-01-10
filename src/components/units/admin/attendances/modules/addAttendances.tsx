@@ -118,8 +118,10 @@ const AddAttendances = (props: IAddAttendancesProps) => {
           <span>근무일정</span>
           <Select02
             data={[
-              { id: 'scheduleId123', name: '일근무일정' },
-              { id: 'scheduleId456', name: '이근무일정' },
+              {
+                id: '4d70eb46-ef64-4b45-b77e-25d566c30290',
+                name: '일근무일정',
+              },
             ]}
             customWidth="260px"
             register={props.register('scheduleId')}

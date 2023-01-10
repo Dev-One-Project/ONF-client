@@ -14,6 +14,7 @@ const AdminSidebarPresenter = (props: IAdminSidebarPresenterProps) => {
             id={link.address}
             onClick={props.onClickList}
             isAdminSidebar={props.isAdminSidebar}
+            isNarrowWidth={props.isNarrowWidth}
           >
             <S.Svg>{link.svg}</S.Svg>
             <S.Text

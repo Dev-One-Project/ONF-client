@@ -192,6 +192,7 @@ const LeavesPresenter = (props: ILeavesPresenterProps) => {
             name={'organization'}
             setState={props.setOrganizationArr}
             data={props.organizationsData}
+            defaultChecked={props.organizationArr}
             role="organization"
             left
           />

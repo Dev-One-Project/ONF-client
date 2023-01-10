@@ -45,27 +45,126 @@ export const List = styled.li`
 
   :nth-of-type(3) {
     display: ${(props: IAdminSidebarPresenterProps) =>
-      props.isAdminSidebar ? 'flex' : 'none'};
+      props.isAdminSidebar
+        ? props.isNarrowWidth
+          ? 'flex'
+          : 'flex'
+        : props.isNarrowWidth
+        ? 'none'
+        : 'none'};
   }
   :nth-of-type(4) {
     display: ${(props: IAdminSidebarPresenterProps) =>
-      props.isAdminSidebar ? 'flex' : 'none'};
+      props.isAdminSidebar
+        ? props.isNarrowWidth
+          ? 'flex'
+          : 'flex'
+        : props.isNarrowWidth
+        ? 'none'
+        : 'none'};
   }
   :nth-of-type(6) {
     display: ${(props: IAdminSidebarPresenterProps) =>
-      props.isAdminSidebar ? 'flex' : 'none'};
+      props.isAdminSidebar
+        ? props.isNarrowWidth
+          ? 'flex'
+          : 'flex'
+        : props.isNarrowWidth
+        ? 'none'
+        : 'none'};
   }
   :nth-of-type(7) {
     display: ${(props: IAdminSidebarPresenterProps) =>
-      props.isAdminSidebar ? 'flex' : 'none'};
+      props.isAdminSidebar
+        ? props.isNarrowWidth
+          ? 'flex'
+          : 'flex'
+        : props.isNarrowWidth
+        ? 'none'
+        : 'none'};
   }
   :nth-of-type(9) {
     display: ${(props: IAdminSidebarPresenterProps) =>
-      props.isAdminSidebar ? 'flex' : 'none'};
+      props.isAdminSidebar
+        ? props.isNarrowWidth
+          ? 'flex'
+          : 'flex'
+        : props.isNarrowWidth
+        ? 'none'
+        : 'none'};
   }
   :nth-of-type(10) {
     display: ${(props: IAdminSidebarPresenterProps) =>
-      props.isAdminSidebar ? 'flex' : 'none'};
+      props.isAdminSidebar
+        ? props.isNarrowWidth
+          ? 'flex'
+          : 'flex'
+        : props.isNarrowWidth
+        ? 'none'
+        : 'none'};
+  }
+
+  @media ${styleSet.breakPoints.tablet} {
+    :nth-of-type(3) {
+      display: ${(props: IAdminSidebarPresenterProps) =>
+        props.isAdminSidebar
+          ? props.isNarrowWidth
+            ? 'flex'
+            : 'none'
+          : props.isNarrowWidth
+          ? 'none'
+          : 'flex'};
+    }
+    :nth-of-type(4) {
+      display: ${(props: IAdminSidebarPresenterProps) =>
+        props.isAdminSidebar
+          ? props.isNarrowWidth
+            ? 'flex'
+            : 'none'
+          : props.isNarrowWidth
+          ? 'none'
+          : 'flex'};
+    }
+    :nth-of-type(6) {
+      display: ${(props: IAdminSidebarPresenterProps) =>
+        props.isAdminSidebar
+          ? props.isNarrowWidth
+            ? 'flex'
+            : 'none'
+          : props.isNarrowWidth
+          ? 'none'
+          : 'flex'};
+    }
+    :nth-of-type(7) {
+      display: ${(props: IAdminSidebarPresenterProps) =>
+        props.isAdminSidebar
+          ? props.isNarrowWidth
+            ? 'flex'
+            : 'none'
+          : props.isNarrowWidth
+          ? 'none'
+          : 'flex'};
+    }
+    :nth-of-type(9) {
+      display: ${(props: IAdminSidebarPresenterProps) =>
+        props.isAdminSidebar
+          ? props.isNarrowWidth
+            ? 'flex'
+            : 'none'
+          : props.isNarrowWidth
+          ? 'none'
+          : 'flex'};
+    }
+    :nth-of-type(10) {
+      display: ${(props: IAdminSidebarPresenterProps) =>
+        props.isAdminSidebar
+          ? props.isNarrowWidth
+            ? 'flex'
+            : 'none'
+          : props.isNarrowWidth
+          ? 'none'
+          : 'flex'};
+    }
   }
 `;
 

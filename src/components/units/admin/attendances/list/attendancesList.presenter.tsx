@@ -9,7 +9,7 @@ import AddAttendances from '../modules/addAttendances';
 import Select03 from '../../../../commons/input/select03';
 import Select01 from '../../../../commons/input/select01';
 import dayjs from 'dayjs';
-import { getDateSlash } from '../../../../../commons/utils/getDate';
+import { getDateSlash, getTimeStr } from '../../../../../commons/utils/getDate';
 
 const AttendancesListPresenter = (props: IAttendancesListPresenterProps) => {
   return (
@@ -75,13 +75,14 @@ const AttendancesListPresenter = (props: IAttendancesListPresenterProps) => {
                 onChange={props.onChangeStartEndDate}
               />
             </Space>
-            <Select03 />
+            <Select03 filterInit={props.init} setFilterInit={props.setInit} />
           </S.OptSelect>
           <Select01
             left
             role="organization"
             data={props.organizationsData}
             setState={props.setOrganizationArr}
+            defaultChecked={props.organizationArr}
           />
         </S.OptBox>
         {props.isOptionOpen ? (
@@ -109,7 +110,7 @@ const AttendancesListPresenter = (props: IAttendancesListPresenterProps) => {
                 props.checkedList.length === 0
                   ? false
                   : props.checkedList.length ===
-                    props.data?.fetchListTypeSchedule.length
+                    props.data?.fetchDateMemberWorkChecks.length
               }
               onChange={(event) => props.onCheckedAll(event.target.checked)}
             />
@@ -129,9 +130,10 @@ const AttendancesListPresenter = (props: IAttendancesListPresenterProps) => {
           <li>출근시간 오차범위</li>
           <li>퇴근시간 오차범위</li>
         </S.Ul>
-        {props.data?.fetchListTypeSchedule.map((fetchData, i) => (
-          <S.Ul key={i}>
+        {props.data?.fetchDateMemberWorkChecks.map((fetchData, i) => (
+          <S.Ul key={i} onClick={props.onClickOpenModal}>
             <li>
+              {console.log(fetchData)}
               <Check01
                 onClick={(e) => {
                   e.stopPropagation();
@@ -143,16 +145,19 @@ const AttendancesListPresenter = (props: IAttendancesListPresenterProps) => {
               />
             </li>
             <li>{fetchData.member.name}</li>
-            <li>{getDateSlash(fetchData.date)}</li>
-            <li>10:05 - 18:55hc</li>
-            <li>{`${String(fetchData.scheduleTemplate.startTime)} - ${String(
-              fetchData.scheduleTemplate.endTime,
-            )}`}</li>
-            <li>{fetchData.organization.name}</li>
-            <li>{fetchData.roleCategory.name}</li>
-            <li>패스트파이브hc</li>
-            <li>패스트파이브hc</li>
-            <li>{fetchData.memo}</li>
+            <li>{getDateSlash(fetchData.workDay)}</li>
+            <li>{getTimeStr(fetchData.workingTime, fetchData.quittingTime)}</li>
+            <li>
+              {getTimeStr(
+                String(fetchData.schedule?.startWorkTime),
+                String(fetchData.schedule?.endWorkTime),
+              )}
+            </li>
+            <li>{fetchData.organization?.name}</li>
+            <li>{fetchData.roleCategory?.name}</li>
+            <li>{fetchData.organization?.checkPoint}</li>
+            <li>{fetchData.organization?.checkPoint}</li>
+            <li>{fetchData.workCheckMemo}</li>
             <li>1시간 12분hc</li>
             <li>3시간 56분hc</li>
             <li>- 5시간 4분hc</li>

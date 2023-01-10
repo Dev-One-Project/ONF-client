@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { IQuery } from '../../../../commons/types/generated/types';
 import { FETCH_ORGANIZATIONS } from '../leaveAccruals/leaveAccruals.queries';
@@ -10,7 +10,7 @@ const LeavesContainer = () => {
   const date = new Date();
   const [filterInit, setFilterInit] = useState(true);
   const [isCheckedChange, setIsCheckedChange] = useState(false);
-  const [, setOrganizationArr] = useState<IInputData[]>([{ id: '', name: '' }]);
+  const [organizationArr, setOrganizationArr] = useState<IInputData[]>([]);
   const [, setStartEndDate] = useState([
     new Date(date.getFullYear(), date.getMonth(), 1),
     new Date(date.getFullYear(), date.getMonth() + 1, 0),
@@ -57,6 +57,16 @@ const LeavesContainer = () => {
     }),
   );
 
+  useMemo(() => {
+    if (organizations !== undefined) {
+      const organization = organizations.fetchOrganizations.map((data) => ({
+        id: String(data.id),
+        name: String(data.name),
+      }));
+      setOrganizationArr(organization ?? []);
+    }
+  }, [organizations]);
+
   return (
     <LeavesPresenter
       filterInit={filterInit}
@@ -77,6 +87,7 @@ const LeavesContainer = () => {
       onClickCheckedChange={onClickCheckedChange}
       isCheckedChange={isCheckedChange}
       setIsCheckedChange={setIsCheckedChange}
+      organizationArr={organizationArr}
     />
   );
 };

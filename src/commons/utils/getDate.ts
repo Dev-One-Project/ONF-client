@@ -43,6 +43,6 @@ export const getTimeStr = (start: string, end: string) => {
     return timeStr;
   };
   const startStr = getTimeStr(new Date(start));
-  const endStr = getTimeStr(new Date(end));
+  const endStr = end ? getTimeStr(new Date(end)) : '';
   return startStr + ' - ' + endStr;
 };

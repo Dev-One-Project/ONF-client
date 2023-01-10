@@ -1,22 +1,26 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import AttendancesListPresenter from './attendancesList.presenter';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import {
   IQuery,
-  ISchedule,
+  IQueryFetchDateMemberWorkChecksArgs,
+  IWorkCheck,
 } from '../../../../../commons/types/generated/types';
 import {
-  FETCH_LIST_TYPE_SCHEDULE,
   FETCH_ORGANIZATIONS,
   CREATE_ADMIN_WORK_CHECK,
   DELETE_MANY_WORK_CHECK,
+  FETCH_DATE_MEMBER_WORK_CHECKS,
 } from './attendancesList.queries';
 import { Dayjs } from 'dayjs';
 
 import { useMutation, useQuery } from '@apollo/client';
 import { InputData } from '../../../../commons/input/select01';
+import { notification } from 'antd';
+import { CheckCircleOutlined } from '@ant-design/icons';
+import { styleSet } from '../../../../../commons/styles/styleSet';
 
 const schema = yup.object({
   startHour: yup.string().matches(/^\d{2}$/),
@@ -29,11 +33,10 @@ const AttendancesListContainer = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [aniMode, setAniMode] = useState(false);
   const [isOptionOpen, setIsOptionOpen] = useState(false);
-  const [organizationArr, setOrganizationArr] = useState<InputData[]>([
-    { id: '', name: '' },
-  ]);
+  const [init, setInit] = useState(false);
+  const [organizationArr, setOrganizationArr] = useState<InputData[]>([]);
 
-  const [checkedList, setCheckedList] = useState<ISchedule[]>([]);
+  const [checkedList, setCheckedList] = useState<IWorkCheck[]>([]);
 
   const [startEndDate, setStartEndDate] = useState([
     new Date(new Date().getFullYear(), new Date().getMonth(), 1),
@@ -53,16 +56,17 @@ const AttendancesListContainer = () => {
 
   const [deleteManyWorkCheck] = useMutation(DELETE_MANY_WORK_CHECK);
 
-  const { data } = useQuery<Pick<IQuery, 'fetchListTypeSchedule'>>(
-    FETCH_LIST_TYPE_SCHEDULE,
-    {
-      variables: {
-        organizationId: organizationArr?.map((organization) => organization.id),
-        startDate: startEndDate[0] ? startEndDate[0] : null,
-        endDate: startEndDate[1] ? startEndDate[1] : null,
-      },
+  const { data } = useQuery<
+    Pick<IQuery, 'fetchDateMemberWorkChecks'>,
+    IQueryFetchDateMemberWorkChecksArgs
+  >(FETCH_DATE_MEMBER_WORK_CHECKS, {
+    variables: {
+      organizationId: organizationArr?.map((organization) => organization.id),
+      startDate: startEndDate[0] ? startEndDate[0] : null,
+      endDate: startEndDate[1] ? startEndDate[1] : null,
+      isActiveMember: init,
     },
-  );
+  });
 
   const { data: organizations } =
     useQuery<Pick<IQuery, 'fetchOrganizations'>>(FETCH_ORGANIZATIONS);
@@ -73,6 +77,16 @@ const AttendancesListContainer = () => {
       name: String(organization.name),
     }),
   );
+
+  useMemo(() => {
+    if (organizations !== undefined) {
+      const organization = organizations.fetchOrganizations.map((data) => ({
+        id: String(data.id),
+        name: String(data.name),
+      }));
+      setOrganizationArr(organization ?? []);
+    }
+  }, [organizations]);
 
   const onChangeStartEndDate = (
     dates: null | Array<Dayjs | null>,
@@ -85,8 +99,8 @@ const AttendancesListContainer = () => {
   const onCheckedAll = useCallback(
     (checked) => {
       if (checked) {
-        const checkedListArray: ISchedule[] = [];
-        data?.fetchListTypeSchedule.forEach((list) =>
+        const checkedListArray: IWorkCheck[] = [];
+        data?.fetchDateMemberWorkChecks.forEach((list) =>
           checkedListArray.push(list),
         );
         setCheckedList(checkedListArray);
@@ -106,7 +120,6 @@ const AttendancesListContainer = () => {
         setIsOptionOpen(true);
       } else {
         setCheckedList(checkedList.filter((el) => el.id !== selectedTarget.id));
-        setIsOptionOpen(false);
       }
     },
     [checkedList],
@@ -116,6 +129,26 @@ const AttendancesListContainer = () => {
     try {
       await deleteManyWorkCheck({
         variables: { workCheckId: checkedList.map((el) => el.id) },
+        refetchQueries: [
+          {
+            query: FETCH_DATE_MEMBER_WORK_CHECKS,
+            variables: {
+              organizationId: organizationArr?.map(
+                (organization) => organization.id,
+              ),
+              startDate: startEndDate[0] ? startEndDate[0] : null,
+              endDate: startEndDate[1] ? startEndDate[1] : null,
+              isActiveMember: init,
+            },
+          },
+        ],
+      });
+      notification.open({
+        message: '정상적으로 삭제되었습니다.',
+        icon: (
+          <CheckCircleOutlined style={{ color: styleSet.colors.primary }} />
+        ),
+        style: { paddingBottom: '0.5rem' },
       });
     } catch (error) {
       alert('다시 ㄱㄱ');
@@ -130,6 +163,19 @@ const AttendancesListContainer = () => {
       console.log(rest);
       await createAdminWorkCheck({
         variables: { createWorkCheckInput: { ...rest } },
+        refetchQueries: [
+          {
+            query: FETCH_DATE_MEMBER_WORK_CHECKS,
+            variables: {
+              organizationId: organizationArr?.map(
+                (organization) => organization.id,
+              ),
+              startDate: startEndDate[0] ? startEndDate[0] : null,
+              endDate: startEndDate[1] ? startEndDate[1] : null,
+              isActiveMember: init,
+            },
+          },
+        ],
       });
       setAniMode(false);
     } catch (error) {
@@ -158,6 +204,9 @@ const AttendancesListContainer = () => {
       checkedList={checkedList}
       isOptionOpen={isOptionOpen}
       onClickDeleteChecked={onClickDeleteChecked}
+      organizationArr={organizationArr}
+      init={init}
+      setInit={setInit}
     />
   );
 };

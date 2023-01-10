@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   IVacationIssue,
@@ -109,6 +109,16 @@ const LeaveAccrualsContainer = () => {
       name: String(organization.name),
     }),
   );
+
+  useMemo(() => {
+    if (organizations !== undefined) {
+      const organization = organizations.fetchOrganizations.map((data) => ({
+        id: String(data.id),
+        name: String(data.name),
+      }));
+      setOrganizationArr(organization ?? []);
+    }
+  }, [organizations]);
 
   const { data: vDetail } = useQuery<
     Pick<IQuery, 'fetchVacationIssueDetailDate'>,
@@ -248,6 +258,7 @@ const LeaveAccrualsContainer = () => {
       onClickCheckedChange={onClickCheckedChange}
       onCheckedAll={onCheckedAll}
       onCheckedElement={onCheckedElement}
+      organizationArr={organizationArr}
     />
   );
 };

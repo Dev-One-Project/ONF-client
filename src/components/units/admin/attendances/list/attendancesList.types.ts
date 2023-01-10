@@ -9,7 +9,7 @@ import {
 import { Dayjs } from 'dayjs';
 import {
   IQuery,
-  ISchedule,
+  IWorkCheck,
 } from '../../../../../commons/types/generated/types';
 import { InputData } from '../../../../commons/input/select01';
 
@@ -30,10 +30,13 @@ export interface IAttendancesListPresenterProps {
     dates: null | Array<Dayjs | null>,
     dateString: string[],
   ) => void;
-  data?: Pick<IQuery, 'fetchListTypeSchedule'>;
+  data?: Pick<IQuery, 'fetchDateMemberWorkChecks'>;
   onCheckedAll: (checked: boolean) => void;
-  onCheckedElement: (checked: boolean, selectedTarget: ISchedule) => void;
-  checkedList: ISchedule[];
+  onCheckedElement: (checked: boolean, selectedTarget: IWorkCheck) => void;
+  checkedList: IWorkCheck[];
   isOptionOpen: boolean;
   onClickDeleteChecked: () => void;
+  organizationArr: InputData[];
+  init: boolean;
+  setInit: Dispatch<SetStateAction<boolean>>;
 }
