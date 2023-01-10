@@ -25,6 +25,9 @@ export interface IManageProps {
     members?: Pick<IQuery, 'fetchMembers'>;
     organizations?: Pick<IQuery, 'fetchOrganizations'>;
     roleCategories?: Pick<IQuery, 'fetchRoleCategories'>;
+    scheduleCategories?: Pick<IQuery, 'fetchAllScheduleCategories'>;
+    scheduleTemplates?: Pick<IQuery, 'fetchAllScheduleTemplates'>;
+    vacationCategories?: Pick<IQuery, 'fetchVacationCategorys'>;
   };
 }
 

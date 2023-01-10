@@ -108,7 +108,7 @@ const MemberForm = (props: IFormProps) => {
   const roleCategoryDefaultValue = props.editTarget?.roleCategory && [
     {
       id: String(props.editTarget?.roleCategory?.id),
-      name: String(props.editTarget?.roleCategory?.duty),
+      name: String(props.editTarget?.roleCategory?.name),
     },
   ];
 

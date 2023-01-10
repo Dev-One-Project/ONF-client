@@ -8,7 +8,8 @@ const OrganizationData = (props: { data?: IOrganization }) => {
       <Td></Td>
       <Td>{props.data?.address}</Td>
       <Td>
-        ({props.data?.lat}, {props.data?.lng}) [반경m]
+        ({Number(props.data?.lat).toFixed(5)},{' '}
+        {Number(props.data?.lng).toFixed(5)}) [반경m]
       </Td>
       <Td>{'와이파이 주소'}</Td>
       <Td>{props.data?.description}</Td>

@@ -2,7 +2,8 @@ import styled from '@emotion/styled';
 import { styleSet } from '../../../../commons/styles/styleSet';
 
 export const Container = styled.section`
-  max-width: 1270px;
+  /* max-width: 1270px; */
+  max-width: calc(100vw - 300px);
   overflow: auto;
 `;
 
@@ -17,6 +18,7 @@ export const Notice = styled.ul`
 
   li {
     min-width: 100px;
+    flex: 0;
   }
 `;
 

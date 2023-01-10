@@ -9,6 +9,9 @@ import {
   IOrganization,
   IQuery,
   IRoleCategory,
+  IScheduleCategory,
+  IScheduleTemplate,
+  IVacationCategory,
 } from '../../../../../commons/types/generated/types';
 
 import Check01 from '../../../../commons/input/check01';
@@ -16,12 +19,16 @@ import RowDataCells from './rowDataCells';
 
 interface IScrollableTableProps {
   tab: string;
-  isLocation?: boolean;
   onOpenEdit: (el: any) => void;
+
+  isLocation?: boolean;
   data?: {
     members?: Pick<IQuery, 'fetchMembers'>;
     organizations?: Pick<IQuery, 'fetchOrganizations'>;
     roleCategories?: Pick<IQuery, 'fetchRoleCategories'>;
+    scheduleCategories?: Pick<IQuery, 'fetchAllScheduleCategories'>;
+    scheduleTemplates?: Pick<IQuery, 'fetchAllScheduleTemplates'>;
+    vacationCategories?: Pick<IQuery, 'fetchVacationCategorys'>;
   };
 }
 
@@ -30,8 +37,18 @@ interface IStyle {
   isAdminSidebar?: boolean;
 }
 
+type IBodyData = Array<
+  | IMember
+  | IOrganization
+  | IRoleCategory
+  | IScheduleCategory
+  | IScheduleTemplate
+  | IVacationCategory
+  | String
+>;
+
 let headerData: string[] = [];
-let bodyData: IMember[] | IOrganization[] | string[] | IRoleCategory[] = [];
+let bodyData: IBodyData = [];
 
 const HTML_TD_TAG = 'TD';
 
@@ -43,9 +60,6 @@ const ScrollableTable = (props: IScrollableTableProps) => {
   const [isAdminSidebar] = useRecoilState(isAdminSidebarState);
 
   if (props.tab === '직원') {
-    // fetchMember
-    // 얻어와야하는 것
-    // - roles
     headerData = [
       '이름',
       '액세스 권한',
@@ -101,22 +115,7 @@ const ScrollableTable = (props: IScrollableTableProps) => {
       '휴일근무 미적용 여부',
       '메모',
     ];
-    bodyData = [
-      '외근',
-      // <div
-      //   key="key"
-      //   style={{
-      //     width: '25px',
-      //     height: '25px',
-      //     borderRadius: '5px',
-      //     backgroundColor: 'tomato',
-      //     marginLeft: '2px',
-      //   }}
-      // ></div>,
-      'X',
-      'O',
-      '하위하위',
-    ];
+    bodyData = props.data?.scheduleCategories?.fetchAllScheduleCategories ?? [];
   } else if (props.tab === '근무일정 템플릿') {
     headerData = [
       '템플릿명',
@@ -128,25 +127,7 @@ const ScrollableTable = (props: IScrollableTableProps) => {
       '색깔',
       '메모',
     ];
-    bodyData = [
-      '오전근무',
-      '09:00 - 13:00',
-      '재택근무',
-      '패파',
-      '프론트엔드',
-      '자동 휴게시간',
-      // <div
-      //   key="key"
-      //   style={{
-      //     width: '25px',
-      //     height: '25px',
-      //     borderRadius: '5px',
-      //     backgroundColor: 'gray',
-      //     marginLeft: '2px',
-      //   }}
-      // ></div>,
-      '히히',
-    ];
+    bodyData = props.data?.scheduleTemplates?.fetchAllScheduleTemplates ?? [];
   } else if (props.tab === '휴가 유형') {
     headerData = [
       '휴가 유형',
@@ -157,7 +138,7 @@ const ScrollableTable = (props: IScrollableTableProps) => {
       '차감 일수',
       '메모',
     ];
-    bodyData = ['반차', '패파', '프론트엔드', '하루 종일', '8h', '1', '메모'];
+    bodyData = props.data?.vacationCategories?.fetchVacationCategorys ?? [];
   }
 
   const onCheckedAll = useCallback((checked) => {

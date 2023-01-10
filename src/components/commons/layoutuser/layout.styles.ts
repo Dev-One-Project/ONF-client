@@ -138,13 +138,14 @@ export const Mypage = styled.article`
 // Sidebar
 export const Sidebar = styled.section`
   height: 100vh;
-  width: 400px;
+  min-width: 250px;
   padding: 1rem;
-  box-sizing: content-box;
+  box-sizing: border-box;
   box-shadow: 1px 0px 5px #eee;
   &.min {
     width: 300px;
   }
+  flex: 1 1 300px;
 `;
 
 export const H1 = styled.h1`
