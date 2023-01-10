@@ -19,7 +19,12 @@ const EmployeeModal = (props: any) => {
           <>
             <S.EmployeeModal>
               <div>
-                <span>합류코드</span> <Input01 type={'text'} />
+                <span>합류코드</span>{' '}
+                <Input01
+                  type={'text'}
+                  register={props.register('code')}
+                  error={props.formState.errors.code?.message}
+                />
               </div>
               <p>
                 * 합류코드는 관리자에게서 받은 초대 이메일/문자메시지에서 찾을
@@ -34,6 +39,7 @@ const EmployeeModal = (props: any) => {
                   bdC={styleSet.colors.primary}
                   bgC={styleSet.colors.primary}
                   color="#fff"
+                  onClick={props.onClickCloseEmployeeModal}
                 />
               </S.ButtonBox>
             </S.EmployeeModal>
