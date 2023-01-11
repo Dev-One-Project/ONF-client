@@ -86,7 +86,7 @@ const AdminHeaderPresenter = (props: IAdminHeaderPresenterProps) => {
               onClick={props.onClickModalOpen}
               style={{ padding: '0 0.5rem' }}
             >
-              <Switch01 />
+              <Switch01 aniMode={props.aniMode} />
             </li>
             <li>
               <ReloadOutlined

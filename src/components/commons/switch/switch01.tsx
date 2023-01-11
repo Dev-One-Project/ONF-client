@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { SetStateAction, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import { styleSet } from '../../../commons/styles/styleSet';
 
 interface ISwitch01Props {
@@ -7,6 +7,7 @@ interface ISwitch01Props {
   text?: string;
   init?: boolean;
   setInit?: SetStateAction<any>;
+  aniMode?: boolean;
 }
 
 const Switch01 = (props: ISwitch01Props) => {
@@ -16,6 +17,14 @@ const Switch01 = (props: ISwitch01Props) => {
     setIsOn(!isOn);
     props.setInit?.((prev: boolean) => !prev);
   };
+
+  useEffect(() => {
+    if (props.aniMode === false) {
+      setIsOn(false);
+    } else if (props.aniMode === true) {
+      setIsOn(true);
+    }
+  }, [props.aniMode]);
 
   return (
     <>

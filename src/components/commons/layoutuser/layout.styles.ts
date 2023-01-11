@@ -28,7 +28,7 @@ export const Header = styled.header`
     display: none;
   }
 
-  @media ${styleSet.breakPoints.tablet} {
+  @media ${styleSet.breakPoints.deskTop} {
     &.pc {
       display: none;
     }
@@ -135,10 +135,30 @@ export const Mypage = styled.article`
   }
 `;
 
+export const ModalWrapper = styled.section`
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 4rem;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  > h4 {
+    font-family: ${styleSet.fonts.B};
+  }
+  > span {
+    font-size: ${styleSet.fontSizes.small};
+  }
+`;
+
+export const BtnBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+`;
+
 // Sidebar
 export const Sidebar = styled.section`
   height: 100vh;
-  min-width: 250px;
   padding: 1rem;
   box-sizing: border-box;
   box-shadow: 1px 0px 5px #eee;
@@ -146,6 +166,10 @@ export const Sidebar = styled.section`
     width: 300px;
   }
   flex: 1 1 300px;
+
+  @media ${styleSet.breakPoints.deskTop} {
+    display: none;
+  }
 `;
 
 export const H1 = styled.h1`
@@ -332,6 +356,7 @@ export const Nav = styled.nav`
   top: 0;
   left: 0;
   display: none;
+  z-index: 999;
 
   @media ${styleSet.breakPoints.tablet} {
     display: block;

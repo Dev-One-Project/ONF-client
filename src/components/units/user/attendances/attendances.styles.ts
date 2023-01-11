@@ -2,10 +2,13 @@ import styled from '@emotion/styled';
 import { styleSet } from '../../../../commons/styles/styleSet';
 
 export const Container = styled.section`
-  /* max-width: 1270px; */
   max-width: calc(100vw - 300px);
   overflow: auto;
   padding-bottom: 1rem;
+
+  @media ${styleSet.breakPoints.deskTop} {
+    min-width: 100%;
+  }
 `;
 
 export const Notice = styled.ul`
