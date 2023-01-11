@@ -28,7 +28,7 @@ interface IScrollableTableProps {
     roleCategories?: Pick<IQuery, 'fetchRoleCategories'>;
     scheduleCategories?: Pick<IQuery, 'fetchAllScheduleCategories'>;
     scheduleTemplates?: Pick<IQuery, 'fetchAllScheduleTemplates'>;
-    vacationCategories?: Pick<IQuery, 'fetchVacationCategorys'>;
+    vacationCategories?: Pick<IQuery, 'fetchVacationCategories'>;
   };
 }
 
@@ -138,9 +138,9 @@ const ScrollableTable = (props: IScrollableTableProps) => {
       '차감 일수',
       '메모',
     ];
-    bodyData = props.data?.vacationCategories?.fetchVacationCategorys ?? [];
+    bodyData = props.data?.vacationCategories?.fetchVacationCategories ?? [];
   }
-
+  console.log('bodyData', bodyData);
   const onCheckedAll = useCallback((checked) => {
     if (checked) {
       const checkedListArray: Array<JSX.Element | string | {}> = [];

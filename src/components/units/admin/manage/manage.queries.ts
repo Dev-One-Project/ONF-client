@@ -108,23 +108,23 @@ export const FETCH_ALL_SCHEDULE_TEMPLATE = gql`
 //   }
 // `
 
-export const FETCH_VACATION_CATEGORYS = gql`
+export const FETCH_VACATION_CATEGORIES = gql`
   query {
-    fetchVacationCategorys {
+    fetchVacationCategories {
       id
       name
       timeOption
       memo
       paidTime
       deductionDays
-      # organization {
-      #   id
-      #   name
-      # }
-      # roleCategory {
-      #   id
-      #   name
-      # }
+      organization {
+        id
+        name
+      }
+      roleCategory {
+        id
+        name
+      }
     }
   }
 `;
