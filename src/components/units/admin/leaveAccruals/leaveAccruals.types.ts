@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 import {
+  Control,
   FieldValues,
   UseFormHandleSubmit,
   UseFormRegister,
@@ -62,6 +63,9 @@ export interface ILeaveAccrualsPresenterProps {
   checkedList: IVacationIssue[];
   dataLength: number;
   organizationArr: InputData[];
+  isOptionOpen: boolean;
+  onClickDeleteChecked: () => void;
+  control: Control<FieldValues, any>;
 }
 
 export interface IInputData {

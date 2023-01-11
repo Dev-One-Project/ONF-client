@@ -92,18 +92,19 @@ export const Ul = styled.ul`
   padding: 0.1rem 0;
   min-width: 700px;
   li:not(:first-of-type) {
-    min-width: 85px;
     padding: 0.5rem;
     font-family: ${styleSet.fonts.EB};
+    flex: 1;
   }
   li:nth-of-type(1) {
     padding-left: 1rem;
+    width: 4rem;
+  }
+  li:nth-of-type(2) {
+    flex: 0.7;
   }
   li:nth-of-type(3) {
-    width: 21%;
-    @media ${styleSet.breakPoints.tablet} {
-      max-width: 15%;
-    }
+    flex: 1.3;
   }
 `;
 
@@ -154,4 +155,8 @@ export const P = styled.p`
   :nth-of-type(1) {
     width: 110px;
   }
+`;
+
+export const EmptyBox = styled.div`
+  height: 36.5px;
 `;

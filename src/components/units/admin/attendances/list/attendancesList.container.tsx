@@ -6,7 +6,7 @@ import * as yup from 'yup';
 import {
   IQuery,
   IQueryFetchDateMemberWorkChecksArgs,
-  IWorkCheck,
+  IWorkCheckOutput,
 } from '../../../../../commons/types/generated/types';
 import {
   FETCH_ORGANIZATIONS,
@@ -36,7 +36,7 @@ const AttendancesListContainer = () => {
   const [init, setInit] = useState(false);
   const [organizationArr, setOrganizationArr] = useState<InputData[]>([]);
 
-  const [checkedList, setCheckedList] = useState<IWorkCheck[]>([]);
+  const [checkedList, setCheckedList] = useState<IWorkCheckOutput[]>([]);
 
   const [startEndDate, setStartEndDate] = useState([
     new Date(new Date().getFullYear(), new Date().getMonth(), 1),
@@ -99,7 +99,7 @@ const AttendancesListContainer = () => {
   const onCheckedAll = useCallback(
     (checked) => {
       if (checked) {
-        const checkedListArray: IWorkCheck[] = [];
+        const checkedListArray: IWorkCheckOutput[] = [];
         data?.fetchDateMemberWorkChecks.forEach((list) =>
           checkedListArray.push(list),
         );
@@ -128,7 +128,7 @@ const AttendancesListContainer = () => {
   const onClickDeleteChecked = async () => {
     try {
       await deleteManyWorkCheck({
-        variables: { workCheckId: checkedList.map((el) => el.id) },
+        variables: { workCheckId: checkedList.map((checked) => checked.id) },
         refetchQueries: [
           {
             query: FETCH_DATE_MEMBER_WORK_CHECKS,

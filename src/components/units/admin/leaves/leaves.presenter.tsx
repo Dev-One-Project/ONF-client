@@ -10,6 +10,7 @@ import * as S from './leaves.styles';
 import FallingModal from '../../../commons/modal/fallingModal';
 import Select02 from '../../../commons/input/select02';
 import Textarea from '../../../commons/textarea';
+import LeaveOptionalFetch from './modules/leaveOptionalFetch';
 
 const LeavesPresenter = (props: ILeavesPresenterProps) => {
   return (
@@ -197,27 +198,38 @@ const LeavesPresenter = (props: ILeavesPresenterProps) => {
             left
           />
         </S.OptBox>
-        <S.OptBox>
-          <S.OptSelect>
-            <Btn01
-              text={'휴가 유형 변경'}
-              bdC={styleSet.colors.gray}
-              onClick={props.onClickCheckedChange}
-            />
-            <Btn01
-              text={'모두 삭제'}
-              bdC={styleSet.colors.gray}
-              color={styleSet.colors.fail}
-            />
-          </S.OptSelect>
-          {/* <S.SelectBox>목록</S.SelectBox> */}
-        </S.OptBox>
+        {props.isOptionOpen ? (
+          <S.OptBox>
+            <S.OptSelect>
+              <Btn01
+                text={'휴가 유형 변경'}
+                bdC={styleSet.colors.gray}
+                onClick={props.onClickCheckedChange}
+              />
+              <Btn01
+                text={'모두 삭제'}
+                bdC={styleSet.colors.gray}
+                color={styleSet.colors.fail}
+                onClick={props.onClickDeleteChecked}
+              />
+            </S.OptSelect>
+          </S.OptBox>
+        ) : (
+          <S.EmptyBox></S.EmptyBox>
+        )}
       </S.OptWrapper>
 
       <S.UlWrapper>
         <S.Ul>
           <li>
-            <Check01 />
+            <Check01
+              checked={
+                props.checkedList.length === 0
+                  ? false
+                  : props.checkedList.length === props.dataLength
+              }
+              onChange={(event) => props.onCheckedAll(event.target.checked)}
+            />
           </li>
           <li>직원</li>
           <li>휴가 기간</li>
@@ -226,17 +238,14 @@ const LeavesPresenter = (props: ILeavesPresenterProps) => {
           <li>차감 일수</li>
           <li>사유</li>
         </S.Ul>
-        <S.Ul onClick={props.onClickList}>
-          <li>
-            <Check01 />
-          </li>
-          <li>에스쿱스</li>
-          <li>12월 5일 (월) 10:00 - 14:00</li>
-          <li>반차</li>
-          <li>4h</li>
-          <li>0.5일</li>
-          <li>매롱</li>
-        </S.Ul>
+        <LeaveOptionalFetch
+          onClickList={props.onClickList}
+          filterInit={props.filterInit}
+          withDate={props.withDate}
+          withDelete={props.withDelete}
+          onCheckedElement={props.onCheckedElement}
+          checkedList={props.checkedList}
+        />
       </S.UlWrapper>
     </S.Container>
   );

@@ -5,6 +5,7 @@ import {
   UseFormRegister,
   UseFormSetValue,
 } from 'react-hook-form';
+import { IQuery, IVacation } from '../../../../commons/types/generated/types';
 import { InputData } from '../../../commons/input/select01';
 
 export interface ILeavesPresenterProps {
@@ -27,6 +28,14 @@ export interface ILeavesPresenterProps {
   isCheckedChange: boolean;
   setIsCheckedChange: SetStateAction<any>;
   organizationArr: InputData[];
+  withDate?: Pick<IQuery, 'fetchVacationWithDate'>;
+  withDelete?: Pick<IQuery, 'fetchVacationWithDelete'>;
+  onCheckedAll: (checked: boolean) => void;
+  onCheckedElement: (checked: boolean, selectedTarget: IVacation) => void;
+  dataLength: number;
+  checkedList: IVacation[];
+  isOptionOpen: boolean;
+  onClickDeleteChecked: () => void;
 }
 
 export interface IInputData {

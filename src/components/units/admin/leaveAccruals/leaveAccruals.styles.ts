@@ -139,7 +139,6 @@ export const SelectListUl = styled.ul`
   align-items: center;
   justify-content: space-between;
   padding: 0.1rem 0;
-  /* min-width: 600px; */
   li {
     min-width: 120px;
     padding: 0.5rem;
@@ -164,6 +163,7 @@ export const ListUl = styled.ul`
   }
   li:nth-of-type(1) {
     flex: 0.3;
+    width: 1rem;
   }
   li:nth-of-type(6) {
     flex: 1.2;
@@ -282,4 +282,9 @@ export const P = styled.p`
   color: #777;
   font-size: ${styleSet.fontSizes.small};
   margin-bottom: 1rem;
+`;
+
+export const EmptyBox = styled.div`
+  height: 36.5px;
+  width: 100%;
 `;
