@@ -125,3 +125,19 @@ export const FETCH_ORGANIZATIONS = gql`
     }
   }
 `;
+
+export const DELETE_MANY_VACATION_ISSUE = gql`
+  mutation deleteManyVacationIssue($vacationIssueId: [String!]!) {
+    deleteManyVacationIssue(vacationIssueId: $vacationIssueId)
+  }
+`;
+
+export const CREATE_VACATION_ISSUE = gql`
+  mutation createVacationIssue(
+    $createVacationIssueInput: CreateVacationIssueInput!
+  ) {
+    createVacationIssue(createVacationIssueInput: $createVacationIssueInput) {
+      id
+    }
+  }
+`;

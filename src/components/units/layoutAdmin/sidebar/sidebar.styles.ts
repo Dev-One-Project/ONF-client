@@ -17,6 +17,7 @@ export const Wrapper = styled.section`
   z-index: 999;
   padding-top: 4.5rem;
   transition: 0.3s;
+  overflow-y: auto;
   @media ${styleSet.breakPoints.tablet} {
     width: ${(props: IAdminSidebarPresenterProps) =>
       props.isAdminSidebar

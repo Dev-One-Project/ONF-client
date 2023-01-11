@@ -133,7 +133,6 @@ const AttendancesListPresenter = (props: IAttendancesListPresenterProps) => {
         {props.data?.fetchDateMemberWorkChecks.map((fetchData, i) => (
           <S.Ul key={i} onClick={props.onClickOpenModal}>
             <li>
-              {console.log(fetchData)}
               <Check01
                 onClick={(e) => {
                   e.stopPropagation();

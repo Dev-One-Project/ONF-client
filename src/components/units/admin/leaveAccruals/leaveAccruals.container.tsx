@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { useCallback, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
@@ -16,13 +16,15 @@ import {
   FETCH_VACATION_ISSUE_BASE,
   FETCH_VACATION_ISSUE_BASE_DELETE,
   FETCH_VACATION_ISSUE_DETAIL,
+  DELETE_MANY_VACATION_ISSUE,
+  CREATE_VACATION_ISSUE,
 } from './leaveAccruals.queries';
 import { IInputData } from './leaveAccruals.types';
 import { Dayjs } from 'dayjs';
 
 const LeaveAccrualsContainer = () => {
   const date = new Date();
-  const { register, handleSubmit, setValue } = useForm();
+  const { register, handleSubmit, setValue, control } = useForm();
 
   const [isSelect, setIsSelect] = useState(true);
   const [isSelectOpen, setIsSelectOpen] = useState(false);
@@ -33,6 +35,7 @@ const LeaveAccrualsContainer = () => {
   const [checkedList, setCheckedList] = useState<IVacationIssue[]>([]);
   const [dataLength, setDataLength] = useState(0);
   const [baseDate] = useState(date);
+  const [isOptionOpen, setIsOptionOpen] = useState(false);
   const [startEndDate, setStartEndDate] = useState([
     new Date(date.getFullYear(), date.getMonth(), 1),
     new Date(date.getFullYear(), date.getMonth() + 1, 0),
@@ -44,9 +47,10 @@ const LeaveAccrualsContainer = () => {
   const [memoChecked, setMemoChecked] = useState(false);
   const [init, setInit] = useState(true);
   const [filterInit, setFilterInit] = useState(true);
-  const [organizationArr, setOrganizationArr] = useState<IInputData[]>([
-    { id: '', name: '' },
-  ]);
+  const [organizationArr, setOrganizationArr] = useState<IInputData[]>([]);
+
+  const [createVacationIssue] = useMutation(CREATE_VACATION_ISSUE);
+  const [deleteManyVacationIssue] = useMutation(DELETE_MANY_VACATION_ISSUE);
 
   const onClickOpenModal = () => {
     setIsOpen(true);
@@ -78,10 +82,17 @@ const LeaveAccrualsContainer = () => {
     setFilterInit(true);
   };
 
-  const onSubmit = (data: any) => () => {
-    if (data) {
-      console.log(data);
+  const onSubmit = async (data: any) => {
+    console.log(data);
+    try {
+      data.memberId = 'a7b63f68-807d-482d-989b-41e1ca4e9e71';
+      data.vacationAll = Number(data.vacationAll);
+      await createVacationIssue({
+        variables: { createVacationIssueInput: data },
+      });
       setAniMode(false);
+    } catch (error) {
+      alert('다시하라우');
     }
   };
 
@@ -178,38 +189,127 @@ const LeaveAccrualsContainer = () => {
           );
           setCheckedList(checkedListArray);
           setDataLength(checkedListArray.length);
+          setIsOptionOpen(true);
         } else if (!init && filterInit) {
           vDetail?.fetchVacationIssueDetailDate.forEach((list) =>
             checkedListArray.push(...list),
           );
           setCheckedList(checkedListArray);
           setDataLength(checkedListArray.length);
+          setIsOptionOpen(true);
         } else if (init && filterInit) {
           vBase?.fetchVacationIssueBaseDate.forEach((list) =>
             checkedListArray.push(...list),
           );
           setCheckedList(checkedListArray);
           setDataLength(checkedListArray.length);
+          setIsOptionOpen(true);
         } else {
           vBaseDelete?.fetchVacationIssueWithBaseDateDelete.forEach((list) =>
             checkedListArray.push(...list),
           );
           setCheckedList(checkedListArray);
           setDataLength(checkedListArray.length);
+          setIsOptionOpen(true);
         }
-      } else setCheckedList([]);
+      } else {
+        setCheckedList([]);
+        setIsOptionOpen(false);
+      }
     },
     [init, filterInit, vDetail, vDetailDelete, vBase, vBaseDelete],
   );
 
   const onCheckedElement = useCallback(
     (checked, selectedTarget) => {
-      if (checked) setCheckedList([...checkedList, selectedTarget]);
-      else
+      if (checked) {
+        setCheckedList([...checkedList, selectedTarget]);
+        setIsOptionOpen(true);
+      } else
         setCheckedList(checkedList.filter((el) => el.id !== selectedTarget.id));
     },
     [checkedList],
   );
+
+  const onClickDeleteChecked = async () => {
+    if (!init && !filterInit) {
+      await deleteManyVacationIssue({
+        variables: {
+          vacationIssueId: checkedList.map((checked) => checked.id),
+        },
+        refetchQueries: [
+          {
+            query: FETCH_VACATION_ISSUE_DETAIL_DELETE,
+            variables: {
+              baseDate,
+              organizationId: organizationArr?.map(
+                (organization) => organization.id,
+              ),
+              startDate: startEndDate[0] ? startEndDate[0] : null,
+              endDate: startEndDate[1] ? startEndDate[1] : null,
+            },
+          },
+        ],
+      });
+    } else if (!init && filterInit) {
+      await deleteManyVacationIssue({
+        variables: {
+          vacationIssueId: checkedList.map((checked) => checked.id),
+        },
+        refetchQueries: [
+          {
+            query: FETCH_VACATION_ISSUE_DETAIL,
+            variables: {
+              baseDate,
+              organizationId: organizationArr?.map(
+                (organization) => organization.id,
+              ),
+              startDate: startEndDate[0] ? startEndDate[0] : null,
+              endDate: startEndDate[1] ? startEndDate[1] : null,
+            },
+          },
+        ],
+      });
+    } else if (init && filterInit) {
+      await deleteManyVacationIssue({
+        variables: {
+          vacationIssueId: checkedList.map((checked) => checked.id),
+        },
+        refetchQueries: [
+          {
+            query: FETCH_VACATION_ISSUE_BASE,
+            variables: {
+              baseDate,
+              organizationId: organizationArr?.map(
+                (organization) => organization.id,
+              ),
+              startDate: startEndDate[0] ? startEndDate[0] : null,
+              endDate: startEndDate[1] ? startEndDate[1] : null,
+            },
+          },
+        ],
+      });
+    } else {
+      await deleteManyVacationIssue({
+        variables: {
+          vacationIssueId: checkedList.map((checked) => checked.id),
+        },
+        refetchQueries: [
+          {
+            query: FETCH_VACATION_ISSUE_BASE_DELETE,
+            variables: {
+              baseDate,
+              organizationId: organizationArr?.map(
+                (organization) => organization.id,
+              ),
+              startDate: startEndDate[0] ? startEndDate[0] : null,
+              endDate: startEndDate[1] ? startEndDate[1] : null,
+            },
+          },
+        ],
+      });
+    }
+  };
 
   return (
     <LeaveAccrualsPresenter
@@ -259,6 +359,9 @@ const LeaveAccrualsContainer = () => {
       onCheckedAll={onCheckedAll}
       onCheckedElement={onCheckedElement}
       organizationArr={organizationArr}
+      isOptionOpen={isOptionOpen}
+      onClickDeleteChecked={onClickDeleteChecked}
+      control={control}
     />
   );
 };

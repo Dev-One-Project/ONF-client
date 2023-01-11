@@ -21,7 +21,7 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
       <S.TopWrapper>
         <S.H1>휴가 발생</S.H1>
         <Btn01
-          text={'휴가 발생'}
+          text={'+ 휴가 발생'}
           color={styleSet.colors.white}
           bgC={styleSet.colors.primary}
           onClick={props.onClickOpenModal}
@@ -42,6 +42,7 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
             onSubmit={props.onSubmit}
             onClickCloseModal={props.onClickCloseModal}
             register={props.register}
+            control={props.control}
           />
         </FallingModal>
       )}
@@ -178,6 +179,7 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
                     onSubmit={props.onSubmit}
                     onClickCloseModal={() => props.setIsMemberOpen(false)}
                     register={props.register}
+                    setValue={props.setValue}
                   />
                 </S.Right>
               ) : (
@@ -308,18 +310,23 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
             </S.OptSelect>
           </S.OptBox>
           <S.OptBox>
-            <S.OptSelect>
-              <Btn01
-                text={'휴가 유형 변경'}
-                bdC={styleSet.colors.gray}
-                onClick={props.onClickCheckedChange}
-              />
-              <Btn01
-                text={'모두 삭제'}
-                bdC={styleSet.colors.gray}
-                color={styleSet.colors.fail}
-              />
-            </S.OptSelect>
+            {props.isOptionOpen ? (
+              <S.OptSelect>
+                <Btn01
+                  text={'휴가 유형 변경'}
+                  bdC={styleSet.colors.gray}
+                  onClick={props.onClickCheckedChange}
+                />
+                <Btn01
+                  text={'모두 삭제'}
+                  bdC={styleSet.colors.gray}
+                  color={styleSet.colors.fail}
+                  onClick={props.onClickDeleteChecked}
+                />
+              </S.OptSelect>
+            ) : (
+              <S.EmptyBox></S.EmptyBox>
+            )}
             <S.SelectBox
               onClick={props.onClickEmployee}
               className={props.isSelect ? 'active' : ''}

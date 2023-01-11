@@ -65,6 +65,9 @@ export const UlWrapper = styled.section`
   }
   ul:not(:first-of-type) {
     border-bottom: 1px solid ${styleSet.colors.gray};
+    :hover {
+      background: #ddd;
+    }
     li {
       font-family: ${styleSet.fonts.M};
     }
@@ -78,15 +81,14 @@ export const Ul = styled.ul`
   justify-content: space-between;
   padding: 0.1rem 0;
   min-width: 1900px;
-  :hover {
-    background: #ddd;
-  }
+
   li:not(:first-of-type) {
-    min-width: 115px;
+    min-width: 120px;
     padding: 0.5rem;
   }
   li:nth-of-type(1) {
     padding: 1rem;
+    width: 6rem;
   }
 
   li:nth-of-type(8) {

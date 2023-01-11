@@ -46,3 +46,11 @@ export const getTimeStr = (start: string, end: string) => {
   const endStr = end ? getTimeStr(new Date(end)) : '';
   return startStr + ' - ' + endStr;
 };
+
+export const getDateLeave = (start: Date, end: Date) => {
+  const date = new Date(start);
+  const mm = String(date.getMonth() + 1);
+  const dd = String(date.getDate()).padStart(2, '0');
+  const day = dayToString(date.getDay());
+  return `${mm}월 ${dd}일 (${day})`;
+};
