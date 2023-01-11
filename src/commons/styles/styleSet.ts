@@ -34,5 +34,6 @@ export const styleSet = {
   breakPoints: {
     mobile: '(max-width: 767px)',
     tablet: '(max-width: 1024px)',
+    deskTop: '(max-width: 1300px)',
   },
 };

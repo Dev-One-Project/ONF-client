@@ -2,7 +2,13 @@ import styled from '@emotion/styled';
 import { styleSet } from '../../../../commons/styles/styleSet';
 
 export const Container = styled.section`
+  max-width: calc(100vw - 300px);
+  overflow: auto;
   width: 100%;
+
+  @media ${styleSet.breakPoints.deskTop} {
+    min-width: 100%;
+  }
 `;
 export const Wrapper = styled.main`
   margin: 0 auto;
