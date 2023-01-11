@@ -121,18 +121,18 @@ const JoinContainer = () => {
         register={register}
         formState={formState}
         checkedList={checkedList}
+        isOpenAdmin={isOpenAdmin}
         handleSubmit={handleSubmit}
         onClickSubmit={onClickSubmit}
-        onChangeChecked={onChangeChecked}
-        checkboxContents={checkboxContents}
-        onChangeCheckedAll={onChangeCheckedAll}
-        onClickCloseModal={onClickCloseModal}
-        onClickAdminModal={onClickAdminModal}
-        onClickEmployeeModal={onClickEmployeeModal}
-        isOpenAdmin={isOpenAdmin}
         setIsOpenAdmin={setIsOpenAdmin}
         isOpenEmployee={isOpenEmployee}
+        onChangeChecked={onChangeChecked}
+        checkboxContents={checkboxContents}
+        onClickCloseModal={onClickCloseModal}
+        onClickAdminModal={onClickAdminModal}
         setIsOpenEmployee={setIsOpenEmployee}
+        onChangeCheckedAll={onChangeCheckedAll}
+        onClickEmployeeModal={onClickEmployeeModal}
         onClickCloseAdminModal={onClickCloseAdminModal}
         onClickCloseEmployeeModal={onClickCloseEmployeeModal}
       />

@@ -37,9 +37,6 @@ export default UserLayout;
 const ChildrenBox = styled.div`
   padding: 1rem;
   width: 100%;
-  @media ${styleSet.breakPoints.tablet} {
-    margin-left: 6rem;
-  }
 `;
 
 const FlexBox = styled.div`
