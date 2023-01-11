@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import Image from 'next/image';
 import { ChangeEvent, useEffect, useState } from 'react';
 import {
   FieldError,
@@ -103,7 +104,7 @@ const Div = styled.div`
   align-self: center;
 `;
 
-const Img = styled.img`
+const Img = styled(Image)`
   width: 7rem;
 `;
 

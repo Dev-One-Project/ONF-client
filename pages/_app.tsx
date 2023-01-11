@@ -10,7 +10,7 @@ import UserLayout from '../src/components/commons/layoutUser';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  const HIDDEN_LAYOUT = ['/auth/login', '/auth/join'];
+  const HIDDEN_LAYOUT = ['/auth/login', '/auth/join', '/'];
 
   const isUserPage = router.asPath.includes('/user');
   const hiddenLayout = HIDDEN_LAYOUT.includes(router.asPath);
