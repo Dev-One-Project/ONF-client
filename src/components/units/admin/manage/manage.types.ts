@@ -16,6 +16,9 @@ export interface IManagePresenterProps {
     members?: Pick<IQuery, 'fetchMembers'>;
     organizations?: Pick<IQuery, 'fetchOrganizations'>;
     roleCategories?: Pick<IQuery, 'fetchRoleCategories'>;
+    scheduleCategories?: Pick<IQuery, 'fetchAllScheduleCategories'>;
+    scheduleTemplates?: Pick<IQuery, 'fetchAllScheduleTemplates'>;
+    vacationCategories?: Pick<IQuery, 'fetchVacationCategories'>;
   };
 }
 
@@ -27,7 +30,7 @@ export interface IManageProps {
     roleCategories?: Pick<IQuery, 'fetchRoleCategories'>;
     scheduleCategories?: Pick<IQuery, 'fetchAllScheduleCategories'>;
     scheduleTemplates?: Pick<IQuery, 'fetchAllScheduleTemplates'>;
-    vacationCategories?: Pick<IQuery, 'fetchVacationCategorys'>;
+    vacationCategories?: Pick<IQuery, 'fetchVacationCategories'>;
   };
 }
 

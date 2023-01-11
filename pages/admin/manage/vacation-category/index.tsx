@@ -1,12 +1,12 @@
 import { useQuery } from '@apollo/client';
 import { IQuery } from '../../../../src/commons/types/generated/types';
 import Manage from '../../../../src/components/units/admin/manage/manage.container';
-import { FETCH_VACATION_CATEGORYS } from '../../../../src/components/units/admin/manage/manage.queries';
+import { FETCH_VACATION_CATEGORIES } from '../../../../src/components/units/admin/manage/manage.queries';
 
 const VacationCategory = () => {
   const { data: vacationCategories } = useQuery<
-    Pick<IQuery, 'fetchVacationCategorys'>
-  >(FETCH_VACATION_CATEGORYS);
+    Pick<IQuery, 'fetchVacationCategories'>
+  >(FETCH_VACATION_CATEGORIES);
   const data = {
     vacationCategories,
   };

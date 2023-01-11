@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { IVacationCategory } from '../../../../../../../commons/types/generated/types';
 const VacationCategoryData = (props: { data?: IVacationCategory }) => {
+  console.log('?', props.data);
   return (
     <>
       <Td>{props.data?.name}</Td>
