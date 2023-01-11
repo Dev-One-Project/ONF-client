@@ -31,14 +31,13 @@ export const Section = styled.section`
 export const Ul = styled.ul`
   display: flex;
   align-items: center;
-  gap: 10px;
   box-sizing: border-box;
   margin-right: 1rem;
   li {
     font-family: ${styleSet.fonts.B};
     font-size: ${styleSet.fontSizes.strong};
     cursor: pointer;
-    padding: 5px;
+    padding: 5px 0;
     box-sizing: border-box;
     &:hover {
       color: ${styleSet.colors.primary};

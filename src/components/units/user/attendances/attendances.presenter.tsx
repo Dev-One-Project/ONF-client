@@ -1,7 +1,8 @@
 import { getDateSlash, getTimeStr } from '../../../../commons/utils/getDate';
 import * as S from './attendances.styles';
+import { IUserAttenancesProps } from './attendances.types';
 
-const AttendancesPresenter = () => {
+const AttendancesPresenter = (props: IUserAttenancesProps) => {
   return (
     <>
       <S.Container>

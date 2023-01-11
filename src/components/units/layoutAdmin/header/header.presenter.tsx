@@ -77,7 +77,7 @@ const AdminHeaderPresenter = (props: IAdminHeaderPresenterProps) => {
                 />
               </li>
             </S.Ul>
-            <Image src="/logo.png" alt="logo" width={16} height={16} />
+            <Image src="/icon_logo.png" alt="logo" width={80} height={30} />
           </S.Section>
         </S.Header>
         <S.Section>
@@ -95,9 +95,11 @@ const AdminHeaderPresenter = (props: IAdminHeaderPresenterProps) => {
               />
             </li>
             <li>
-              <SettingOutlined
-                onClick={() => props.setIsOpen((prev: boolean) => !prev)}
-              />
+              <span>
+                <SettingOutlined
+                  onClick={() => props.setIsOpen((prev: boolean) => !prev)}
+                />
+              </span>
             </li>
           </S.Ul>
           <S.ChangeBtn>

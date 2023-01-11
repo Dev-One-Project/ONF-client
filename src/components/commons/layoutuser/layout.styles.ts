@@ -28,7 +28,7 @@ export const Header = styled.header`
     display: none;
   }
 
-  @media ${styleSet.breakPoints.tablet} {
+  @media ${styleSet.breakPoints.deskTop} {
     &.pc {
       display: none;
     }
@@ -78,7 +78,7 @@ export const Ul2 = styled.ul`
   box-sizing: border-box;
   position: relative;
 
-  li {
+  > li {
     font-family: ${styleSet.fonts.B};
     font-size: ${styleSet.fontSizes.normal};
     cursor: pointer;
@@ -91,6 +91,7 @@ export const Ul2 = styled.ul`
 
     span {
       font-size: ${styleSet.fontSizes.strong};
+      line-height: 0;
     }
   }
 `;
@@ -116,7 +117,8 @@ export const Mypage = styled.article`
     gap: 5px;
     li {
       width: 100%;
-      padding-left: 1rem;
+
+      padding: 0.5rem 0.5rem 0.5rem 1rem;
       font-size: ${styleSet.fontSizes.small};
       &:first-of-type {
         border-bottom: 1px solid ${styleSet.colors.lightGray};
@@ -135,10 +137,30 @@ export const Mypage = styled.article`
   }
 `;
 
+export const ModalWrapper = styled.section`
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 4rem;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  > h4 {
+    font-family: ${styleSet.fonts.B};
+  }
+  > span {
+    font-size: ${styleSet.fontSizes.small};
+  }
+`;
+
+export const BtnBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+`;
+
 // Sidebar
 export const Sidebar = styled.section`
   height: 100vh;
-  min-width: 250px;
   padding: 1rem;
   box-sizing: border-box;
   box-shadow: 1px 0px 5px #eee;
@@ -146,6 +168,10 @@ export const Sidebar = styled.section`
     width: 300px;
   }
   flex: 1 1 300px;
+
+  @media ${styleSet.breakPoints.deskTop} {
+    display: none;
+  }
 `;
 
 export const H1 = styled.h1`
@@ -332,8 +358,9 @@ export const Nav = styled.nav`
   top: 0;
   left: 0;
   display: none;
+  z-index: 999;
 
-  @media ${styleSet.breakPoints.tablet} {
+  @media ${styleSet.breakPoints.deskTop} {
     display: block;
   }
 `;

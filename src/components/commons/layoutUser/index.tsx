@@ -1,9 +1,8 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
-import { styleSet } from '../../../commons/styles/styleSet';
 import UserHeaderPage from '../layoutUser/header';
-import { IUserLayoutProps } from '../layoutUser/layout.types';
 import UserScheduleSideBar from '../layoutUser/sidebar/schedule';
+import { IUserLayout } from './layout.types';
 import UserAttendancesSideBar from './sidebar/attendances';
 
 import UserRequestSideBar from './sidebar/requests';
@@ -13,7 +12,7 @@ const SCHEDULE = ['/user/schedule'];
 const ATTENDANCES = ['/user/attendances'];
 const REQUEST = ['/user/requests'];
 
-const UserLayout = (props: IUserLayoutProps) => {
+const UserLayout = (props: IUserLayout) => {
   const router = useRouter();
   const hidden = HIDDEN.includes(router.asPath);
   const schedule = SCHEDULE.includes(router.asPath);

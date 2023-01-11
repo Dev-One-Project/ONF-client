@@ -3,7 +3,6 @@ import { styleSet } from '../../../../commons/styles/styleSet';
 
 export const Container = styled.section`
   max-width: calc(100vw - 300px);
-  overflow: auto;
   width: 100%;
 
   @media ${styleSet.breakPoints.deskTop} {
