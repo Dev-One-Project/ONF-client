@@ -9,7 +9,7 @@ const NoticeListContainer = () => {
   const { data: fetchAllNoticeBoards } = useQuery(FETCH_ALL_NOTICE_BOARDS);
   const [boardId, setBoardId] = useRecoilState(changeNoticeBoardIdState);
   const [page, setPage] = useState(1);
-  const limit = 23;
+  const limit = 13;
   const offset = (page - 1) * limit;
 
   const onClickBoard = (id: string) => () => {

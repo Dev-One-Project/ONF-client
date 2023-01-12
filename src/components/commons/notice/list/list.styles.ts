@@ -71,6 +71,12 @@ export const BtnWrapper = styled.div`
 
 // detail
 
+export const DetailCantainer = styled.section`
+  width: 100%;
+  height: 590px;
+  overflow: scroll;
+`;
+
 export const DetailTop = styled.div`
   padding-bottom: 1rem;
   width: 100%;

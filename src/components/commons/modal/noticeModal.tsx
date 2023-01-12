@@ -46,6 +46,11 @@ const NoticeModal = () => {
     onClickWrite();
   };
 
+  const onClickClose = () => {
+    setIsOpen(false);
+    setIsWrite(false);
+  };
+
   return (
     <>
       {isOpen && (
@@ -77,7 +82,7 @@ const NoticeModal = () => {
               />
               <Btn01
                 text="닫기"
-                onClick={onClickOpen}
+                onClick={onClickClose}
                 bdC={styleSet.colors.gray}
               />
             </BtnWrapper>
@@ -95,7 +100,7 @@ const Container = styled.section`
   padding: 1rem 0 1rem 0;
   width: 90%;
   min-width: 850px;
-  height: 80%;
+  height: 47rem;
   text-align: left;
 
   background: #ffffff;
