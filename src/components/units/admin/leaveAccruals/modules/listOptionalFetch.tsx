@@ -21,7 +21,6 @@ interface IEmployeeOptionalFetchProps {
 const ListOptionalFetch = (props: IEmployeeOptionalFetchProps) => {
   const optionalFetch = () => {
     if (!props.init && !props.filterInit) {
-      console.log('리스트 off and off');
       return props.vDetailDelete?.fetchVacationIssueDetailDateDelete
         .flat()
         .map((fetchData) => (
@@ -47,7 +46,6 @@ const ListOptionalFetch = (props: IEmployeeOptionalFetchProps) => {
           </S.ListUl>
         ));
     } else if (!props.init && props.filterInit) {
-      console.log('리스트 off and on');
       return props.vDetail?.fetchVacationIssueDetailDate
         .flat()
         .map((fetchData) => (
@@ -73,7 +71,6 @@ const ListOptionalFetch = (props: IEmployeeOptionalFetchProps) => {
           </S.ListUl>
         ));
     } else if (props.init && props.filterInit) {
-      console.log('리스트 on and on');
       return props.vBase?.fetchVacationIssueBaseDate.flat().map((fetchData) => (
         <S.ListUl key={fetchData.id} onClick={props.onClickOpenModal}>
           <li>
@@ -97,7 +94,6 @@ const ListOptionalFetch = (props: IEmployeeOptionalFetchProps) => {
         </S.ListUl>
       ));
     } else {
-      console.log('리스트 on and off');
       return props.vBaseDelete?.fetchVacationIssueWithBaseDateDelete
         .flat()
         .map((fetchData) => (

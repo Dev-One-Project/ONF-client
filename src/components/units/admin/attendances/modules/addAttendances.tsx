@@ -16,6 +16,7 @@ import {
 } from 'react-hook-form';
 import { gql, useQuery } from '@apollo/client';
 import { IQuery } from '../../../../../commons/types/generated/types';
+import { styleSet } from '../../../../../commons/styles/styleSet';
 
 const FETCH_ORGANIZATIONS = gql`
   query {
@@ -188,7 +189,12 @@ const AddAttendances = (props: IAddAttendancesProps) => {
             type="button"
             onClick={props.onCancel}
           />
-          <Btn01 text="추가하기" bdC="#ddd" bgC="#ddd" color="white" />
+          <Btn01
+            text="추가하기"
+            bdC={styleSet.colors.primary}
+            bgC={styleSet.colors.primary}
+            color="white"
+          />
         </BtnBox>
       </Form>
     </Wrapper>

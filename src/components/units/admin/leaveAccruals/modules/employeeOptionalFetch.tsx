@@ -15,7 +15,6 @@ interface IEmployeeOptionalFetchProps {
 const EmployeeOptionalFetch = (props: IEmployeeOptionalFetchProps) => {
   const optionalFetch = () => {
     if (!props.init && !props.filterInit) {
-      console.log('직원 off and off');
       return props.vDetailDelete?.fetchVacationIssueDetailDateDelete
         .flat()
         .map((fetchData) => (
@@ -34,7 +33,6 @@ const EmployeeOptionalFetch = (props: IEmployeeOptionalFetchProps) => {
           </S.EmployeeUl>
         ));
     } else if (!props.init && props.filterInit) {
-      console.log('직원 off and on');
       return props.vDetail?.fetchVacationIssueDetailDate
         .flat()
         .map((fetchData) => (
@@ -53,8 +51,6 @@ const EmployeeOptionalFetch = (props: IEmployeeOptionalFetchProps) => {
           </S.EmployeeUl>
         ));
     } else if (props.init && props.filterInit) {
-      console.log('직원 on and on');
-
       return props.vBase?.fetchVacationIssueBaseDate.flat().map((fetchData) => (
         <S.EmployeeUl key={fetchData.id} onClick={props.onClickOpenSelectModal}>
           <li>{fetchData.member.name}</li>
@@ -68,7 +64,6 @@ const EmployeeOptionalFetch = (props: IEmployeeOptionalFetchProps) => {
         </S.EmployeeUl>
       ));
     } else {
-      console.log('직원 on and off');
       return props.vBaseDelete?.fetchVacationIssueWithBaseDateDelete
         .flat()
         .map((fetchData) => (
