@@ -46,8 +46,6 @@ const AddLeaveAccruals = (props: IAddLeaveAccrualsProps) => {
     name: String(member.name),
   }));
 
-  console.log(memberData);
-
   return (
     <form onSubmit={props.handleSubmit(props.onSubmit)}>
       <S.ModalWrapper>

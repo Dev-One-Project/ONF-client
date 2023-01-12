@@ -24,7 +24,6 @@ export const OptWrapper = styled.header`
   justify-content: space-between;
   gap: 1rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid ${styleSet.colors.gray};
 `;
 
 export const OptBox = styled.div`
@@ -82,35 +81,33 @@ export const UlWrapper = styled.section`
   overflow: auto;
 `;
 
-export const DateUl = styled.ul`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+// table
+
+export const Table = styled.table`
   min-width: 1100px;
-  border-bottom: 1px solid ${styleSet.colors.gray};
-  div:first-of-type {
-    min-width: 80px;
-    border-right: 1px solid ${styleSet.colors.gray};
-    border-left: 1px solid ${styleSet.colors.gray};
-    padding: 0.2rem 0;
-    margin: 0;
-  }
-  div:last-of-type {
-    display: flex;
-    justify-content: center;
-    min-width: 45px;
-    border-right: 1px solid ${styleSet.colors.gray};
-    padding: 0.2rem 0;
-  }
-  li {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    min-width: 25px;
+  overflow: auto;
+
+  th,
+  td {
+    border: 1px solid ${styleSet.colors.gray};
+    font-size: 8px;
+    min-width: calc((100vw - 26.5rem) / 31);
+    max-width: 30px;
+    height: 3rem;
     text-align: center;
-    border-right: 1px solid ${styleSet.colors.gray};
-    padding: 0.3rem;
-    font-size: ${styleSet.fontSizes.small};
+    box-sizing: border-box;
+
+    &:nth-of-type(1) {
+      min-width: 80px;
+      font-family: ${styleSet.fonts.EB};
+    }
+
+    &:last-of-type {
+      min-width: 45px;
+      font-family: ${styleSet.fonts.EB};
+    }
+  }
+  td label {
+    font-family: ${styleSet.fonts.B};
   }
 `;

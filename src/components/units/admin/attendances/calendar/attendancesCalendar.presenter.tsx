@@ -8,7 +8,7 @@ import Select01 from '../../../../commons/input/select01';
 import Select03 from '../../../../commons/input/select03';
 import AddAttendances from '../modules/addAttendances';
 import FallingModal from '../../../../commons/modal/fallingModal';
-// import { getTimeStr } from '../../../../../commons/utils/getDate';
+import { getTimeStr } from '../../../../../commons/utils/getDate';
 
 const AttendancesCalendarPresenter = (
   props: IAttendancesCalendarPresenterProps,
@@ -74,31 +74,51 @@ const AttendancesCalendarPresenter = (
       </S.OptWrapper>
 
       <S.UlWrapper>
-        <S.DateUl>
-          <div>공백</div>
-          {props.monthArr.map((day) => (
-            <li key={uuidV4()}>{day}</li>
-          ))}
-          <div>합계</div>
-        </S.DateUl>
-        {console.log(props.data?.fetchMonthWorkChecks)}
-        {/* {props.data?.fetchMonthWorkChecks.map((fetchDatas) =>
-              <div>{fetchDatas[0] ? fetchDatas[0].member.name : ''}</div>
-          fetchDatas.map((fetchData, i) => (
-            <S.DateUl key={i}>
-              {console.log(fetchData[0])}
-              <li>
-                {fetchData[0]
-                  ? getTimeStr(
-                      fetchData[0].workingTime,
-                      fetchData[0].quittingTime,
-                    )
-                  : ''}
-              </li>
-              <div>{props.monthArr.length}</div>
-            </S.DateUl>
-          )),
-        )} */}
+        <S.Table>
+          <thead>
+            <tr>
+              <th></th>
+              {props.monthArr.map((day) => (
+                <th key={uuidV4()}>{day}</th>
+              ))}
+              <th>합계</th>
+            </tr>
+          </thead>
+          <tbody>
+            {props.data?.fetchMonthWorkChecks.map((member) => (
+              <tr key={uuidV4()}>
+                <td>{member.member.name}</td>
+                {member.data.map((memberData) =>
+                  memberData[0] ? (
+                    <>
+                      <td>
+                        <label>
+                          {memberData[0]
+                            ? getTimeStr(memberData[0].workingTime, '').replace(
+                                ' - ',
+                                '',
+                              )
+                            : ''}
+                        </label>
+                        <label>
+                          {memberData[0].quittingTime
+                            ? getTimeStr(
+                                '',
+                                memberData[0].quittingTime,
+                              ).replace(' - ', '')
+                            : ''}
+                        </label>
+                      </td>
+                    </>
+                  ) : (
+                    <td key={member.member.id}></td>
+                  ),
+                )}
+                <td></td>
+              </tr>
+            ))}
+          </tbody>
+        </S.Table>
       </S.UlWrapper>
     </S.Container>
   );

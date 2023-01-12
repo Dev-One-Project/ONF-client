@@ -18,7 +18,6 @@ interface ILeaveOptionalFetchProps {
 const LeaveOptionalFetch = (props: ILeaveOptionalFetchProps) => {
   const leaveOptionalFetch = () => {
     if (props.filterInit) {
-      console.log('필터 on');
       return props.withDate?.fetchVacationWithDate.flat().map((fetchData) => (
         <S.Ul onClick={props.onClickList} key={fetchData.id}>
           <li>
@@ -46,7 +45,6 @@ const LeaveOptionalFetch = (props: ILeaveOptionalFetchProps) => {
         </S.Ul>
       ));
     } else {
-      console.log('필터 off');
       return props.withDelete?.fetchVacationWithDelete
         .flat()
         .map((fetchData) => (

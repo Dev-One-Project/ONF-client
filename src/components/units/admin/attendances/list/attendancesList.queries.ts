@@ -36,6 +36,8 @@ export const FETCH_DATE_MEMBER_WORK_CHECKS = gql`
       workingTime
       quittingTime
       workCheckMemo
+      workingTimeRange
+      endTimeRange
       member {
         id
         name

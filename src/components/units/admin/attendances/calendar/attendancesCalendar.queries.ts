@@ -29,12 +29,15 @@ export const FETCH_MONTH_WORK_CHECKS = gql`
       month: $month
       isActiveMember: $isActiveMember
     ) {
-      id
-      workingTime
-      quittingTime
       member {
         id
         name
+      }
+      data {
+        id
+        workDay
+        workingTime
+        quittingTime
       }
     }
   }

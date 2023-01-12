@@ -145,23 +145,34 @@ const AttendancesListPresenter = (props: IAttendancesListPresenterProps) => {
             </li>
             <li>{fetchData.member.name}</li>
             <li>{getDateSlash(fetchData.workDay)}</li>
-            <li>{getTimeStr(fetchData.workingTime, fetchData.quittingTime)}</li>
             <li>
-              {getTimeStr(
-                String(fetchData.schedule?.startWorkTime),
-                String(fetchData.schedule?.endWorkTime),
-              )}
+              <p>{getTimeStr(fetchData.workingTime, '')}</p>
+              <p>
+                {getTimeStr('', fetchData.quittingTime).replace(
+                  '0NaN:0NaN -',
+                  '',
+                )}
+              </p>
             </li>
+            {fetchData.schedule ? (
+              <li>
+                <p>{fetchData.schedule.startWorkTime} -</p>
+                <p>{fetchData.schedule.endWorkTime}</p>
+              </li>
+            ) : (
+              <li></li>
+            )}
+
             <li>{fetchData.organization?.name}</li>
             <li>{fetchData.roleCategory?.name}</li>
             <li>{fetchData.organization?.checkPoint}</li>
             <li>{fetchData.organization?.checkPoint}</li>
             <li>{fetchData.workCheckMemo}</li>
-            <li>1시간 12분hc</li>
-            <li>3시간 56분hc</li>
-            <li>- 5시간 4분hc</li>
-            <li>- 9분hc</li>
-            <li>- 4시간 54분hc</li>
+            <li>60분</li>
+            <li>개발중임돠,,</li>
+            <li>에헷^.0,,</li>
+            <li>{fetchData.workingTimeRange}</li>
+            <li>{fetchData.endTimeRange}</li>
           </S.Ul>
         ))}
       </S.UlWrapper>
