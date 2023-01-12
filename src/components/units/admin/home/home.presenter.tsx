@@ -47,19 +47,27 @@ const HomePresenter = (props: IHomePresenterProps) => {
         <S.StatusWrapper>
           <S.StatusBox color={styleSet.colors.officeGo}>
             <S.StatusTitle>출근</S.StatusTitle>
-            <S.StatusNumber>0</S.StatusNumber>
+            <S.StatusNumber>
+              {props.fetchMainPageWorkCheck?.working || '0'}
+            </S.StatusNumber>
           </S.StatusBox>
           <S.StatusBox color={styleSet.colors.officeLateness}>
             <S.StatusTitle>지각</S.StatusTitle>
-            <S.StatusNumber>0</S.StatusNumber>
+            <S.StatusNumber>
+              {props.fetchMainPageWorkCheck?.tardy || '0'}
+            </S.StatusNumber>
           </S.StatusBox>
           <S.StatusBox color={styleSet.colors.officeNone}>
             <S.StatusTitle>미출근</S.StatusTitle>
-            <S.StatusNumber>0</S.StatusNumber>
+            <S.StatusNumber>
+              {props.fetchMainPageWorkCheck?.notworking || '0'}
+            </S.StatusNumber>
           </S.StatusBox>
           <S.StatusBox color={styleSet.colors.officeVacation}>
             <S.StatusTitle>휴가</S.StatusTitle>
-            <S.StatusNumber>0</S.StatusNumber>
+            <S.StatusNumber>
+              {props.fetchMainPageWorkCheck?.vacation || '0'}
+            </S.StatusNumber>
           </S.StatusBox>
         </S.StatusWrapper>
         <S.CommonBox>
@@ -97,7 +105,7 @@ const HomePresenter = (props: IHomePresenterProps) => {
               i < 5 ? (
                 <li key={i} onClick={props.onClickNoticeBoard(board.id)}>
                   <S.Preface>{board.preface}</S.Preface>
-                  <span>{board.title}</span>
+                  <S.Title>{board.title}</S.Title>
                   <S.DateStyle>{getStaticDateStr(board.createdAt)}</S.DateStyle>
                 </li>
               ) : null,

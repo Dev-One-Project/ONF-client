@@ -2,10 +2,10 @@ import { useRef } from 'react';
 import Btn01 from '../button/btn01';
 import styled from '@emotion/styled';
 import { useRecoilState } from 'recoil';
+import { gql, useQuery } from '@apollo/client';
 import { styleSet } from '../../../commons/styles/styleSet';
 import WriteContainer from '../notice/write/write.container';
 import NoticeListContainer from '../notice/list/list.container';
-import { gql, useQuery } from '@apollo/client';
 import {
   changeNoticeBoardIdState,
   isNoticeEditState,
@@ -30,8 +30,12 @@ const NoticeModal = () => {
   const { data: fetchAllNoticeBoards } = useQuery(FETCH_ALL_NOTICE_BOARDS);
 
   const onClickOpen = () => {
-    setIsOpen((open) => !open);
-    setBoardId(fetchAllNoticeBoards?.fetchAllNoticeBoards[0].id);
+    if (fetchAllNoticeBoards?.fetchAllNoticeBoards[0]?.id) {
+      setIsOpen((open) => !open);
+      setBoardId(fetchAllNoticeBoards.fetchAllNoticeBoards[0]?.id);
+    } else {
+      setIsOpen((open) => !open);
+    }
   };
   const onClickWrite = () => {
     setIsWrite((write) => !write);
@@ -39,7 +43,7 @@ const NoticeModal = () => {
   };
   const onClickComplete = () => {
     createUpdateRef.current?.click();
-    // onClickWrite();
+    onClickWrite();
   };
 
   return (

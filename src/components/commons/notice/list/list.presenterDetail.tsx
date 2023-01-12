@@ -9,6 +9,7 @@ import { getStaticDateStr } from '../../../../commons/utils/getDate';
 import { ErrorModal, SuccessModal } from '../../modal/sweetAlertModal';
 import {
   DELETE_NOTICE_BOARD,
+  FETCH_ACCOUNT,
   FETCH_ALL_NOTICE_BOARDS,
   FETCH_ONE_NOTICE_BOARD,
 } from './list.queries';
@@ -24,6 +25,7 @@ const NoticeDetail = (props: INoticeDetailProps) => {
   const [deleteNoticeBoard] = useMutation(DELETE_NOTICE_BOARD);
   const [, setIsWrite] = useRecoilState(isNoticeWriteState);
   const [, setIsEdit] = useRecoilState(isNoticeEditState);
+  const { data: fetchAccount } = useQuery(FETCH_ACCOUNT);
   const { data: fetchOneNoticeBoard } = useQuery(FETCH_ONE_NOTICE_BOARD, {
     variables: {
       noticeBoardId: props.boardId,
@@ -60,7 +62,11 @@ const NoticeDetail = (props: INoticeDetailProps) => {
       <S.DetailTop>
         <S.Title>{fetchOneNoticeBoard?.fetchOneNoticeBoard.title}</S.Title>
         <S.DateStyle>
-          {getStaticDateStr(fetchOneNoticeBoard?.fetchOneNoticeBoard.createdAt)}
+          {fetchOneNoticeBoard
+            ? getStaticDateStr(
+                fetchOneNoticeBoard?.fetchOneNoticeBoard.createdAt,
+              )
+            : null}
         </S.DateStyle>
       </S.DetailTop>
       <S.Contents>
@@ -68,14 +74,27 @@ const NoticeDetail = (props: INoticeDetailProps) => {
           <ViewerPage
             initialValue={fetchOneNoticeBoard?.fetchOneNoticeBoard.contents}
           />
-        ) : (
+        ) : fetchOneNoticeBoard ? (
           <div>loadding...</div>
+        ) : (
+          <div>공지사항이 없습니다.</div>
         )}
       </S.Contents>
-      <S.BtnWrapper>
-        <Btn01 text="수정" onClick={onClickUpdate} bdC={styleSet.colors.gray} />
-        <Btn01 text="삭제" onClick={onClickDelete} bdC={styleSet.colors.gray} />
-      </S.BtnWrapper>
+      {fetchOneNoticeBoard?.fetchOneNoticeBoard.account.id ===
+      fetchAccount?.fetchAccount.id ? (
+        <S.BtnWrapper>
+          <Btn01
+            text="수정"
+            onClick={onClickUpdate}
+            bdC={styleSet.colors.gray}
+          />
+          <Btn01
+            text="삭제"
+            onClick={onClickDelete}
+            bdC={styleSet.colors.gray}
+          />
+        </S.BtnWrapper>
+      ) : null}
     </>
   );
 };

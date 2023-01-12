@@ -5,6 +5,12 @@ export interface IHomePresenterProps {
     title: string;
     createdAt: string;
   };
+  fetchMainPageWorkCheck: {
+    working: string;
+    tardy: string;
+    notworking: string;
+    vacation: string;
+  };
   onClickNoticeBoard: (id: string) => any;
 }
 

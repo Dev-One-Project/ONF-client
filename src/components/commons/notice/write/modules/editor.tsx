@@ -26,7 +26,7 @@ export default function EditorPage(props: IEditorPageProps) {
                 file: blob,
               },
             });
-            callback(result.data.uploadSingleFile.url, 'alt text');
+            callback(result.data.uploadSingleFile.url, 'contents_image');
           })().catch((error) => {
             alert(error);
           });
