@@ -20,6 +20,9 @@ export const FETCH_ONE_NOTICE_BOARD = gql`
       contents
       createdAt
       updatedAt
+      account {
+        id
+      }
     }
   }
 `;
@@ -27,5 +30,13 @@ export const FETCH_ONE_NOTICE_BOARD = gql`
 export const DELETE_NOTICE_BOARD = gql`
   mutation deleteNoticeBoard($noticeBoardId: String!) {
     deleteNoticeBoard(noticeBoardId: $noticeBoardId)
+  }
+`;
+
+export const FETCH_ACCOUNT = gql`
+  query fetchAccount {
+    fetchAccount {
+      id
+    }
   }
 `;

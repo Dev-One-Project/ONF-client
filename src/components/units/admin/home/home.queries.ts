@@ -10,3 +10,14 @@ export const FETCH_ALL_NOTICE_BOARDS = gql`
     }
   }
 `;
+
+export const FETCH_MAINPAGE_WORK_CHECK = gql`
+  query fetchMainPageWorkCheck {
+    fetchMainPageWorkCheck {
+      working
+      tardy
+      notworking
+      vacation
+    }
+  }
+`;

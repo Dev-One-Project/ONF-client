@@ -149,6 +149,7 @@ export const NoticeUl = styled.ul`
   height: 100%;
 
   li {
+    width: 100%;
     padding: 10px 0;
     border-bottom: 1px solid ${styleSet.colors.gray};
     display: flex;
@@ -169,6 +170,18 @@ export const Preface = styled.span`
   background-color: ${styleSet.colors.subColor02};
   border-radius: 2px;
   text-align: center;
+`;
+
+export const Title = styled.span`
+  min-width: 7rem;
+  max-width: 13rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+
+  @media ${styleSet.breakPoints.tablet} {
+    max-width: 40rem;
+  }
 `;
 
 export const DateStyle = styled.span`
