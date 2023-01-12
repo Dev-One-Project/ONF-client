@@ -3,7 +3,6 @@ import { Moment } from 'moment';
 export interface IScheduleContainerProps {
   dateArr: IWeekData[][];
   setDateArray?: () => void;
-  dayData: any;
   onClickCreateVacation?: () => void;
   onClickCreateWorking?: () => void;
   MovePrevMonth?: () => void;
@@ -16,12 +15,5 @@ export interface IWeekData {
   day: string;
   work: string;
   tardy: string;
-  css: {
-    color: string;
-    backgroundColor: string;
-    display: string;
-  };
-  func: {
-    onClick: boolean;
-  };
+  option: boolean;
 }

@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { styleSet } from '../../../../commons/styles/styleSet';
 
 export const WeekWrapper = styled.section`
-  max-width: 78.75rem;
+  /* max-width: ; */
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -10,7 +10,7 @@ export const WeekWrapper = styled.section`
 `;
 
 export const FirstWrapper = styled.section`
-  max-width: 78.75rem;
+  /* max-width: 78.75rem; */
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -21,7 +21,7 @@ export const FirstWrapper = styled.section`
 
 export const DayWrapper = styled.div`
   width: 100%;
-  max-width: 11.25rem;
+  max-width: calc(100% / 7);
   display: flex;
   min-height: 7.5rem;
   flex-direction: column;
@@ -29,11 +29,12 @@ export const DayWrapper = styled.div`
   max-height: 18.75rem;
   overflow: hidden;
   word-break: break-all;
+  border: 1px solid ${styleSet.colors.gray};
 `;
 
 export const FirstLine = styled.div`
   width: 100%;
-  max-width: 11.25rem;
+  max-width: calc(100% / 7);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -48,9 +49,10 @@ export const DayBox = styled.div`
 
 export const BtnWrapper = styled.section`
   display: flex;
-  padding: 1.5rem 0 1rem 0;
+  /* padding: 1.5rem 0 1rem 0; */
   justify-content: flex-end;
   align-items: center;
+  gap: 0.75rem;
 `;
 
 export const BtnBox = styled.article`
@@ -70,15 +72,46 @@ export const ArrowButton = styled.button`
   }
 `;
 
+export const Wrapper = styled.section`
+  overflow: auto;
+`;
+
+export const CalendarWrapper = styled.div`
+  width: 100%;
+  min-width: 45rem;
+  overflow: auto;
+`;
+
 export const TopWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  /* align-items: center; */
+  min-width: 800px;
+  gap: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1.25rem;
+`;
+
+export const TopLeft = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+`;
+
+export const TopRight = styled.div`
+  display: flex;
+  flex-direction: flex-end;
+  align-items: center;
 `;
 
 export const DateStyle = styled.div`
   font-family: ${styleSet.fonts.B};
   font-size: ${styleSet.fontSizes.strong};
+  text-align: center;
+  align-items: center;
 `;
 
 export const WorkingBtnBox = styled.article`

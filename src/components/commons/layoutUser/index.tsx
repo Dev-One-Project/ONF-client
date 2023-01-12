@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
-import UserHeaderPage from '../layoutUser/header';
+import UserHeaderPage from '../layoutUser/header/index';
 import UserScheduleSideBar from '../layoutUser/sidebar/schedule';
 import { IUserLayout } from './layout.types';
 import UserAttendancesSideBar from './sidebar/attendances';

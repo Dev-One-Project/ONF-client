@@ -229,6 +229,7 @@ export type IMember = {
   organization: IOrganization;
   phone?: Maybe<Scalars['String']>;
   roleCategory: IRoleCategory;
+  workInfo?: Maybe<IWorkInfo>;
 };
 
 export type IMutation = {
@@ -314,6 +315,8 @@ export type IMutation = {
   deleteVacationCategory: Scalars['Boolean'];
   /** 관리자 휴가 발생 삭제하기 */
   deleteVacationIssue: Scalars['Boolean'];
+  /** 맴버에게 근로정보 부여 */
+  insertWorkInfo: IWorkInfo;
   login: Scalars['String'];
   /** Remove refreshtoken in headers */
   logout: Scalars['String'];
@@ -565,6 +568,12 @@ export type IMutationDeleteVacationIssueArgs = {
 };
 
 
+export type IMutationInsertWorkInfoArgs = {
+  email: Scalars['String'];
+  name: Scalars['String'];
+};
+
+
 export type IMutationLoginArgs = {
   email: Scalars['String'];
   password: Scalars['String'];
@@ -763,13 +772,18 @@ export type IQuery = {
   fetchListTypeSchedule: Array<ISchedule>;
   /** memberId(사원ID)로 개별 조회, memberId 입력시 입력한 member 조회, 아니면 로그인한 유저 정보 조회 */
   fetchMember: IMember;
+  fetchMemberInOrg: Array<IMember>;
+  fetchMemberInRole: Array<IMember>;
+  fetchMemberInRoleOrg: Array<IMember>;
   fetchMemberSchedule?: Maybe<ISchedule>;
   /** member개인(나)의 출퇴근 기록 조회 - 직원모드 */
   fetchMemberWorkChecks: Array<IWorkCheckOutput>;
-  /** comanyId에 해당하는 멤버 전체 조회 */
+  /** comanyId에 해당하는 멤버 전체 조회, 비활성화버튼을 통해 비활성화 멤버 검색 */
   fetchMembers: Array<IMember>;
+  fetchMonthMemberSchedule: Array<Array<ISchedule>>;
   /** 회사 지점에 속한 멤버들의 출퇴근 기록을 월별로 조회 - 달력형 - 관리자 */
   fetchMonthWorkChecks: Array<IWorkCheckMemberOutput>;
+  fetchNumberOfEmployees: Scalars['Int'];
   fetchOneNoticeBoard: INoticeBoard;
   /** 조직 상세 조회 */
   fetchOrganizationDetail: IOrganization;
@@ -799,6 +813,8 @@ export type IQuery = {
   fetchVacationWithDate: Array<Array<IVacation>>;
   /** (관리자) 비활성화 된 직원 함께 조회 */
   fetchVacationWithDelete: Array<Array<IVacation>>;
+  /** 회사기준 근로정보 조회 */
+  fetchWorkInfos: Array<IWorkInfo>;
 };
 
 
@@ -822,6 +838,22 @@ export type IQueryFetchMemberArgs = {
 };
 
 
+export type IQueryFetchMemberInOrgArgs = {
+  organizationId: Scalars['String'];
+};
+
+
+export type IQueryFetchMemberInRoleArgs = {
+  roleCategoryId: Scalars['String'];
+};
+
+
+export type IQueryFetchMemberInRoleOrgArgs = {
+  organizationId: Scalars['String'];
+  roleCategoryId: Scalars['String'];
+};
+
+
 export type IQueryFetchMemberScheduleArgs = {
   date: Scalars['DateTime'];
   memberId: Scalars['String'];
@@ -834,10 +866,25 @@ export type IQueryFetchMemberWorkChecksArgs = {
 };
 
 
+export type IQueryFetchMembersArgs = {
+  isInActiveMember?: Scalars['Boolean'];
+};
+
+
+export type IQueryFetchMonthMemberScheduleArgs = {
+  memberId: Array<Scalars['String']>;
+};
+
+
 export type IQueryFetchMonthWorkChecksArgs = {
   isActiveMember?: Scalars['Boolean'];
   month: Scalars['String'];
   organizationId: Array<Scalars['String']>;
+};
+
+
+export type IQueryFetchNumberOfEmployeesArgs = {
+  isInActiveMember?: Scalars['Boolean'];
 };
 
 
@@ -1129,9 +1176,9 @@ export type IVacationIssue = {
   id: Scalars['String'];
   member: IMember;
   organization: IOrganization;
-  remaining?: Maybe<Scalars['Int']>;
+  remaining?: Maybe<Scalars['Float']>;
   startingPoint: Scalars['DateTime'];
-  useVacation?: Maybe<Scalars['Int']>;
+  useVacation?: Maybe<Scalars['Float']>;
   vacationAll: Scalars['Int'];
 };
 
@@ -1178,10 +1225,11 @@ export type IWorkCheckOutput = {
 
 export type IWorkInfo = {
   __typename?: 'WorkInfo';
+  company?: Maybe<ICompany>;
   companyId: Scalars['String'];
   createdAt: Scalars['DateTime'];
   fixedHours?: Maybe<Scalars['String']>;
-  fixedLabor?: Maybe<Array<Scalars['String']>>;
+  fixedLabor?: Maybe<Scalars['String']>;
   fixedPeriodRange?: Maybe<Scalars['String']>;
   fixedStandard?: Maybe<Scalars['String']>;
   fixedUnitPeriod?: Maybe<Scalars['String']>;
@@ -1190,6 +1238,7 @@ export type IWorkInfo = {
   maximumPeriodRange?: Maybe<Scalars['String']>;
   maximumStandard?: Maybe<Scalars['String']>;
   maximumUnitPeriod?: Maybe<Scalars['String']>;
+  member?: Maybe<IMember>;
   memo?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
