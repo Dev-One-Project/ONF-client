@@ -5,6 +5,7 @@ import {
   IScheduleCategory,
   IScheduleTemplate,
   IVacationCategory,
+  IWorkInfo,
 } from '../../../../../../commons/types/generated/types';
 import MemberData from './members';
 import OrganizationData from './organization';
@@ -21,7 +22,8 @@ export interface IRowDataCellsProps {
     IRoleCategory &
     IScheduleCategory &
     IScheduleTemplate &
-    IVacationCategory;
+    IVacationCategory &
+    IWorkInfo;
 }
 
 const RowDataCells = (props: IRowDataCellsProps) => {

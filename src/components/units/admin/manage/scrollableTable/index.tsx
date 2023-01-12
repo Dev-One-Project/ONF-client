@@ -12,6 +12,7 @@ import {
   IScheduleCategory,
   IScheduleTemplate,
   IVacationCategory,
+  IWorkInfo,
 } from '../../../../../commons/types/generated/types';
 
 import Check01 from '../../../../commons/input/check01';
@@ -29,6 +30,7 @@ interface IScrollableTableProps {
     scheduleCategories?: Pick<IQuery, 'fetchAllScheduleCategories'>;
     scheduleTemplates?: Pick<IQuery, 'fetchAllScheduleTemplates'>;
     vacationCategories?: Pick<IQuery, 'fetchVacationCategories'>;
+    fetchWorkInfos?: Pick<IQuery, 'fetchWorkInfos'>;
   };
 }
 
@@ -44,6 +46,7 @@ type IBodyData = Array<
   | IScheduleCategory
   | IScheduleTemplate
   | IVacationCategory
+  | IWorkInfo
   | String
 >;
 
@@ -98,15 +101,7 @@ const ScrollableTable = (props: IScrollableTableProps) => {
       '최대근로규칙',
       '메모',
     ];
-    bodyData = [
-      '일반근무',
-      '₩ 9,160',
-      '월, 화, 수, 목, 금',
-      '일',
-      '1주 40시간',
-      '1주 52시간',
-      '최저시급 낄낄',
-    ];
+    bodyData = props.data?.fetchWorkInfos?.fetchWorkInfos ?? [];
   } else if (props.tab === '근무일정 유형') {
     headerData = [
       '근무일정 유형명',

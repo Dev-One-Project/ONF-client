@@ -128,3 +128,25 @@ export const FETCH_VACATION_CATEGORIES = gql`
     }
   }
 `;
+
+export const FETCH_WORK_INFOS = gql`
+  query {
+    fetchWorkInfos {
+      id
+      name
+      fixedLabor
+      weekOffDays
+      memo
+      fixedLabor
+      fixedHours
+      fixedStandard
+      fixedUnitPeriod
+      fixedPeriodRange
+      maximumHours
+      maximumStandard
+      maximumUnitPeriod
+      maximumPeriodRange
+      companyId
+    }
+  }
+`;
