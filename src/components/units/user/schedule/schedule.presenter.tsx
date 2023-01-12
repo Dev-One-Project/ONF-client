@@ -22,17 +22,17 @@ const Calender = (props: IScheduleContainerProps) => {
         <S.WeekWrapper key={v4()}>
           <br />
           {week.map((day: IWeekData, j: number) => {
-            if (!day.func.onClick) {
-              day.css.color = 'gray';
-            }
+            const css = {
+              backgroundColor: day.option ? 'white' : 'lightGray',
+            };
             return (
-              <S.DayWrapper key={v4()} id={`${i + 1}-${j + 1}`} style={day.css}>
+              <S.DayWrapper key={v4()} id={`${i + 1}-${j + 1}`} style={css}>
                 <label style={{ paddingTop: '10px' }}>
                   {day.day.split('-')[2] === '01'
                     ? `${day.day.split('-')[1]}/${day.day.split('-')[2]}`
                     : day.day.split('-')[2]}
                 </label>
-                <S.DayBox>{props.dayData[i * 7 + (j + 1) - 1]}</S.DayBox>
+                <S.DayBox>{/* this is element */}</S.DayBox>
               </S.DayWrapper>
             );
           })}
@@ -47,60 +47,64 @@ const SchedulePresenter = (props: IScheduleContainerProps) => {
 
   return (
     <>
-      <section>
+      <S.Wrapper>
         <S.TopWrapper>
-          <S.BtnWrapper>
-            <S.ArrowButton onClick={props.MovePrevMonth}>
-              <ArrowSvg
-                direction={'left'}
-                size={'big'}
-                color={styleSet.colors.primary}
-              />
-            </S.ArrowButton>
-            <S.ArrowButton onClick={props.MoveNextMonth}>
-              <ArrowSvg
-                direction={'right'}
-                size={'big'}
-                color={styleSet.colors.primary}
-              />
-            </S.ArrowButton>
+          <S.TopLeft>
+            <S.BtnWrapper>
+              <S.ArrowButton onClick={props.MovePrevMonth}>
+                <ArrowSvg
+                  direction={'left'}
+                  size={'big'}
+                  color={styleSet.colors.primary}
+                />
+              </S.ArrowButton>
+              <S.ArrowButton onClick={props.MoveNextMonth}>
+                <ArrowSvg
+                  direction={'right'}
+                  size={'big'}
+                  color={styleSet.colors.primary}
+                />
+              </S.ArrowButton>
+            </S.BtnWrapper>
             <S.DateStyle>{props.today?.format('YYYY년')}</S.DateStyle>
             <S.DateStyle>{props.today?.format('MM월')}</S.DateStyle>
-          </S.BtnWrapper>
-          <S.BtnWrapper>
-            <S.BtnBox>
-              <Btn01
-                text="휴가일정 생성 요청"
-                bdC="none"
-                color="white"
-                bgC={`${styleSet.colors.subColor02}`}
-                onClick={onClickMoveToPage('/user/vacation')}
-              />
-            </S.BtnBox>
-            <S.BtnBox>
-              <Btn01
-                text="근무일정 생성 요청"
-                bdC="none"
-                color="white"
-                bgC={`${styleSet.colors.primary}`}
-                onClick={onClickMoveToPage('/user/working')}
-              />
-            </S.BtnBox>
-            <S.WorkingBtnBox>
-              <Btn01
-                text="근무일정 수정 요청"
-                bgC={`${styleSet.colors.white}`}
-                bdC={`${styleSet.colors.primary}`}
-                color={`${styleSet.colors.primary}`}
-              />
-            </S.WorkingBtnBox>
-          </S.BtnWrapper>
+          </S.TopLeft>
+          <S.TopRight>
+            <S.BtnWrapper>
+              <S.BtnBox>
+                <Btn01
+                  text="휴가일정 생성 요청"
+                  bdC="none"
+                  color="white"
+                  bgC={`${styleSet.colors.subColor02}`}
+                  onClick={onClickMoveToPage('/user/vacation')}
+                />
+              </S.BtnBox>
+              <S.BtnBox>
+                <Btn01
+                  text="근무일정 생성 요청"
+                  bdC="none"
+                  color="white"
+                  bgC={`${styleSet.colors.primary}`}
+                  onClick={onClickMoveToPage('/user/working')}
+                />
+              </S.BtnBox>
+              <S.WorkingBtnBox>
+                <Btn01
+                  text="근무일정 수정 요청"
+                  bgC={`${styleSet.colors.white}`}
+                  bdC={`${styleSet.colors.primary}`}
+                  color={`${styleSet.colors.primary}`}
+                />
+              </S.WorkingBtnBox>
+            </S.BtnWrapper>
+          </S.TopRight>
         </S.TopWrapper>
 
-        <div>
-          <Calender dayData={props.dayData} dateArr={props.dateArr} />
-        </div>
-      </section>
+        <S.CalendarWrapper>
+          <Calender dateArr={props.dateArr} />
+        </S.CalendarWrapper>
+      </S.Wrapper>
     </>
   );
 };

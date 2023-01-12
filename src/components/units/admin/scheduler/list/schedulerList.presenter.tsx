@@ -146,20 +146,20 @@ const SchedulerListPresenter = (props: ISchedulerListProps) => {
         {props.scheduleList?.map((schedule: ISchedule) => (
           <S.ListBodyWrapper
             key={schedule.id}
-            id={schedule.id}
+            id={String(schedule.id)}
             onClick={props.onClickListContent}
           >
             <S.List>
-              {props.checkedList?.includes(schedule.id) ? (
+              {props.checkedList?.includes(String(schedule.id)) ? (
                 <Check02
-                  id={schedule.id}
+                  id={String(schedule.id)}
                   checked={true}
                   onChange={props.onChangeCheckList}
                   onClick={(e) => e.stopPropagation()}
                 />
               ) : (
                 <Check02
-                  id={schedule.id}
+                  id={String(schedule.id)}
                   checked={false}
                   onChange={props.onChangeCheckList}
                   onClick={(e) => e.stopPropagation()}

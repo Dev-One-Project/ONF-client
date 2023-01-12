@@ -2,34 +2,46 @@ import SchedulePresenter from './schedule.presenter';
 import moment from 'moment';
 import { IWeekData } from './schedule.types';
 import { useMemo, useState } from 'react';
-import ScheduleElementContainer from '../scheduleElement/scheduleElement.container';
+import { FETCH_ACCOUNT, FETCH_USER_SCHEDULE } from './schedule.quries';
+import { useLazyQuery, useQuery } from '@apollo/client';
+import {
+  IQuery,
+  IQueryFetchMonthMemberScheduleArgs,
+} from '../../../../commons/types/generated/types';
 
-const newWeekData = (
-  days: string,
-  i: number,
-  bgC: string,
-  option: boolean,
-): IWeekData => {
+const newWeekData = (days: string, i: number, option: boolean): IWeekData => {
   return {
     index: i,
     day: days,
     work: '',
     tardy: '',
-    css: {
-      color: '',
-      backgroundColor: bgC,
-      display: '',
-    },
-    func: {
-      onClick: option,
-    },
+    option,
   };
 };
 
 const ScheduleContainer = () => {
   const [today, setToday] = useState(moment()); // 오늘
   const [dateArr, setDateArr] = useState<IWeekData[][]>([]);
-  const dayData = [<ScheduleElementContainer key="first" />];
+
+  const [getUserData, { data: userData }] =
+    useLazyQuery<Pick<IQuery, 'fetchAccount'>>(FETCH_ACCOUNT);
+
+  useMemo(() => {
+    if (userData === undefined) {
+      getUserData().catch(() => {});
+    }
+  }, [getUserData, userData]);
+
+  const { data: scheduleData } = useQuery<
+    Pick<IQuery, 'fetchMonthMemberSchedule'>,
+    IQueryFetchMonthMemberScheduleArgs
+  >(FETCH_USER_SCHEDULE, {
+    variables: {
+      memberId: [String(userData?.fetchAccount.member?.id)],
+    },
+  });
+
+  console.log(scheduleData?.fetchMonthMemberSchedule);
 
   const MoveNextMonth = () => {
     setToday(today.clone().add(1, 'month'));
@@ -59,14 +71,11 @@ const ScheduleContainer = () => {
           .startOf('week')
           .add(i, 'day')
           .format('YYYY-MM-DD'); // 그날의 시간 정보
-        if (moment().format('YYYY-MM-DD') === days) {
-          // 현재 날짜일 경우
-          weekArray.push(newWeekData(days, index, 'lightpink', true));
-        } else if (days.split('-')[1] !== today.format('MM')) {
+        if (days.split('-')[1] !== today.format('MM')) {
           // 현재 월이 아닌경우
-          weekArray.push(newWeekData(days, index, 'white', false));
+          weekArray.push(newWeekData(days, index, false));
         } else {
-          weekArray.push(newWeekData(days, index, 'lightgray', true));
+          weekArray.push(newWeekData(days, index, true));
         }
         index++;
       }
@@ -78,7 +87,6 @@ const ScheduleContainer = () => {
   return (
     <SchedulePresenter
       dateArr={dateArr}
-      dayData={dayData}
       MoveNextMonth={MoveNextMonth}
       MovePrevMonth={MovePrevMonth}
       today={today}
