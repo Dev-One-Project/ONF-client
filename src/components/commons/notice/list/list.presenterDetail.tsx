@@ -57,8 +57,7 @@ const NoticeDetail = (props: INoticeDetailProps) => {
   };
 
   return (
-    <>
-      {' '}
+    <S.DetailCantainer>
       <S.DetailTop>
         <S.Title>{fetchOneNoticeBoard?.fetchOneNoticeBoard.title}</S.Title>
         <S.DateStyle>
@@ -95,7 +94,7 @@ const NoticeDetail = (props: INoticeDetailProps) => {
           />
         </S.BtnWrapper>
       ) : null}
-    </>
+    </S.DetailCantainer>
   );
 };
 
