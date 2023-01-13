@@ -30,6 +30,7 @@ interface ISelectProps {
   data?: InputData[];
   defaultChecked?: InputData[];
   textFillMode?: boolean;
+  singleMode?: boolean;
 }
 
 export interface InputData {
@@ -75,8 +76,10 @@ const Select01 = (props: ISelectProps) => {
 
   const onCheckedElement = useCallback(
     (checked, selectedTarget) => {
-      if (checked) setCheckedList([...checkedList, selectedTarget]);
-      else
+      if (checked) {
+        if (props.singleMode) setCheckedList([selectedTarget]);
+        else setCheckedList([...checkedList, selectedTarget]);
+      } else
         setCheckedList(checkedList.filter((el) => el.id !== selectedTarget.id));
     },
     [checkedList],
@@ -166,17 +169,21 @@ const Select01 = (props: ISelectProps) => {
               )}
             </SearchBox>
             <OptionBox>
-              <Check01
-                text="모두 선택"
-                checked={
-                  checkedList.length === 0
-                    ? false
-                    : checkedList.length === props.data?.length
-                }
-                onChange={(event) => onCheckedAll(event.target.checked)}
-              />
+              {!props.singleMode && (
+                <Check01
+                  text="모두 선택"
+                  checked={
+                    checkedList.length === 0
+                      ? false
+                      : checkedList.length === props.data?.length
+                  }
+                  onChange={(event) => onCheckedAll(event.target.checked)}
+                />
+              )}
               <Options className="options">
-                <Divider style={{ margin: '0.5rem 0' }} />
+                {!props.singleMode && (
+                  <Divider style={{ margin: '0.5rem 0' }} />
+                )}
                 {props.data && props.data.length > 0
                   ? props.data
                       .filter((el) => el.name.includes(keyword))

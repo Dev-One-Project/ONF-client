@@ -180,6 +180,8 @@ const MemberForm = (props: IFormProps) => {
                   { id: '직원', name: '직원' },
                 ]}
                 // defaultChecked={[accessAuth]}
+                singleMode
+                textFillMode
               >
                 액세스 권한
               </InputLabel>
@@ -190,6 +192,8 @@ const MemberForm = (props: IFormProps) => {
                 register={register('roleCategoryId')}
                 data={roleCategories}
                 defaultChecked={roleCategoryDefaultValue}
+                singleMode
+                textFillMode
               >
                 직무들
               </InputLabel>
@@ -200,6 +204,8 @@ const MemberForm = (props: IFormProps) => {
                 register={register('organizationId')}
                 data={organizations}
                 defaultChecked={organizationDefaultValue}
+                singleMode
+                textFillMode
               >
                 지점들
               </InputLabel>

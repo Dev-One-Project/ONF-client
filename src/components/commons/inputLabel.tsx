@@ -21,6 +21,7 @@ interface IInputLabelProps {
   labelWidth?: string;
   inputWidth?: string;
   customInput?: JSX.Element;
+  singleMode?: boolean;
 }
 
 const InputLabel = (props: IInputLabelProps) => {
@@ -38,6 +39,7 @@ const InputLabel = (props: IInputLabelProps) => {
           data={props.data}
           defaultChecked={props.defaultChecked}
           textFillMode={props.textFillMode}
+          singleMode={props.singleMode}
         />
       ) : props.type === 'custom' ? (
         <>{props.customInput}</>
