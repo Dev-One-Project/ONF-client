@@ -20,7 +20,9 @@ const Calendar = (props: ICalendarContainerProps) => {
         <S.WeekWrapper key={v4()}>
           <br />
           {week.map((day: IWeekData, j: number) => {
-            let bgC = styleSet.colors.white;
+            let bgC = day.option
+              ? styleSet.colors.white
+              : styleSet.colors.lightGray;
             if (props.selected.includes(day.day))
               bgC = props.selectedColor || styleSet.colors.subColor05;
             return (
