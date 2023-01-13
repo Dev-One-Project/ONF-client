@@ -1,36 +1,44 @@
-import styled from '@emotion/styled';
+import * as S from '..';
 import { IMember } from '../../../../../../../commons/types/generated/types';
 import { getDate } from '../../../../../../../commons/utils/getDate';
 
 const MemberData = (props: { data?: IMember }) => {
   return (
     <>
-      <Td>{props.data?.name}</Td>
-      {/* <Td>{props.data?.accessAuth ?? ''}</Td> */}
-      <Td>{'개발 예정'}</Td>
-      <Td>{props.data?.joinDate ? getDate(props.data?.joinDate) : ''}</Td>
-      <Td>{props.data?.organization?.name}</Td>
-      <Td>{props.data?.roleCategory?.name}</Td>
-      {/* <Td>{props.data?.workInfo?.name ?? '개발 예정'}</Td> */}
-      <Td>{'개발 예정'}</Td>
-      <Td>{'₩ 9,620'}</Td>
-      {/* <Td>{props.data?.fixedLaborRules ?? '개발 예정'}</Td> */}
-      <Td>{'개발 예정'}</Td>
-      {/* <Td>{props.data?.maximumLaborRules ?? '개발 예정'}</Td> */}
-      <Td>{'개발 예정'}</Td>
-      {/* <Td>{props.data?.appliedDate ?? '개발 예정'}</Td> */}
-      <Td>{'개발 예정'}</Td>
-      <Td style={{ paddingLeft: '2.2rem' }}>
+      <S.Td>{props.data?.name}</S.Td>
+      {/* <S.Td>{props.data?.accessAuth ?? ''}</S.Td> */}
+      <S.Td>{'개발 예정'}</S.Td>
+      <S.Td>{props.data?.joinDate ? getDate(props.data?.joinDate) : ''}</S.Td>
+      <S.Td>{props.data?.organization?.name}</S.Td>
+      <S.Td>{props.data?.roleCategory?.name}</S.Td>
+      <S.Td>{props.data?.workInfo?.name ?? '개발 예정'}</S.Td>
+      <S.Td>{'₩ 9,620'}</S.Td>
+      <S.Td>
+        {props.data?.workInfo
+          ? `${String(props.data?.workInfo?.fixedUnitPeriod)} ${String(
+              props.data?.workInfo?.fixedPeriodRange,
+            )} 평균 ${String(props.data?.workInfo?.fixedStandard)} ${String(
+              props.data?.workInfo?.fixedHours,
+            )}`
+          : '개발 예정'}
+      </S.Td>
+      <S.Td>
+        {props.data?.workInfo
+          ? `${String(props.data?.workInfo?.maximumUnitPeriod)} ${String(
+              props.data?.workInfo?.maximumPeriodRange,
+            )} 평균 ${String(props.data?.workInfo?.maximumStandard)} ${String(
+              props.data?.workInfo?.maximumHours,
+            )}`
+          : '개발 예정'}
+      </S.Td>
+      {/* <S.Td>{props.data?.appliedFrom ?? '개발 예정'}</S.Td> */}
+      <S.Td>{'개발 예정'}</S.Td>
+      <S.Td style={{ paddingLeft: '2.2rem' }}>
         {props.data?.isJoin ? 'O' : 'X'}
-      </Td>
+      </S.Td>
+      <S.Td>{props.data?.memo}</S.Td>
     </>
   );
 };
 
 export default MemberData;
-
-const Td = styled.td`
-  text-align: left;
-  padding: 0.5rem 0.25rem 0.5rem 0.5rem;
-  min-width: 100px;
-`;

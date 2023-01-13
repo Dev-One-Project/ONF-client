@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import {
   IMember,
   IOrganization,
@@ -25,6 +26,23 @@ export interface IRowDataCellsProps {
     IVacationCategory &
     IWorkInfo;
 }
+
+interface IStyle {
+  color?: string;
+}
+
+export const Td = styled.td`
+  text-align: left;
+  padding: 0.5rem 0.25rem 0.5rem 0.5rem;
+  min-width: 100px;
+`;
+
+export const ColorBox = styled.div`
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: ${({ color }: IStyle) => color};
+  border-radius: 0.2rem;
+`;
 
 const RowDataCells = (props: IRowDataCellsProps) => {
   switch (props.tab) {

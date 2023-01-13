@@ -46,6 +46,9 @@ interface IStyle {
 
 const Select01 = (props: ISelectProps) => {
   if (props.setState && props.register) props.register = undefined;
+  if (props.center && props.left) {
+    throw Error('center와 left 중 하나만 선언해주세요!');
+  }
   const [isOpen, setIsOpen] = useState(false);
   const [saveChecked, setSaveChecked] = useState<InputData[]>([]);
   const [checkedList, setCheckedList] = useState<InputData[]>([]);
