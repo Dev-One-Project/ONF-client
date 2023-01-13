@@ -18,11 +18,21 @@ export interface ICalendarContainerProps {
   selected: string[];
   onClickElement: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   width?: string;
+  elementHeight?: string;
+  daySize?: {
+    fontSize?: string;
+  };
+  titleSize?: {
+    fontSize?: string;
+  };
 }
 
 export interface ICalendarProps {
   selectedColor?: string;
   width?: string;
+  elementHeight?: string;
   selected: string[];
   setSelected: Dispatch<SetStateAction<string[]>>;
+  daySize?: string;
+  titleSize?: string;
 }
