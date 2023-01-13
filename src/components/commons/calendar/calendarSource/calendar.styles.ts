@@ -21,7 +21,6 @@ export const FirstWrapper = styled.section`
 
 export const DayWrapper = styled.div`
   width: 100%;
-  height: 4.385rem;
   max-width: 11.25rem;
   display: flex;
   flex-direction: column;
@@ -47,7 +46,6 @@ export const FirstLine = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 0.625rem 0;
-  font-size: ${styleSet.fontSizes.strong};
   border: 1px solid ${styleSet.colors.lightGray};
 `;
 
@@ -88,6 +86,4 @@ export const YearStyle = styled.div`
   justify-content: flex-end;
   padding-right: 1rem;
   font-family: ${styleSet.fonts.B};
-  font-size: ${styleSet.fontSizes.strong};
 `;
-  

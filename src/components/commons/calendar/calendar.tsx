@@ -8,6 +8,9 @@ const Calendar = (props: ICalendarProps) => {
       width={props.width}
       selected={props.selected}
       setSelected={props.setSelected}
+      elementHeight={props.elementHeight}
+      daySize={props.daySize}
+      titleSize={props.titleSize}
     />
   );
 };

@@ -8,13 +8,13 @@ const Calendar = (props: ICalendarContainerProps) => {
   return (
     <>
       <S.FirstWrapper>
-        <S.FirstLine>일</S.FirstLine>
-        <S.FirstLine>월</S.FirstLine>
-        <S.FirstLine>화</S.FirstLine>
-        <S.FirstLine>수</S.FirstLine>
-        <S.FirstLine>목</S.FirstLine>
-        <S.FirstLine>금</S.FirstLine>
-        <S.FirstLine>토</S.FirstLine>
+        <S.FirstLine style={props.daySize}>일</S.FirstLine>
+        <S.FirstLine style={props.daySize}>월</S.FirstLine>
+        <S.FirstLine style={props.daySize}>화</S.FirstLine>
+        <S.FirstLine style={props.daySize}>수</S.FirstLine>
+        <S.FirstLine style={props.daySize}>목</S.FirstLine>
+        <S.FirstLine style={props.daySize}>금</S.FirstLine>
+        <S.FirstLine style={props.daySize}>토</S.FirstLine>
       </S.FirstWrapper>
       {props.dateArr?.map((week: IWeekData[], i: number) => (
         <S.WeekWrapper key={v4()}>
@@ -22,6 +22,7 @@ const Calendar = (props: ICalendarContainerProps) => {
           {week.map((day: IWeekData, j: number) => {
             const css = {
               backgroundColor: day.option ? 'white' : 'lightGray',
+              height: props.elementHeight || '4.385rem',
             };
             if (props.selected.includes(day.day))
               css.backgroundColor =
@@ -60,8 +61,12 @@ const CalendarPresenter = (props: ICalendarContainerProps) => {
               color={styleSet.colors.primary}
             />
           </S.ArrowButton>
-          <S.YearStyle>{props.today?.format('YYYY년')}</S.YearStyle>
-          <S.DateStyle>{props.today?.format('MM월')}</S.DateStyle>
+          <S.YearStyle style={props.titleSize}>
+            {props.today?.format('YYYY년')}
+          </S.YearStyle>
+          <S.DateStyle style={props.titleSize}>
+            {props.today?.format('MM월')}
+          </S.DateStyle>
           <S.ArrowButton type="button" onClick={props.MoveNextMonth}>
             <ArrowSvg
               direction={'right'}
