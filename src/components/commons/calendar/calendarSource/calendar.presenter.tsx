@@ -8,30 +8,27 @@ const Calendar = (props: ICalendarContainerProps) => {
   return (
     <>
       <S.FirstWrapper>
-        <S.FirstLine style={props.daySize}>일</S.FirstLine>
-        <S.FirstLine style={props.daySize}>월</S.FirstLine>
-        <S.FirstLine style={props.daySize}>화</S.FirstLine>
-        <S.FirstLine style={props.daySize}>수</S.FirstLine>
-        <S.FirstLine style={props.daySize}>목</S.FirstLine>
-        <S.FirstLine style={props.daySize}>금</S.FirstLine>
-        <S.FirstLine style={props.daySize}>토</S.FirstLine>
+        <S.FirstLine daySize={props.daySize}>일</S.FirstLine>
+        <S.FirstLine daySize={props.daySize}>월</S.FirstLine>
+        <S.FirstLine daySize={props.daySize}>화</S.FirstLine>
+        <S.FirstLine daySize={props.daySize}>수</S.FirstLine>
+        <S.FirstLine daySize={props.daySize}>목</S.FirstLine>
+        <S.FirstLine daySize={props.daySize}>금</S.FirstLine>
+        <S.FirstLine daySize={props.daySize}>토</S.FirstLine>
       </S.FirstWrapper>
       {props.dateArr?.map((week: IWeekData[], i: number) => (
         <S.WeekWrapper key={v4()}>
           <br />
           {week.map((day: IWeekData, j: number) => {
-            const css = {
-              backgroundColor: day.option ? 'white' : 'lightGray',
-              height: props.elementHeight || '4.385rem',
-            };
+            let bgC = styleSet.colors.white;
             if (props.selected.includes(day.day))
-              css.backgroundColor =
-                props.selectedColor || styleSet.colors.subColor05;
+              bgC = props.selectedColor || styleSet.colors.subColor05;
             return (
               <S.DayWrapper
                 key={v4()}
                 id={String(day.day)}
-                style={css}
+                selectedColor={bgC}
+                elementHeight={props.elementHeight}
                 onClick={props.onClickElement}
               >
                 <label style={{ paddingTop: '10px' }}>
@@ -61,10 +58,10 @@ const CalendarPresenter = (props: ICalendarContainerProps) => {
               color={styleSet.colors.primary}
             />
           </S.ArrowButton>
-          <S.YearStyle style={props.titleSize}>
+          <S.YearStyle titleSize={props.titleSize}>
             {props.today?.format('YYYY년')}
           </S.YearStyle>
-          <S.DateStyle style={props.titleSize}>
+          <S.DateStyle titleSize={props.titleSize}>
             {props.today?.format('MM월')}
           </S.DateStyle>
           <S.ArrowButton type="button" onClick={props.MoveNextMonth}>

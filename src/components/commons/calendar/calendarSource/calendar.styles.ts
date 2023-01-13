@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { styleSet } from '../../../../commons/styles/styleSet';
+import { ICalendarStyleProps } from './calendar.types';
 
 export const WeekWrapper = styled.section`
   max-width: 78.75rem;
@@ -21,6 +22,7 @@ export const FirstWrapper = styled.section`
 
 export const DayWrapper = styled.div`
   width: 100%;
+  height: ${(props: ICalendarStyleProps) => props.elementHeight || '4.385rem'};
   max-width: 11.25rem;
   display: flex;
   flex-direction: column;
@@ -30,6 +32,8 @@ export const DayWrapper = styled.div`
   border: 1px solid ${styleSet.colors.lightGray};
   border-bottom: none;
   border-top: none;
+  background-color: ${(props: ICalendarStyleProps) =>
+    props.selectedColor || styleSet.colors.subColor05};
   cursor: pointer;
   label {
     cursor: pointer;
@@ -46,6 +50,8 @@ export const FirstLine = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 0.625rem 0;
+  font-size: ${(props: ICalendarStyleProps) =>
+    props.daySize || styleSet.fontSizes.strong};
   border: 1px solid ${styleSet.colors.lightGray};
 `;
 
@@ -77,7 +83,8 @@ export const BtnWrapper = styled.section`
 export const DateStyle = styled.div`
   width: 50%;
   font-family: ${styleSet.fonts.B};
-  font-size: ${styleSet.fontSizes.strong};
+  font-size: ${(props: ICalendarStyleProps) =>
+    props.titleSize || styleSet.fontSizes.strong};
 `;
 
 export const YearStyle = styled.div`
@@ -85,5 +92,7 @@ export const YearStyle = styled.div`
   display: flex;
   justify-content: flex-end;
   padding-right: 1rem;
+  font-size: ${(props: ICalendarStyleProps) =>
+    props.titleSize || styleSet.fontSizes.strong};
   font-family: ${styleSet.fonts.B};
 `;
