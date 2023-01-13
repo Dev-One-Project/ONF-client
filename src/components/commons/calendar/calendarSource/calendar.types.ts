@@ -9,30 +9,24 @@ export interface IWeekData {
   option: boolean;
 }
 
-export interface ICalendarContainerProps {
-  selectedColor?: string;
+export interface ICalendarContainerProps extends ICalendarStyleProps {
   dateArr: IWeekData[][];
   MoveNextMonth?: () => void;
   MovePrevMonth?: () => void;
   today?: Moment;
   selected: string[];
   onClickElement: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
-  width?: string;
-  elementHeight?: string;
-  daySize?: {
-    fontSize?: string;
-  };
-  titleSize?: {
-    fontSize?: string;
-  };
 }
 
-export interface ICalendarProps {
-  selectedColor?: string;
-  width?: string;
-  elementHeight?: string;
+export interface ICalendarProps extends ICalendarStyleProps {
   selected: string[];
   setSelected: Dispatch<SetStateAction<string[]>>;
+}
+
+export interface ICalendarStyleProps {
   daySize?: string;
   titleSize?: string;
+  width?: string;
+  elementHeight?: string;
+  selectedColor?: string;
 }

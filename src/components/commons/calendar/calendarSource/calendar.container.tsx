@@ -2,7 +2,6 @@ import moment from 'moment';
 import React, { useMemo, useState } from 'react';
 import CalendarPresenter from './calendar.presenter';
 import { ICalendarProps, IWeekData } from './calendar.types';
-import { styleSet } from '../../../../commons/styles/styleSet';
 
 const newWeekData = (days: string, i: number, option: boolean): IWeekData => {
   return {
@@ -71,13 +70,6 @@ const CalendarContainer = (props: ICalendarProps) => {
 
   console.log(props.selected);
 
-  const fontSize = {
-    fontSize: props.daySize || styleSet.fontSizes.strong,
-  };
-  const titleSize = {
-    fontSize: props.titleSize || styleSet.fontSizes.strong,
-  };
-
   return (
     <CalendarPresenter
       selectedColor={props.selectedColor}
@@ -89,8 +81,8 @@ const CalendarContainer = (props: ICalendarProps) => {
       selected={props.selected}
       onClickElement={onClickElement}
       elementHeight={props.elementHeight}
-      daySize={fontSize}
-      titleSize={titleSize}
+      daySize={props.daySize}
+      titleSize={props.titleSize}
     />
   );
 };
