@@ -34,8 +34,15 @@ export interface ILeavesPresenterProps {
   onCheckedElement: (checked: boolean, selectedTarget: IVacation) => void;
   dataLength: number;
   checkedList: IVacation[];
-  isOptionOpen: boolean;
   onClickDeleteChecked: () => void;
+  onClickOpenModal: () => void;
+  isAddModalOpen: boolean;
+  setIsAddModalOpen: Dispatch<SetStateAction<boolean>>;
+  selectedDate: string[];
+  setSelectedDate: Dispatch<SetStateAction<string[]>>;
+  memberData?: InputData[];
+  setMemberArr: Dispatch<SetStateAction<IInputData[]>>;
+  vacationCategoriesData?: IInputData[];
 }
 
 export interface IInputData {

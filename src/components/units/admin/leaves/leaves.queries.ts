@@ -63,3 +63,31 @@ export const DELETE_MANY_VACATION = gql`
     deleteManyVacation(vacationId: $vacationId)
   }
 `;
+
+export const FETCH_MEMBERS = gql`
+  query {
+    fetchMembers {
+      id
+      name
+    }
+  }
+`;
+
+export const FETCH_VACATION_CATEGORIES = gql`
+  query {
+    fetchVacationCategories {
+      id
+      name
+      paidTime
+      deductionDays
+    }
+  }
+`;
+
+export const CREATE_VACATION = gql`
+  mutation createVacation($createVacationInput: CreateVacationInput!) {
+    createVacation(createVacationInput: $createVacationInput) {
+      id
+    }
+  }
+`;

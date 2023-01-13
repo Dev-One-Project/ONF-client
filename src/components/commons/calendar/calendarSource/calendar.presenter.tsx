@@ -17,7 +17,7 @@ const Calendar = (props: ICalendarContainerProps) => {
         <S.FirstLine daySize={props.daySize}>토</S.FirstLine>
       </S.FirstWrapper>
       {props.dateArr?.map((week: IWeekData[], i: number) => (
-        <S.WeekWrapper key={v4()}>
+        <S.WeekWrapper key={v4()} elementHeight={props.elementHeight}>
           <br />
           {week.map((day: IWeekData, j: number) => {
             let bgC = day.option
@@ -30,10 +30,9 @@ const Calendar = (props: ICalendarContainerProps) => {
                 key={v4()}
                 id={String(day.day)}
                 selectedColor={bgC}
-                elementHeight={props.elementHeight}
                 onClick={props.onClickElement}
               >
-                <label style={{ paddingTop: '10px' }}>
+                <label style={{ paddingTop: '10px', height: '100%' }}>
                   {day.day.split('-')[2] === '01'
                     ? `${day.day.split('-')[1]}/${day.day.split('-')[2]}`
                     : day.day.split('-')[2]}
@@ -78,6 +77,9 @@ const CalendarPresenter = (props: ICalendarContainerProps) => {
           dateArr={props.dateArr}
           selected={props.selected}
           onClickElement={props.onClickElement}
+          elementHeight={props.elementHeight}
+          selectedColor={props.selectedColor}
+          daySize={props.daySize}
         />
       </section>
     </>
