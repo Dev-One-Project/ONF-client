@@ -118,9 +118,6 @@ export const ModalField = styled.fieldset`
   flex-direction: column;
   gap: 1rem;
   width: 29rem;
-  label {
-    width: 100px;
-  }
 `;
 
 export const MemoBox = styled.div`
@@ -146,6 +143,13 @@ export const LabelBox = styled.div`
   flex-direction: row;
   align-items: center;
   margin-top: 0.5rem;
+  > label {
+    width: 100px;
+  }
+`;
+
+export const Span = styled.span`
+  margin-right: 20px;
 `;
 
 export const P = styled.p`

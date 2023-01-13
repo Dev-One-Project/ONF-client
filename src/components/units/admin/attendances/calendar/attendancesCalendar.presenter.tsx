@@ -90,28 +90,26 @@ const AttendancesCalendarPresenter = (
                 <td>{member.member.name}</td>
                 {member.data.map((memberData) =>
                   memberData[0] ? (
-                    <>
-                      <td>
-                        <label>
-                          {memberData[0]
-                            ? getTimeStr(memberData[0].workingTime, '').replace(
-                                ' - ',
-                                '',
-                              )
-                            : ''}
-                        </label>
-                        <label>
-                          {memberData[0].quittingTime
-                            ? getTimeStr(
-                                '',
-                                memberData[0].quittingTime,
-                              ).replace(' - ', '')
-                            : ''}
-                        </label>
-                      </td>
-                    </>
+                    <td key={uuidV4()}>
+                      <label>
+                        {memberData[0]
+                          ? getTimeStr(memberData[0].workingTime, '').replace(
+                              ' - ',
+                              '',
+                            )
+                          : ''}
+                      </label>
+                      <label>
+                        {memberData[0].quittingTime
+                          ? getTimeStr('', memberData[0].quittingTime).replace(
+                              ' - ',
+                              '',
+                            )
+                          : ''}
+                      </label>
+                    </td>
                   ) : (
-                    <td key={member.member.id}></td>
+                    <td key={uuidV4()}></td>
                   ),
                 )}
                 <td></td>

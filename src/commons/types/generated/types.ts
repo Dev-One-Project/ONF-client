@@ -770,19 +770,27 @@ export type IQuery = {
   fetchHolidays: Array<IHoliday>;
   /** 선택한 기간동안의 근무일정 조회 - 목록형 - 관리자 */
   fetchListTypeSchedule: Array<ISchedule>;
+  /** 출근,지각,미출근,휴가 조회(카운트) */
+  fetchMainPageWorkCheck: Array<IMainPageWorkCheckOutput>;
   /** memberId(사원ID)로 개별 조회, memberId 입력시 입력한 member 조회, 아니면 로그인한 유저 정보 조회 */
   fetchMember: IMember;
+  /** 회사 내의 지점별 직원 조회 */
   fetchMemberInOrg: Array<IMember>;
+  /** 회사 내의 직무별 직원 조회 */
   fetchMemberInRole: Array<IMember>;
+  /** 회사 내의 지점+직무 직원 조회 */
   fetchMemberInRoleOrg: Array<IMember>;
+  /** 멤버의 특정날짜 근무일정 조회 */
   fetchMemberSchedule?: Maybe<ISchedule>;
   /** member개인(나)의 출퇴근 기록 조회 - 직원모드 */
   fetchMemberWorkChecks: Array<IWorkCheckOutput>;
   /** comanyId에 해당하는 멤버 전체 조회, 비활성화버튼을 통해 비활성화 멤버 검색 */
   fetchMembers: Array<IMember>;
+  /** 한달동안의 멤버들 근무일정 조회 - 직원용 */
   fetchMonthMemberSchedule: Array<Array<ISchedule>>;
   /** 회사 지점에 속한 멤버들의 출퇴근 기록을 월별로 조회 - 달력형 - 관리자 */
   fetchMonthWorkChecks: Array<IWorkCheckMemberOutput>;
+  /** 회사내의 직원 수 카운트 */
   fetchNumberOfEmployees: Scalars['Int'];
   fetchOneNoticeBoard: INoticeBoard;
   /** 조직 상세 조회 */
@@ -1243,4 +1251,12 @@ export type IWorkInfo = {
   name?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
   weekOffDays?: Maybe<Scalars['String']>;
+};
+
+export type IMainPageWorkCheckOutput = {
+  __typename?: 'mainPageWorkCheckOutput';
+  notWorking?: Maybe<Scalars['Int']>;
+  tardy?: Maybe<Scalars['Int']>;
+  vacation?: Maybe<Scalars['Int']>;
+  working?: Maybe<Scalars['Int']>;
 };

@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@apollo/client';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   IQuery,
@@ -10,7 +10,10 @@ import {
 import { FETCH_ORGANIZATIONS } from '../leaveAccruals/leaveAccruals.queries';
 import LeavesPresenter from './leaves.presenter';
 import {
+  CREATE_VACATION,
   DELETE_MANY_VACATION,
+  FETCH_MEMBERS,
+  FETCH_VACATION_CATEGORIES,
   FETCH_VACATION_WITH_DATE,
   FETCH_VACATION_WITH_DELETE,
 } from './leaves.queries';
@@ -21,6 +24,7 @@ const LeavesContainer = () => {
   const [filterInit, setFilterInit] = useState(false);
   const [isCheckedChange, setIsCheckedChange] = useState(false);
   const [organizationArr, setOrganizationArr] = useState<IInputData[]>([]);
+  const [memberArr, setMemberArr] = useState<IInputData[]>([]);
   const [startEndDate, setStartEndDate] = useState([
     new Date(date.getFullYear(), date.getMonth(), 1),
     new Date(date.getFullYear(), date.getMonth() + 1, 0),
@@ -33,7 +37,10 @@ const LeavesContainer = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [aniMode, setAniMode] = useState(false);
-  const [isOptionOpen, setIsOptionOpen] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<string[]>([]);
+
+  const [createVacation] = useMutation(CREATE_VACATION);
 
   const onChangeStartEndDate = (value: any) => {
     if (value === null) return;
@@ -42,6 +49,11 @@ const LeavesContainer = () => {
 
   const onClickList = () => {
     setIsOpen(true);
+    setAniMode(true);
+  };
+
+  const onClickOpenModal = () => {
+    setIsAddModalOpen(true);
     setAniMode(true);
   };
 
@@ -54,10 +66,48 @@ const LeavesContainer = () => {
     setIsCheckedChange(true);
   };
 
-  const onSubmit = (data: any) => () => {
-    if (data) {
+  const onSubmit = async (data: any) => {
+    try {
+      data.vacations = selectedDate.map((data) => new Date(data));
+      data.memberId = memberArr?.map((data) => data.id);
       console.log(data);
+      if (filterInit) {
+        await createVacation({
+          variables: { createVacationInput: data },
+          refetchQueries: [
+            {
+              query: FETCH_VACATION_WITH_DATE,
+              variables: {
+                startDate: startEndDate[0],
+                endDate: startEndDate[1],
+                organizationId: organizationArr.map(
+                  (organization) => organization.id,
+                ),
+              },
+            },
+          ],
+        });
+      } else {
+        await createVacation({
+          variables: { createVacationInput: data },
+          refetchQueries: [
+            {
+              query: FETCH_VACATION_WITH_DELETE,
+              variables: {
+                startDate: startEndDate[0],
+                endDate: startEndDate[1],
+                organizationId: organizationArr.map(
+                  (organization) => organization.id,
+                ),
+              },
+            },
+          ],
+        });
+      }
+
       setAniMode(false);
+    } catch (error) {
+      alert('다시하라우');
     }
   };
 
@@ -70,6 +120,26 @@ const LeavesContainer = () => {
       name: String(organization.name),
     }),
   );
+
+  const { data: members } =
+    useQuery<Pick<IQuery, 'fetchMembers'>>(FETCH_MEMBERS);
+
+  const memberData = members?.fetchMembers.map((member) => ({
+    id: String(member.id),
+    name: String(member.name),
+  }));
+
+  const { data: vacationCategories } = useQuery<
+    Pick<IQuery, 'fetchVacationCategories'>
+  >(FETCH_VACATION_CATEGORIES);
+
+  const vacationCategoriesData =
+    vacationCategories?.fetchVacationCategories.map((category) => ({
+      id: String(category.id),
+      name: `${String(category.name)} (${String(category.paidTime)}h, ${String(
+        category.deductionDays,
+      )})`,
+    }));
 
   const { data: withDate } = useQuery<
     Pick<IQuery, 'fetchVacationWithDate'>,
@@ -105,6 +175,10 @@ const LeavesContainer = () => {
     }
   }, [organizations]);
 
+  useEffect(() => {
+    setSelectedDate([]);
+  }, [memberArr]);
+
   const onCheckedAll = useCallback(
     (checked) => {
       if (checked) {
@@ -114,19 +188,16 @@ const LeavesContainer = () => {
             checkedListArray.push(...list),
           );
           setCheckedList(checkedListArray);
-          setIsOptionOpen(true);
           setDataLength(checkedListArray.length);
         } else {
           withDelete?.fetchVacationWithDelete.forEach((list) =>
             checkedListArray.push(...list),
           );
           setCheckedList(checkedListArray);
-          setIsOptionOpen(true);
           setDataLength(checkedListArray.length);
         }
       } else {
         setCheckedList([]);
-        setIsOptionOpen(false);
       }
     },
     [withDate, withDelete, filterInit],
@@ -136,7 +207,6 @@ const LeavesContainer = () => {
     (checked, selectedTarget) => {
       if (checked) {
         setCheckedList([...checkedList, selectedTarget]);
-        setIsOptionOpen(true);
       } else {
         setCheckedList(checkedList.filter((el) => el.id !== selectedTarget.id));
       }
@@ -207,8 +277,15 @@ const LeavesContainer = () => {
       onCheckedElement={onCheckedElement}
       dataLength={dataLength}
       checkedList={checkedList}
-      isOptionOpen={isOptionOpen}
       onClickDeleteChecked={onClickDeleteChecked}
+      onClickOpenModal={onClickOpenModal}
+      isAddModalOpen={isAddModalOpen}
+      setIsAddModalOpen={setIsAddModalOpen}
+      setSelectedDate={setSelectedDate}
+      selectedDate={selectedDate}
+      memberData={memberData}
+      setMemberArr={setMemberArr}
+      vacationCategoriesData={vacationCategoriesData}
     />
   );
 };

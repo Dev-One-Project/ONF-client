@@ -120,7 +120,9 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
                 )}
               </S.ModalBoxRow>
             </S.ModalField>
-            <Divider style={{ margin: '1.8rem 0 0' }} />
+            <Divider
+              style={{ margin: '1.8rem 0 0', transform: 'scaleX(1.075)' }}
+            />
             <S.ModalFooter>
               <div></div>
               <Btn01
@@ -188,7 +190,9 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
                 </S.PBox>
               )}
             </S.ModalBox>
-            <Divider style={{ margin: '0.7rem 0 0' }} />
+            <Divider
+              style={{ margin: '0.7rem 0 0', transform: 'scaleX(1.027)' }}
+            />
             <S.ModalFooter>
               <Btn01 text="닫기" onClick={props.onClickCloseModal} bdC="#ddd" />
             </S.ModalFooter>

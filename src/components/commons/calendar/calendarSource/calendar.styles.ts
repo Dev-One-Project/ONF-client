@@ -4,6 +4,7 @@ import { ICalendarStyleProps } from './calendar.types';
 
 export const WeekWrapper = styled.section`
   max-width: 78.75rem;
+  height: ${(props: ICalendarStyleProps) => props.elementHeight || '4.385rem'};
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -22,7 +23,6 @@ export const FirstWrapper = styled.section`
 
 export const DayWrapper = styled.div`
   width: 100%;
-  height: ${(props: ICalendarStyleProps) => props.elementHeight || '4.385rem'};
   max-width: 11.25rem;
   display: flex;
   flex-direction: column;

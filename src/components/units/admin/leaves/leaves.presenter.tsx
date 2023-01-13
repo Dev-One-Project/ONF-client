@@ -11,6 +11,7 @@ import FallingModal from '../../../commons/modal/fallingModal';
 import Select02 from '../../../commons/input/select02';
 import Textarea from '../../../commons/textarea';
 import LeaveOptionalFetch from './modules/leaveOptionalFetch';
+import Calendar from '../../../commons/calendar/calendar';
 
 const LeavesPresenter = (props: ILeavesPresenterProps) => {
   return (
@@ -21,6 +22,7 @@ const LeavesPresenter = (props: ILeavesPresenterProps) => {
           text={'휴가 관리'}
           color={styleSet.colors.white}
           bgC={styleSet.colors.primary}
+          onClick={props.onClickOpenModal}
         />
       </S.TopWrapper>
 
@@ -33,16 +35,12 @@ const LeavesPresenter = (props: ILeavesPresenterProps) => {
           width="31rem"
           title={'변경할 휴가 유형을 선택하세요'}
         >
-          <form onSubmit={props.handleSubmit(props.onSubmit)}>
+          <form>
             <S.ModalField>
               <S.LabelBox>
                 <label>휴가 유형</label>
                 <Select02
-                  data={[
-                    { id: '123', name: '짱구' },
-                    { id: '456', name: ' 맹구' },
-                    { id: '789', name: '철수' },
-                  ]}
+                  data={props.memberData}
                   register={props.register('member')}
                 />
               </S.LabelBox>
@@ -70,6 +68,73 @@ const LeavesPresenter = (props: ILeavesPresenterProps) => {
         </FallingModal>
       )}
 
+      {props.isAddModalOpen && (
+        <FallingModal
+          setIsOpen={props.setIsAddModalOpen}
+          isOpen={props.isAddModalOpen}
+          aniMode={props.aniMode}
+          onCancel={props.onClickCloseModal}
+          title={'휴가 관리하기'}
+        >
+          <form onSubmit={props.handleSubmit(props.onSubmit)}>
+            <S.LabelBox>
+              <S.Span>직원</S.Span>
+              <Select01 data={props.memberData} setState={props.setMemberArr} />
+            </S.LabelBox>
+            <Calendar
+              selected={props.selectedDate}
+              setSelected={props.setSelectedDate}
+              width="766px"
+              elementHeight="3.5rem"
+            />
+            {props.selectedDate.length > 0 ? (
+              <>
+                <S.LabelBox>
+                  <S.Span>휴가 유형</S.Span>
+                  <Select02
+                    data={props.vacationCategoriesData}
+                    register={props.register('vacationCategoryId')}
+                    name={'vacationCategoryId'}
+                    setValue={props.setValue}
+                  />
+                </S.LabelBox>
+                <S.MemoBox>
+                  <label>사유</label>
+                  <Textarea
+                    height="4rem"
+                    register={props.register('description')}
+                  />
+                </S.MemoBox>
+              </>
+            ) : (
+              <></>
+            )}
+
+            <Divider
+              style={{ margin: '1.8rem 0 0', transform: 'scaleX(1.04)' }}
+            />
+            <S.ModalFooter>
+              <div></div>
+              <S.BtnBox>
+                <Btn01
+                  type={'button'}
+                  text="닫기"
+                  bdC="#ddd"
+                  onClick={props.onClickCloseModal}
+                />
+                <Btn01
+                  type={'submit'}
+                  text="추가하기"
+                  color="#fff"
+                  bgC={styleSet.colors.primary}
+                  bdC={styleSet.colors.primary}
+                />
+              </S.BtnBox>
+            </S.ModalFooter>
+          </form>
+        </FallingModal>
+      )}
+
       {props.isOpen && (
         <FallingModal
           setIsOpen={props.setIsOpen}
@@ -79,17 +144,13 @@ const LeavesPresenter = (props: ILeavesPresenterProps) => {
           width="31rem"
           title={'김멤버의 휴가 바꾸기 (목, 12월 22일)'}
         >
-          <form onSubmit={props.handleSubmit(props.onSubmit)}>
+          <form>
             <S.ModalWrapper>
               <S.ModalField>
                 <S.LabelBox>
                   <label>휴가 유형</label>
                   <Select02
-                    data={[
-                      { id: '123', name: '짱구' },
-                      { id: '456', name: ' 맹구' },
-                      { id: '789', name: '철수' },
-                    ]}
+                    data={props.memberData}
                     register={props.register('member')}
                   />
                 </S.LabelBox>
@@ -133,7 +194,9 @@ const LeavesPresenter = (props: ILeavesPresenterProps) => {
                 <S.P>2022/12/28 15:57:03</S.P>
               </S.LabelBox>
             </S.ModalWrapper>
-            <Divider style={{ margin: '1.8rem 0 0' }} />
+            <Divider
+              style={{ margin: '1.8rem 0 0', transform: 'scaleX(1.07)' }}
+            />
             <S.ModalFooter>
               <Btn01 type={'button'} text="삭제하기" bdC="#ddd" color="red" />
               <S.BtnBox>
@@ -144,7 +207,7 @@ const LeavesPresenter = (props: ILeavesPresenterProps) => {
                   onClick={props.onClickCloseModal}
                 />
                 <Btn01
-                  type={'submit'}
+                  type={'button'}
                   text="변경사항 저장"
                   color="#fff"
                   bgC={styleSet.colors.primary}
@@ -198,7 +261,7 @@ const LeavesPresenter = (props: ILeavesPresenterProps) => {
             left
           />
         </S.OptBox>
-        {props.isOptionOpen ? (
+        {props.checkedList.length > 0 ? (
           <S.OptBox>
             <S.OptSelect>
               <Btn01

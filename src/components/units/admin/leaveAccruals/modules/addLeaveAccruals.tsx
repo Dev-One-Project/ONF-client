@@ -106,7 +106,7 @@ const AddLeaveAccruals = (props: IAddLeaveAccrualsProps) => {
           <Textarea height="4rem" register={props.register('description')} />
         </S.MemoBox>
       </S.ModalWrapper>
-      <Divider style={{ margin: '1.8rem 0 0' }} />
+      <Divider style={{ margin: '1.8rem 0 0', transform: 'scaleX(1.07)' }} />
 
       <S.ModalFooter>
         <Btn01
