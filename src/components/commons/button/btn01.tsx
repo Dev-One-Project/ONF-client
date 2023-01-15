@@ -59,7 +59,7 @@ const Btn = styled.button`
     ${(Props: IStyleProps) => (Props.bdC ? Props.bdC : '#000')};
   border-radius: 2px;
   cursor: ${(Props: IStyleProps) =>
-    Props.disabledStatus ? 'help' : 'pointer'};
+    Props.disabledStatus ? 'auto' : 'pointer'};
 
   :hover {
     color: ${(Props: IStyleProps) =>
