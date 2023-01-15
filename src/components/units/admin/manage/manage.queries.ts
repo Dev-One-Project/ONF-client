@@ -29,6 +29,7 @@ export const FETCH_ORGANIZATIONS = gql`
     fetchOrganizations {
       id
       name
+      checkPoint
       address
       lat
       lng

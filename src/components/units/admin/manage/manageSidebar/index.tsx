@@ -47,7 +47,8 @@ export default ManageSidebarComponent;
 
 const ManageSidebar = styled.div`
   min-width: 11.5rem;
-  height: 100vh;
+  min-height: 100%;
+  overflow-y: auto;
   background: ${styleSet.colors.lightGray};
   position: relative;
   z-index: 0;
@@ -55,6 +56,7 @@ const ManageSidebar = styled.div`
 `;
 
 const TabContainer = styled.ul`
+  min-height: calc(100vh - 4.5rem);
   display: flex;
   flex-direction: column;
   padding-top: 0.5rem;

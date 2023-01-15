@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import Footer from './common/footer';
 import { IFormProps } from './common/form.types';
-import InputLabel from '../../../../commons/inputLabel';
+import InputLabel from './common/inputLabel';
 import Memo from './common/memo';
 
 const LeaveTypes = (props: IFormProps) => {

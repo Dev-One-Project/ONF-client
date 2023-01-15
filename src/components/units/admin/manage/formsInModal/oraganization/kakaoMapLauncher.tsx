@@ -10,11 +10,9 @@ declare global {
 }
 
 interface IKakaoMapProps {
-  currentPosition?: Partial<GeolocationCoordinates>;
-  setCurrentPosition: Dispatch<
-    SetStateAction<Partial<GeolocationCoordinates | undefined>>
-  >;
-  markerPosition?: Partial<GeolocationCoordinates>;
+  currentPosition: Partial<GeolocationCoordinates>;
+  setCurrentPosition: Dispatch<SetStateAction<Partial<GeolocationCoordinates>>>;
+  markerPosition: Partial<GeolocationCoordinates>;
   setMarkerPosition: (args: Partial<GeolocationCoordinates>) => void;
   radius: valueType | null;
   address: string;
@@ -24,6 +22,45 @@ interface IKakaoMapProps {
 
 const KakaoMapLauncher = (props: IKakaoMapProps) => {
   const [mapLevel, setMapLevel] = useState<number>(4);
+  const script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src = `//dapi.kakao.com/v2/maps/sdk.js?&autoload=false&appkey=93b1f223fb41241d4e9e78362666dc12&libraries=services`;
+  script.defer = true;
+  document.head.appendChild(script);
+
+  useEffect(() => {
+    script.onload = () => {
+      const { kakao } = window;
+
+      kakao.maps.load(() => {
+        if (props.address) {
+          const geocoder = new kakao.maps.services.Geocoder();
+          // 주소로 좌표를 검색합니다
+          geocoder.addressSearch(
+            props.address,
+            function (result: any, status: any) {
+              // 정상적으로 검색이 완료됐으면
+              if (status === kakao.maps.services.Status.OK) {
+                const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                // 결과값으로 받은 위치를 마커로 표시합니다
+                props.setCurrentPosition({
+                  latitude: coords.Ma,
+                  longitude: coords.La,
+                });
+                props.setMarkerPosition({
+                  latitude: coords.Ma,
+                  longitude: coords.La,
+                });
+                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+              }
+            },
+          );
+        }
+      });
+    };
+  }, [props.address]);
+
   useEffect(() => {
     const script = document.createElement('script');
     script.type = 'text/javascript';
@@ -35,32 +72,12 @@ const KakaoMapLauncher = (props: IKakaoMapProps) => {
       const { kakao } = window;
 
       kakao.maps.load(() => {
-        // const geocoder = new kakao.maps.services.Geocoder();
-        // // 주소로 좌표를 검색합니다
-        // geocoder.addressSearch(address, function (result, status) {
-        //   // 정상적으로 검색이 완료됐으면
-        //   if (status === kakao.maps.services.Status.OK) {
-        //     const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-        //     // 결과값으로 받은 위치를 마커로 표시합니다
-        //     // props.setCurrentPosition({
-        //     //   latitude: coords.Ma,
-        //     //   longitude: coords.La,
-        //     // });
-        //     // props.setMarkerPosition({
-        //     //   latitude: coords.Ma,
-        //     //   longitude: coords.La,
-        //     // });
-        //     // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        //   }
-        // });
-
         const container = document.getElementById('map');
 
         const options = {
           center: new kakao.maps.LatLng(
-            props.currentPosition?.latitude,
-            props.currentPosition?.longitude,
+            props.currentPosition.latitude,
+            props.currentPosition.longitude,
           ),
           level: mapLevel,
         };
@@ -68,8 +85,8 @@ const KakaoMapLauncher = (props: IKakaoMapProps) => {
         const map = new kakao.maps.Map(container, options);
 
         const markerPosition = new kakao.maps.LatLng(
-          props.markerPosition?.latitude,
-          props.markerPosition?.longitude,
+          props.markerPosition.latitude,
+          props.markerPosition.longitude,
         );
 
         const marker = new kakao.maps.Marker({
@@ -94,8 +111,8 @@ const KakaoMapLauncher = (props: IKakaoMapProps) => {
 
         const circle = new kakao.maps.Circle({
           center: new kakao.maps.LatLng(
-            props.markerPosition?.latitude,
-            props.markerPosition?.longitude,
+            props.markerPosition.latitude,
+            props.markerPosition.longitude,
           ),
           radius: props.radius,
           strokeWeight: 1,

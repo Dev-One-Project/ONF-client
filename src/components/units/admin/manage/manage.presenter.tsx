@@ -57,26 +57,6 @@ const ManagePresenter = (props: IManagePresenterProps) => {
               ) + 1}
             </S.TotalMembersCount>
           )}
-          {(props.tab === '지점' || props.tab === '출퇴근 장소') && (
-            <S.OrganizationTabBox>
-              <S.ButtonBox>
-                <S.ToggleButton
-                  onClick={() => props.setIsLocation(false)}
-                  isLocation={!props.isLocation}
-                  type="button"
-                >
-                  지점
-                </S.ToggleButton>
-                <S.ToggleButton
-                  onClick={() => props.setIsLocation(true)}
-                  isLocation={props.isLocation}
-                  type="button"
-                >
-                  출퇴근 장소
-                </S.ToggleButton>
-              </S.ButtonBox>
-            </S.OrganizationTabBox>
-          )}
           <ScrollableTable
             data={props.data}
             onOpenEdit={props.onOpenEdit}
