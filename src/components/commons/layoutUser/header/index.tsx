@@ -28,6 +28,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import { styleSet } from '../../../../commons/styles/styleSet';
 import { ErrorModal, SuccessModal } from '../../modal/sweetAlertModal';
 import { getStaticDateStr } from '../../../../commons/utils/getDate';
+import { useMoveToPage } from '../../hooks/useMoveToPage';
 
 const UserHeaderPage = () => {
   const router = useRouter();
@@ -53,6 +54,7 @@ const UserHeaderPage = () => {
       endDate: today,
     },
   });
+  const { onClickMoveToPage } = useMoveToPage();
 
   const headerLink = [
     { id: 0, address: '/user/schedule', name: '스케줄' },
@@ -133,7 +135,13 @@ const UserHeaderPage = () => {
     <>
       <S.Header className="pc">
         <S.Section>
-          <Image src="/icon_logo.png" alt="로고" width={80} height={30} />
+          <Image
+            src="/icon_logo.png"
+            alt="로고"
+            width={80}
+            height={30}
+            onClick={onClickMoveToPage('/')}
+          />
           <S.Ul>
             {headerLink.map((el, index) => (
               <S.Menu
@@ -252,7 +260,13 @@ const UserHeaderPage = () => {
           {sideMenu && <S.BgLayer></S.BgLayer>}
 
           <UnorderedListOutlined onClick={onClickSideMenu} />
-          <Image src="/icon_logo.png" alt="로고" height={40} width={100} />
+          <Image
+            src="/icon_logo.png"
+            alt="로고"
+            height={40}
+            width={100}
+            onClick={onClickMoveToPage('/')}
+          />
           <BellOutlined />
         </S.Header>
         {sideMenu && (
