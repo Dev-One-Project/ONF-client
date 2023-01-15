@@ -29,7 +29,7 @@ const AdminHeaderPresenter = (props: IAdminHeaderPresenterProps) => {
                 <Divider style={{ margin: '0' }} />
               </S.SettingBox>
               <S.SettingBox>
-                <p>계정 설정</p>
+                <p onClick={onClickMoveToPage('/app/account')}>계정 설정</p>
                 <p>로그아웃</p>
               </S.SettingBox>
             </S.DropSetting>
