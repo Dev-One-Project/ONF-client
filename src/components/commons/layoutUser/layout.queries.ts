@@ -67,3 +67,43 @@ export const CHECK_WORK_STATUS = gql`
     checkWorkStatus
   }
 `;
+
+export const FETCH_MEMBER = gql`
+  query fetchMember($memberId: String) {
+    fetchMember(memberId: $memberId) {
+      id
+      organization {
+        id
+      }
+      roleCategory {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const FETCH_MEMBER_SCHEDULE = gql`
+  query fetchMemberSchedule($memberId: String!, $date: DateTime!) {
+    fetchMemberSchedule(memberId: $memberId, date: $date) {
+      id
+      startWorkTime
+      endWorkTime
+    }
+  }
+`;
+
+export const FETCH_ORGANIZATION_DETAIL = gql`
+  query fetchOrganizationDetail($organizationId: String!) {
+    fetchOrganizationDetail(organizationId: $organizationId) {
+      id
+      checkPoint
+    }
+  }
+`;
+
+export const LOGOUT = gql`
+  mutation {
+    logout
+  }
+`;
