@@ -16,9 +16,9 @@ const JoinPresenter = (props: IJoinProps) => {
   return (
     <>
       <S.Header>
-        <Image src="/icon_logo.png" alt="logo" width={16} height={16} />
+        <Image src="/icon_logo.png" alt="logo" width={80} height={30} />
         <p>
-          이미 on&off 계정이 있나요?{' '}
+          이미 ON&OFF 계정이 있나요?{' '}
           <span onClick={onClickMoveToPage('/auth/login')}>로그인</span>
         </p>
       </S.Header>

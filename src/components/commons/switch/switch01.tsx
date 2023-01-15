@@ -7,7 +7,9 @@ interface ISwitch01Props {
   text?: string;
   init?: boolean;
   setInit?: SetStateAction<any>;
+  status?: boolean;
   aniMode?: boolean;
+  switch01?: boolean;
 }
 
 const Switch01 = (props: ISwitch01Props) => {
@@ -19,12 +21,12 @@ const Switch01 = (props: ISwitch01Props) => {
   };
 
   useEffect(() => {
-    if (props.aniMode === false) {
+    if (props.status === false) {
       setIsOn(false);
-    } else if (props.aniMode === true) {
+    } else if (props.status === true) {
       setIsOn(true);
     }
-  }, [props.aniMode]);
+  }, [props.status]);
 
   return (
     <>

@@ -14,9 +14,9 @@ const LoginPresenter = (props: ILoginProps) => {
     <>
       <S.Wrapper>
         <S.Header>
-          <Image src="/icon_logo.png" alt="logo" width={20} height={20} />
+          <Image src="/icon_logo.png" alt="logo" width={80} height={30} />
           <p>
-            아직 on&off 계정이 없으신가요?{' '}
+            아직 ON&OFF 계정이 없으신가요?{' '}
             <span onClick={onClickMoveToPage('/auth/join')}>지금 가입하기</span>
           </p>
         </S.Header>
@@ -75,7 +75,7 @@ const LoginPresenter = (props: ILoginProps) => {
           </S.Ul>
 
           <S.Join>
-            아직 on&off 계정이 없으신가요?{' '}
+            아직 ON&OFF 계정이 없으신가요?{' '}
             <span onClick={onClickMoveToPage('/auth/join')}>지금 가입하기</span>
           </S.Join>
         </S.Main>
