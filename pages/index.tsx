@@ -6,14 +6,14 @@ import { useMoveToPage } from '../src/components/commons/hooks/useMoveToPage';
 export default function Home() {
   const { onClickMoveToPage } = useMoveToPage();
   return (
-    <>
+    <Section>
       <Header>
         <Wrapper>
           <Image
             src="/icon_logo.png"
             alt="로고 아이콘"
-            width={80}
-            height={30}
+            width={150}
+            height={60}
           />
           <HeaderList>
             <li onClick={onClickMoveToPage('/auth/login')}>로그인</li>
@@ -21,43 +21,172 @@ export default function Home() {
           </HeaderList>
         </Wrapper>
       </Header>
-    </>
+
+      <Text>
+        <h1>기업의 도약을 위한 솔루션</h1>
+        <h2>ON&OFF</h2>
+        <p>
+          근태부터 인력관리까지 한 곳으로 모은 <br />
+          솔루션 기업의 원동력인 인력에 더욱 집중하고 기민하게 대응합니다
+        </p>
+        <button>로그인 &gt;</button>
+      </Text>
+
+      <Main>
+        <Image
+          src="/main/img_on&off.png"
+          alt="관리자 메인페이지"
+          width={850}
+          height={500}
+          className={'admin'}
+        />
+        <article>
+          <Image
+            src="/main/main-obj.png"
+            alt="메인 오브제 이미지"
+            width={1000}
+            height={1000}
+            className={'obj'}
+          />
+          <Image
+            src="/main/sub-obj2.png"
+            alt="메인 오브제 이미지"
+            width={820}
+            height={820}
+            className={'obj2'}
+          />
+        </article>
+      </Main>
+    </Section>
   );
 }
+const Text = styled.section`
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  transform: translate(10px, -50%);
+  h1 {
+    font-family: ${styleSet.fonts.EB};
+    font-size: 1.5rem;
+  }
+  h2 {
+    font-family: ${styleSet.fonts.EB};
+    font-size: 3rem;
+    color: ${styleSet.colors.primary};
+    padding-block: 10px;
+  }
+  p {
+    font-family: ${styleSet.fonts.EB};
+    font-size: ${styleSet.fontSizes.strong};
+    color: ${styleSet.colors.darkGray};
+    padding-bottom: 20px;
+  }
+  button {
+    width: 225px;
+    height: 60px;
+    padding: 16px 37px;
+    border-radius: 30px;
+    background: ${styleSet.colors.primary};
+    color: ${styleSet.colors.white};
+    font-size: ${styleSet.fontSizes.strong};
+    font-family: ${styleSet.fonts.EB};
+  }
+`;
+
+const Section = styled.section`
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden !important;
+`;
+
 const Wrapper = styled.div`
-  width: 1140px;
+  width: 1400px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 100%;
 `;
+const Main = styled.main`
+  position: relative;
+
+  & > span {
+    position: absolute !important;
+    margin-top: 12% !important;
+    right: -5%;
+    z-index: 999;
+    border-radius: 15px;
+    overflow: inherit !important;
+    img {
+      border-radius: 15px;
+      box-shadow: -80px 80px 80px rgb(0 0 0 / 25%);
+    }
+  }
+  article {
+    position: relative;
+    & > span {
+      position: absolute !important;
+      overflow: inherit !important;
+    }
+    & > span:first-of-type {
+      right: -5%;
+    }
+    & > span:last-of-type {
+      right: 0;
+      top: 90px;
+    }
+  }
+  .obj {
+    transform: translate(-50%, -50%);
+    animation: rotate-img-main 10s linear infinite;
+    @keyframes rotate-img-main {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  }
+
+  .obj2 {
+    transform: translate(-50%, -50%);
+    animation: rotate-img-sub 10s linear infinite;
+    @keyframes rotate-img-sub {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  }
+`;
 
 const HeaderList = styled.ul`
   display: flex;
   gap: 20px;
+  z-index: 9999;
   li {
     width: 95px;
     height: 45px;
-    border: 1px solid ${styleSet.colors.white};
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: ${styleSet.fontSizes.small};
+    font-size: ${styleSet.fontSizes.strong};
     font-family: ${styleSet.fonts.EB};
-    color: ${styleSet.colors.white};
+    color: ${styleSet.colors.black};
     border-radius: 4px;
     cursor: pointer;
 
     &:hover {
-      background: ${styleSet.colors.white};
-      transition: 1s;
-      color: darkblue;
+      background: ${styleSet.colors.primary};
+      color: ${styleSet.colors.white};
+      transition: 0.2s;
     }
   }
 `;
 const Header = styled.header`
   width: 100%;
   height: 100px;
-  background: #ccc;
 `;

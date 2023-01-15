@@ -44,6 +44,9 @@ export const Header = styled.header`
 export const Section = styled.section`
   display: flex;
   align-items: center;
+  img {
+    cursor: pointer;
+  }
 `;
 
 export const Ul: any = styled.ul`
