@@ -1,17 +1,19 @@
-import styled from '@emotion/styled';
 import { Divider } from 'antd';
-import Check01 from '../../../../commons/input/check01';
-import Footer from './common/footer';
-import { IFormProps } from './common/form.types';
-import InputLabel from './common/inputLabel';
-import Memo from './common/memo';
+import Check01 from '../../../../../commons/input/check01';
+import Footer from '../common/footer';
+import InputLabel from '../common/inputLabel';
+import Memo from '../common/memo';
+import { IScheduleCategoryFormPresenterProps } from './scheduleCategoryForm.types';
+import { Wrapper } from './scheduleCategoryForm.styles';
 
-const ScheduleCategory = (props: IFormProps) => {
+const ScheduleCategoryFormPresenter = (
+  props: IScheduleCategoryFormPresenterProps,
+) => {
   return (
     <form onSubmit={props.handleSubmit(props.onSubmit)}>
       <Wrapper>
         <InputLabel
-          register={props.register('shiftTypesName')}
+          register={props.register('name')}
           name="shiftTypesName"
           labelWidth="6.5rem"
           type="text"
@@ -30,24 +32,17 @@ const ScheduleCategory = (props: IFormProps) => {
         <Divider style={{ margin: '0' }} />
         <Check01
           text="연장근무일정 여부"
-          register={props.register('isOvertimeSchedule')}
+          register={props.register('isOvertime')}
         />
         <Check01
           text="휴일근무 미적용 여부"
-          register={props.register('isUnappliedHolidayWork')}
+          register={props.register('isNotHolidayWork')}
         />
         <Memo textareaHeight="5rem" register={props.register('memo')} />
       </Wrapper>
-      <Footer onCancel={props.onCancel} />
+      <Footer isValid={props.isValid} onCancel={props.onCancel} />
     </form>
   );
 };
 
-export default ScheduleCategory;
-
-const Wrapper = styled.div`
-  width: 30rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`;
+export default ScheduleCategoryFormPresenter;

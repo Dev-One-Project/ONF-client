@@ -7,6 +7,7 @@ interface IFooterProps {
   onCancel: () => void;
   isEdit?: boolean;
   onSoftDelete?: () => void;
+  isValid?: boolean;
 }
 
 const Footer = (props: IFooterProps) => {
@@ -36,7 +37,8 @@ const Footer = (props: IFooterProps) => {
             text={props.isEdit ? '수정하기' : '추가하기'}
             color="#fff"
             bgC={styleSet.colors.primary}
-            bdC={styleSet.colors.primary}
+            bdC={props.isValid ? styleSet.colors.primary : styleSet.colors.gray}
+            disabled={!props.isValid}
           />
         </ButtonBox>
       </Wrapper>
