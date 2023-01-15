@@ -100,6 +100,15 @@ const OrganizationFormContainer = (props: IFormProps) => {
     try {
       await createOrganization({
         variables: { createOrganizationInput: formData },
+        update(cache, { data }) {
+          cache.modify({
+            fields: {
+              fetchOrganizations: (prev) => {
+                return [data?.createOrganization, ...prev];
+              },
+            },
+          });
+        },
       });
     } catch (error) {
       alert(error as string);

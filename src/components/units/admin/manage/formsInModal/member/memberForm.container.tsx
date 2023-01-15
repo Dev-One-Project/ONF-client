@@ -137,6 +137,9 @@ const MemberFormContainer = (props: IFormProps) => {
   const onSubmit = async (data: IFormData) => {
     console.log(data);
 
+    // 수정된 workInfo api 머지되면 수정 -> 정상작동 테스트 -> 백엔드와 상의 후 삭제
+    if (data.name) return;
+
     try {
       const result = await createMember({
         variables: {
@@ -148,6 +151,15 @@ const MemberFormContainer = (props: IFormProps) => {
             organizationId: String(data.organizationId?.[0]),
             roleCategoryId: String(data.roleCategoryId?.[0]),
           },
+        },
+        update(cache, { data }) {
+          cache.modify({
+            fields: {
+              fetchMembers: (prev) => {
+                return [data?.createMember, ...prev];
+              },
+            },
+          });
         },
       });
       const invitationData = {
