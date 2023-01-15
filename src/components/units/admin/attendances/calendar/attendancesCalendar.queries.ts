@@ -42,3 +42,12 @@ export const FETCH_MONTH_WORK_CHECKS = gql`
     }
   }
 `;
+
+export const FETCH_COMPANY_DETAIL = gql`
+  query {
+    fetchCompanyDetail {
+      id
+      createdAt
+    }
+  }
+`;

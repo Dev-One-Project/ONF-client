@@ -23,7 +23,6 @@ export const FETCH_VACATION_ISSUE_DETAIL_DELETE = gql`
       member {
         id
         name
-        leave
       }
     }
   }
@@ -52,7 +51,6 @@ export const FETCH_VACATION_ISSUE_DETAIL = gql`
       member {
         id
         name
-        leave
       }
     }
   }
@@ -81,7 +79,6 @@ export const FETCH_VACATION_ISSUE_BASE = gql`
       member {
         id
         name
-        leave
       }
     }
   }
@@ -110,7 +107,6 @@ export const FETCH_VACATION_ISSUE_BASE_DELETE = gql`
       member {
         id
         name
-        leave
       }
     }
   }

@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useMemo, useState } from 'react';
+import { ChangeEvent, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   IQuery,
@@ -10,10 +10,12 @@ import { InputData } from '../../../../commons/input/select01';
 import AttendancesCalendarPresenter from './attendancesCalendar.presenter';
 import {
   CREATE_ADMIN_WORK_CHECK,
+  FETCH_COMPANY_DETAIL,
   FETCH_MONTH_WORK_CHECKS,
   FETCH_ORGANIZATIONS,
 } from './attendancesCalendar.queries';
 import * as yup from 'yup';
+import moment from 'moment';
 
 const schema = yup.object({
   startHour: yup.string().matches(/^\d{2}$/),
@@ -27,6 +29,7 @@ const AttendancesCalendarContainer = () => {
   const [aniMode, setAniMode] = useState(false);
   const [organizationArr, setOrganizationArr] = useState<InputData[]>([]);
   const [init, setInit] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(moment().format('YYYY-MM'));
 
   const { handleSubmit, register, setValue, control } = useForm({
     resolver: yupResolver(schema),
@@ -39,14 +42,22 @@ const AttendancesCalendarContainer = () => {
   >(FETCH_MONTH_WORK_CHECKS, {
     variables: {
       organizationId: organizationArr.map((data) => data.id),
-      month: '2023-01',
+      month: selectedDate,
       isActiveMember: init,
     },
+    fetchPolicy: 'network-only',
   });
+
+  const { data: companyDetail } =
+    useQuery<Pick<IQuery, 'fetchCompanyDetail'>>(FETCH_COMPANY_DETAIL);
 
   const onClickOpenModal = () => {
     setIsOpen(true);
     setAniMode(true);
+  };
+
+  const onChangeSelect = (event: ChangeEvent<HTMLSelectElement>) => {
+    setSelectedDate(event.target.value);
   };
 
   const [createAdminWorkCheck] = useMutation(CREATE_ADMIN_WORK_CHECK);
@@ -87,14 +98,13 @@ const AttendancesCalendarContainer = () => {
   };
 
   const monthArr = [];
-  const date = new Date();
-  console.log(Intl.DateTimeFormat('ko-KR', { dateStyle: 'full' }).format(date));
-  const days = new Date(date.getFullYear(), date.getMonth() + 3, 0).getDate();
+  const date = moment(companyDetail?.fetchCompanyDetail.createdAt);
+  const days = moment(selectedDate).endOf('month').date();
 
-  const month = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
-    2,
-    '0',
-  )}`;
+  const yearArr = [];
+  for (let i = Math.ceil(moment().diff(date, 'months', true)); i >= 0; i--) {
+    yearArr.push(moment().subtract(i, 'month').format('YYYY-MM'));
+  }
 
   for (let i = 1; i <= days; i++) {
     monthArr.push(i);
@@ -103,7 +113,7 @@ const AttendancesCalendarContainer = () => {
   return (
     <AttendancesCalendarPresenter
       monthArr={monthArr}
-      month={month}
+      yearArr={yearArr}
       organizationsData={organizationsData}
       setOrganizationArr={setOrganizationArr}
       isOpen={isOpen}
@@ -120,6 +130,7 @@ const AttendancesCalendarContainer = () => {
       init={init}
       setInit={setInit}
       data={data}
+      onChangeSelect={onChangeSelect}
     />
   );
 };

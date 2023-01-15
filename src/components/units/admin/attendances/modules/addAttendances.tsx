@@ -176,11 +176,6 @@ const AddAttendances = (props: IAddAttendancesProps) => {
           <span>근무노트</span>
           <Textarea register={props.register('workCheckMemo')} />
         </ContentBox>
-        <Divider style={{ margin: '0' }} />
-        <ConfirmedBox>
-          <div></div>
-          <span>확정됨</span>
-        </ConfirmedBox>
         <Divider style={{ margin: '0', transform: 'scaleX(1.04)' }} />
         <BtnBox>
           <Btn01
@@ -237,18 +232,6 @@ const WorkBox = styled.div`
   display: flex;
   flex-direction: row;
   margin: 0 0 2rem 6rem;
-`;
-
-const ConfirmedBox = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin: 0;
-  gap: 1rem;
-  > div {
-    width: 1rem;
-    height: 1rem;
-    background-color: #ddd;
-  }
 `;
 
 const InputBox = styled.div`

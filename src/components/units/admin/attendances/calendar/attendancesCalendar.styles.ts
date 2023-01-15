@@ -45,7 +45,7 @@ export const OptBox = styled.div`
   }
 `;
 
-export const Input = styled.input`
+export const Select = styled.select`
   width: 119px;
   height: 36px;
   border: 1px solid #ddd;
