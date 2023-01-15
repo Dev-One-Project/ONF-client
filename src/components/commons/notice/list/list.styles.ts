@@ -25,11 +25,11 @@ export const ColWrapper = styled.div`
   width: 100%;
   border-right: ${(props: IStlyesProps) =>
     props.right ? `1.2px solid ${styleSet.colors.darkGray}` : 'none'};
-
   display: flex;
   flex-direction: column;
   justify-content: ${(props: IStlyesProps) =>
     props.right ? `space-between` : 'flex-start'};
+  overflow-y: auto;
 `;
 
 // list
@@ -44,6 +44,7 @@ export const ListUl = styled.ul`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    gap: 1rem;
 
     cursor: pointer;
   }
@@ -51,6 +52,8 @@ export const ListUl = styled.ul`
 
 export const Preface = styled.span`
   padding: 4px;
+  min-width: 3rem;
+  max-height: 1.5rem;
   font-size: ${styleSet.fontSizes.small};
   color: ${styleSet.colors.white};
   background-color: ${styleSet.colors.subColor02};
@@ -58,7 +61,17 @@ export const Preface = styled.span`
   text-align: center;
 `;
 
+export const ListTitle = styled.span`
+  min-width: 10rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+`;
+
 export const DateStyle = styled.span`
+  padding-left: 1rem;
+  min-width: 5.8rem;
+  text-align: right;
   font-size: ${styleSet.fontSizes.small};
   color: ${styleSet.colors.darkGray};
 `;
@@ -74,7 +87,7 @@ export const BtnWrapper = styled.div`
 export const DetailCantainer = styled.section`
   width: 100%;
   height: 590px;
-  overflow: scroll;
+  overflow-y: auto;
 `;
 
 export const DetailTop = styled.div`
