@@ -24,9 +24,9 @@ const Manage = (props: IManageProps) => {
     onClickOpenModal();
   };
 
-  const tab = props.tab === '지점' && isLocation ? '출퇴근 장소' : props.tab;
   return (
     <ManagePresenter
+      tab={props.tab}
       data={props.data}
       editTarget={editTarget}
       onOpenEdit={onOpenEdit}
@@ -35,7 +35,6 @@ const Manage = (props: IManageProps) => {
       aniMode={aniMode}
       onClickCloseModal={onClickCloseModal}
       onClickOpenModal={onClickOpenModal}
-      tab={tab}
       setIsLocation={setIsLocation}
       isLocation={isLocation}
     />

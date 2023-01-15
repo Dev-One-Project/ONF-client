@@ -1,5 +1,5 @@
 import Check01 from '../../../../../commons/input/check01';
-import InputLabel from '../../../../../commons/inputLabel';
+import InputLabel from '../common/inputLabel';
 import Footer from '../common/footer';
 import Memo from '../common/memo';
 import { DatePicker } from 'antd';

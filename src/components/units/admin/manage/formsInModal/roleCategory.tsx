@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import InputLabel from '../../../../commons/inputLabel';
+import InputLabel from './common/inputLabel';
 import Footer from './common/footer';
 import { IFormProps } from './common/form.types';
 import Memo from './common/memo';

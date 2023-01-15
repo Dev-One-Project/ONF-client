@@ -3,7 +3,7 @@ import { Divider } from 'antd';
 import Check01 from '../../../../commons/input/check01';
 import Footer from './common/footer';
 import { IFormProps } from './common/form.types';
-import InputLabel from '../../../../commons/inputLabel';
+import InputLabel from './common/inputLabel';
 import Memo from './common/memo';
 
 const ScheduleCategory = (props: IFormProps) => {

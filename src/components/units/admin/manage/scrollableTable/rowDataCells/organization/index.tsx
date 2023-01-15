@@ -5,13 +5,13 @@ const OrganizationData = (props: { data?: IOrganization }) => {
   return (
     <>
       <S.Td>{props.data?.name}</S.Td>
-      <S.Td></S.Td>
+      <S.Td>{props.data?.checkPoint}</S.Td>
       <S.Td>{props.data?.address}</S.Td>
       <S.Td>
         ({Number(props.data?.lat).toFixed(5)},{' '}
-        {Number(props.data?.lng).toFixed(5)}) [반경m]
+        {Number(props.data?.lng).toFixed(5)}) [{props.data?.range}m]
       </S.Td>
-      <S.Td>{'와이파이 주소'}</S.Td>
+      <S.Td>{''}</S.Td>
       <S.Td>{props.data?.description}</S.Td>
     </>
   );
