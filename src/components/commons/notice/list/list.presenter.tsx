@@ -16,7 +16,7 @@ const NoticeListPresenter = (props: INoticeListPresenterProps) => {
               .map((board, i) => (
                 <li key={i} onClick={props.onClickBoard(board.id)}>
                   <S.Preface>{board.preface}</S.Preface>
-                  <span>{board.title}</span>
+                  <S.ListTitle>{board.title}</S.ListTitle>
                   <S.DateStyle>{getStaticDateStr(board.createdAt)}</S.DateStyle>
                 </li>
               ))}
