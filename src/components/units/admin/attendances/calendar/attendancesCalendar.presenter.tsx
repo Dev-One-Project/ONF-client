@@ -51,7 +51,16 @@ const AttendancesCalendarPresenter = (
       <S.OptWrapper>
         <S.OptBox>
           <S.OptSelect>
-            <S.Input placeholder={props.month} />
+            <S.Select
+              placeholder={props.yearArr[props.yearArr.length - 1]}
+              onChange={props.onChangeSelect}
+            >
+              {props.yearArr.map((year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+            </S.Select>
             <Select03 filterInit={props.init} setFilterInit={props.setInit} />
           </S.OptSelect>
           <Select01

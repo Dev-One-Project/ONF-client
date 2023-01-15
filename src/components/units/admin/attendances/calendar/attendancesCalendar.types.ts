@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import {
   Control,
   FieldValues,
@@ -11,7 +11,7 @@ import { InputData } from '../../../../commons/input/select01';
 
 export interface IAttendancesCalendarPresenterProps {
   monthArr: number[];
-  month: string;
+  yearArr: string[];
   organizationsData?: IInputData[];
   setOrganizationArr: Dispatch<SetStateAction<InputData[]>>;
   isOpen: boolean;
@@ -28,6 +28,7 @@ export interface IAttendancesCalendarPresenterProps {
   init: boolean;
   setInit: Dispatch<SetStateAction<boolean>>;
   data?: Pick<IQuery, 'fetchMonthWorkChecks'>;
+  onChangeSelect: (event: ChangeEvent<HTMLSelectElement>) => void;
 }
 
 interface IInputData {
