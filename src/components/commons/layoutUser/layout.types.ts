@@ -5,3 +5,8 @@ export interface IUserLayout {
 export interface IUserSideBar {
   register?: any;
 }
+
+export interface IWorkEnd {
+  onClickWorkEndCheck: () => Promise<void>;
+  status: boolean;
+}

@@ -15,24 +15,44 @@ import Btn01 from '../../button/btn01';
 import { useRouter } from 'next/router';
 import {
   CERATE_START_WORK_CHECK,
+  CHECK_WORK_STATUS,
+  CREATE_END_WORK_CHECK,
   FETCH_ACCOUNT,
+  FETCH_MY_WORK_CHECK,
 } from '../../layoutUser/layout.queries';
-import { MouseEvent, useState } from 'react';
+import { MouseEvent, useEffect, useMemo, useState } from 'react';
 import Switch01 from '../../switch/switch01';
 import * as S from '../../layoutUser/layout.styles';
 import PoppingModal from '../../modal/poppingModal';
 import { useMutation, useQuery } from '@apollo/client';
 import { styleSet } from '../../../../commons/styles/styleSet';
 import { ErrorModal, SuccessModal } from '../../modal/sweetAlertModal';
+import { getStaticDateStr } from '../../../../commons/utils/getDate';
 
 const UserHeaderPage = () => {
   const router = useRouter();
   const [mypage, setMypage] = useState(false);
+  const [status, setStatus] = useState(false);
   const [aniMode, setAniMode] = useState(false);
   const [sideMenu, setSideMenu] = useState(false);
   const [menu, setMenu] = useState([false, false, false]);
+  const [createEndWorkCheck] = useMutation(CREATE_END_WORK_CHECK);
   const [isPoppingModalOpen, setIsPoppingModalOpen] = useState(false);
   const [createStartWorkCheck] = useMutation(CERATE_START_WORK_CHECK);
+  const { data: workStatus } = useQuery(CHECK_WORK_STATUS);
+
+  useMemo(() => {
+    setStatus(workStatus?.checkWorkStatus);
+  }, [workStatus]);
+
+  const today = getStaticDateStr(new Date());
+
+  const { data: myWorkCheck } = useQuery(FETCH_MY_WORK_CHECK, {
+    variables: {
+      startDate: today,
+      endDate: today,
+    },
+  });
 
   const headerLink = [
     { id: 0, address: '/user/schedule', name: '스케줄' },
@@ -46,8 +66,6 @@ const UserHeaderPage = () => {
     void router.push(path);
     setSideMenu(false);
   };
-
-  console.log(fetchAccount, 'fetchAccount');
 
   const onClickMypage = () => {
     setMypage((prev) => !prev);
@@ -69,6 +87,7 @@ const UserHeaderPage = () => {
 
   const onClickModalClose = () => {
     setAniMode(false);
+    router.reload();
   };
 
   const onClickModalOpen = () => {
@@ -78,24 +97,27 @@ const UserHeaderPage = () => {
 
   const onClickWorkCheck = async () => {
     try {
-      await createStartWorkCheck({
-        variables: {
-          id: fetchAccount?.fetchAccount.id,
-          workDay: Date.now(),
-          workingTime: Date.now(),
-          quittingTime: Date.now(),
-          createdAt: Date.now(),
-          updatedAt: Date.now(),
-          member: String(fetchAccount?.fetchAccount.member.id),
-          company: fetchAccount.fetchAccount?.company?.id,
-          organization: fetchAccount.fetchAccount?.company?.name,
-          roleCategory: String(fetchAccount.fetchAccount?.roles),
-        },
-      });
+      await createStartWorkCheck();
       setIsPoppingModalOpen(false);
       SuccessModal(
-        '성공적으로 출근했습니다. 오늘도 힘찬 하루되세요! on&off가 응원합니다.',
+        `성공적으로 출근했습니다.\n 오늘도 힘찬 하루되세요!\n  ON&OFF가 응원합니다.`,
       );
+    } catch (error) {
+      setIsPoppingModalOpen(false);
+      ErrorModal(error as string);
+    }
+  };
+
+  const onClickWorkEndCheck = async () => {
+    try {
+      await createEndWorkCheck({
+        variables: {
+          workCheckId: myWorkCheck?.fetchMemberWorkChecks[0].id,
+        },
+      });
+
+      setIsPoppingModalOpen(false);
+      SuccessModal('성공적으로 퇴근했습니다.오늘도 수고하셨습니다!');
     } catch (error) {
       setIsPoppingModalOpen(false);
       ErrorModal(error as string);
@@ -106,6 +128,7 @@ const UserHeaderPage = () => {
     void router.reload();
     SuccessModal('새로고침 중입니다.');
   };
+
   return (
     <>
       <S.Header className="pc">
@@ -128,7 +151,7 @@ const UserHeaderPage = () => {
         <section>
           <S.Ul2>
             <li onClick={onClickModalOpen}>
-              <Switch01 aniMode={aniMode} />
+              <Switch01 status={status} />
             </li>
             <li onClick={onClickReload}>
               <ReloadOutlined />
@@ -159,36 +182,71 @@ const UserHeaderPage = () => {
         </section>
       </S.Header>
 
-      {isPoppingModalOpen && (
-        <PoppingModal
-          isOpen={isPoppingModalOpen}
-          setIsOpen={setIsPoppingModalOpen}
-          aniMode={aniMode}
-          onCancel={onClickModalClose}
-        >
-          <S.ModalWrapper>
-            <h4>지금 출근하시겠습니까?</h4>
-            <span>근무일정: 10:00 - 19:00 [직무없음]</span>
-            <S.BtnBox>
-              <Btn01
-                text="취소"
-                bdC="#ddd"
-                fontSize={styleSet.fontSizes.small}
-                onClick={onClickModalClose}
-              />
-              <Btn01
-                text="출근하기"
-                bdC={styleSet.colors.primary}
-                bgC={styleSet.colors.primary}
-                fontSize={styleSet.fontSizes.small}
-                color="white"
-                onClick={onClickWorkCheck}
-              />
-            </S.BtnBox>
-          </S.ModalWrapper>
-        </PoppingModal>
+      {status ? (
+        <>
+          {isPoppingModalOpen && (
+            <PoppingModal
+              isOpen={isPoppingModalOpen}
+              setIsOpen={setIsPoppingModalOpen}
+              aniMode={aniMode}
+              onCancel={onClickModalClose}
+            >
+              <S.ModalWrapper>
+                <h4>지금 퇴근하시겠습니까?</h4>
+                <span>근무일정: 10:00 - 19:00 [직무없음]</span>
+                <S.BtnBox>
+                  <Btn01
+                    text="취소"
+                    bdC="#ddd"
+                    fontSize={styleSet.fontSizes.small}
+                    onClick={onClickModalClose}
+                  />
+                  <Btn01
+                    text="퇴근하기"
+                    bdC={styleSet.colors.primary}
+                    bgC={styleSet.colors.primary}
+                    fontSize={styleSet.fontSizes.small}
+                    color="white"
+                    onClick={onClickWorkEndCheck}
+                  />
+                </S.BtnBox>
+              </S.ModalWrapper>
+            </PoppingModal>
+          )}
+        </>
+      ) : (
+        <>
+          {isPoppingModalOpen && (
+            <PoppingModal
+              isOpen={isPoppingModalOpen}
+              setIsOpen={setIsPoppingModalOpen}
+              aniMode={aniMode}
+              onCancel={onClickModalClose}
+            >
+              <S.ModalWrapper>
+                <h4>지금 출근하시겠습니까?</h4>
+                <span>근무일정: 10:00 - 19:00 [직무없음]</span>
+                <S.BtnBox>
+                  <Btn01
+                    text="취소"
+                    bdC="#ddd"
+                    fontSize={styleSet.fontSizes.small}
+                    onClick={onClickModalClose}
+                  />
+                  <Btn01
+                    text="출근하기"
+                    bdC={styleSet.colors.primary}
+                    bgC={styleSet.colors.primary}
+                    fontSize={styleSet.fontSizes.small}
+                    color="white"
+                    onClick={onClickWorkCheck}
+                  />
+                </S.BtnBox>
+              </S.ModalWrapper>
+            </PoppingModal>
+          )}
+        </>
       )}
-
       <>
         <S.Header className="mobile">
           {sideMenu && <S.BgLayer></S.BgLayer>}

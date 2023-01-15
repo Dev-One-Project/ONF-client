@@ -9,12 +9,12 @@ const RESTORE_ACCESS_TOKEN = gql`
 
 export const getAccessToken = async () => {
   try {
-    const graphGLClient = new GraphQLClient(
+    const graphQLClient = new GraphQLClient(
       'https://onf-backend.brian-hong.tech/graphql',
       { credentials: 'include' },
     );
 
-    const result = await graphGLClient.request(RESTORE_ACCESS_TOKEN);
+    const result = await graphQLClient.request(RESTORE_ACCESS_TOKEN);
     const newAccessToken = result.restoreAccessToken;
     sessionStorage.setItem('accessToken', newAccessToken);
     return newAccessToken;

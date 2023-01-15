@@ -44,9 +44,9 @@ const LoginContainer = () => {
       setAccessToken(accessToken);
       sessionStorage.setItem('accessToken', accessToken);
       Modal.confirm({
-        content: '킬킬... 으디로 뫼실까유?',
-        okText: 'admin',
-        cancelText: 'user',
+        content: '사용자를 구분해주세요.',
+        okText: '관리자',
+        cancelText: '직원',
         onOk: async () => await router.push('/admin/home'),
         onCancel: async () => await router.push('/user/schedule'),
       });
