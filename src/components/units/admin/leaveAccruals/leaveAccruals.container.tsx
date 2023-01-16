@@ -35,7 +35,6 @@ const LeaveAccrualsContainer = () => {
   const [checkedList, setCheckedList] = useState<IVacationIssue[]>([]);
   const [dataLength, setDataLength] = useState(0);
   const [baseDate] = useState(date);
-  const [isOptionOpen, setIsOptionOpen] = useState(false);
   const [startEndDate, setStartEndDate] = useState([
     new Date(date.getFullYear(), date.getMonth(), 1),
     new Date(date.getFullYear(), date.getMonth() + 1, 0),
@@ -189,32 +188,27 @@ const LeaveAccrualsContainer = () => {
           );
           setCheckedList(checkedListArray);
           setDataLength(checkedListArray.length);
-          setIsOptionOpen(true);
         } else if (!init && filterInit) {
           vDetail?.fetchVacationIssueDetailDate.forEach((list) =>
             checkedListArray.push(...list),
           );
           setCheckedList(checkedListArray);
           setDataLength(checkedListArray.length);
-          setIsOptionOpen(true);
         } else if (init && filterInit) {
           vBase?.fetchVacationIssueBaseDate.forEach((list) =>
             checkedListArray.push(...list),
           );
           setCheckedList(checkedListArray);
           setDataLength(checkedListArray.length);
-          setIsOptionOpen(true);
         } else {
           vBaseDelete?.fetchVacationIssueWithBaseDateDelete.forEach((list) =>
             checkedListArray.push(...list),
           );
           setCheckedList(checkedListArray);
           setDataLength(checkedListArray.length);
-          setIsOptionOpen(true);
         }
       } else {
         setCheckedList([]);
-        setIsOptionOpen(false);
       }
     },
     [init, filterInit, vDetail, vDetailDelete, vBase, vBaseDelete],
@@ -224,7 +218,6 @@ const LeaveAccrualsContainer = () => {
     (checked, selectedTarget) => {
       if (checked) {
         setCheckedList([...checkedList, selectedTarget]);
-        setIsOptionOpen(true);
       } else
         setCheckedList(checkedList.filter((el) => el.id !== selectedTarget.id));
     },
@@ -359,7 +352,6 @@ const LeaveAccrualsContainer = () => {
       onCheckedAll={onCheckedAll}
       onCheckedElement={onCheckedElement}
       organizationArr={organizationArr}
-      isOptionOpen={isOptionOpen}
       onClickDeleteChecked={onClickDeleteChecked}
       control={control}
     />

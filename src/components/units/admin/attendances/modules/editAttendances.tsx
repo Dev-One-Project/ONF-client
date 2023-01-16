@@ -62,7 +62,7 @@ export const FETCH_MEMBER_SCHEDULE = gql`
   }
 `;
 
-interface IAddAttendancesProps {
+interface IEditAttendancesProps {
   handleSubmit: UseFormHandleSubmit<FieldValues>;
   onSubmit: (data: any) => void;
   register: UseFormRegister<FieldValues>;
@@ -72,7 +72,7 @@ interface IAddAttendancesProps {
   watch: UseFormWatch<FieldValues>;
 }
 
-const AddAttendances = (props: IAddAttendancesProps) => {
+const EditAttendances = (props: IEditAttendancesProps) => {
   const dateFormat = 'YYYY-MM-DD';
 
   const date = props.watch('workDay');
@@ -213,26 +213,29 @@ const AddAttendances = (props: IAddAttendancesProps) => {
           <Textarea register={props.register('workCheckMemo')} />
         </ContentBox>
         <Divider style={{ margin: '0', transform: 'scaleX(1.04)' }} />
-        <BtnBox>
-          <Btn01
-            text="닫기"
-            bdC="#ddd"
-            type="button"
-            onClick={props.onCancel}
-          />
-          <Btn01
-            text="추가하기"
-            bdC={styleSet.colors.primary}
-            bgC={styleSet.colors.primary}
-            color="white"
-          />
-        </BtnBox>
+        <Footer>
+          <Btn01 text="삭제하기" bdC="#ddd" color="red" />
+          <BtnBox>
+            <Btn01
+              text="닫기"
+              bdC="#ddd"
+              type="button"
+              onClick={props.onCancel}
+            />
+            <Btn01
+              text="추가하기"
+              bdC={styleSet.colors.primary}
+              bgC={styleSet.colors.primary}
+              color="white"
+            />
+          </BtnBox>
+        </Footer>
       </Form>
     </Wrapper>
   );
 };
 
-export default AddAttendances;
+export default EditAttendances;
 
 const Wrapper = styled.section`
   width: 50rem;
@@ -286,4 +289,10 @@ const BtnBox = styled.div`
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
+`;
+
+const Footer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;

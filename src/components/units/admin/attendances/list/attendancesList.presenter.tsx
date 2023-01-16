@@ -10,6 +10,7 @@ import Select03 from '../../../../commons/input/select03';
 import Select01 from '../../../../commons/input/select01';
 import dayjs from 'dayjs';
 import { getDateSlash, getTimeStr } from '../../../../../commons/utils/getDate';
+import EditAttendances from '../modules/editAttendances';
 
 const AttendancesListPresenter = (props: IAttendancesListPresenterProps) => {
   return (
@@ -43,6 +44,31 @@ const AttendancesListPresenter = (props: IAttendancesListPresenterProps) => {
               props.setAniMode(false);
             }}
             setValue={props.setValue}
+            watch={props.watch}
+          />
+        </FallingModal>
+      )}
+
+      {props.isEditOpen && (
+        <FallingModal
+          aniMode={props.aniMode}
+          isOpen={props.isEditOpen}
+          setIsOpen={props.setIsEditOpen}
+          onCancel={() => {
+            props.setAniMode(false);
+          }}
+          title="출퇴근기록 수정하기"
+        >
+          <EditAttendances
+            handleSubmit={props.handleSubmit}
+            onSubmit={props.onSubmit}
+            register={props.register}
+            control={props.control}
+            onCancel={() => {
+              props.setAniMode(false);
+            }}
+            setValue={props.setValue}
+            watch={props.watch}
           />
         </FallingModal>
       )}
@@ -85,7 +111,7 @@ const AttendancesListPresenter = (props: IAttendancesListPresenterProps) => {
             defaultChecked={props.organizationArr}
           />
         </S.OptBox>
-        {props.isOptionOpen ? (
+        {props.checkedList.length > 0 ? (
           <S.OptBox>
             <S.OptSelect>
               <Btn01 text={'출퇴근기록 수정'} bdC={styleSet.colors.gray} />
@@ -131,7 +157,7 @@ const AttendancesListPresenter = (props: IAttendancesListPresenterProps) => {
           <li>퇴근시간 오차범위</li>
         </S.Ul>
         {props.data?.fetchDateMemberWorkChecks.map((fetchData, i) => (
-          <S.Ul key={i} onClick={props.onClickOpenModal}>
+          <S.Ul key={i} onClick={props.onClickOpenEditModal} id={fetchData.id}>
             <li>
               <Check01
                 onClick={(e) => {
