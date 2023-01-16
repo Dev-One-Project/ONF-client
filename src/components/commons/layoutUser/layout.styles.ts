@@ -117,16 +117,24 @@ export const Mypage = styled.article`
     align-items: flex-start;
     flex-direction: column;
     justify-content: center;
-    gap: 5px;
     li {
       width: 100%;
-
-      padding: 0.5rem 0.5rem 0.5rem 1rem;
+      cursor: pointer;
+      padding: 1rem 0.5rem 1rem 1rem;
       font-size: ${styleSet.fontSizes.small};
+      &:hover {
+        background: rgba(228, 126, 126, 0.5);
+        color: ${styleSet.colors.white};
+        font-family: ${styleSet.fonts.EB};
+      }
       &:first-of-type {
         border-bottom: 1px solid ${styleSet.colors.lightGray};
         padding-bottom: 0.8rem;
         font-family: ${styleSet.fonts.EB};
+        &:hover {
+          background: ${styleSet.colors.white};
+          color: ${styleSet.colors.black};
+        }
       }
       &:last-of-type {
         border-top: 1px solid ${styleSet.colors.lightGray};

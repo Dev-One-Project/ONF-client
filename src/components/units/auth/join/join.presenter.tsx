@@ -9,14 +9,22 @@ import Input01 from '../../../commons/input/input01';
 import { styleSet } from '../../../../commons/styles/styleSet';
 import { ImportOutlined, PlusOutlined } from '@ant-design/icons';
 import { useMoveToPage } from '../../../commons/hooks/useMoveToPage';
+import { LoginAuth } from '../../../commons/hooks/loginAuth';
 
 const JoinPresenter = (props: IJoinProps) => {
+  LoginAuth();
   const { onClickMoveToPage } = useMoveToPage();
 
   return (
     <>
       <S.Header>
-        <Image src="/icon_logo.png" alt="logo" width={80} height={30} />
+        <Image
+          src="/icon_logo.png"
+          alt="logo"
+          width={80}
+          height={30}
+          onClick={onClickMoveToPage('/')}
+        />
         <p>
           이미 ON&OFF 계정이 있나요?{' '}
           <span onClick={onClickMoveToPage('/auth/login')}>로그인</span>
@@ -161,30 +169,6 @@ const JoinPresenter = (props: IJoinProps) => {
               type="submit"
             />
           </form>
-          <S.P>
-            <strong>or</strong>
-          </S.P>
-
-          <S.Ul>
-            <li>
-              <Image
-                src="/login/icon_google.png"
-                alt="구글 아이콘"
-                width={16}
-                height={16}
-              />
-              구글 계정으로 가입하기
-            </li>
-            <li>
-              <Image
-                src="/login/icon_kakao.png"
-                alt="카카오 아이콘 "
-                width={16}
-                height={16}
-              />
-              카카오 계정으로 가입하기
-            </li>
-          </S.Ul>
         </S.Main>
       </S.Wrapper>
     </>
