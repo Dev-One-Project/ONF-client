@@ -6,10 +6,8 @@ import Input01 from '../../../commons/input/input01';
 import { styleSet } from '../../../../commons/styles/styleSet';
 import { useMoveToPage } from '../../../commons/hooks/useMoveToPage';
 import Check01 from '../../../commons/input/check01';
-import { LoginAuth } from '../../../commons/hooks/loginAuth';
 
 const LoginPresenter = (props: ILoginProps) => {
-  LoginAuth();
   const { onClickMoveToPage } = useMoveToPage();
 
   return (

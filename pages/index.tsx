@@ -4,7 +4,7 @@ import { styleSet } from '../src/commons/styles/styleSet';
 import { useMoveToPage } from '../src/components/commons/hooks/useMoveToPage';
 import { FETCH_ACCOUNT } from '../src/components/commons/layoutUser/layout.queries';
 import { useQuery } from '@apollo/client';
-import { UserOutlined } from '@ant-design/icons';
+import { LoginOutlined, UserOutlined } from '@ant-design/icons';
 
 export default function Home() {
   const { onClickMoveToPage } = useMoveToPage();
@@ -47,7 +47,21 @@ export default function Home() {
           근태부터 인력관리까지 한 곳으로 모은 <br />
           솔루션 기업의 원동력인 인력에 더욱 집중하고 기민하게 대응합니다
         </p>
-        <button onClick={onClickMoveToPage('/auth/login')}>로그인 &gt;</button>
+        {fetchAccount?.fetchAccount ? (
+          <>
+            <button onClick={onClickMoveToPage('/user/schedule')}>
+              <LoginOutlined /> 직원
+            </button>
+            &nbsp;&nbsp;&nbsp;
+            <button onClick={onClickMoveToPage('/admin/schedule')}>
+              <LoginOutlined /> 관리자
+            </button>
+          </>
+        ) : (
+          <button onClick={onClickMoveToPage('/auth/login')}>
+            로그인 &gt;
+          </button>
+        )}
       </Text>
 
       <Main>
