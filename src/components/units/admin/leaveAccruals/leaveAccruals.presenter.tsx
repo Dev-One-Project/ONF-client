@@ -314,7 +314,7 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
             </S.OptSelect>
           </S.OptBox>
           <S.OptBox>
-            {props.isOptionOpen ? (
+            {props.checkedList.length > 0 ? (
               <S.OptSelect>
                 <Btn01
                   text={'휴가 유형 변경'}

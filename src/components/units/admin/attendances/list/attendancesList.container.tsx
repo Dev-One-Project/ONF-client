@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { MouseEvent, useCallback, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import AttendancesListPresenter from './attendancesList.presenter';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -32,9 +32,10 @@ const schema = yup.object({
 const AttendancesListContainer = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [aniMode, setAniMode] = useState(false);
-  const [isOptionOpen, setIsOptionOpen] = useState(false);
+  const [isEditOpen, setIsEditOpen] = useState(false);
   const [init, setInit] = useState(false);
   const [organizationArr, setOrganizationArr] = useState<InputData[]>([]);
+  const [selectedId, setSelectedId] = useState('');
 
   const [checkedList, setCheckedList] = useState<IWorkCheckOutput[]>([]);
 
@@ -43,7 +44,7 @@ const AttendancesListContainer = () => {
     new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0),
   ]);
 
-  const { handleSubmit, register, setValue, control } = useForm({
+  const { handleSubmit, register, setValue, control, watch } = useForm({
     resolver: yupResolver(schema),
     mode: 'onChange',
   });
@@ -104,10 +105,8 @@ const AttendancesListContainer = () => {
           checkedListArray.push(list),
         );
         setCheckedList(checkedListArray);
-        setIsOptionOpen(true);
       } else {
         setCheckedList([]);
-        setIsOptionOpen(false);
       }
     },
     [data],
@@ -117,13 +116,20 @@ const AttendancesListContainer = () => {
     (checked, selectedTarget) => {
       if (checked) {
         setCheckedList([...checkedList, selectedTarget]);
-        setIsOptionOpen(true);
       } else {
         setCheckedList(checkedList.filter((el) => el.id !== selectedTarget.id));
       }
     },
     [checkedList],
   );
+
+  const onClickOpenEditModal = (e: MouseEvent<HTMLUListElement>) => {
+    setAniMode(true);
+    setIsEditOpen(true);
+    setSelectedId(e.currentTarget.id);
+  };
+
+  console.log(selectedId);
 
   const onClickDeleteChecked = async () => {
     try {
@@ -202,11 +208,14 @@ const AttendancesListContainer = () => {
       onCheckedAll={onCheckedAll}
       onCheckedElement={onCheckedElement}
       checkedList={checkedList}
-      isOptionOpen={isOptionOpen}
       onClickDeleteChecked={onClickDeleteChecked}
       organizationArr={organizationArr}
       init={init}
       setInit={setInit}
+      watch={watch}
+      isEditOpen={isEditOpen}
+      setIsEditOpen={setIsEditOpen}
+      onClickOpenEditModal={onClickOpenEditModal}
     />
   );
 };

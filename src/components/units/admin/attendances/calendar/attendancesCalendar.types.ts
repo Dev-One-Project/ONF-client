@@ -5,6 +5,7 @@ import {
   UseFormHandleSubmit,
   UseFormRegister,
   UseFormSetValue,
+  UseFormWatch,
 } from 'react-hook-form';
 import { IQuery } from '../../../../../commons/types/generated/types';
 import { InputData } from '../../../../commons/input/select01';
@@ -29,6 +30,8 @@ export interface IAttendancesCalendarPresenterProps {
   setInit: Dispatch<SetStateAction<boolean>>;
   data?: Pick<IQuery, 'fetchMonthWorkChecks'>;
   onChangeSelect: (event: ChangeEvent<HTMLSelectElement>) => void;
+  memberSchedule?: Pick<IQuery, 'fetchMemberSchedule'>;
+  watch: UseFormWatch<FieldValues>;
 }
 
 interface IInputData {

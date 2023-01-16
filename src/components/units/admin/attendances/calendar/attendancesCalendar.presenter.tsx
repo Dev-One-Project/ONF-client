@@ -44,6 +44,7 @@ const AttendancesCalendarPresenter = (
               props.setAniMode(false);
             }}
             setValue={props.setValue}
+            watch={props.watch}
           />
         </FallingModal>
       )}
@@ -111,7 +112,7 @@ const AttendancesCalendarPresenter = (
                       <label>
                         {memberData[0].quittingTime
                           ? getTimeStr('', memberData[0].quittingTime).replace(
-                              ' - ',
+                              '0NaN:0NaN -',
                               '',
                             )
                           : ''}

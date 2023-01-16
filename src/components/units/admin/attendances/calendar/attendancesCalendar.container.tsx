@@ -31,7 +31,7 @@ const AttendancesCalendarContainer = () => {
   const [init, setInit] = useState(false);
   const [selectedDate, setSelectedDate] = useState(moment().format('YYYY-MM'));
 
-  const { handleSubmit, register, setValue, control } = useForm({
+  const { handleSubmit, register, setValue, control, watch } = useForm({
     resolver: yupResolver(schema),
     mode: 'onChange',
   });
@@ -131,6 +131,7 @@ const AttendancesCalendarContainer = () => {
       setInit={setInit}
       data={data}
       onChangeSelect={onChangeSelect}
+      watch={watch}
     />
   );
 };

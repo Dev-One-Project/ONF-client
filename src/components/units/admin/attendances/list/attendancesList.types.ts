@@ -1,10 +1,11 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, MouseEvent, SetStateAction } from 'react';
 import {
   Control,
   FieldValues,
   UseFormHandleSubmit,
   UseFormRegister,
   UseFormSetValue,
+  UseFormWatch,
 } from 'react-hook-form';
 import { Dayjs } from 'dayjs';
 import {
@@ -37,9 +38,12 @@ export interface IAttendancesListPresenterProps {
     selectedTarget: IWorkCheckOutput,
   ) => void;
   checkedList: IWorkCheckOutput[];
-  isOptionOpen: boolean;
   onClickDeleteChecked: () => void;
   organizationArr: InputData[];
   init: boolean;
   setInit: Dispatch<SetStateAction<boolean>>;
+  watch: UseFormWatch<FieldValues>;
+  isEditOpen: boolean;
+  setIsEditOpen: Dispatch<SetStateAction<boolean>>;
+  onClickOpenEditModal: (e: MouseEvent<HTMLUListElement>) => void;
 }
