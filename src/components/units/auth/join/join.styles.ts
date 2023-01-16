@@ -98,51 +98,6 @@ export const Label = styled.label`
   font-family: ${styleSet.fonts.EB};
 `;
 
-export const P = styled.p`
-  width: 100%;
-  padding-block: 1.5rem;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  strong {
-    background: ${styleSet.colors.white};
-    z-index: 2;
-    padding: 0 0.8rem;
-    font-family: ${styleSet.fonts.B};
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    top: 50%;
-    left: 0;
-    border-top: 1px solid #c2cad5;
-  }
-`;
-
-export const Ul = styled.ul`
-  width: 100%;
-  img {
-    width: 16px;
-  }
-
-  li {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    border: 1px solid ${styleSet.colors.gray};
-    padding: 0.7rem;
-    margin-bottom: 1rem;
-    cursor: pointer;
-    &:hover {
-      background-color: ${styleSet.colors.subColor05};
-      border: 1px solid ${styleSet.colors.subColor05};
-    }
-  }
-`;
-
 export const Article = styled.article`
   display: flex;
   flex-direction: column;

@@ -103,7 +103,7 @@ export const FETCH_ORGANIZATION_DETAIL = gql`
 `;
 
 export const LOGOUT = gql`
-  mutation {
+  mutation logout {
     logout
   }
 `;

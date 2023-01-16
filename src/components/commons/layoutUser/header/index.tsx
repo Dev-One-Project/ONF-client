@@ -19,8 +19,9 @@ import {
   CREATE_END_WORK_CHECK,
   FETCH_ACCOUNT,
   FETCH_MY_WORK_CHECK,
+  LOGOUT,
 } from '../../layoutUser/layout.queries';
-import { MouseEvent, useEffect, useMemo, useState } from 'react';
+import { MouseEvent, useMemo, useState } from 'react';
 import Switch01 from '../../switch/switch01';
 import * as S from '../../layoutUser/layout.styles';
 import PoppingModal from '../../modal/poppingModal';
@@ -29,6 +30,7 @@ import { styleSet } from '../../../../commons/styles/styleSet';
 import { ErrorModal, SuccessModal } from '../../modal/sweetAlertModal';
 import { getStaticDateStr } from '../../../../commons/utils/getDate';
 import { useMoveToPage } from '../../hooks/useMoveToPage';
+import Swal from 'sweetalert2';
 
 const UserHeaderPage = () => {
   const router = useRouter();
@@ -41,6 +43,8 @@ const UserHeaderPage = () => {
   const [isPoppingModalOpen, setIsPoppingModalOpen] = useState(false);
   const [createStartWorkCheck] = useMutation(CERATE_START_WORK_CHECK);
   const { data: workStatus } = useQuery(CHECK_WORK_STATUS);
+  const [logout] = useMutation(LOGOUT);
+  const { onClickMoveToPage } = useMoveToPage();
 
   useMemo(() => {
     setStatus(workStatus?.checkWorkStatus);
@@ -54,7 +58,6 @@ const UserHeaderPage = () => {
       endDate: today,
     },
   });
-  const { onClickMoveToPage } = useMoveToPage();
 
   const headerLink = [
     { id: 0, address: '/user/schedule', name: '스케줄' },
@@ -131,6 +134,29 @@ const UserHeaderPage = () => {
     SuccessModal('새로고침 중입니다.');
   };
 
+  const onClickLogout = () => {
+    try {
+      void Swal.fire({
+        title: '로그아웃 하시겠습니까?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: `${styleSet.colors.darkGray}`,
+        cancelButtonColor: `${styleSet.colors.fail}`,
+        confirmButtonText: '확인',
+        cancelButtonText: '취소',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          void logout();
+          sessionStorage.removeItem('accessToken');
+          SuccessModal('안녕히가세요.');
+          router.reload();
+        }
+      });
+    } catch (error) {
+      ErrorModal(error as string);
+    }
+  };
+
   return (
     <>
       <S.Header className="pc">
@@ -173,14 +199,21 @@ const UserHeaderPage = () => {
             {mypage && (
               <S.Mypage>
                 <ul>
-                  <li>
-                    <UserOutlined /> {fetchAccount?.fetchAccount?.name}
-                  </li>
+                  {fetchAccount?.fetchAccount?.name ? (
+                    <li>
+                      <UserOutlined />
+                      {fetchAccount?.fetchAccount?.name}
+                    </li>
+                  ) : (
+                    <li onClick={onClickMoveToPage('/auth/login')}>
+                      로그인을 해주세요.
+                    </li>
+                  )}
                   <li>
                     <SettingOutlined /> 계정 설정
                   </li>
 
-                  <li>
+                  <li onClick={onClickLogout}>
                     <LogoutOutlined /> 로그아웃
                   </li>
                 </ul>
@@ -274,12 +307,27 @@ const UserHeaderPage = () => {
             <S.MyPage>
               <CloseOutlined className="close" onClick={onClickSideMenu} />
               <S.TopText>
+                {fetchAccount?.fetchAccount ? (
+                  <li>
+                    <UserOutlined />
+                    <S.Name>
+                      {fetchAccount?.fetchAccount?.name
+                        ? fetchAccount?.fetchAccount?.name
+                        : '이름을 찾을 수 없습니다.'}
+                    </S.Name>
+                  </li>
+                ) : (
+                  <li onClick={onClickMoveToPage('/auth/login')}>
+                    로그인을 해주세요.
+                  </li>
+                )}
                 <li>
-                  <S.Name>{fetchAccount?.fetchAccount?.name} </S.Name>
-                  {fetchAccount?.fetchAccount?.roles}
-                </li>
-                <li>
-                  <span>내 계정</span> <span>내 프로필</span>
+                  <span>내 계정</span> <span>내 프로필</span>{' '}
+                  {fetchAccount?.fetchAccount && (
+                    <span onClick={onClickLogout}>
+                      <LogoutOutlined /> 로그아웃
+                    </span>
+                  )}
                 </li>
               </S.TopText>
             </S.MyPage>

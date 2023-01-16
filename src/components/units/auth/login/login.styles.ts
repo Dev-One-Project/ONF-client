@@ -115,29 +115,10 @@ export const P = styled.p`
   }
 `;
 
-export const Ul = styled.ul`
-  width: 100%;
-  img {
-    width: 16px;
-  }
-
-  li {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    border: 1px solid ${styleSet.colors.gray};
-    padding: 0.7rem;
-    margin-bottom: 1rem;
-    cursor: pointer;
-    &:hover {
-      background-color: ${styleSet.colors.subColor05};
-      border: 1px solid ${styleSet.colors.subColor05};
-    }
-  }
-`;
-
 export const Join = styled.p`
   font-family: ${styleSet.fonts.B};
-  padding-top: 2rem;
+
+  @media ${styleSet.breakPoints.mobile} {
+    font-size: ${styleSet.fontSizes.small};
+  }
 `;

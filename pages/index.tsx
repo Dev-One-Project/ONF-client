@@ -1,10 +1,15 @@
-import styled from '@emotion/styled';
 import Image from 'next/image';
+import styled from '@emotion/styled';
 import { styleSet } from '../src/commons/styles/styleSet';
 import { useMoveToPage } from '../src/components/commons/hooks/useMoveToPage';
+import { FETCH_ACCOUNT } from '../src/components/commons/layoutUser/layout.queries';
+import { useQuery } from '@apollo/client';
+import { UserOutlined } from '@ant-design/icons';
 
 export default function Home() {
   const { onClickMoveToPage } = useMoveToPage();
+  const { data: fetchAccount } = useQuery(FETCH_ACCOUNT);
+
   return (
     <Section>
       <Header>
@@ -14,11 +19,24 @@ export default function Home() {
             alt="로고 아이콘"
             width={150}
             height={60}
+            onClick={onClickMoveToPage('/')}
           />
-          <HeaderList>
-            <li onClick={onClickMoveToPage('/auth/login')}>로그인</li>
-            <li onClick={onClickMoveToPage('/auth/join')}>회원가입</li>
-          </HeaderList>
+          {fetchAccount?.fetchAccount ? (
+            <HeaderList>
+              <li
+                className="login"
+                onClick={onClickMoveToPage('/user/schedule')}
+              >
+                <UserOutlined />
+                {fetchAccount?.fetchAccount?.name}님 환영합니다!
+              </li>
+            </HeaderList>
+          ) : (
+            <HeaderList>
+              <li onClick={onClickMoveToPage('/auth/login')}>로그인</li>
+              <li onClick={onClickMoveToPage('/auth/join')}>회원가입</li>
+            </HeaderList>
+          )}
         </Wrapper>
       </Header>
 
@@ -29,7 +47,7 @@ export default function Home() {
           근태부터 인력관리까지 한 곳으로 모은 <br />
           솔루션 기업의 원동력인 인력에 더욱 집중하고 기민하게 대응합니다
         </p>
-        <button>로그인 &gt;</button>
+        <button onClick={onClickMoveToPage('/auth/login')}>로그인 &gt;</button>
       </Text>
 
       <Main>
@@ -90,6 +108,11 @@ const Text = styled.section`
     color: ${styleSet.colors.white};
     font-size: ${styleSet.fontSizes.strong};
     font-family: ${styleSet.fonts.EB};
+    transition: 0.4s;
+
+    &:hover {
+      background: ${styleSet.colors.black};
+    }
   }
 `;
 
@@ -106,6 +129,9 @@ const Wrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   height: 100%;
+  img {
+    cursor: pointer;
+  }
 `;
 const Main = styled.main`
   position: relative;
@@ -117,9 +143,9 @@ const Main = styled.main`
     z-index: 999;
     border-radius: 15px;
     overflow: inherit !important;
+    box-shadow: -80px 80px 80px rgb(0 0 0 / 20%);
     img {
       border-radius: 15px;
-      box-shadow: -80px 80px 80px rgb(0 0 0 / 25%);
     }
   }
   article {
@@ -168,6 +194,13 @@ const HeaderList = styled.ul`
   gap: 20px;
   z-index: 9999;
   li {
+    &.login {
+      width: 100%;
+      &:hover {
+        background: transparent;
+        color: ${styleSet.colors.black};
+      }
+    }
     width: 95px;
     height: 45px;
     display: flex;
@@ -182,7 +215,7 @@ const HeaderList = styled.ul`
     &:hover {
       background: ${styleSet.colors.primary};
       color: ${styleSet.colors.white};
-      transition: 0.2s;
+      transition: 0.4s;
     }
   }
 `;

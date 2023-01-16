@@ -6,15 +6,23 @@ import Input01 from '../../../commons/input/input01';
 import { styleSet } from '../../../../commons/styles/styleSet';
 import { useMoveToPage } from '../../../commons/hooks/useMoveToPage';
 import Check01 from '../../../commons/input/check01';
+import { LoginAuth } from '../../../commons/hooks/loginAuth';
 
 const LoginPresenter = (props: ILoginProps) => {
+  LoginAuth();
   const { onClickMoveToPage } = useMoveToPage();
 
   return (
     <>
       <S.Wrapper>
         <S.Header>
-          <Image src="/icon_logo.png" alt="logo" width={80} height={30} />
+          <Image
+            src="/icon_logo.png"
+            alt="logo"
+            width={80}
+            height={30}
+            onClick={onClickMoveToPage('/')}
+          />
           <p>
             아직 ON&OFF 계정이 없으신가요?{' '}
             <span onClick={onClickMoveToPage('/auth/join')}>지금 가입하기</span>
@@ -52,27 +60,6 @@ const LoginPresenter = (props: ILoginProps) => {
           <S.P>
             <strong>or</strong>
           </S.P>
-
-          <S.Ul>
-            <li>
-              <Image
-                src="/login/icon_google.png"
-                alt="구글 아이콘"
-                width={16}
-                height={16}
-              />
-              구글 계정으로 로그인
-            </li>
-            <li>
-              <Image
-                src="/login/icon_kakao.png"
-                alt="카카오 아이콘 "
-                width={16}
-                height={16}
-              />
-              카카오 계정으로 로그인
-            </li>
-          </S.Ul>
 
           <S.Join>
             아직 ON&OFF 계정이 없으신가요?{' '}

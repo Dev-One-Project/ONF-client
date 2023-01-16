@@ -31,8 +31,8 @@ import {
 import AdminHeaderPresenter from './header.presenter';
 
 const AdminHeaderContainer = () => {
-  useAuth();
   const router = useRouter();
+  useAuth();
 
   const [, setIsAdminSidebar] = useRecoilState(isAdminSidebarState);
   const [isOpen, setIsOpen] = useState(false);
@@ -72,7 +72,7 @@ const AdminHeaderContainer = () => {
     Pick<IQuery, 'fetchMember'>,
     IQueryFetchMemberArgs
   >(FETCH_MEMBER, {
-    variables: { memberId: String(fetchAccount?.fetchAccount.member.id) },
+    variables: { memberId: String(fetchAccount?.fetchAccount.member?.id) },
   });
 
   const { data: fetchMemberSchedule } = useQuery<
@@ -80,7 +80,7 @@ const AdminHeaderContainer = () => {
     IQueryFetchMemberScheduleArgs
   >(FETCH_MEMBER_SCHEDULE, {
     variables: {
-      memberId: String(fetchAccount?.fetchAccount.member.id),
+      memberId: String(fetchAccount?.fetchAccount.member?.id),
       date: new Date(today),
     },
   });
