@@ -22,6 +22,7 @@ interface IInputLabelProps {
   inputWidth?: string;
   customInput?: JSX.Element;
   singleMode?: boolean;
+  step?: string;
 }
 
 const InputLabel = (props: IInputLabelProps) => {
@@ -45,6 +46,7 @@ const InputLabel = (props: IInputLabelProps) => {
         <>{props.customInput}</>
       ) : (
         <Input01
+          step={props.step}
           width={props.inputWidth || '15rem'}
           id={props.name}
           type={props.type}

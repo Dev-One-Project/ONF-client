@@ -23,6 +23,7 @@ interface IInput01Props {
     | undefined;
   defaultValue?: string | number;
   defalutPreview?: string;
+  step?: string;
 }
 
 interface IStyle {
@@ -68,6 +69,7 @@ const Input01 = (props: IInput01Props) => {
         </>
       ) : null}
       <Input
+        step={props.step}
         id={props.id}
         width={props.width || '100%'}
         type={props.type}
