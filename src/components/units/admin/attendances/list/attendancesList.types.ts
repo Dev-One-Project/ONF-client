@@ -45,5 +45,8 @@ export interface IAttendancesListPresenterProps {
   watch: UseFormWatch<FieldValues>;
   isEditOpen: boolean;
   setIsEditOpen: Dispatch<SetStateAction<boolean>>;
+  isCheckedOpen: boolean;
+  setIsCheckedOpen: Dispatch<SetStateAction<boolean>>;
   onClickOpenEditModal: (e: MouseEvent<HTMLUListElement>) => void;
+  onClickCheckedOpen: () => void;
 }
