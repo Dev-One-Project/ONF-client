@@ -64,7 +64,7 @@ export const FETCH_ROLE_CATEGORIES = gql`
   }
 `;
 
-export const FETCH_ALL_SCHEDULE_CATEGORY = gql`
+export const FETCH_ALL_SCHEDULE_CATEGORIES = gql`
   query {
     fetchAllScheduleCategories {
       id

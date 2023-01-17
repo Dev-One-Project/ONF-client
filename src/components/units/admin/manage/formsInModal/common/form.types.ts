@@ -9,6 +9,7 @@ export interface IFormProps {
     organizations?: Pick<IQuery, 'fetchOrganizations'>;
     roleCategories?: Pick<IQuery, 'fetchRoleCategories'>;
     workInfos?: Pick<IQuery, 'fetchWorkInfos'>;
+    scheduleCategories?: Pick<IQuery, 'fetchAllScheduleCategories'>;
   };
 
   // 빌드 에러 수정용... 나중에 삭제
