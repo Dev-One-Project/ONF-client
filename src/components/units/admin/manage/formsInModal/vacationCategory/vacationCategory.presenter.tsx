@@ -52,6 +52,7 @@ const VacationCategoryFormPresenter = (
                 type="radio"
                 value="시간입력"
                 id="time"
+                defaultChecked
                 {...props.register('timeOption')}
               />
               <label htmlFor="time">시간 입력</label>
