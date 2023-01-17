@@ -1,11 +1,11 @@
 import { IFormProps } from './common/form.types';
-import LeaveTypes from './leaveTypes';
 import Wages from './wages';
 import OrganizationFormContainer from './oraganization/organizationForm.container';
 import MemberFormContainer from './member/memberForm.container';
 import RoleCategoryFormContainer from './roleCategory/roleCategoryForm.container';
 import ScheduleCategoryFormContainer from './scheduleCategory/scheduleCategoryForm.container';
 import ScheduleTemplateFormContainer from './scheduleTemplate/scheduleTemplateForm.container';
+import VacationCategoryFormContainer from './vacationCategory/vacationCategory.container';
 
 const Form = (props: IFormProps) => {
   if (props.tab === '직원') return <MemberFormContainer {...props} />;
@@ -16,7 +16,8 @@ const Form = (props: IFormProps) => {
     return <ScheduleCategoryFormContainer {...props} />;
   if (props.tab === '근무일정 템플릿')
     return <ScheduleTemplateFormContainer {...props} />;
-  if (props.tab === '휴가 유형') return <LeaveTypes {...props} />;
+  if (props.tab === '휴가 유형')
+    return <VacationCategoryFormContainer {...props} />;
   return <MemberFormContainer {...props} />;
 };
 
