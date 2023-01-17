@@ -11,6 +11,8 @@ import Select01 from '../../../../commons/input/select01';
 import dayjs from 'dayjs';
 import { getDateSlash, getTimeStr } from '../../../../../commons/utils/getDate';
 import EditAttendances from '../modules/editAttendances';
+import CheckedEditAttendanceList from './modules/checkedEditAttendanceList';
+// import Textarea from '../../../../commons/textarea';
 
 const AttendancesListPresenter = (props: IAttendancesListPresenterProps) => {
   return (
@@ -45,6 +47,26 @@ const AttendancesListPresenter = (props: IAttendancesListPresenterProps) => {
             }}
             setValue={props.setValue}
             watch={props.watch}
+          />
+        </FallingModal>
+      )}
+
+      {props.isCheckedOpen && (
+        <FallingModal
+          aniMode={props.aniMode}
+          isOpen={props.isCheckedOpen}
+          setIsOpen={props.setIsCheckedOpen}
+          onCancel={() => {
+            props.setAniMode(false);
+          }}
+          title="출퇴근기록 수정"
+          width="32rem"
+        >
+          <CheckedEditAttendanceList
+            onCancel={() => {
+              props.setAniMode(false);
+            }}
+            checkedList={props.checkedList}
           />
         </FallingModal>
       )}
@@ -114,7 +136,11 @@ const AttendancesListPresenter = (props: IAttendancesListPresenterProps) => {
         {props.checkedList.length > 0 ? (
           <S.OptBox>
             <S.OptSelect>
-              <Btn01 text={'출퇴근기록 수정'} bdC={styleSet.colors.gray} />
+              <Btn01
+                text={'출퇴근기록 수정'}
+                bdC={styleSet.colors.gray}
+                onClick={props.onClickCheckedOpen}
+              />
               <Btn01
                 text={'삭제'}
                 bdC={styleSet.colors.gray}

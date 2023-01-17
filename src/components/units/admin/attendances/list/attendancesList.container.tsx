@@ -33,6 +33,7 @@ const AttendancesListContainer = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [aniMode, setAniMode] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isCheckedOpen, setIsCheckedOpen] = useState(false);
   const [init, setInit] = useState(false);
   const [organizationArr, setOrganizationArr] = useState<InputData[]>([]);
   const [selectedId, setSelectedId] = useState('');
@@ -129,6 +130,11 @@ const AttendancesListContainer = () => {
     setSelectedId(e.currentTarget.id);
   };
 
+  const onClickCheckedOpen = () => {
+    setAniMode(true);
+    setIsCheckedOpen(true);
+  };
+
   console.log(selectedId);
 
   const onClickDeleteChecked = async () => {
@@ -216,6 +222,9 @@ const AttendancesListContainer = () => {
       isEditOpen={isEditOpen}
       setIsEditOpen={setIsEditOpen}
       onClickOpenEditModal={onClickOpenEditModal}
+      setIsCheckedOpen={setIsCheckedOpen}
+      isCheckedOpen={isCheckedOpen}
+      onClickCheckedOpen={onClickCheckedOpen}
     />
   );
 };
