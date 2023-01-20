@@ -1,8 +1,6 @@
 import { MouseEvent, useCallback, useMemo, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import AttendancesListPresenter from './attendancesList.presenter';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
+
 import {
   IQuery,
   IQueryFetchDateMemberWorkChecksArgs,
@@ -10,7 +8,6 @@ import {
 } from '../../../../../commons/types/generated/types';
 import {
   FETCH_ORGANIZATIONS,
-  CREATE_ADMIN_WORK_CHECK,
   DELETE_MANY_WORK_CHECK,
   FETCH_DATE_MEMBER_WORK_CHECKS,
 } from './attendancesList.queries';
@@ -21,13 +18,6 @@ import { InputData } from '../../../../commons/input/select01';
 import { notification } from 'antd';
 import { CheckCircleOutlined } from '@ant-design/icons';
 import { styleSet } from '../../../../../commons/styles/styleSet';
-
-const schema = yup.object({
-  startHour: yup.string().matches(/^\d{2}$/),
-  startMin: yup.string().matches(/^\d{2}$/),
-  endHour: yup.string().matches(/^\d{2}$/),
-  endMin: yup.string().matches(/^\d{2}$/),
-});
 
 const AttendancesListContainer = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,16 +35,10 @@ const AttendancesListContainer = () => {
     new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0),
   ]);
 
-  const { handleSubmit, register, setValue, control, watch } = useForm({
-    resolver: yupResolver(schema),
-    mode: 'onChange',
-  });
-
   const onClickOpenModal = () => {
     setIsOpen(true);
     setAniMode(true);
   };
-  const [createAdminWorkCheck] = useMutation(CREATE_ADMIN_WORK_CHECK);
 
   const [deleteManyWorkCheck] = useMutation(DELETE_MANY_WORK_CHECK);
 
@@ -167,34 +151,6 @@ const AttendancesListContainer = () => {
     }
   };
 
-  const onSubmit = async (data: any) => {
-    try {
-      data.workingTime = `${String(data.startHour)}${String(data.startMin)}`;
-      data.quittingTime = `${String(data.endHour)}${String(data.endMin)}`;
-      const { startHour, startMin, endHour, endMin, ...rest } = data;
-      console.log(rest);
-      await createAdminWorkCheck({
-        variables: { createWorkCheckInput: { ...rest } },
-        refetchQueries: [
-          {
-            query: FETCH_DATE_MEMBER_WORK_CHECKS,
-            variables: {
-              organizationId: organizationArr?.map(
-                (organization) => organization.id,
-              ),
-              startDate: startEndDate[0] ? startEndDate[0] : null,
-              endDate: startEndDate[1] ? startEndDate[1] : null,
-              isActiveMember: init,
-            },
-          },
-        ],
-      });
-      setAniMode(false);
-    } catch (error) {
-      if (error instanceof Error) alert(error.message);
-    }
-  };
-
   return (
     <AttendancesListPresenter
       isOpen={isOpen}
@@ -202,11 +158,6 @@ const AttendancesListContainer = () => {
       setIsOpen={setIsOpen}
       setAniMode={setAniMode}
       onClickOpenModal={onClickOpenModal}
-      handleSubmit={handleSubmit}
-      register={register}
-      onSubmit={onSubmit}
-      setValue={setValue}
-      control={control}
       setOrganizationArr={setOrganizationArr}
       organizationsData={organizationsData}
       onChangeStartEndDate={onChangeStartEndDate}
@@ -218,7 +169,6 @@ const AttendancesListContainer = () => {
       organizationArr={organizationArr}
       init={init}
       setInit={setInit}
-      watch={watch}
       isEditOpen={isEditOpen}
       setIsEditOpen={setIsEditOpen}
       onClickOpenEditModal={onClickOpenEditModal}

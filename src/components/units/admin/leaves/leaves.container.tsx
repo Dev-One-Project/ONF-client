@@ -71,43 +71,18 @@ const LeavesContainer = () => {
       data.vacations = selectedDate.map((data) => new Date(data));
       data.memberId = memberArr?.map((data) => data.id);
       console.log(data);
-      if (filterInit) {
-        await createVacation({
-          variables: { createVacationInput: data },
-          refetchQueries: [
-            {
-              query: FETCH_VACATION_WITH_DATE,
-              variables: {
-                startDate: startEndDate[0],
-                endDate: startEndDate[1],
-                organizationId: organizationArr.map(
-                  (organization) => organization.id,
-                ),
-              },
-            },
-          ],
-        });
-      } else {
-        await createVacation({
-          variables: { createVacationInput: data },
-          refetchQueries: [
-            {
-              query: FETCH_VACATION_WITH_DELETE,
-              variables: {
-                startDate: startEndDate[0],
-                endDate: startEndDate[1],
-                organizationId: organizationArr.map(
-                  (organization) => organization.id,
-                ),
-              },
-            },
-          ],
-        });
-      }
+      await createVacation({
+        variables: { createVacationInput: data },
+        update(cache) {
+          cache.modify({
+            fields: () => {},
+          });
+        },
+      });
 
       setAniMode(false);
     } catch (error) {
-      alert('다시하라우');
+      alert(error);
     }
   };
 

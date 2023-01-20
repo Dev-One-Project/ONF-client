@@ -1,12 +1,4 @@
 import { Dispatch, MouseEvent, SetStateAction } from 'react';
-import {
-  Control,
-  FieldValues,
-  UseFormHandleSubmit,
-  UseFormRegister,
-  UseFormSetValue,
-  UseFormWatch,
-} from 'react-hook-form';
 import { Dayjs } from 'dayjs';
 import {
   IQuery,
@@ -20,11 +12,6 @@ export interface IAttendancesListPresenterProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   setAniMode: Dispatch<SetStateAction<boolean>>;
   onClickOpenModal: () => void;
-  handleSubmit: UseFormHandleSubmit<FieldValues>;
-  onSubmit: (data: any) => void;
-  register: UseFormRegister<FieldValues>;
-  setValue: UseFormSetValue<FieldValues>;
-  control: Control<FieldValues, any>;
   setOrganizationArr: Dispatch<SetStateAction<InputData[]>>;
   organizationsData?: InputData[];
   onChangeStartEndDate: (
@@ -42,7 +29,6 @@ export interface IAttendancesListPresenterProps {
   organizationArr: InputData[];
   init: boolean;
   setInit: Dispatch<SetStateAction<boolean>>;
-  watch: UseFormWatch<FieldValues>;
   isEditOpen: boolean;
   setIsEditOpen: Dispatch<SetStateAction<boolean>>;
   isCheckedOpen: boolean;

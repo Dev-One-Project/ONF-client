@@ -1,6 +1,5 @@
 import { useMutation, useQuery } from '@apollo/client';
-import { useCallback, useMemo, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { MouseEvent, useCallback, useMemo, useState } from 'react';
 import {
   IVacationIssue,
   IQuery,
@@ -17,16 +16,15 @@ import {
   FETCH_VACATION_ISSUE_BASE_DELETE,
   FETCH_VACATION_ISSUE_DETAIL,
   DELETE_MANY_VACATION_ISSUE,
-  CREATE_VACATION_ISSUE,
 } from './leaveAccruals.queries';
 import { IInputData } from './leaveAccruals.types';
 import { Dayjs } from 'dayjs';
 
 const LeaveAccrualsContainer = () => {
   const date = new Date();
-  const { register, handleSubmit, setValue, control } = useForm();
 
   const [isSelect, setIsSelect] = useState(true);
+  const [isSelectList, setIsSelectList] = useState(true);
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const [isMemberOpen, setIsMemberOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -34,21 +32,19 @@ const LeaveAccrualsContainer = () => {
   const [isCheckedChange, setIsCheckedChange] = useState(false);
   const [checkedList, setCheckedList] = useState<IVacationIssue[]>([]);
   const [dataLength, setDataLength] = useState(0);
-  const [baseDate] = useState(date);
+  const [baseDate, setBaseDate] = useState(date);
   const [startEndDate, setStartEndDate] = useState([
     new Date(date.getFullYear(), date.getMonth(), 1),
     new Date(date.getFullYear(), date.getMonth() + 1, 0),
   ]);
 
-  const [dayChecked, setDayChecked] = useState(false);
-  const [startDateChecked, setStartDateChecked] = useState(false);
-  const [endDateChecked, setEndDateChecked] = useState(false);
-  const [memoChecked, setMemoChecked] = useState(false);
+  const [listMemberId, setListMemberId] = useState('');
+  const [listMemberName, setListMemberName] = useState('');
+
   const [init, setInit] = useState(true);
   const [filterInit, setFilterInit] = useState(true);
   const [organizationArr, setOrganizationArr] = useState<IInputData[]>([]);
 
-  const [createVacationIssue] = useMutation(CREATE_VACATION_ISSUE);
   const [deleteManyVacationIssue] = useMutation(DELETE_MANY_VACATION_ISSUE);
 
   const onClickOpenModal = () => {
@@ -59,6 +55,13 @@ const LeaveAccrualsContainer = () => {
   const onClickOpenSelectModal = () => {
     setAniMode(true);
     setIsSelectOpen(true);
+  };
+
+  const onClickOpenSelectListModal = (e: MouseEvent<HTMLUListElement>) => {
+    setAniMode(true);
+    setIsSelectList(true);
+    setListMemberId(e.currentTarget.id);
+    if (e.currentTarget.role) setListMemberName(e.currentTarget.role);
   };
 
   const onClickCloseModal = () => {
@@ -73,30 +76,15 @@ const LeaveAccrualsContainer = () => {
 
   const onClickEmployee = () => {
     setIsSelect(true);
-    setFilterInit(true);
   };
 
   const onClickList = () => {
     setIsSelect(false);
-    setFilterInit(true);
-  };
-
-  const onSubmit = async (data: any) => {
-    console.log(data);
-    try {
-      data.memberId = 'a7b63f68-807d-482d-989b-41e1ca4e9e71';
-      data.vacationAll = Number(data.vacationAll);
-      await createVacationIssue({
-        variables: { createVacationIssueInput: data },
-      });
-      setAniMode(false);
-    } catch (error) {
-      alert('다시하라우');
-    }
   };
 
   const onChangeDate = async (value: Dayjs | null) => {
     if (value === null) return;
+    setBaseDate(new Date(value.format('YYYY-MM-DD')));
     await refetch({
       baseDate: new Date(value.format('YYYY-MM-DD')),
     });
@@ -135,10 +123,9 @@ const LeaveAccrualsContainer = () => {
     IQueryFetchVacationIssueDetailDateArgs
   >(FETCH_VACATION_ISSUE_DETAIL, {
     variables: {
-      baseDate,
       organizationId: organizationArr?.map((organization) => organization.id),
-      startDate: startEndDate[0] ? startEndDate[0] : null,
-      endDate: startEndDate[1] ? startEndDate[1] : null,
+      startDate: startEndDate[0],
+      endDate: startEndDate[1],
     },
   });
 
@@ -147,10 +134,9 @@ const LeaveAccrualsContainer = () => {
     IQueryFetchVacationIssueDetailDateDeleteArgs
   >(FETCH_VACATION_ISSUE_DETAIL_DELETE, {
     variables: {
-      baseDate,
       organizationId: organizationArr?.map((organization) => organization.id),
-      startDate: startEndDate[0] ? startEndDate[0] : null,
-      endDate: startEndDate[1] ? startEndDate[1] : null,
+      startDate: startEndDate[0],
+      endDate: startEndDate[1],
     },
   });
 
@@ -161,8 +147,8 @@ const LeaveAccrualsContainer = () => {
     variables: {
       baseDate,
       organizationId: organizationArr?.map((organization) => organization.id),
-      startDate: startEndDate[0] ? startEndDate[0] : null,
-      endDate: startEndDate[1] ? startEndDate[1] : null,
+      startDate: startEndDate[0],
+      endDate: startEndDate[1],
     },
   });
 
@@ -173,8 +159,8 @@ const LeaveAccrualsContainer = () => {
     variables: {
       baseDate,
       organizationId: organizationArr?.map((organization) => organization.id),
-      startDate: startEndDate[0] ? startEndDate[0] : null,
-      endDate: startEndDate[1] ? startEndDate[1] : null,
+      startDate: startEndDate[0],
+      endDate: startEndDate[1],
     },
   });
 
@@ -225,82 +211,20 @@ const LeaveAccrualsContainer = () => {
   );
 
   const onClickDeleteChecked = async () => {
-    if (!init && !filterInit) {
+    try {
       await deleteManyVacationIssue({
         variables: {
           vacationIssueId: checkedList.map((checked) => checked.id),
         },
-        refetchQueries: [
-          {
-            query: FETCH_VACATION_ISSUE_DETAIL_DELETE,
-            variables: {
-              baseDate,
-              organizationId: organizationArr?.map(
-                (organization) => organization.id,
-              ),
-              startDate: startEndDate[0] ? startEndDate[0] : null,
-              endDate: startEndDate[1] ? startEndDate[1] : null,
-            },
-          },
-        ],
-      });
-    } else if (!init && filterInit) {
-      await deleteManyVacationIssue({
-        variables: {
-          vacationIssueId: checkedList.map((checked) => checked.id),
+        update(cache) {
+          cache.modify({
+            fields: () => {},
+          });
         },
-        refetchQueries: [
-          {
-            query: FETCH_VACATION_ISSUE_DETAIL,
-            variables: {
-              baseDate,
-              organizationId: organizationArr?.map(
-                (organization) => organization.id,
-              ),
-              startDate: startEndDate[0] ? startEndDate[0] : null,
-              endDate: startEndDate[1] ? startEndDate[1] : null,
-            },
-          },
-        ],
       });
-    } else if (init && filterInit) {
-      await deleteManyVacationIssue({
-        variables: {
-          vacationIssueId: checkedList.map((checked) => checked.id),
-        },
-        refetchQueries: [
-          {
-            query: FETCH_VACATION_ISSUE_BASE,
-            variables: {
-              baseDate,
-              organizationId: organizationArr?.map(
-                (organization) => organization.id,
-              ),
-              startDate: startEndDate[0] ? startEndDate[0] : null,
-              endDate: startEndDate[1] ? startEndDate[1] : null,
-            },
-          },
-        ],
-      });
-    } else {
-      await deleteManyVacationIssue({
-        variables: {
-          vacationIssueId: checkedList.map((checked) => checked.id),
-        },
-        refetchQueries: [
-          {
-            query: FETCH_VACATION_ISSUE_BASE_DELETE,
-            variables: {
-              baseDate,
-              organizationId: organizationArr?.map(
-                (organization) => organization.id,
-              ),
-              startDate: startEndDate[0] ? startEndDate[0] : null,
-              endDate: startEndDate[1] ? startEndDate[1] : null,
-            },
-          },
-        ],
-      });
+      setCheckedList([]);
+    } catch (error) {
+      alert('다시 ㄱㄱ');
     }
   };
 
@@ -312,7 +236,6 @@ const LeaveAccrualsContainer = () => {
       vDetail={vDetail}
       vBase={vBase}
       vBaseDelete={vBaseDelete}
-      dayChecked={dayChecked}
       aniMode={aniMode}
       init={init}
       filterInit={filterInit}
@@ -323,24 +246,13 @@ const LeaveAccrualsContainer = () => {
       isSelectOpen={isSelectOpen}
       isMemberOpen={isMemberOpen}
       isCheckedChange={isCheckedChange}
-      memoChecked={memoChecked}
-      startDateChecked={startDateChecked}
-      endDateChecked={endDateChecked}
       setIsCheckedChange={setIsCheckedChange}
-      setDayChecked={setDayChecked}
-      setStartDateChecked={setStartDateChecked}
-      setEndDateChecked={setEndDateChecked}
-      setMemoChecked={setMemoChecked}
       setOrganizationArr={setOrganizationArr}
       setIsOpen={setIsOpen}
       setInit={setInit}
       setFilterInit={setFilterInit}
       setIsSelectOpen={setIsSelectOpen}
       setIsMemberOpen={setIsMemberOpen}
-      register={register}
-      handleSubmit={handleSubmit}
-      setValue={setValue}
-      onSubmit={onSubmit}
       onClickEmployee={onClickEmployee}
       onClickList={onClickList}
       onClickOpenModal={onClickOpenModal}
@@ -353,7 +265,12 @@ const LeaveAccrualsContainer = () => {
       onCheckedElement={onCheckedElement}
       organizationArr={organizationArr}
       onClickDeleteChecked={onClickDeleteChecked}
-      control={control}
+      setAniMode={setAniMode}
+      onClickOpenSelectListModal={onClickOpenSelectListModal}
+      isSelectList={isSelectList}
+      setIsSelectList={setIsSelectList}
+      listMemberName={listMemberName}
+      listMemberId={listMemberId}
     />
   );
 };

@@ -1,13 +1,5 @@
 import { gql } from '@apollo/client';
 
-export const CREATE_ADMIN_WORK_CHECK = gql`
-  mutation createAdminWorkCheck($createWorkCheckInput: CreateWorkCheckInput!) {
-    createAdminWorkCheck(createWorkCheckInput: $createWorkCheckInput) {
-      id
-    }
-  }
-`;
-
 export const FETCH_ORGANIZATIONS = gql`
   query fetchOrganizations {
     fetchOrganizations {

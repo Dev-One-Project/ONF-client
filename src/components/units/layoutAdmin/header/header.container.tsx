@@ -127,7 +127,11 @@ const AdminHeaderContainer = () => {
 
   const onClickWorkCheck = async () => {
     try {
-      await createStartWorkCheck();
+      await createStartWorkCheck({
+        update(cache) {
+          cache.modify({ fields: () => {} });
+        },
+      });
       setIsPoppingModalOpen(false);
       SuccessModal(
         `성공적으로 출근했습니다.\n 오늘도 힘찬 하루되세요!\n  ON&OFF가 응원합니다.`,
@@ -143,6 +147,9 @@ const AdminHeaderContainer = () => {
       await createEndWorkCheck({
         variables: {
           workCheckId: myWorkCheck?.fetchMemberWorkChecks[0].id,
+        },
+        update(cache) {
+          cache.modify({ fields: () => {} });
         },
       });
 

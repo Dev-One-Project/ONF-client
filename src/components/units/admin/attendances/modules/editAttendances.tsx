@@ -6,21 +6,24 @@ import Select02 from '../../../../commons/input/select02';
 import Textarea from '../../../../commons/textarea';
 import AttendancesInput from './attendancesInput';
 import dayjs from 'dayjs';
-import {
-  Control,
-  Controller,
-  FieldValues,
-  UseFormHandleSubmit,
-  UseFormRegister,
-  UseFormSetValue,
-  UseFormWatch,
-} from 'react-hook-form';
-import { gql, useQuery } from '@apollo/client';
+import { Controller, useForm } from 'react-hook-form';
+import { gql, useMutation, useQuery } from '@apollo/client';
 import {
   IQuery,
   IQueryFetchMemberScheduleArgs,
 } from '../../../../../commons/types/generated/types';
 import { styleSet } from '../../../../../commons/styles/styleSet';
+import moment from 'moment';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { Dispatch, SetStateAction } from 'react';
+
+const schema = yup.object({
+  startHour: yup.string().matches(/^\d{2}$/),
+  startMin: yup.string().matches(/^\d{2}$/),
+  endHour: yup.string().matches(/^\d{2}$/),
+  endMin: yup.string().matches(/^\d{2}$/),
+});
 
 const FETCH_ORGANIZATIONS = gql`
   query {
@@ -53,32 +56,40 @@ export const FETCH_MEMBER_SCHEDULE = gql`
   query fetchMemberSchedule($memberId: String!, $date: DateTime!) {
     fetchMemberSchedule(memberId: $memberId, date: $date) {
       id
-      name
-      # scheduleCategory {
-      #   id
-      #   name
-      # }
+      scheduleCategory {
+        id
+        name
+      }
     }
   }
 `;
 
-interface IEditAttendancesProps {
-  handleSubmit: UseFormHandleSubmit<FieldValues>;
-  onSubmit: (data: any) => void;
-  register: UseFormRegister<FieldValues>;
+export const CREATE_ADMIN_WORK_CHECK = gql`
+  mutation createAdminWorkCheck($createWorkCheckInput: CreateWorkCheckInput!) {
+    createAdminWorkCheck(createWorkCheckInput: $createWorkCheckInput) {
+      id
+    }
+  }
+`;
+
+interface IAddAttendancesProps {
   onCancel?: () => void;
-  control: Control<FieldValues, any>;
-  setValue?: UseFormSetValue<FieldValues>;
-  watch: UseFormWatch<FieldValues>;
+  setAniMode: Dispatch<SetStateAction<boolean>>;
 }
 
-const EditAttendances = (props: IEditAttendancesProps) => {
+const AddAttendances = (props: IAddAttendancesProps) => {
   const dateFormat = 'YYYY-MM-DD';
 
-  const date = props.watch('workDay');
-  const memberId = props.watch('memberId');
+  const { handleSubmit, register, setValue, control, watch } = useForm({
+    resolver: yupResolver(schema),
+    mode: 'onChange',
+  });
 
-  // 추후에 사용 예정
+  const date = moment(watch('workDay'));
+  const memberId = watch('memberId');
+
+  const [createAdminWorkCheck] = useMutation(CREATE_ADMIN_WORK_CHECK);
+
   const { data: memberSchedule } = useQuery<
     Pick<IQuery, 'fetchMemberSchedule'>,
     IQueryFetchMemberScheduleArgs
@@ -89,9 +100,12 @@ const EditAttendances = (props: IEditAttendancesProps) => {
     },
   });
 
-  // const memberScheduleData = memberSchedule?.fetchMemberSchedule.map(() => ({
-  //   id: String,
-  // }));
+  const memberScheduleData = [
+    {
+      id: memberSchedule?.fetchMemberSchedule?.scheduleCategory.id,
+      name: memberSchedule?.fetchMemberSchedule?.scheduleCategory.name,
+    },
+  ];
 
   const { data: organizations } =
     useQuery<Pick<IQuery, 'fetchOrganizations'>>(FETCH_ORGANIZATIONS);
@@ -122,13 +136,33 @@ const EditAttendances = (props: IEditAttendancesProps) => {
     }),
   );
 
+  const onSubmit = async (data: any) => {
+    try {
+      data.workingTime = `${String(data.startHour)}${String(data.startMin)}`;
+      data.quittingTime = `${String(data.endHour)}${String(data.endMin)}`;
+      const { startHour, startMin, endHour, endMin, ...rest } = data;
+      console.log(rest);
+      await createAdminWorkCheck({
+        variables: { createWorkCheckInput: { ...rest } },
+        update(cache) {
+          cache.modify({
+            fields: () => {},
+          });
+        },
+      });
+      props.setAniMode(false);
+    } catch (error) {
+      if (error instanceof Error) alert(error.message);
+    }
+  };
+
   return (
     <Wrapper>
-      <Form onSubmit={props.handleSubmit(props.onSubmit)}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <ContentBox>
           <span>날짜</span>
           <Controller
-            control={props.control}
+            control={control}
             name="workDay"
             defaultValue={new Date()}
             render={({ field: { onChange } }) => (
@@ -146,50 +180,45 @@ const EditAttendances = (props: IEditAttendancesProps) => {
           <Select02
             category={['최고관리자', '직원']}
             data={memberData}
-            register={props.register('memberId')}
+            register={register('memberId')}
             name={'memberId'}
-            setValue={props.setValue}
+            setValue={setValue}
           />
         </ContentBox>
         <ContentBox>
           <span>근무일정</span>
           <Select02
-            data={[
-              {
-                id: '4d70eb46-ef64-4b45-b77e-25d566c30290',
-                name: '일근무일정',
-              },
-            ]}
+            data={memberScheduleData}
             customWidth="260px"
-            register={props.register('scheduleId')}
+            register={register('scheduleId')}
             name={'scheduleId'}
-            setValue={props.setValue}
+            setValue={setValue}
           />
         </ContentBox>
         <ContentBox>
           <span>조직</span>
           <Select02
             data={organizationData}
-            register={props.register('organizationId')}
+            register={register('organizationId')}
             name={'organizationId'}
-            setValue={props.setValue}
+            setValue={setValue}
           />
         </ContentBox>
         <ContentBox>
           <span>직무</span>
           <Select02
             data={roleCategoryData}
-            register={props.register('roleCategoryId')}
+            register={register('roleCategoryId')}
             name={'roleCategoryId'}
-            setValue={props.setValue}
+            setValue={setValue}
           />
         </ContentBox>
         <ContentBox>
           <span>출근시간</span>
           <InputBox>
-            <AttendancesInput register={props.register('startHour')} />
+            <AttendancesInput register={register('startHour')} />
             <span>:</span>
-            <AttendancesInput register={props.register('startMin')} />
+            <AttendancesInput register={register('startMin')} />
             <span>{`1월 5일 `}</span>
             <span></span>
           </InputBox>
@@ -197,9 +226,9 @@ const EditAttendances = (props: IEditAttendancesProps) => {
         <ContentBox>
           <span>퇴근시간</span>
           <InputBox>
-            <AttendancesInput register={props.register('endHour')} />
+            <AttendancesInput register={register('endHour')} />
             <span>:</span>
-            <AttendancesInput register={props.register('endMin')} />
+            <AttendancesInput register={register('endMin')} />
             <span>{`1월 5일 `}</span>
           </InputBox>
         </ContentBox>
@@ -210,32 +239,29 @@ const EditAttendances = (props: IEditAttendancesProps) => {
         <Divider style={{ margin: '0' }} />
         <ContentBox className="memo">
           <span>근무노트</span>
-          <Textarea register={props.register('workCheckMemo')} />
+          <Textarea register={register('workCheckMemo')} />
         </ContentBox>
         <Divider style={{ margin: '0', transform: 'scaleX(1.04)' }} />
-        <Footer>
-          <Btn01 text="삭제하기" bdC="#ddd" color="red" />
-          <BtnBox>
-            <Btn01
-              text="닫기"
-              bdC="#ddd"
-              type="button"
-              onClick={props.onCancel}
-            />
-            <Btn01
-              text="추가하기"
-              bdC={styleSet.colors.primary}
-              bgC={styleSet.colors.primary}
-              color="white"
-            />
-          </BtnBox>
-        </Footer>
+        <BtnBox>
+          <Btn01
+            text="닫기"
+            bdC="#ddd"
+            type="button"
+            onClick={props.onCancel}
+          />
+          <Btn01
+            text="추가하기"
+            bdC={styleSet.colors.primary}
+            bgC={styleSet.colors.primary}
+            color="white"
+          />
+        </BtnBox>
       </Form>
     </Wrapper>
   );
 };
 
-export default EditAttendances;
+export default AddAttendances;
 
 const Wrapper = styled.section`
   width: 50rem;
@@ -289,10 +315,4 @@ const BtnBox = styled.div`
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
-`;
-
-const Footer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
 `;
