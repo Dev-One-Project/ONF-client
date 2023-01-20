@@ -7,9 +7,9 @@ import Select02 from '../../../../commons/input/select02';
 import Textarea from '../../../../commons/textarea';
 import dayjs from 'dayjs';
 import { Controller, useForm } from 'react-hook-form';
-import { gql, useMutation, useQuery } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import { IQuery } from '../../../../../commons/types/generated/types';
-import { Dispatch, SetStateAction } from 'react';
+import { useEffect } from 'react';
 
 const FETCH_MEMBERS = gql`
   query {
@@ -20,27 +20,22 @@ const FETCH_MEMBERS = gql`
   }
 `;
 
-const CREATE_VACATION_ISSUE = gql`
-  mutation createVacationIssue(
-    $createVacationIssueInput: CreateVacationIssueInput!
-  ) {
-    createVacationIssue(createVacationIssueInput: $createVacationIssueInput) {
-      id
-    }
-  }
-`;
-
-interface IAddLeaveAccrualsProps {
+interface IEditLeaveAccrualsProps {
   onClickCloseModal: () => void;
-  setAniMode: Dispatch<SetStateAction<boolean>>;
+  data?: any;
 }
 
-const AddLeaveAccruals = (props: IAddLeaveAccrualsProps) => {
+const EditLeaveAccruals = (props: IEditLeaveAccrualsProps) => {
   const dateFormat = 'YYYY-MM-DD';
 
-  const { register, handleSubmit, setValue, control } = useForm();
+  const { register, handleSubmit, control, setValue } = useForm();
 
-  const [createVacationIssue] = useMutation(CREATE_VACATION_ISSUE);
+  useEffect(() => {
+    if (props.data) {
+      setValue('vacationAll', props.data.vacationAll);
+      setValue('description', props.data.description);
+    }
+  }, [props.data, setValue]);
 
   const { data: members } =
     useQuery<Pick<IQuery, 'fetchMembers'>>(FETCH_MEMBERS);
@@ -50,22 +45,8 @@ const AddLeaveAccruals = (props: IAddLeaveAccrualsProps) => {
     name: String(member.name),
   }));
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = (data: any) => {
     console.log(data);
-    try {
-      data.vacationAll = Number(data.vacationAll);
-      await createVacationIssue({
-        variables: { createVacationIssueInput: data },
-        update(cache) {
-          cache.modify({
-            fields: () => {},
-          });
-        },
-      });
-      props.setAniMode(false);
-    } catch (error) {
-      alert('다시하라우');
-    }
   };
 
   return (
@@ -80,6 +61,7 @@ const AddLeaveAccruals = (props: IAddLeaveAccrualsProps) => {
               register={register('memberId')}
               name={'memberId'}
               setValue={setValue}
+              defaultValue={props.data.member.name}
             />
           </div>
           <div>
@@ -99,7 +81,7 @@ const AddLeaveAccruals = (props: IAddLeaveAccrualsProps) => {
               render={({ field: { onChange } }) => (
                 <DatePicker
                   style={{ borderRadius: '0' }}
-                  defaultValue={dayjs(new Date())}
+                  defaultValue={dayjs(new Date(props.data.startingPoint))}
                   onChange={(value: any) => onChange(value?.$d)}
                   format={dateFormat}
                 />
@@ -115,7 +97,7 @@ const AddLeaveAccruals = (props: IAddLeaveAccrualsProps) => {
               render={({ field: { onChange } }) => (
                 <DatePicker
                   style={{ borderRadius: '0' }}
-                  defaultValue={dayjs(new Date())}
+                  defaultValue={dayjs(new Date(props.data.expirationDate))}
                   onChange={(value: any) => onChange(value?.$d)}
                   format={dateFormat}
                 />
@@ -129,24 +111,26 @@ const AddLeaveAccruals = (props: IAddLeaveAccrualsProps) => {
         </S.MemoBox>
       </S.ModalWrapper>
       <Divider style={{ margin: '1.8rem 0 0', transform: 'scaleX(1.07)' }} />
-
       <S.ModalFooter>
-        <Btn01
-          type={'button'}
-          text="닫기"
-          bdC="#ddd"
-          onClick={props.onClickCloseModal}
-        />
-        <Btn01
-          type={'submit'}
-          text="추가하기"
-          color="#fff"
-          bgC={styleSet.colors.primary}
-          bdC={styleSet.colors.primary}
-        />
+        <Btn01 text="삭제하기" bdC="#ddd" color="red" />
+        <S.BtnBox>
+          <Btn01
+            type={'button'}
+            text="닫기"
+            bdC="#ddd"
+            onClick={props.onClickCloseModal}
+          />
+          <Btn01
+            type={'submit'}
+            text="추가하기"
+            color="#fff"
+            bgC={styleSet.colors.primary}
+            bdC={styleSet.colors.primary}
+          />
+        </S.BtnBox>
       </S.ModalFooter>
     </form>
   );
 };
 
-export default AddLeaveAccruals;
+export default EditLeaveAccruals;

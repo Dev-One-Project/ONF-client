@@ -36,7 +36,6 @@ export const getTimeStr = (start: string, end: string) => {
     const hour = date.getHours().toString();
     const minute = date.getMinutes().toString();
     let timeStr = '';
-    console.log(start, end);
     if (hour.length !== 2) timeStr += '0';
     timeStr += hour + ':';
     if (minute.length !== 2) timeStr += '0';

@@ -1,11 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
-import {
-  Control,
-  FieldValues,
-  UseFormHandleSubmit,
-  UseFormRegister,
-  UseFormSetValue,
-} from 'react-hook-form';
+import { Dispatch, MouseEvent, SetStateAction } from 'react';
 import {
   IQuery,
   IVacationIssue,
@@ -23,9 +16,6 @@ export interface ILeaveAccrualsPresenterProps {
   onClickOpenModal: () => void;
   onClickCloseModal: () => void;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
-  onSubmit: (data: any) => void;
-  register: UseFormRegister<FieldValues>;
-  handleSubmit: UseFormHandleSubmit<FieldValues>;
   organizationsData?: IInputData[];
   init: boolean;
   setInit: Dispatch<SetStateAction<boolean>>;
@@ -41,7 +31,6 @@ export interface ILeaveAccrualsPresenterProps {
   setIsSelectOpen: Dispatch<SetStateAction<boolean>>;
   onClickOpenSelectModal: () => void;
   isMemberOpen: boolean;
-  setValue: UseFormSetValue<FieldValues>;
   vDetailDelete?: Pick<IQuery, 'fetchVacationIssueDetailDateDelete'>;
   vDetail?: Pick<IQuery, 'fetchVacationIssueDetailDate'>;
   vBase?: Pick<IQuery, 'fetchVacationIssueBaseDate'>;
@@ -50,21 +39,18 @@ export interface ILeaveAccrualsPresenterProps {
   onClickCheckedChange: () => void;
   isCheckedChange: boolean;
   setIsCheckedChange: Dispatch<SetStateAction<boolean>>;
-  setDayChecked: Dispatch<SetStateAction<boolean>>;
-  setStartDateChecked: Dispatch<SetStateAction<boolean>>;
-  setEndDateChecked: Dispatch<SetStateAction<boolean>>;
-  setMemoChecked: Dispatch<SetStateAction<boolean>>;
-  dayChecked: boolean;
-  startDateChecked: boolean;
-  endDateChecked: boolean;
-  memoChecked: boolean;
   onCheckedAll: (checked: boolean) => void;
   onCheckedElement: (checked: boolean, selectedTarget: IVacationIssue) => void;
   checkedList: IVacationIssue[];
   dataLength: number;
   organizationArr: InputData[];
   onClickDeleteChecked: () => void;
-  control: Control<FieldValues, any>;
+  setAniMode: Dispatch<SetStateAction<boolean>>;
+  onClickOpenSelectListModal: (e: MouseEvent<HTMLUListElement>) => void;
+  isSelectList: boolean;
+  setIsSelectList: Dispatch<SetStateAction<boolean>>;
+  listMemberName: string;
+  listMemberId: string;
 }
 
 export interface IInputData {

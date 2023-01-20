@@ -1,12 +1,4 @@
 import { ChangeEvent, Dispatch, SetStateAction } from 'react';
-import {
-  Control,
-  FieldValues,
-  UseFormHandleSubmit,
-  UseFormRegister,
-  UseFormSetValue,
-  UseFormWatch,
-} from 'react-hook-form';
 import { IQuery } from '../../../../../commons/types/generated/types';
 import { InputData } from '../../../../commons/input/select01';
 
@@ -20,18 +12,12 @@ export interface IAttendancesCalendarPresenterProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   setAniMode: Dispatch<SetStateAction<boolean>>;
   onClickOpenModal: () => void;
-  handleSubmit: UseFormHandleSubmit<FieldValues>;
-  onSubmit: (data: any) => void;
-  register: UseFormRegister<FieldValues>;
-  setValue: UseFormSetValue<FieldValues>;
-  control: Control<FieldValues, any>;
   organizationArr: InputData[];
   init: boolean;
   setInit: Dispatch<SetStateAction<boolean>>;
   data?: Pick<IQuery, 'fetchMonthWorkChecks'>;
   onChangeSelect: (event: ChangeEvent<HTMLSelectElement>) => void;
   memberSchedule?: Pick<IQuery, 'fetchMemberSchedule'>;
-  watch: UseFormWatch<FieldValues>;
 }
 
 interface IInputData {

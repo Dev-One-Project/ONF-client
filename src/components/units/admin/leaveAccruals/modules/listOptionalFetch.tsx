@@ -1,3 +1,4 @@
+import { MouseEvent } from 'react';
 import {
   IQuery,
   IVacationIssue,
@@ -13,7 +14,7 @@ interface IEmployeeOptionalFetchProps {
   vDetail?: Pick<IQuery, 'fetchVacationIssueDetailDate'>;
   vBase?: Pick<IQuery, 'fetchVacationIssueBaseDate'>;
   vBaseDelete?: Pick<IQuery, 'fetchVacationIssueWithBaseDateDelete'>;
-  onClickOpenModal: () => void;
+  onClickOpenModal: (e: MouseEvent<HTMLUListElement>) => void;
   onCheckedElement: (checked: boolean, selectedTarget: IVacationIssue) => void;
   checkedList: IVacationIssue[];
 }
@@ -24,7 +25,12 @@ const ListOptionalFetch = (props: IEmployeeOptionalFetchProps) => {
       return props.vDetailDelete?.fetchVacationIssueDetailDateDelete
         .flat()
         .map((fetchData) => (
-          <S.ListUl key={fetchData.id} onClick={props.onClickOpenModal}>
+          <S.ListUl
+            key={fetchData.id}
+            onClick={props.onClickOpenModal}
+            id={fetchData.id}
+            role={fetchData.member.name}
+          >
             <li>
               <Check01
                 onClick={(e) => {
@@ -46,10 +52,16 @@ const ListOptionalFetch = (props: IEmployeeOptionalFetchProps) => {
           </S.ListUl>
         ));
     } else if (!props.init && props.filterInit) {
+      console.log('off on');
       return props.vDetail?.fetchVacationIssueDetailDate
         .flat()
         .map((fetchData) => (
-          <S.ListUl key={fetchData.id} onClick={props.onClickOpenModal}>
+          <S.ListUl
+            key={fetchData.id}
+            onClick={props.onClickOpenModal}
+            id={fetchData.id}
+            role={fetchData.member.name}
+          >
             <li>
               <Check01
                 onClick={(e) => {
@@ -72,7 +84,12 @@ const ListOptionalFetch = (props: IEmployeeOptionalFetchProps) => {
         ));
     } else if (props.init && props.filterInit) {
       return props.vBase?.fetchVacationIssueBaseDate.flat().map((fetchData) => (
-        <S.ListUl key={fetchData.id} onClick={props.onClickOpenModal}>
+        <S.ListUl
+          key={fetchData.id}
+          onClick={props.onClickOpenModal}
+          id={fetchData.id}
+          role={fetchData.member.name}
+        >
           <li>
             <Check01
               onClick={(e) => {
@@ -97,7 +114,12 @@ const ListOptionalFetch = (props: IEmployeeOptionalFetchProps) => {
       return props.vBaseDelete?.fetchVacationIssueWithBaseDateDelete
         .flat()
         .map((fetchData) => (
-          <S.ListUl key={fetchData.id} onClick={props.onClickOpenModal}>
+          <S.ListUl
+            key={fetchData.id}
+            onClick={props.onClickOpenModal}
+            id={fetchData.id}
+            role={fetchData.member.name}
+          >
             <li>
               <Check01
                 onClick={(e) => {

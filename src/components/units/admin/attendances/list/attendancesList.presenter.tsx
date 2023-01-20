@@ -38,15 +38,10 @@ const AttendancesListPresenter = (props: IAttendancesListPresenterProps) => {
           title="출퇴근기록 생성하기"
         >
           <AddAttendances
-            handleSubmit={props.handleSubmit}
-            onSubmit={props.onSubmit}
-            register={props.register}
-            control={props.control}
             onCancel={() => {
               props.setAniMode(false);
             }}
-            setValue={props.setValue}
-            watch={props.watch}
+            setAniMode={props.setAniMode}
           />
         </FallingModal>
       )}
@@ -82,15 +77,10 @@ const AttendancesListPresenter = (props: IAttendancesListPresenterProps) => {
           title="출퇴근기록 수정하기"
         >
           <EditAttendances
-            handleSubmit={props.handleSubmit}
-            onSubmit={props.onSubmit}
-            register={props.register}
-            control={props.control}
             onCancel={() => {
               props.setAniMode(false);
             }}
-            setValue={props.setValue}
-            watch={props.watch}
+            setAniMode={props.setAniMode}
           />
         </FallingModal>
       )}

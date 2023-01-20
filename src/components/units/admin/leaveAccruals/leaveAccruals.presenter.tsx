@@ -12,8 +12,8 @@ import AddLeaveAccruals from './modules/addLeaveAccruals';
 import EmployeeOptionalFetch from './modules/employeeOptionalFetch';
 import ListOptionalFetch from './modules/listOptionalFetch';
 import Check01 from '../../../commons/input/check01';
-import Input01 from '../../../commons/input/input01';
-import Textarea from '../../../commons/textarea';
+import CheckedEditLeaveAccruals from './modules/checkedEditLeaveAccruals';
+import EditLeaveAccruals from './modules/editLeaveAccruals';
 
 const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
   return (
@@ -38,12 +38,34 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
           title="휴가 발생 건 추가하기"
         >
           <AddLeaveAccruals
-            handleSubmit={props.handleSubmit}
-            onSubmit={props.onSubmit}
             onClickCloseModal={props.onClickCloseModal}
-            register={props.register}
-            control={props.control}
+            setAniMode={props.setAniMode}
           />
+        </FallingModal>
+      )}
+
+      {props.isSelectList && (
+        <FallingModal
+          setIsOpen={props.setIsSelectList}
+          isOpen={props.isSelectList}
+          aniMode={props.aniMode}
+          onCancel={props.onClickCloseModal}
+          title={`${props.listMemberName}의 휴가 발생 건 수정하기`}
+        >
+          <>
+            {props.vBase?.fetchVacationIssueBaseDate
+              .flat()
+              .map(
+                (data) =>
+                  data.id === props.listMemberId && (
+                    <EditLeaveAccruals
+                      onClickCloseModal={props.onClickCloseModal}
+                      key={data.id}
+                      data={data}
+                    />
+                  ),
+              )}
+          </>
         </FallingModal>
       )}
 
@@ -56,90 +78,11 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
           width="31rem"
           title="휴가 발생 건 수정"
         >
-          <form>
-            <S.P>* 선택된 휴가 발생 건들을 일괄 수정할 수 있습니다.</S.P>
-            <S.ModalField>
-              <S.ModalBoxRow>
-                <div>
-                  <Check01
-                    onChange={() =>
-                      props.setDayChecked((prev: boolean) => !prev)
-                    }
-                  />
-                  <label>발생 일수</label>
-                </div>
-                {props.dayChecked ? (
-                  <Input01 type="number" />
-                ) : (
-                  <S.LabelText>변화 없음</S.LabelText>
-                )}
-              </S.ModalBoxRow>
-              <S.ModalBoxRow>
-                <div>
-                  <Check01
-                    onChange={() =>
-                      props.setStartDateChecked((prev: boolean) => !prev)
-                    }
-                  />
-                  <label>발생 시점</label>
-                </div>
-                {props.startDateChecked ? (
-                  <DatePicker style={{ borderRadius: '0' }} />
-                ) : (
-                  <S.LabelText>변화 없음</S.LabelText>
-                )}
-              </S.ModalBoxRow>
-              <S.ModalBoxRow>
-                <div>
-                  <Check01
-                    onChange={() =>
-                      props.setEndDateChecked((prev: boolean) => !prev)
-                    }
-                  />
-                  <label>발생 만료</label>
-                </div>
-                {props.endDateChecked ? (
-                  <DatePicker style={{ borderRadius: '0' }} />
-                ) : (
-                  <S.LabelText>변화 없음</S.LabelText>
-                )}
-              </S.ModalBoxRow>
-              <S.ModalBoxRow memoChecked={props.memoChecked}>
-                <div>
-                  <Check01
-                    onChange={() =>
-                      props.setMemoChecked((prev: boolean) => !prev)
-                    }
-                  />
-                  <label>메모</label>
-                </div>
-                {props.memoChecked ? (
-                  <Textarea />
-                ) : (
-                  <S.LabelText>변화 없음</S.LabelText>
-                )}
-              </S.ModalBoxRow>
-            </S.ModalField>
-            <Divider
-              style={{ margin: '1.8rem 0 0', transform: 'scaleX(1.075)' }}
-            />
-            <S.ModalFooter>
-              <div></div>
-              <Btn01
-                type={'button'}
-                text="닫기"
-                bdC="#ddd"
-                onClick={props.onClickCloseModal}
-              />
-              <Btn01
-                type={'submit'}
-                text="변경사항 저장"
-                color="#fff"
-                bgC={styleSet.colors.primary}
-                bdC={styleSet.colors.primary}
-              />
-            </S.ModalFooter>
-          </form>
+          <CheckedEditLeaveAccruals
+            onCancel={props.onClickCloseModal}
+            checkedList={props.checkedList}
+            setAniMode={props.setAniMode}
+          />
         </FallingModal>
       )}
 
@@ -177,11 +120,8 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
               {props.isMemberOpen ? (
                 <S.Right>
                   <AddLeaveAccruals
-                    handleSubmit={props.handleSubmit}
-                    onSubmit={props.onSubmit}
                     onClickCloseModal={() => props.setIsMemberOpen(false)}
-                    register={props.register}
-                    setValue={props.setValue}
+                    setAniMode={props.setAniMode}
                   />
                 </S.Right>
               ) : (
@@ -387,6 +327,7 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
             <li>남은 휴가 일수</li>
             <li>메모</li>
           </S.ListUl>
+          {/* {console.log(props.vDetail)} */}
           <ListOptionalFetch
             init={props.init}
             filterInit={props.filterInit}
@@ -394,7 +335,7 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
             vDetail={props.vDetail}
             vBase={props.vBase}
             vBaseDelete={props.vBaseDelete}
-            onClickOpenModal={props.onClickOpenModal}
+            onClickOpenModal={props.onClickOpenSelectListModal}
             onCheckedElement={props.onCheckedElement}
             checkedList={props.checkedList}
           />

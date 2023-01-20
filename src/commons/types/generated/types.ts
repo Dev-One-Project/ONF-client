@@ -16,7 +16,7 @@ export type Scalars = {
 
 export type IAccount = {
   __typename?: 'Account';
-  company?: Maybe<ICompany>;
+  companyId: Scalars['String'];
   email: Scalars['String'];
   id: Scalars['String'];
   member?: Maybe<IMember>;
@@ -88,8 +88,8 @@ export type ICreateMemberInput = {
   joinDate?: InputMaybe<Scalars['DateTime']>;
   memo?: InputMaybe<Scalars['String']>;
   name: Scalars['String'];
-  organizationId?: InputMaybe<Scalars['String']>;
-  roleCategoryId?: InputMaybe<Scalars['String']>;
+  organizationId: Scalars['String'];
+  roleCategoryId: Scalars['String'];
 };
 
 export type ICreateNoticeBoardInput = {
@@ -165,7 +165,6 @@ export type ICreateVacationIssueInput = {
 };
 
 export type ICreateWorkCheckInput = {
-  isComfirmed?: Scalars['Boolean'];
   isWorking?: InputMaybe<Scalars['Boolean']>;
   memberId: Scalars['String'];
   organizationId?: InputMaybe<Scalars['String']>;
@@ -218,6 +217,7 @@ export enum IMembership_Type {
 
 export type IMember = {
   __typename?: 'Member';
+  appliedFrom?: Maybe<Scalars['String']>;
   company: ICompany;
   exitDate?: Maybe<Scalars['DateTime']>;
   id: Scalars['String'];
@@ -234,10 +234,16 @@ export type IMember = {
 
 export type IMutation = {
   __typename?: 'Mutation';
-  /** 관리자 휴가발생 다수 수정하기  */
-  UpdateManyVacationsIssue: Array<IVacationIssue>;
+  /** 이름&휴대폰번호 수정 */
+  changeAccount: IAccount;
+  /** 이메일 수정 */
+  changeEmail: IAccount;
+  /** 비빌번호 변경 */
+  changePassword: Scalars['String'];
   /** 초대코드 확인 */
   checkInvitationCode: Scalars['String'];
+  /** 이메일 검증코드 확인 */
+  checkValidationCode: Scalars['String'];
   createAccount: IAccount;
   /** 관리자용 출퇴근기록 생성하기 */
   createAdminWorkCheck: IWorkCheck;
@@ -280,8 +286,6 @@ export type IMutation = {
   createWorkInfo: IWorkInfo;
   /** 회사 정보 영구 삭제 / 복구 불가능하므로 사용 주의 */
   deleteCompany: Scalars['Boolean'];
-  /** 회사 근로정보 삭제(완전삭제) */
-  deleteCompanyWorkInfo: IWorkInfo;
   /** 근무일정 다수 삭제 */
   deleteManySchedule: Scalars['Boolean'];
   /** 근무일정 유형 다수 삭제 */
@@ -318,13 +322,15 @@ export type IMutation = {
   /** 관리자 휴가 발생 삭제하기 */
   deleteVacationIssue: Scalars['Boolean'];
   /** 맴버에게 근로정보 부여 */
-  insertWorkInfo: IWorkInfo;
+  insertWorkInfo: IMember;
   login: Scalars['String'];
   /** Remove refreshtoken in headers */
   logout: Scalars['String'];
   restoreAccessToken: Scalars['String'];
   /** 초대코드 발송 */
   sendCodeToEmail: Scalars['String'];
+  /** 이메일 변경 인증코드발송 */
+  sendToValidationCode: Scalars['String'];
   /** 멤버 정보 소프트 삭제 */
   softDeleteMember: Scalars['Boolean'];
   /** (관리자) 휴가 삭제 - DB에는 유지 */
@@ -339,6 +345,8 @@ export type IMutation = {
   updateManyVacation: Array<IVacation>;
   /** (관리자) 다수의 휴가유형 수정하기 */
   updateManyVacationCategories: Array<IVacationCategory>;
+  /** 관리자 휴가발생 다수 수정하기  */
+  updateManyVacationsIssue: Array<IVacationIssue>;
   /** 출퇴근기록 다수 수정 */
   updateManyWorkCheck: Array<IWorkCheck>;
   /** 멤버 정보 수정 */
@@ -362,8 +370,6 @@ export type IMutation = {
   updateVacationCategory: IVacationCategory;
   /** 관리자 휴가 발생 수정하기 */
   updateVacationIssue: IVacationIssue;
-  /** 맴버 근로정보 수정 */
-  updateWorkInfo: IWorkInfo;
   /** Upload multiple files / Max total size approximatly 10M */
   uploadMultipleFiles: Array<IFile>;
   /** Upload a single file / Max file size apporximatly 10M */
@@ -371,15 +377,33 @@ export type IMutation = {
 };
 
 
-export type IMutationUpdateManyVacationsIssueArgs = {
-  updateVacationIssueInput?: InputMaybe<IUpdateVacationIssueInput>;
-  vacationIssueId: Array<Scalars['String']>;
+export type IMutationChangeAccountArgs = {
+  name?: InputMaybe<Scalars['String']>;
+  phone?: InputMaybe<Scalars['String']>;
+};
+
+
+export type IMutationChangeEmailArgs = {
+  newEmail: Scalars['String'];
+  password: Scalars['String'];
+};
+
+
+export type IMutationChangePasswordArgs = {
+  checkPassword: Scalars['String'];
+  newPassword: Scalars['String'];
+  password: Scalars['String'];
 };
 
 
 export type IMutationCheckInvitationCodeArgs = {
   invitationCode: Scalars['String'];
   memberId: Scalars['String'];
+};
+
+
+export type IMutationCheckValidationCodeArgs = {
+  validationCode: Scalars['String'];
 };
 
 
@@ -482,11 +506,6 @@ export type IMutationCreateWorkInfoArgs = {
 };
 
 
-export type IMutationDeleteCompanyWorkInfoArgs = {
-  workInfoId: Scalars['String'];
-};
-
-
 export type IMutationDeleteManyScheduleArgs = {
   scheduleId: Array<Scalars['String']>;
 };
@@ -578,8 +597,9 @@ export type IMutationDeleteVacationIssueArgs = {
 
 
 export type IMutationInsertWorkInfoArgs = {
-  email: Scalars['String'];
-  name: Scalars['String'];
+  appiedFrom: Scalars['String'];
+  memberId: Scalars['String'];
+  workInfoId: Scalars['String'];
 };
 
 
@@ -592,6 +612,11 @@ export type IMutationLoginArgs = {
 export type IMutationSendCodeToEmailArgs = {
   email: Scalars['String'];
   memberId: Scalars['String'];
+};
+
+
+export type IMutationSendToValidationCodeArgs = {
+  newEmail: Scalars['String'];
 };
 
 
@@ -636,6 +661,12 @@ export type IMutationUpdateManyVacationArgs = {
 export type IMutationUpdateManyVacationCategoriesArgs = {
   updateVacationCategoryInput?: InputMaybe<IUpdateVacationCategoryInput>;
   vacationCategoryId: Array<Scalars['String']>;
+};
+
+
+export type IMutationUpdateManyVacationsIssueArgs = {
+  updateVacationIssueInput?: InputMaybe<IUpdateVacationIssueInput>;
+  vacationIssueId: Array<Scalars['String']>;
 };
 
 
@@ -711,15 +742,6 @@ export type IMutationUpdateVacationIssueArgs = {
 };
 
 
-export type IMutationUpdateWorkInfoArgs = {
-  email?: InputMaybe<Scalars['String']>;
-  memberId: Scalars['String'];
-  updateBasicWorkInfoInput?: InputMaybe<IUpdateBasicWorkInfoInput>;
-  updateFixedLaborDaysInput?: InputMaybe<IUpdateFixedLaborDaysInput>;
-  updateMaximumLaberInput?: InputMaybe<IUpdateMaximumLaberInput>;
-};
-
-
 export type IMutationUploadMultipleFilesArgs = {
   files: Array<Scalars['Upload']>;
 };
@@ -792,6 +814,8 @@ export type IQuery = {
   fetchListTypeSchedule: Array<ISchedule>;
   /** 메인페이지 출근,지각,미출근,휴가 조회(카운트) */
   fetchMainPageWorkCheck: Array<IMainPageWorkCheckOutput>;
+  /** 한 아이디의 휴가발생 모두보여주기 */
+  fetchManyVacationIssue: Array<IVacationIssue>;
   /** memberId(사원ID)로 개별 조회, memberId 입력시 입력한 member 조회, 아니면 로그인한 유저 정보 조회 */
   fetchMember: IMember;
   /** 회사 내의 지점별 직원 조회 */
@@ -812,6 +836,7 @@ export type IQuery = {
   fetchMonthWorkChecks: Array<IWorkCheckMemberOutput>;
   /** 회사내의 직원 수 카운트 */
   fetchNumberOfEmployees: Scalars['Int'];
+  fetchOneMemberWorkCheck: IWorkCheck;
   fetchOneNoticeBoard: INoticeBoard;
   /** 조직 상세 조회 */
   fetchOrganizationDetail: IOrganization;
@@ -837,10 +862,14 @@ export type IQuery = {
   fetchVacationIssueDetailDateDelete: Array<Array<IVacationIssue>>;
   /** 관지라 EndDate가 기준일자이고, 퇴사자랑 같이 조회 */
   fetchVacationIssueWithBaseDateDelete: Array<Array<IVacationIssue>>;
+  /** 휴가발생 모두 보여주기 */
+  fetchVacationIssues: Array<IVacationIssue>;
   /** (관리자) 활성직원 조회 */
   fetchVacationWithDate: Array<Array<IVacation>>;
   /** (관리자) 비활성화 된 직원 함께 조회 */
   fetchVacationWithDelete: Array<Array<IVacation>>;
+  /** 휴가 모두 보여주기 */
+  fetchVacations: Array<IVacation>;
   /** 회사기준 근로정보 조회 */
   fetchWorkInfos: Array<IWorkInfo>;
 };
@@ -858,6 +887,11 @@ export type IQueryFetchListTypeScheduleArgs = {
   endDate: Scalars['DateTime'];
   organizationId: Array<Scalars['String']>;
   startDate: Scalars['DateTime'];
+};
+
+
+export type IQueryFetchManyVacationIssueArgs = {
+  memberId: Scalars['String'];
 };
 
 
@@ -916,6 +950,12 @@ export type IQueryFetchNumberOfEmployeesArgs = {
 };
 
 
+export type IQueryFetchOneMemberWorkCheckArgs = {
+  date: Scalars['DateTime'];
+  memberId: Scalars['String'];
+};
+
+
 export type IQueryFetchOneNoticeBoardArgs = {
   noticeBoardId: Scalars['String'];
 };
@@ -955,7 +995,6 @@ export type IQueryFetchVacationIssueBaseDateArgs = {
 
 
 export type IQueryFetchVacationIssueDetailDateArgs = {
-  baseDate: Scalars['DateTime'];
   endDate?: InputMaybe<Scalars['DateTime']>;
   organizationId: Array<Scalars['String']>;
   startDate?: InputMaybe<Scalars['DateTime']>;
@@ -963,7 +1002,6 @@ export type IQueryFetchVacationIssueDetailDateArgs = {
 
 
 export type IQueryFetchVacationIssueDetailDateDeleteArgs = {
-  baseDate: Scalars['DateTime'];
   endDate?: InputMaybe<Scalars['DateTime']>;
   organizationId: Array<Scalars['String']>;
   startDate?: InputMaybe<Scalars['DateTime']>;
@@ -1050,26 +1088,12 @@ export enum IStandard {
   Week = 'WEEK'
 }
 
-export type IUpdateBasicWorkInfoInput = {
-  fixedLabor?: InputMaybe<Scalars['String']>;
-  memo?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
-  weekOffDays?: InputMaybe<Scalars['String']>;
-};
-
 export type IUpdateCompanyInput = {
   logoUrl?: InputMaybe<Scalars['String']>;
   memberCount?: InputMaybe<Scalars['Int']>;
   membership?: InputMaybe<IMembership_Type>;
   name?: InputMaybe<Scalars['String']>;
   rules?: InputMaybe<Scalars['String']>;
-};
-
-export type IUpdateFixedLaborDaysInput = {
-  fixedHours?: InputMaybe<Scalars['String']>;
-  fixedPeriodRange?: InputMaybe<IPeriodRange>;
-  fixedStandard?: InputMaybe<IStandard>;
-  fixedUnitPeriod?: InputMaybe<Scalars['String']>;
 };
 
 export type IUpdateGlobalConfigInput = {
@@ -1085,13 +1109,6 @@ export type IUpdateGlobalConfigInput = {
 export type IUpdateHolidayInput = {
   dateName?: InputMaybe<Scalars['String']>;
   locdate?: InputMaybe<Scalars['String']>;
-};
-
-export type IUpdateMaximumLaberInput = {
-  maximumHours?: InputMaybe<Scalars['String']>;
-  maximumPeriodRange?: InputMaybe<IPeriodRange>;
-  maximumStandard?: InputMaybe<IStandard>;
-  maximumUnitPeriod?: InputMaybe<Scalars['String']>;
 };
 
 export type IUpdateMemberInput = {
@@ -1181,7 +1198,6 @@ export type IUpdateVacationIssueInput = {
 };
 
 export type IUpdateWorkCheckInput = {
-  isComfirmed?: InputMaybe<Scalars['Boolean']>;
   isWorking?: InputMaybe<Scalars['Boolean']>;
   memberId?: InputMaybe<Scalars['String']>;
   organizationId?: InputMaybe<Scalars['String']>;
@@ -1259,7 +1275,6 @@ export type IWorkCheckOutput = {
   createdAt?: Maybe<Scalars['DateTime']>;
   endTimeRange?: Maybe<Scalars['String']>;
   id: Scalars['String'];
-  isComfirmed: Scalars['Boolean'];
   member: IMember;
   organization?: Maybe<IOrganization>;
   quittingTime?: Maybe<Scalars['DateTime']>;
@@ -1287,7 +1302,7 @@ export type IWorkInfo = {
   maximumPeriodRange?: Maybe<Scalars['String']>;
   maximumStandard?: Maybe<Scalars['String']>;
   maximumUnitPeriod?: Maybe<Scalars['String']>;
-  member?: Maybe<IMember>;
+  members?: Maybe<IMember>;
   memo?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];

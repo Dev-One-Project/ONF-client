@@ -17,11 +17,12 @@ interface ISelectProps {
   customWidth?: string;
   setValue?: UseFormSetValue<FieldValues>;
   name?: string;
+  defaultValue?: string;
 }
 
 interface IInputData {
-  id: string;
-  name: string;
+  id: string | undefined;
+  name: string | undefined;
 }
 
 interface IStyle {
@@ -71,7 +72,8 @@ const Select02 = (props: ISelectProps) => {
           onClick={onClickToggleModal}
         >
           <span>
-            {props.data ? isSelect || '선택 안됨' : '선택 가능한 옵션 없음'}
+            {props.defaultValue ||
+              (props.data ? isSelect || '선택 안됨' : '선택 가능한 옵션 없음')}
           </span>
         </ToggleButton>
         {isOpen && (
@@ -96,7 +98,7 @@ const Select02 = (props: ISelectProps) => {
               <Options className="options">
                 <div style={{ margin: '0.1rem 0' }} />
                 {props.data
-                  ?.filter((el) => el.name.includes(keyword))
+                  ?.filter((el) => el.name?.includes(keyword))
                   .map((el) => (
                     <p
                       key={el.id}
@@ -115,7 +117,7 @@ const Select02 = (props: ISelectProps) => {
                 <Options className="options">
                   <div style={{ margin: '0.1rem 0' }} />
                   {props.data
-                    ?.filter((el) => el.name.includes(keyword))
+                    ?.filter((el) => el.name?.includes(keyword))
                     .map((el) => (
                       <p
                         key={el.id}

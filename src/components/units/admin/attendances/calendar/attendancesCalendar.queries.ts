@@ -10,14 +10,6 @@ export const FETCH_ORGANIZATIONS = gql`
   }
 `;
 
-export const CREATE_ADMIN_WORK_CHECK = gql`
-  mutation createAdminWorkCheck($createWorkCheckInput: CreateWorkCheckInput!) {
-    createAdminWorkCheck(createWorkCheckInput: $createWorkCheckInput) {
-      id
-    }
-  }
-`;
-
 export const FETCH_MONTH_WORK_CHECKS = gql`
   query fetchMonthWorkChecks(
     $organizationId: [String!]!

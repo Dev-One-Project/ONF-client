@@ -208,7 +208,7 @@ export const MemoBox = styled.div`
 
 export const ModalFooter = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 1rem 0 0;
   gap: 1rem;
 `;
@@ -287,4 +287,9 @@ export const P = styled.p`
 export const EmptyBox = styled.div`
   height: 36.5px;
   width: 100%;
+`;
+
+export const BtnBox = styled.div`
+  display: flex;
+  gap: 1rem;
 `;
