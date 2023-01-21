@@ -9,10 +9,8 @@ import Input01 from '../../../commons/input/input01';
 import { styleSet } from '../../../../commons/styles/styleSet';
 import { ImportOutlined, PlusOutlined } from '@ant-design/icons';
 import { useMoveToPage } from '../../../commons/hooks/useMoveToPage';
-import { LoginAuth } from '../../../commons/hooks/loginAuth';
 
 const JoinPresenter = (props: IJoinProps) => {
-  LoginAuth();
   const { onClickMoveToPage } = useMoveToPage();
 
   return (

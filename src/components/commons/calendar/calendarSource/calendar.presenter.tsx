@@ -20,11 +20,9 @@ const Calendar = (props: ICalendarContainerProps) => {
         <S.WeekWrapper key={v4()} elementHeight={props.elementHeight}>
           <br />
           {week.map((day: IWeekData, j: number) => {
-            let bgC = day.option
-              ? styleSet.colors.white
-              : styleSet.colors.lightGray;
+            let bgC = day.option ? styleSet.colors.black : styleSet.colors.gray;
             if (props.selected.includes(day.day))
-              bgC = props.selectedColor || styleSet.colors.subColor05;
+              bgC = props.selectedColor || styleSet.colors.primary;
             return (
               <S.DayWrapper
                 key={v4()}
@@ -33,7 +31,7 @@ const Calendar = (props: ICalendarContainerProps) => {
                 onClick={props.onClickElement}
               >
                 <label style={{ paddingTop: '10px', height: '100%' }}>
-                  {day.day.split('-')[2] === '01'
+                  {day.day.split('-')[2] === ''
                     ? `${day.day.split('-')[1]}/${day.day.split('-')[2]}`
                     : day.day.split('-')[2]}
                 </label>

@@ -19,6 +19,11 @@ export const FirstWrapper = styled.section`
   border: 1px solid ${styleSet.colors.lightGray};
   border-bottom: none;
   border-top: none;
+
+  div:first-of-type,
+  div:last-of-type {
+    color: ${styleSet.colors.fail};
+  }
 `;
 
 export const DayWrapper = styled.div`
@@ -32,7 +37,7 @@ export const DayWrapper = styled.div`
   border: 1px solid ${styleSet.colors.lightGray};
   border-bottom: none;
   border-top: none;
-  background-color: ${(props: ICalendarStyleProps) =>
+  color: ${(props: ICalendarStyleProps) =>
     props.selectedColor || styleSet.colors.subColor05};
   cursor: pointer;
   label {
@@ -53,6 +58,7 @@ export const FirstLine = styled.div`
   font-size: ${(props: ICalendarStyleProps) =>
     props.daySize || styleSet.fontSizes.strong};
   border: 1px solid ${styleSet.colors.lightGray};
+  font-family: ${styleSet.fonts.EB};
 `;
 
 export const DayBox = styled.div`

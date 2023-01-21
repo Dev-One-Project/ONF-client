@@ -6,7 +6,7 @@ export const WeekWrapper = styled.section`
   width: 100%;
   display: flex;
   flex-direction: row;
-  border: 1px solid ${styleSet.colors.gray};
+  border-bottom: 1px solid ${styleSet.colors.gray};
 `;
 
 export const FirstWrapper = styled.section`
@@ -14,9 +14,15 @@ export const FirstWrapper = styled.section`
   width: 100%;
   display: flex;
   flex-direction: row;
-  border: 1px solid ${styleSet.colors.gray};
-  border-bottom: none;
+  border-block: 1px solid ${styleSet.colors.gray};
   padding: 0.625rem 0;
+
+  div:first-of-type {
+    color: ${styleSet.colors.fail};
+  }
+  div:last-of-type {
+    color: ${styleSet.colors.fail};
+  }
 `;
 
 export const DayWrapper = styled.div`
@@ -29,7 +35,10 @@ export const DayWrapper = styled.div`
   max-height: 18.75rem;
   overflow: hidden;
   word-break: break-all;
-  border: 1px solid ${styleSet.colors.gray};
+  border-right: 1px solid ${styleSet.colors.gray};
+
+  label {
+  }
 `;
 
 export const FirstLine = styled.div`
@@ -39,6 +48,9 @@ export const FirstLine = styled.div`
   flex-direction: column;
   align-items: center;
   font-size: ${styleSet.fontSizes.strong};
+  border-right: 1px solid ${styleSet.colors.gray};
+  padding: 0.625rem 0;
+  font-family: ${styleSet.fonts.EB};
 `;
 
 export const DayBox = styled.div`
@@ -80,6 +92,7 @@ export const CalendarWrapper = styled.div`
   width: 100%;
   min-width: 45rem;
   overflow: auto;
+  border-left: 1px solid ${styleSet.colors.gray};
 `;
 
 export const TopWrapper = styled.div`

@@ -3,9 +3,11 @@ import { styleSet } from '../../../../commons/styles/styleSet';
 
 export const HeaderWrapper = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   font-family: ${styleSet.fonts.B};
   padding: 1.5rem 1rem 1rem;
-  background-color: ${styleSet.colors.gray};
+  box-shadow: 1px 1px 10px #eee;
 `;
 
 export const HeaderIconWrapper = styled.span`
@@ -158,6 +160,11 @@ export const CreateReqContentsWrapper = styled.div`
 
 export const ListContentsWrapper = styled.div`
   margin-bottom: 1.5rem;
+
+  span {
+    font-size: ${styleSet.fontSizes.small};
+    margin-left: 10px;
+  }
 `;
 
 export const WorkingListWrapper = styled.article`

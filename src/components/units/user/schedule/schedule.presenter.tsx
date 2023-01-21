@@ -23,12 +23,12 @@ const Calender = (props: IScheduleContainerProps) => {
           <br />
           {week.map((day: IWeekData, j: number) => {
             const css = {
-              backgroundColor: day.option ? 'white' : 'lightGray',
+              color: day.option ? 'black' : 'lightGray',
             };
             return (
               <S.DayWrapper key={v4()} id={`${i + 1}-${j + 1}`} style={css}>
                 <label style={{ paddingTop: '10px' }}>
-                  {day.day.split('-')[2] === '01'
+                  {day.day.split('-')[2] === ''
                     ? `${day.day.split('-')[1]}/${day.day.split('-')[2]}`
                     : day.day.split('-')[2]}
                 </label>
