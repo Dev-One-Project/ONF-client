@@ -124,7 +124,7 @@ const CreateReqPresenter = (props: ICreateReqContainerProps) => {
                     <S.ChangeCreateReqTitleStyle>
                       휴가시간 변화
                     </S.ChangeCreateReqTitleStyle>
-                    <span>0 8시간</span>
+                    <span>08시간</span>
                   </S.ListContentsWrapper>
                   <S.ListContentsWrapper>
                     <S.GroupOfVacationStyle>

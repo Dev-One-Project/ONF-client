@@ -10,6 +10,8 @@ export default function Home() {
   const { onClickMoveToPage } = useMoveToPage();
   const { data: fetchAccount } = useQuery(FETCH_ACCOUNT);
 
+  console.log(fetchAccount, 'fetchAccount');
+
   return (
     <Section>
       <Header>
@@ -47,17 +49,17 @@ export default function Home() {
           근태부터 인력관리까지 한 곳으로 모은 <br />
           솔루션 기업의 원동력인 인력에 더욱 집중하고 기민하게 대응합니다
         </p>
-        {fetchAccount?.fetchAccount ? (
-          <>
-            <button onClick={onClickMoveToPage('/user/schedule')}>
-              <LoginOutlined /> 직원
-            </button>
-            &nbsp;&nbsp;&nbsp;
-            <button onClick={onClickMoveToPage('/admin/schedule')}>
-              <LoginOutlined /> 관리자
-            </button>
-          </>
-        ) : (
+        {fetchAccount?.fetchAccount.roles === 'USER' && (
+          <button onClick={onClickMoveToPage('/user/schedule')}>
+            <LoginOutlined /> 직원
+          </button>
+        )}
+        {fetchAccount?.fetchAccount.roles === 'ADMIN' && (
+          <button onClick={onClickMoveToPage('/admin/schedule')}>
+            <LoginOutlined /> 관리자
+          </button>
+        )}
+        {!fetchAccount?.fetchAccount && (
           <button onClick={onClickMoveToPage('/auth/login')}>
             로그인 &gt;
           </button>

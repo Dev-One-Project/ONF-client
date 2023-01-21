@@ -18,21 +18,6 @@ export const FETCH_ACCOUNT = gql`
         isJoin
         leave
       }
-
-      company {
-        id
-        name
-        logoUrl
-        rules
-        memberCount
-        membership
-        createdAt
-        updatedAt
-        deletedAt
-        globalConfig {
-          id
-        }
-      }
     }
   }
 `;
