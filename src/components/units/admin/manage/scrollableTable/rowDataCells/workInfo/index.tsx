@@ -1,7 +1,7 @@
 import * as S from '..';
 import { IWorkInfo } from '../../../../../../../commons/types/generated/types';
 
-const WageData = (props: { data?: IWorkInfo }) => {
+const WorkInfoData = (props: { data?: IWorkInfo }) => {
   return (
     <>
       <S.Td>{props.data?.name}</S.Td>
@@ -12,7 +12,7 @@ const WageData = (props: { data?: IWorkInfo }) => {
         props.data?.fixedPeriodRange ?? ''
       } 평균 ${props.data?.fixedStandard ?? ''} ${
         props.data?.fixedHours ?? ''
-      }`}</S.Td>
+      }시간`}</S.Td>
       <S.Td>{`${props.data?.maximumUnitPeriod ?? ''} ${
         props.data?.maximumPeriodRange ?? ''
       } 평균 ${props.data?.maximumStandard ?? ''} ${
@@ -23,4 +23,4 @@ const WageData = (props: { data?: IWorkInfo }) => {
   );
 };
 
-export default WageData;
+export default WorkInfoData;

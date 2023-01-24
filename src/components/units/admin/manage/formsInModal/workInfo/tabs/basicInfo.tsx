@@ -1,25 +1,26 @@
-import InputLabel from '../common/inputLabel';
-import Footer from '../common/footer';
-import Memo from '../common/memo';
-import { IWagesProps } from './wages.types';
+import InputLabel from '../../common/inputLabel';
+import Memo from '../../common/memo';
+import { IWagesProps } from '../workInfo.types';
+import styled from '@emotion/styled';
 
 const BasicInfo = (props: IWagesProps) => {
   return (
-    <>
-      <InputLabel type="text" name="wageName" register={props.register('name')}>
+    <Wrapper>
+      <InputLabel type="text" name="name" register={props.register('name')}>
         근로정보명
       </InputLabel>
-      <InputLabel
+      {/* <InputLabel
         type="number"
         name="hourlyWage"
         register={props.register('hourlyWage')}
       >
         시급 (₩)
-      </InputLabel>
+      </InputLabel> */}
       <InputLabel
         type="select"
-        name="fixedLaborDays"
-        register={props.register('fixedLaborDays')}
+        name="fixedLabor"
+        register={props.register('fixedLabor')}
+        setValue={props.setValue}
         data={[
           { id: '0', name: '월' },
           { id: '1', name: '화' },
@@ -37,6 +38,7 @@ const BasicInfo = (props: IWagesProps) => {
           { id: '4', name: '금' },
         ]}
         textFillMode
+        returnNameMode
       >
         소정근로요일
       </InputLabel>
@@ -44,6 +46,7 @@ const BasicInfo = (props: IWagesProps) => {
         type="select"
         name="weekOffDays"
         register={props.register('weekOffDays')}
+        setValue={props.setValue}
         data={[
           { id: '0', name: '월' },
           { id: '1', name: '화' },
@@ -53,19 +56,22 @@ const BasicInfo = (props: IWagesProps) => {
           { id: '5', name: '토' },
           { id: '6', name: '일' },
         ]}
-        defaultChecked={[
-          { id: '5', name: '토' },
-          { id: '6', name: '일' },
-        ]}
-        setValue={props.setValue}
+        defaultChecked={[{ id: '6', name: '일' }]}
         textFillMode
+        returnNameMode
       >
         주휴요일
       </InputLabel>
       <Memo register={props.register('memo')} />
-      <Footer onCancel={props.onCancel} />
-    </>
+    </Wrapper>
   );
 };
 
 export default BasicInfo;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+`;
