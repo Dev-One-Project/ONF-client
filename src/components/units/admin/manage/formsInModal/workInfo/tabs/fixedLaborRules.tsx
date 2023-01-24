@@ -1,15 +1,14 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import { styleSet } from '../../../../../../commons/styles/styleSet';
-import Check01 from '../../../../../commons/input/check01';
-import Footer from '../common/footer';
-import Label from '../common/label';
-import { IWagesProps } from './wages.types';
+import { styleSet } from '../../../../../../../commons/styles/styleSet';
+import Check01 from '../../../../../../commons/input/check01';
+import Label from '../../common/label';
+import { IWagesProps } from '../workInfo.types';
 
 const FixedLaborRules = (props: IWagesProps) => {
   const [open, setOpen] = useState(true);
   return (
-    <>
+    <Wrapper>
       <Check01
         checked={open}
         onChange={() => setOpen((prev) => !prev)}
@@ -20,13 +19,20 @@ const FixedLaborRules = (props: IWagesProps) => {
           <FormContent>
             <Label width="10rem">소정근로시간</Label>
             <InputBox>
-              <Select>
-                <option>1일</option>
-                <option>1주</option>
-                <option>1개월</option>
+              <Select
+                defaultValue={'WEEK'}
+                {...props.register('fixedStandard')}
+              >
+                <option value={'DAY'}>1일</option>
+                <option value={'WEEK'}>1주</option>
+                <option value={'MONTH'}>1개월</option>
               </Select>
               <HourBox>
-                <HourInput type="number" />
+                <HourInput
+                  defaultValue={40}
+                  {...props.register('fixedHours')}
+                  type="number"
+                />
                 <LabelPerHour>시간</LabelPerHour>
               </HourBox>
             </InputBox>
@@ -63,22 +69,36 @@ const FixedLaborRules = (props: IWagesProps) => {
             <Label width="10rem">단위기간</Label>
             <InputBox>
               <HourBox>
-                <HourInput type="number" />
+                <HourInput
+                  defaultValue={1}
+                  {...props.register('fixedUnitPeriod')}
+                  type="number"
+                />
               </HourBox>
-              <Select>
-                <option>주</option>
-                <option>개월</option>
+              <Select
+                defaultValue={'MONTH'}
+                {...props.register('fixedPeriodRange')}
+              >
+                <option value={'DAY'}>일</option>
+                <option value={'WEEK'}>주</option>
+                <option value={'MONTH'}>개월</option>
               </Select>
             </InputBox>
           </FormContent>
         </>
       )}
-      <Footer onCancel={props.onCancel} />
-    </>
+    </Wrapper>
   );
 };
 
 export default FixedLaborRules;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+`;
 
 const FormContent = styled.div`
   display: flex;

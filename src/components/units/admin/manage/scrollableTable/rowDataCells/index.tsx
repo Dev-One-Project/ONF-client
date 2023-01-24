@@ -14,7 +14,7 @@ import RoleCategoryData from './roleCategory';
 import ScheduleCategoryData from './scheduleCategory';
 import ScheduleTemplateData from './scheduleTemplate';
 import VacationCategoryData from './vacationCategory';
-import WageData from './wages';
+import WorkInfoData from './workInfo';
 
 export interface IRowDataCellsProps {
   tab: string;
@@ -53,7 +53,7 @@ const RowDataCells = (props: IRowDataCellsProps) => {
     case '직무':
       return <RoleCategoryData data={props.data} />;
     case '근로 정보':
-      return <WageData data={props.data} />;
+      return <WorkInfoData data={props.data} />;
     case '근무일정 유형':
       return <ScheduleCategoryData data={props.data} />;
     case '근무일정 템플릿':

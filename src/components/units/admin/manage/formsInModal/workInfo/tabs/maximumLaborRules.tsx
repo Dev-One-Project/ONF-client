@@ -1,15 +1,14 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import { styleSet } from '../../../../../../commons/styles/styleSet';
-import Check01 from '../../../../../commons/input/check01';
-import Footer from '../common/footer';
-import Label from '../common/label';
-import { IWagesProps } from './wages.types';
+import { styleSet } from '../../../../../../../commons/styles/styleSet';
+import Check01 from '../../../../../../commons/input/check01';
+import Label from '../../common/label';
+import { IWagesProps } from '../workInfo.types';
 
 const MaximumLaborRules = (props: IWagesProps) => {
   const [open, setOpen] = useState(false);
   return (
-    <>
+    <Wrapper>
       <Check01
         checked={open}
         onChange={() => setOpen((prev) => !prev)}
@@ -20,13 +19,20 @@ const MaximumLaborRules = (props: IWagesProps) => {
           <FormContent>
             <Label width="10rem">최대근로시간</Label>
             <InputBox>
-              <Select>
-                <option>1일</option>
-                <option>1주</option>
-                <option>1개월</option>
+              <Select
+                defaultValue={'WEEK'}
+                {...props.register('maximumStandard')}
+              >
+                <option value={'DAY'}>1일</option>
+                <option value={'WEEK'}>1주</option>
+                <option value={'MONTH'}>1개월</option>
               </Select>
               <HourBox>
-                <HourInput type="number" />
+                <HourInput
+                  defaultValue={52}
+                  {...props.register('maximumHours')}
+                  type="number"
+                />
                 <LabelPerHour>시간</LabelPerHour>
               </HourBox>
             </InputBox>
@@ -35,23 +41,37 @@ const MaximumLaborRules = (props: IWagesProps) => {
             <Label width="10rem">단위기간</Label>
             <InputBox>
               <HourBox>
-                <HourInput type="number" />
+                <HourInput
+                  type="number"
+                  defaultValue={1}
+                  {...props.register('maximumUnitPeriod')}
+                />
               </HourBox>
-              <Select>
-                <option>주</option>
-                <option>개월</option>
+              <Select
+                defaultValue={'MONTH'}
+                {...props.register('maximumPeriodRange')}
+              >
+                <option value={'DAY'}>일</option>
+                <option value={'WEEK'}>주</option>
+                <option value={'MONTH'}>개월</option>
               </Select>
             </InputBox>
           </FormContent>
-          <Check01 text="휴일 포함" register={props.register('includeOff')} />
+          {/* <Check01 text="휴일 포함" register={props.register('includeOff')} /> */}
         </>
       )}
-      <Footer onCancel={props.onCancel} />
-    </>
+    </Wrapper>
   );
 };
 
 export default MaximumLaborRules;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+`;
 
 const FormContent = styled.div`
   display: flex;

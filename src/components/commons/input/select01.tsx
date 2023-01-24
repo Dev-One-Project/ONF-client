@@ -31,6 +31,7 @@ interface ISelectProps {
   defaultChecked?: InputData[];
   textFillMode?: boolean;
   singleMode?: boolean;
+  returnNameMode?: boolean;
 }
 
 export interface InputData {
@@ -59,7 +60,9 @@ const Select01 = (props: ISelectProps) => {
       setCheckedList(props.defaultChecked);
       props.setValue?.(
         String(props.name),
-        props.defaultChecked.map((el) => el.id),
+        props.defaultChecked.map((el) =>
+          props.returnNameMode ? el.name : el.id,
+        ),
       );
     }
   }, [props.defaultChecked]);
@@ -122,7 +125,9 @@ const Select01 = (props: ISelectProps) => {
       }
       props.setValue?.(
         props.name,
-        props.singleMode ? checkedList[0].id : checkedList.map((el) => el.id),
+        props.singleMode
+          ? checkedList[0].id
+          : checkedList.map((el) => (props.returnNameMode ? el.name : el.id)),
       );
     } else props.setState?.(checkedList);
     setSaveChecked(checkedList);
@@ -143,7 +148,12 @@ const Select01 = (props: ISelectProps) => {
           {checkedList.length ? (
             <span>
               {props.textFillMode
-                ? checkedList.map((data) => data.name).join(',')
+                ? props.returnNameMode
+                  ? checkedList
+                      .sort((a, b) => Number(a.id) - Number(b.id))
+                      .map((data) => data.name)
+                      .join(',')
+                  : checkedList.map((data) => data.name).join(',')
                 : `${checkedList.length} 선택됨`}
             </span>
           ) : props.data?.length ? (

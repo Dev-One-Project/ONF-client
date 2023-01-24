@@ -28,7 +28,23 @@ const KakaoMapLauncher = (props: IKakaoMapProps) => {
   script.defer = true;
   document.head.appendChild(script);
 
+  // useEffect(() => {
+  //   script.onload = () => {
+  //     const { kakao } = window;
+
+  //     kakao.maps.load(() => {
+
+  //     });
+  //   };
+  // }, [props.address]);
+
   useEffect(() => {
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = `//dapi.kakao.com/v2/maps/sdk.js?&autoload=false&appkey=93b1f223fb41241d4e9e78362666dc12&libraries=services`;
+    script.defer = true;
+    document.head.appendChild(script);
+
     script.onload = () => {
       const { kakao } = window;
 
@@ -43,35 +59,21 @@ const KakaoMapLauncher = (props: IKakaoMapProps) => {
               if (status === kakao.maps.services.Status.OK) {
                 const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-                // 결과값으로 받은 위치를 마커로 표시합니다
+                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
                 props.setCurrentPosition({
                   latitude: coords.Ma,
                   longitude: coords.La,
                 });
+                // 결과값으로 받은 위치로 마커를 이동시킵니다
                 props.setMarkerPosition({
                   latitude: coords.Ma,
                   longitude: coords.La,
                 });
-                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
               }
             },
           );
         }
-      });
-    };
-  }, [props.address]);
 
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = `//dapi.kakao.com/v2/maps/sdk.js?&autoload=false&appkey=93b1f223fb41241d4e9e78362666dc12&libraries=services`;
-    script.defer = true;
-    document.head.appendChild(script);
-
-    script.onload = () => {
-      const { kakao } = window;
-
-      kakao.maps.load(() => {
         const container = document.getElementById('map');
 
         const options = {
