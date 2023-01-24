@@ -28,23 +28,7 @@ const KakaoMapLauncher = (props: IKakaoMapProps) => {
   script.defer = true;
   document.head.appendChild(script);
 
-  // useEffect(() => {
-  //   script.onload = () => {
-  //     const { kakao } = window;
-
-  //     kakao.maps.load(() => {
-
-  //     });
-  //   };
-  // }, [props.address]);
-
   useEffect(() => {
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = `//dapi.kakao.com/v2/maps/sdk.js?&autoload=false&appkey=93b1f223fb41241d4e9e78362666dc12&libraries=services`;
-    script.defer = true;
-    document.head.appendChild(script);
-
     script.onload = () => {
       const { kakao } = window;
 
@@ -73,6 +57,21 @@ const KakaoMapLauncher = (props: IKakaoMapProps) => {
             },
           );
         }
+      });
+    };
+  }, [props.address]);
+
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = `//dapi.kakao.com/v2/maps/sdk.js?&autoload=false&appkey=93b1f223fb41241d4e9e78362666dc12&libraries=services`;
+    script.defer = true;
+    document.head.appendChild(script);
+
+    script.onload = () => {
+      const { kakao } = window;
+
+      kakao.maps.load(() => {
 
         const container = document.getElementById('map');
 
