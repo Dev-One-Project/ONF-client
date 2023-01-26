@@ -1,6 +1,6 @@
 import { SearchOutlined } from '@ant-design/icons';
 import styled from '@emotion/styled';
-import { ChangeEvent, MouseEvent, useState } from 'react';
+import { ChangeEvent, MouseEvent, useMemo, useState } from 'react';
 import {
   FieldValues,
   UseFormRegisterReturn,
@@ -37,6 +37,16 @@ const Select02 = (props: ISelectProps) => {
   const [keyword, setKeyword] = useState('');
   const [isSelect, setIsSelect] = useState('');
 
+  useMemo(() => {
+    if (props.defaultValue && props.name) {
+      const foundData = props.data?.filter(
+        (data) => data.id === props.defaultValue,
+      )[0];
+      props.setValue?.(props.name, foundData?.id);
+      setIsSelect(String(foundData?.name));
+    }
+  }, [props]);
+
   const onClickToggleModal = () => {
     setIsOpen((prev) => !prev);
   };
@@ -72,8 +82,7 @@ const Select02 = (props: ISelectProps) => {
           onClick={onClickToggleModal}
         >
           <span>
-            {props.defaultValue ||
-              (props.data ? isSelect || '선택 안됨' : '선택 가능한 옵션 없음')}
+            {props.data ? isSelect || '선택 안됨' : '선택 가능한 옵션 없음'}
           </span>
         </ToggleButton>
         {isOpen && (

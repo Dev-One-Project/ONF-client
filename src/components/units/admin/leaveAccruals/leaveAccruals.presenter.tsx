@@ -13,7 +13,7 @@ import EmployeeOptionalFetch from './modules/employeeOptionalFetch';
 import ListOptionalFetch from './modules/listOptionalFetch';
 import Check01 from '../../../commons/input/check01';
 import CheckedEditLeaveAccruals from './modules/checkedEditLeaveAccruals';
-import EditLeaveAccruals from './modules/editLeaveAccruals';
+import EditLeaveAccruals from './modules/edit/editLeaveAccruals.container';
 
 const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
   return (
@@ -62,6 +62,8 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
                       onClickCloseModal={props.onClickCloseModal}
                       key={data.id}
                       data={data}
+                      listMemberId={props.listMemberId}
+                      setAniMode={props.setAniMode}
                     />
                   ),
               )}

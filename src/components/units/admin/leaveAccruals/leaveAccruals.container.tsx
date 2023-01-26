@@ -23,8 +23,8 @@ import { Dayjs } from 'dayjs';
 const LeaveAccrualsContainer = () => {
   const date = new Date();
 
-  const [isSelect, setIsSelect] = useState(true);
-  const [isSelectList, setIsSelectList] = useState(true);
+  const [isSelect, setIsSelect] = useState(false);
+  const [isSelectList, setIsSelectList] = useState(false);
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const [isMemberOpen, setIsMemberOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -108,6 +108,8 @@ const LeaveAccrualsContainer = () => {
     }),
   );
 
+  console.log(listMemberId);
+
   useMemo(() => {
     if (organizations !== undefined) {
       const organization = organizations.fetchOrganizations.map((data) => ({
@@ -122,6 +124,7 @@ const LeaveAccrualsContainer = () => {
     Pick<IQuery, 'fetchVacationIssueDetailDate'>,
     IQueryFetchVacationIssueDetailDateArgs
   >(FETCH_VACATION_ISSUE_DETAIL, {
+    fetchPolicy: 'network-only',
     variables: {
       organizationId: organizationArr?.map((organization) => organization.id),
       startDate: startEndDate[0],
@@ -133,6 +136,7 @@ const LeaveAccrualsContainer = () => {
     Pick<IQuery, 'fetchVacationIssueDetailDateDelete'>,
     IQueryFetchVacationIssueDetailDateDeleteArgs
   >(FETCH_VACATION_ISSUE_DETAIL_DELETE, {
+    fetchPolicy: 'network-only',
     variables: {
       organizationId: organizationArr?.map((organization) => organization.id),
       startDate: startEndDate[0],
@@ -144,6 +148,7 @@ const LeaveAccrualsContainer = () => {
     Pick<IQuery, 'fetchVacationIssueBaseDate'>,
     IQueryFetchVacationIssueBaseDateArgs
   >(FETCH_VACATION_ISSUE_BASE, {
+    fetchPolicy: 'network-only',
     variables: {
       baseDate,
       organizationId: organizationArr?.map((organization) => organization.id),
@@ -156,6 +161,7 @@ const LeaveAccrualsContainer = () => {
     Pick<IQuery, 'fetchVacationIssueWithBaseDateDelete'>,
     IQueryFetchVacationIssueWithBaseDateDeleteArgs
   >(FETCH_VACATION_ISSUE_BASE_DELETE, {
+    fetchPolicy: 'network-only',
     variables: {
       baseDate,
       organizationId: organizationArr?.map((organization) => organization.id),
