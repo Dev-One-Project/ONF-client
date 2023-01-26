@@ -21,11 +21,11 @@ interface ICheckedEditLeaveAccrualsProps {
 }
 
 const UPDATE_MANY_VACATION_ISSUE = gql`
-  mutation UpdateManyVacationsIssue(
+  mutation updateManyVacationsIssue(
     $vacationIssueId: [String!]!
     $updateVacationIssueInput: UpdateVacationIssueInput
   ) {
-    UpdateManyVacationsIssue(
+    updateManyVacationsIssue(
       vacationIssueId: $vacationIssueId
       updateVacationIssueInput: $updateVacationIssueInput
     ) {
@@ -43,7 +43,7 @@ const CheckedEditLeaveAccruals = (props: ICheckedEditLeaveAccrualsProps) => {
   const { handleSubmit, register, control } = useForm();
 
   const [updateManyVacationIssue] = useMutation<
-    Pick<IMutation, 'UpdateManyVacationsIssue'>
+    Pick<IMutation, 'updateManyVacationsIssue'>
   >(UPDATE_MANY_VACATION_ISSUE);
 
   const onSubmitCheckedEdit = async (data: any) => {
@@ -147,19 +147,21 @@ const CheckedEditLeaveAccruals = (props: ICheckedEditLeaveAccrualsProps) => {
       <Divider style={{ margin: '1.8rem 0 0', transform: 'scaleX(1.075)' }} />
       <S.ModalFooter>
         <div></div>
-        <Btn01
-          type={'button'}
-          text="닫기"
-          bdC="#ddd"
-          onClick={props.onCancel}
-        />
-        <Btn01
-          type={'submit'}
-          text="변경사항 저장"
-          color="#fff"
-          bgC={styleSet.colors.primary}
-          bdC={styleSet.colors.primary}
-        />
+        <S.BtnBox>
+          <Btn01
+            type={'button'}
+            text="닫기"
+            bdC="#ddd"
+            onClick={props.onCancel}
+          />
+          <Btn01
+            type={'submit'}
+            text="변경사항 저장"
+            color="#fff"
+            bgC={styleSet.colors.primary}
+            bdC={styleSet.colors.primary}
+          />
+        </S.BtnBox>
       </S.ModalFooter>
     </form>
   );
