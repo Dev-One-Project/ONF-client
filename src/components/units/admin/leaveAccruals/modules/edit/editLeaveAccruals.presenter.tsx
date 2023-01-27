@@ -13,22 +13,28 @@ const EditLeaveAccrualsPresenter = (
   props: IEditLeaveAccrualsPresenterProps,
 ) => {
   const dateFormat = 'YYYY-MM-DD';
+  console.log(props.data);
 
   return (
     <form onSubmit={props.handleSubmit(props.onSubmit)}>
       <S.ModalWrapper>
         <S.ModalField>
-          <div>
-            <S.Label>직원</S.Label>
-            <Select02
-              category={['최고관리자', '직원']}
-              data={props.memberData}
-              register={props.register('memberId')}
-              name={'memberId'}
-              setValue={props.setValue}
-              defaultValue={props.data?.member.id}
-            />
-          </div>
+          {props.role ? (
+            <></>
+          ) : (
+            <div>
+              <S.Label>직원</S.Label>
+              <Select02
+                category={['최고관리자', '직원']}
+                data={props.memberData}
+                register={props.register('memberId')}
+                name={'memberId'}
+                setValue={props.setValue}
+                defaultValue={props.data?.member.id}
+              />
+            </div>
+          )}
+
           <div>
             <S.Label>발생 일수</S.Label>
             <Input01
@@ -42,11 +48,11 @@ const EditLeaveAccrualsPresenter = (
             <Controller
               control={props.control}
               name="startingPoint"
-              defaultValue={new Date()}
+              defaultValue={dayjs(props.data?.startingPoint)}
               render={({ field: { onChange } }) => (
                 <DatePicker
                   style={{ borderRadius: '0' }}
-                  defaultValue={dayjs(new Date(props.data.startingPoint))}
+                  defaultValue={dayjs(props.data?.startingPoint)}
                   onChange={(value: any) => onChange(value?.$d)}
                   format={dateFormat}
                 />
@@ -58,11 +64,11 @@ const EditLeaveAccrualsPresenter = (
             <Controller
               control={props.control}
               name="expirationDate"
-              defaultValue={new Date()}
+              defaultValue={dayjs(props.data?.expirationDate)}
               render={({ field: { onChange } }) => (
                 <DatePicker
                   style={{ borderRadius: '0' }}
-                  defaultValue={dayjs(new Date(props.data.expirationDate))}
+                  defaultValue={dayjs(props.data?.expirationDate)}
                   onChange={(value: any) => onChange(value?.$d)}
                   format={dateFormat}
                 />
@@ -88,7 +94,9 @@ const EditLeaveAccrualsPresenter = (
             type={'button'}
             text="닫기"
             bdC="#ddd"
-            onClick={props.onClickCloseModal}
+            onClick={
+              props.role ? props.onClickCloseMember : props.onClickCloseModal
+            }
           />
           <Btn01
             type={'submit'}

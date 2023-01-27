@@ -29,13 +29,11 @@ export interface ILeaveAccrualsPresenterProps {
   date: Date;
   isSelectOpen: boolean;
   setIsSelectOpen: Dispatch<SetStateAction<boolean>>;
-  onClickOpenSelectModal: () => void;
-  isMemberOpen: boolean;
+  onClickOpenSelectModal: (e: MouseEvent<HTMLUListElement>) => void;
   vDetailDelete?: Pick<IQuery, 'fetchVacationIssueDetailDateDelete'>;
   vDetail?: Pick<IQuery, 'fetchVacationIssueDetailDate'>;
   vBase?: Pick<IQuery, 'fetchVacationIssueBaseDate'>;
   vBaseDelete?: Pick<IQuery, 'fetchVacationIssueWithBaseDateDelete'>;
-  setIsMemberOpen: Dispatch<SetStateAction<boolean>>;
   onClickCheckedChange: () => void;
   isCheckedChange: boolean;
   setIsCheckedChange: Dispatch<SetStateAction<boolean>>;
@@ -51,6 +49,7 @@ export interface ILeaveAccrualsPresenterProps {
   setIsSelectList: Dispatch<SetStateAction<boolean>>;
   listMemberName: string;
   listMemberId: string;
+  data?: Pick<IQuery, 'fetchVacationIssue'>;
 }
 
 export interface IInputData {
