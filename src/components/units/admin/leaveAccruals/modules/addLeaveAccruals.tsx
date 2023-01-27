@@ -33,6 +33,8 @@ const CREATE_VACATION_ISSUE = gql`
 interface IAddLeaveAccrualsProps {
   onClickCloseModal: () => void;
   setAniMode: Dispatch<SetStateAction<boolean>>;
+  role?: string;
+  listMemberId?: string;
 }
 
 const AddLeaveAccruals = (props: IAddLeaveAccrualsProps) => {
@@ -53,6 +55,7 @@ const AddLeaveAccruals = (props: IAddLeaveAccrualsProps) => {
   const onSubmit = async (data: any) => {
     console.log(data);
     try {
+      if (props.listMemberId) data.memberId = props.listMemberId;
       data.vacationAll = Number(data.vacationAll);
       await createVacationIssue({
         variables: { createVacationIssueInput: data },
@@ -72,16 +75,21 @@ const AddLeaveAccruals = (props: IAddLeaveAccrualsProps) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <S.ModalWrapper>
         <S.ModalField>
-          <div>
-            <S.Label>직원</S.Label>
-            <Select02
-              category={['최고관리자', '직원']}
-              data={memberData}
-              register={register('memberId')}
-              name={'memberId'}
-              setValue={setValue}
-            />
-          </div>
+          {props.role ? (
+            <></>
+          ) : (
+            <div>
+              <S.Label>직원</S.Label>
+              <Select02
+                category={['최고관리자', '직원']}
+                data={memberData}
+                register={register('memberId')}
+                name={'memberId'}
+                setValue={setValue}
+              />
+            </div>
+          )}
+
           <div>
             <S.Label>발생 일수</S.Label>
             <Input01
@@ -129,7 +137,6 @@ const AddLeaveAccruals = (props: IAddLeaveAccrualsProps) => {
         </S.MemoBox>
       </S.ModalWrapper>
       <Divider style={{ margin: '1.8rem 0 0', transform: 'scaleX(1.07)' }} />
-
       <S.ModalFooter>
         <Btn01
           type={'button'}

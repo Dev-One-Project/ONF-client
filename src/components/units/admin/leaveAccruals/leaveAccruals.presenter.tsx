@@ -1,4 +1,4 @@
-import { DatePicker, Divider, Space } from 'antd';
+import { DatePicker, Space } from 'antd';
 import { styleSet } from '../../../../commons/styles/styleSet';
 import Btn01 from '../../../commons/button/btn01';
 import dayjs from 'dayjs';
@@ -14,6 +14,7 @@ import ListOptionalFetch from './modules/listOptionalFetch';
 import Check01 from '../../../commons/input/check01';
 import CheckedEditLeaveAccruals from './modules/checkedEditLeaveAccruals';
 import EditLeaveAccruals from './modules/edit/editLeaveAccruals.container';
+import MemberEditLeaveAccrualsContainer from './modules/memberEdit/memberEditLeaveAccruals.container';
 
 const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
   return (
@@ -53,20 +54,12 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
           title={`${props.listMemberName}의 휴가 발생 건 수정하기`}
         >
           <>
-            {props.vBase?.fetchVacationIssueBaseDate
-              .flat()
-              .map(
-                (data) =>
-                  data.id === props.listMemberId && (
-                    <EditLeaveAccruals
-                      onClickCloseModal={props.onClickCloseModal}
-                      key={data.id}
-                      data={data}
-                      listMemberId={props.listMemberId}
-                      setAniMode={props.setAniMode}
-                    />
-                  ),
-              )}
+            <EditLeaveAccruals
+              onClickCloseModal={props.onClickCloseModal}
+              data={props.data?.fetchVacationIssue}
+              listMemberId={props.listMemberId}
+              setAniMode={props.setAniMode}
+            />
           </>
         </FallingModal>
       )}
@@ -96,49 +89,10 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
           onCancel={props.onClickCloseModal}
           title="휴가 발생 건 관리"
         >
-          <>
-            <S.ModalBox>
-              <S.Left>
-                <S.UlWrapper>
-                  <S.SelectListUl>
-                    <li>발생 일수</li>
-                    <li>발생 시점</li>
-                    <li>만료 시점</li>
-                    <li>메모</li>
-                  </S.SelectListUl>
-                  <S.SelectListUl onClick={() => props.setIsMemberOpen(true)}>
-                    <li>12</li>
-                    <li>2022-12-30</li>
-                    <li>2023-12-30</li>
-                    <li>메롱</li>
-                  </S.SelectListUl>
-                </S.UlWrapper>
-                <S.AccrualsBox>
-                  <strong onClick={() => props.setIsMemberOpen(true)}>
-                    휴가 발생하기
-                  </strong>
-                </S.AccrualsBox>
-              </S.Left>
-              {props.isMemberOpen ? (
-                <S.Right>
-                  <AddLeaveAccruals
-                    onClickCloseModal={() => props.setIsMemberOpen(false)}
-                    setAniMode={props.setAniMode}
-                  />
-                </S.Right>
-              ) : (
-                <S.PBox>
-                  <p>선택된 휴가 발생 건이 없습니다.</p>
-                </S.PBox>
-              )}
-            </S.ModalBox>
-            <Divider
-              style={{ margin: '0.7rem 0 0', transform: 'scaleX(1.027)' }}
-            />
-            <S.ModalFooter>
-              <Btn01 text="닫기" onClick={props.onClickCloseModal} bdC="#ddd" />
-            </S.ModalFooter>
-          </>
+          <MemberEditLeaveAccrualsContainer
+            listMemberId={props.listMemberId}
+            setAniMode={props.setAniMode}
+          />
         </FallingModal>
       )}
 
@@ -329,7 +283,6 @@ const LeaveAccrualsPresenter = (props: ILeaveAccrualsPresenterProps) => {
             <li>남은 휴가 일수</li>
             <li>메모</li>
           </S.ListUl>
-          {/* {console.log(props.vDetail)} */}
           <ListOptionalFetch
             init={props.init}
             filterInit={props.filterInit}

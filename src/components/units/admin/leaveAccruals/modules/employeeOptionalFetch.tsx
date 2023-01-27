@@ -1,3 +1,4 @@
+import { MouseEvent } from 'react';
 import { IQuery } from '../../../../../commons/types/generated/types';
 import { getDate } from '../../../../../commons/utils/getDate';
 import * as S from '../leaveAccruals.styles';
@@ -9,7 +10,7 @@ interface IEmployeeOptionalFetchProps {
   vDetail?: Pick<IQuery, 'fetchVacationIssueDetailDate'>;
   vBase?: Pick<IQuery, 'fetchVacationIssueBaseDate'>;
   vBaseDelete?: Pick<IQuery, 'fetchVacationIssueWithBaseDateDelete'>;
-  onClickOpenSelectModal: () => void;
+  onClickOpenSelectModal: (e: MouseEvent<HTMLUListElement>) => void;
 }
 
 const EmployeeOptionalFetch = (props: IEmployeeOptionalFetchProps) => {
@@ -21,6 +22,7 @@ const EmployeeOptionalFetch = (props: IEmployeeOptionalFetchProps) => {
           <S.EmployeeUl
             key={fetchData.id}
             onClick={props.onClickOpenSelectModal}
+            id={fetchData.member.id}
           >
             <li>{fetchData.member.name}</li>
             <li>
@@ -39,6 +41,7 @@ const EmployeeOptionalFetch = (props: IEmployeeOptionalFetchProps) => {
           <S.EmployeeUl
             key={fetchData.id}
             onClick={props.onClickOpenSelectModal}
+            id={fetchData.member.id}
           >
             <li>{fetchData.member.name}</li>
             <li>
@@ -52,7 +55,11 @@ const EmployeeOptionalFetch = (props: IEmployeeOptionalFetchProps) => {
         ));
     } else if (props.init && props.filterInit) {
       return props.vBase?.fetchVacationIssueBaseDate.flat().map((fetchData) => (
-        <S.EmployeeUl key={fetchData.id} onClick={props.onClickOpenSelectModal}>
+        <S.EmployeeUl
+          key={fetchData.id}
+          onClick={props.onClickOpenSelectModal}
+          id={fetchData.member.id}
+        >
           <li>{fetchData.member.name}</li>
           <li>
             {getDate(fetchData.startingPoint)} -{' '}
@@ -70,6 +77,7 @@ const EmployeeOptionalFetch = (props: IEmployeeOptionalFetchProps) => {
           <S.EmployeeUl
             key={fetchData.id}
             onClick={props.onClickOpenSelectModal}
+            id={fetchData.member.id}
           >
             <li>{fetchData.member.name}</li>
             <li>

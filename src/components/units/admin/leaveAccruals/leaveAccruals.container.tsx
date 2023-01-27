@@ -7,6 +7,7 @@ import {
   IQueryFetchVacationIssueDetailDateArgs,
   IQueryFetchVacationIssueDetailDateDeleteArgs,
   IQueryFetchVacationIssueWithBaseDateDeleteArgs,
+  IQueryFetchVacationIssueArgs,
 } from '../../../../commons/types/generated/types';
 import LeaveAccrualsPresenter from './leaveAccruals.presenter';
 import {
@@ -16,6 +17,7 @@ import {
   FETCH_VACATION_ISSUE_BASE_DELETE,
   FETCH_VACATION_ISSUE_DETAIL,
   DELETE_MANY_VACATION_ISSUE,
+  FETCH_VACATION_ISSUE,
 } from './leaveAccruals.queries';
 import { IInputData } from './leaveAccruals.types';
 import { Dayjs } from 'dayjs';
@@ -26,7 +28,6 @@ const LeaveAccrualsContainer = () => {
   const [isSelect, setIsSelect] = useState(false);
   const [isSelectList, setIsSelectList] = useState(false);
   const [isSelectOpen, setIsSelectOpen] = useState(false);
-  const [isMemberOpen, setIsMemberOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [aniMode, setAniMode] = useState(false);
   const [isCheckedChange, setIsCheckedChange] = useState(false);
@@ -52,9 +53,10 @@ const LeaveAccrualsContainer = () => {
     setAniMode(true);
   };
 
-  const onClickOpenSelectModal = () => {
+  const onClickOpenSelectModal = (e: MouseEvent<HTMLUListElement>) => {
     setAniMode(true);
     setIsSelectOpen(true);
+    setListMemberId(e.currentTarget.id);
   };
 
   const onClickOpenSelectListModal = (e: MouseEvent<HTMLUListElement>) => {
@@ -66,7 +68,6 @@ const LeaveAccrualsContainer = () => {
 
   const onClickCloseModal = () => {
     setAniMode(false);
-    setIsMemberOpen(false);
   };
 
   const onClickCheckedChange = () => {
@@ -119,6 +120,11 @@ const LeaveAccrualsContainer = () => {
       setOrganizationArr(organization ?? []);
     }
   }, [organizations]);
+
+  const { data } = useQuery<
+    Pick<IQuery, 'fetchVacationIssue'>,
+    IQueryFetchVacationIssueArgs
+  >(FETCH_VACATION_ISSUE, { variables: { vacationIssueId: listMemberId } });
 
   const { data: vDetail } = useQuery<
     Pick<IQuery, 'fetchVacationIssueDetailDate'>,
@@ -250,7 +256,6 @@ const LeaveAccrualsContainer = () => {
       isOpen={isOpen}
       isSelect={isSelect}
       isSelectOpen={isSelectOpen}
-      isMemberOpen={isMemberOpen}
       isCheckedChange={isCheckedChange}
       setIsCheckedChange={setIsCheckedChange}
       setOrganizationArr={setOrganizationArr}
@@ -258,7 +263,6 @@ const LeaveAccrualsContainer = () => {
       setInit={setInit}
       setFilterInit={setFilterInit}
       setIsSelectOpen={setIsSelectOpen}
-      setIsMemberOpen={setIsMemberOpen}
       onClickEmployee={onClickEmployee}
       onClickList={onClickList}
       onClickOpenModal={onClickOpenModal}
@@ -277,6 +281,7 @@ const LeaveAccrualsContainer = () => {
       setIsSelectList={setIsSelectList}
       listMemberName={listMemberName}
       listMemberId={listMemberId}
+      data={data}
     />
   );
 };

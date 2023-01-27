@@ -82,6 +82,8 @@ const EditLeaveAccrualsContainer = (
       onClickDelete={onClickDelete}
       onClickCloseModal={props.onClickCloseModal}
       data={props.data}
+      role={props.role}
+      onClickCloseMember={props.onClickCloseMember}
     />
   );
 };

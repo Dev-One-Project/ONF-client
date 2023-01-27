@@ -8,10 +8,12 @@ import {
 } from 'react-hook-form';
 
 export interface IEditLeaveAccrualsContainerProps {
-  onClickCloseModal: () => void;
+  onClickCloseModal?: () => void;
   data?: any;
   listMemberId: string;
   setAniMode: Dispatch<SetStateAction<boolean>>;
+  role?: string;
+  onClickCloseMember?: () => void;
 }
 
 export interface IEditLeaveAccrualsPresenterProps {
@@ -23,7 +25,9 @@ export interface IEditLeaveAccrualsPresenterProps {
   onSubmit: (data: any) => void;
   onClickDelete: () => void;
   data: any;
-  onClickCloseModal: () => void;
+  onClickCloseModal?: () => void;
+  role?: string;
+  onClickCloseMember?: () => void;
 }
 
 export interface IInputData {

@@ -123,3 +123,19 @@ export const DELETE_MANY_VACATION_ISSUE = gql`
     deleteManyVacationIssue(vacationIssueId: $vacationIssueId)
   }
 `;
+
+export const FETCH_VACATION_ISSUE = gql`
+  query fetchVacationIssue($vacationIssueId: String!) {
+    fetchVacationIssue(vacationIssueId: $vacationIssueId) {
+      id
+      startingPoint
+      expirationDate
+      vacationAll
+      description
+      member {
+        id
+        name
+      }
+    }
+  }
+`;
