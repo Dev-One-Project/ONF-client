@@ -31,8 +31,7 @@ const MemberData = (props: { data?: IMember }) => {
             )}`
           : '개발 예정'}
       </S.Td>
-      {/* <S.Td>{props.data?.appliedFrom ?? '개발 예정'}</S.Td> */}
-      <S.Td>{'개발 예정'}</S.Td>
+      <S.Td>{props.data?.appliedFrom ?? '개발 예정'}</S.Td>
       <S.Td style={{ paddingLeft: '2.2rem' }}>
         {props.data?.isJoin ? 'O' : 'X'}
       </S.Td>

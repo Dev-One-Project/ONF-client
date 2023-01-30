@@ -1,7 +1,8 @@
 import { useMutation } from '@apollo/client';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { valueType } from 'antd/es/statistic/utils';
-import axios from 'axios';
-import { useCallback, useEffect, useState } from 'react';
+// import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { Address } from 'react-daum-postcode';
 import { useForm } from 'react-hook-form';
 import {
@@ -11,38 +12,52 @@ import {
 import { IFormProps } from '../common/form.types';
 import OrganizationFormPresenter from './organizationForm.presenter';
 import { CREATE_ORGANIZATION } from './organizationForm.queries';
+import * as yup from 'yup';
+import { IFormData } from './organizationForm.types';
 
-const IP_API_KEY = '726352a79674495788faaade6bbbb04d';
+// const IP_API_KEY = '726352a79674495788faaade6bbbb04d';
+
+const schema = yup.object({
+  name: yup.string().min(1).required(),
+});
 
 const OrganizationFormContainer = (props: IFormProps) => {
   const [createOrganization] = useMutation<
     Pick<IMutation, 'createOrganization'>,
     IMutationCreateOrganizationArgs
   >(CREATE_ORGANIZATION);
-  const { register, setValue, handleSubmit, reset } = useForm();
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    reset,
+    formState: { isValid },
+  } = useForm<IFormData>({
+    resolver: yupResolver(schema),
+  });
   const [positionTab, setPositionTab] = useState(false);
   const [wifiTab, setWifiTab] = useState(false);
-  const [ip, setIp] = useState('');
+  // const [ip, setIp] = useState('');
   const [currentPosition, setCurrentPosition] = useState<
     Partial<GeolocationCoordinates>
   >({ latitude: undefined, longitude: undefined });
   const [markerPosition, setMarkerPosition] = useState<
     Partial<GeolocationCoordinates>
   >({ latitude: undefined, longitude: undefined });
-  const [radius, setRadius] = useState<valueType | null>(150);
+  const [range, setRange] = useState<valueType | null>(150);
   const [address, setAddress] = useState<string>('');
 
   // IP 와 현재 위치 좌표를 얻어옴.
   useEffect(() => {
     let isComponentMounted = true;
-    const getIp = async () => {
-      await axios
-        .get(`https://ipgeolocation.abstractapi.com/v1/?api_key=${IP_API_KEY}`)
-        .then((res) => {
-          if (isComponentMounted) setIp(res.data.ip_address);
-        });
-    };
-    void getIp();
+    // const getIp = async () => {
+    //   await axios
+    //     .get(`https://ipgeolocation.abstractapi.com/v1/?api_key=${IP_API_KEY}`)
+    //     .then((res) => {
+    //       if (isComponentMounted) setIp(res.data.ip_address);
+    //     });
+    // };
+    // void getIp();
 
     const getLocation = async () => {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -72,12 +87,12 @@ const OrganizationFormContainer = (props: IFormProps) => {
     setPositionTab((prev) => !prev);
     setValue('lat', String(markerPosition.latitude));
     setValue('lng', String(markerPosition.longitude));
-    setValue('radius', radius);
+    setValue('range', Number(range));
   };
 
-  const paintIp = useCallback(() => {
-    setValue('ip', ip);
-  }, [ip, setValue]);
+  // const paintIp = useCallback(() => {
+  //   setValue('ip', ip);
+  // }, [ip, setValue]);
 
   const onCompleteSearch = (e: Address) => {
     setAddress(e.address);
@@ -91,7 +106,7 @@ const OrganizationFormContainer = (props: IFormProps) => {
     setValue('lng', String(args.longitude));
   };
 
-  const onSubmit = async (formData: any) => {
+  const onSubmit = async (formData: IFormData) => {
     console.log(formData);
 
     // 백엔드 api 수정되면 삭제
@@ -118,14 +133,15 @@ const OrganizationFormContainer = (props: IFormProps) => {
 
   return (
     <OrganizationFormPresenter
+      isValid={isValid}
       onTogglePositionTab={onTogglePositionTab}
-      paintIp={paintIp}
+      // paintIp={paintIp}
       onChangeMarkerPosition={onChangeMarkerPosition}
       currentPosition={currentPosition}
       setCurrentPosition={setCurrentPosition}
       markerPosition={markerPosition}
-      radius={radius}
-      setRadius={setRadius}
+      range={range}
+      setRange={setRange}
       address={address}
       setWifiTab={setWifiTab}
       wifiTab={wifiTab}

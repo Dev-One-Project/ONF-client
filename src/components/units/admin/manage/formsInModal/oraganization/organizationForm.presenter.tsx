@@ -71,14 +71,14 @@ const OrganizationFormPresenter = (props: OrganizationFormPresenterProps) => {
             <S.FormContent>
               <Label for="radius">좌표 반경(m)</Label>
               <InputNumber
-                id="radius"
-                value={props.radius}
+                id="range"
+                value={props.range}
                 onChange={(value) => {
-                  props.setRadius(value);
-                  props.setValue('radius', value);
+                  props.setRange(value);
+                  props.setValue('range', Number(value));
                 }}
               />
-              <input type="hidden" {...props.register('radius')} />
+              <input type="hidden" {...props.register('range')} />
             </S.FormContent>
             <S.KakaoMapWrapper>
               {props.currentPosition && (
@@ -87,7 +87,7 @@ const OrganizationFormPresenter = (props: OrganizationFormPresenterProps) => {
                   markerPosition={props.markerPosition}
                   setCurrentPosition={props.setCurrentPosition}
                   currentPosition={props.currentPosition}
-                  radius={props.radius}
+                  radius={props.range}
                   address={props.address}
                 />
               )}
@@ -108,7 +108,7 @@ const OrganizationFormPresenter = (props: OrganizationFormPresenterProps) => {
                   <WifiOutlined />
                 </S.WifiButton>
                 <Input01
-                  register={props.register('ip')}
+                  // register={props.register('ip')}
                   width="10rem"
                   id="wifi"
                   type="text"
@@ -119,7 +119,7 @@ const OrganizationFormPresenter = (props: OrganizationFormPresenterProps) => {
         )}
         <Memo register={props.register('description')} />
       </S.Wrapper>
-      <Footer onCancel={props.onCancel} />
+      <Footer isValid={props.isValid} onCancel={props.onCancel} />
     </form>
   );
 };

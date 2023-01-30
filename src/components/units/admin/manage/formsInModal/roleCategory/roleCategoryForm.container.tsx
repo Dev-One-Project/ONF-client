@@ -14,7 +14,11 @@ const RoleCategoryFormContainer = (props: IFormProps) => {
     IMutationCreateRoleCategoryArgs
   >(CREATE_ROLE_CATEGORY);
 
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { isValid },
+  } = useForm();
 
   const onSubmit = async (data: any) => {
     console.log(data);
@@ -38,6 +42,7 @@ const RoleCategoryFormContainer = (props: IFormProps) => {
   };
   return (
     <RoleCategoryFormPresenter
+      isValid={isValid}
       handleSubmit={handleSubmit}
       register={register}
       onSubmit={onSubmit}

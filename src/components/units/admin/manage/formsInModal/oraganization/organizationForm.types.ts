@@ -1,5 +1,4 @@
 import {
-  FieldValues,
   SubmitHandler,
   UseFormHandleSubmit,
   UseFormRegister,
@@ -12,10 +11,10 @@ import { Dispatch, SetStateAction } from 'react';
 import { valueType } from 'antd/es/statistic/utils';
 
 export interface OrganizationFormPresenterProps {
-  register: UseFormRegister<FieldValues>;
-  handleSubmit: UseFormHandleSubmit<FieldValues>;
-  onSubmit: SubmitHandler<FieldValues>;
-  setValue: UseFormSetValue<FieldValues>;
+  register: UseFormRegister<IFormData>;
+  handleSubmit: UseFormHandleSubmit<IFormData>;
+  onSubmit: SubmitHandler<IFormData>;
+  setValue: UseFormSetValue<IFormData>;
   onCancel: () => void;
   data?: {
     organizations?: Pick<IQuery, 'fetchOrganizations'>;
@@ -30,10 +29,22 @@ export interface OrganizationFormPresenterProps {
   currentPosition: Partial<GeolocationCoordinates>;
   setCurrentPosition: Dispatch<SetStateAction<Partial<GeolocationCoordinates>>>;
   markerPosition: Partial<GeolocationCoordinates>;
-  radius: valueType | null;
-  setRadius: Dispatch<SetStateAction<valueType | null>>;
+  range: valueType | null;
+  setRange: Dispatch<SetStateAction<valueType | null>>;
   address: string;
   onChangeMarkerPosition: (args: Partial<GeolocationCoordinates>) => void;
-  paintIp: () => void;
+  paintIp?: () => void;
   onTogglePositionTab: () => void;
+  isValid: boolean;
+}
+
+export interface IFormData {
+  name: string;
+  checkPoint?: string;
+  address?: string;
+  lat?: string;
+  lng?: string;
+  range?: number;
+  description?: string;
+  color?: string;
 }

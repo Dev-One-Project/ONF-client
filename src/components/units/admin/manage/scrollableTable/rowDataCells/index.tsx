@@ -34,7 +34,7 @@ interface IStyle {
 export const Td = styled.td`
   text-align: left;
   padding: 0.5rem 0.25rem 0.5rem 0.5rem;
-  min-width: 100px;
+  min-width: 120px;
 `;
 
 export const ColorBox = styled.div`

@@ -22,6 +22,12 @@ import {
 } from '../../../../../../commons/types/generated/types';
 import MemberFormpresenter from './memberForm.presenter';
 import { IFormData } from './memberForm.types';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
+const schema = yup.object({
+  name: yup.string().min(1).required(),
+});
 
 const MemberFormContainer = (props: IFormProps) => {
   const [createMember] = useMutation<
@@ -45,7 +51,15 @@ const MemberFormContainer = (props: IFormProps) => {
     IMutationInsertWorkInfoArgs
   >(INSERT_WORK_INFO);
 
-  const { register, handleSubmit, setValue, reset } = useForm<IFormData>();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    reset,
+    formState: { isValid },
+  } = useForm<IFormData>({
+    resolver: yupResolver(schema),
+  });
 
   const [invitationRadio, setInvitationRadio] = useState([true, false, false]);
   const [isActiveStartDate, setIsActiveStartDate] = useState<boolean>(
@@ -135,11 +149,6 @@ const MemberFormContainer = (props: IFormProps) => {
     : undefined;
 
   const onSubmit = async (data: IFormData) => {
-    console.log(data);
-
-    // 수정된 workInfo api 머지되면 수정 -> 정상작동 테스트 -> 백엔드와 상의 후 삭제
-    if (data.name) return;
-
     try {
       const result = await createMember({
         variables: {
@@ -148,8 +157,8 @@ const MemberFormContainer = (props: IFormProps) => {
             exitDate: data.exitDate,
             joinDate: data.joinDate,
             memo: data.memo,
-            organizationId: String(data.organizationId?.[0]),
-            roleCategoryId: String(data.roleCategoryId?.[0]),
+            organizationId: String(data.organizationId),
+            roleCategoryId: String(data.roleCategoryId),
           },
         },
         update(cache, { data }) {
@@ -169,17 +178,26 @@ const MemberFormContainer = (props: IFormProps) => {
       await sendCodeToEmail({ variables: invitationData });
       await insertWorkInfo({
         variables: {
-          email: data.email ?? '',
-          name: data.workInfoName ?? '',
+          memberId: result.data?.createMember.id ?? '',
+          workInfoId: data.workInfoId ?? '',
+          appiedFrom: data.appliedFrom ?? '',
+        },
+        update(cache) {
+          cache.modify({
+            fields: {
+              fetchMembers: () => {},
+            },
+          });
         },
       });
+
+      props.onCancel();
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }
   };
 
   const onEdit = async (data: any) => {
-    console.log('수정', data);
     try {
       await updateMember({
         variables: { memberId: props.editTarget?.id, updateMemberInput: data },
@@ -190,7 +208,6 @@ const MemberFormContainer = (props: IFormProps) => {
   };
 
   const onSoftDelete = async () => {
-    console.log('삭제');
     try {
       await softDeleteMember({ variables: { memberId: props.editTarget?.id } });
       Modal.success({
@@ -203,6 +220,7 @@ const MemberFormContainer = (props: IFormProps) => {
 
   return (
     <MemberFormpresenter
+      isValid={isValid}
       roleCategories={roleCategories}
       roleCategoryDefaultValue={roleCategoryDefaultValue}
       organizations={organizations}

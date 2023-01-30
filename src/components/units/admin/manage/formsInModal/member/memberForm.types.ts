@@ -18,7 +18,7 @@ export interface IFormData {
   organizationId?: InputData[];
   roleCategoryId?: InputData[];
   email?: string;
-  workInfoName?: string;
+  workInfoId?: string;
   appliedFrom?: string;
 }
 
@@ -52,4 +52,5 @@ export interface IMemberFormPresenterProps {
   onSoftDelete: () => void;
   isActvieWageInput: boolean;
   isActiveWagesInput: boolean;
+  isValid: boolean;
 }
