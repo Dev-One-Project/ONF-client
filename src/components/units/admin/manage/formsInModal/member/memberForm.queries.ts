@@ -36,13 +36,13 @@ export const SEND_CODE_TO_EMAIL = gql`
 export const INSERT_WORK_INFO = gql`
   mutation insertWorkInfo(
     $memberId: String!
-    $workInfoName: String!
-    $appliedFrom: String!
+    $workInfoId: String!
+    $appiedFrom: String!
   ) {
     insertWorkInfo(
       memberId: $memberId
-      workInfoName: $workInfoName
-      appliedFrom: $appliedFrom
+      workInfoId: $workInfoId
+      appiedFrom: $appiedFrom
     ) {
       id
       name

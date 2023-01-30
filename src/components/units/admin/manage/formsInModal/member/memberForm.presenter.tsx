@@ -161,9 +161,9 @@ const MemberFormpresenter = (props: IMemberFormPresenterProps) => {
                 <>
                   <InputLabel
                     type="select"
-                    name="workInfoName"
+                    name="workInfoId"
                     setValue={props.setValue}
-                    register={props.register('workInfoName')}
+                    register={props.register('workInfoId')}
                     data={props.workInfos}
                     singleMode
                     textFillMode
@@ -186,6 +186,7 @@ const MemberFormpresenter = (props: IMemberFormPresenterProps) => {
         </S.Right>
       </S.WrapperM>
       <Footer
+        isValid={props.isValid}
         onSoftDelete={props.onSoftDelete}
         isEdit={props.editTarget}
         onCancel={props.onCancel}

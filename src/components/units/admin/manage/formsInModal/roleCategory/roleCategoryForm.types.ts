@@ -10,4 +10,5 @@ export interface IRoleCategoryFormPresenterProps {
   handleSubmit: UseFormHandleSubmit<FieldValues>;
   onSubmit: SubmitHandler<FieldValues>;
   onCancel: () => void;
+  isValid: boolean;
 }

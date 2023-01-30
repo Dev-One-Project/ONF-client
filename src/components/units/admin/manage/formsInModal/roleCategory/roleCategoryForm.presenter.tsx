@@ -21,7 +21,7 @@ const RoleCategoryFormPresenter = (props: IRoleCategoryFormPresenterProps) => {
         </InputLabel>
         <Memo register={props.register('memo')} />
       </S.Wrapper>
-      <Footer onCancel={props.onCancel} />
+      <Footer isValid={props.isValid} onCancel={props.onCancel} />
     </form>
   );
 };

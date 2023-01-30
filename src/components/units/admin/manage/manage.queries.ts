@@ -8,18 +8,31 @@ export const FETCH_MEMBERS = gql`
       joinDate
       isJoin
       memo
+      appliedFrom
       company {
         id
         memberCount
       }
-      # organization {
-      #   id
-      #   name
-      # }
-      # roleCategory {
-      #   id
-      #   name
-      # }
+      organization {
+        id
+        name
+      }
+      roleCategory {
+        id
+        name
+      }
+      workInfo {
+        id
+        name
+        maximumUnitPeriod
+        maximumPeriodRange
+        maximumStandard
+        maximumHours
+        fixedStandard
+        fixedUnitPeriod
+        fixedPeriodRange
+        fixedHours
+      }
     }
   }
 `;
