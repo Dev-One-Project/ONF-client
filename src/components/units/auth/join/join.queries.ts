@@ -25,9 +25,7 @@ export const CREATE_ACCOUNT = gql`
       member {
         id
       }
-      company {
-        id
-      }
+      companyId
     }
   }
 `;
