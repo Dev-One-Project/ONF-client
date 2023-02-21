@@ -18,17 +18,17 @@ interface IKakaoMapProps {
   address: string;
 }
 
-// const KAKAO_API_KEY = '93b1f223fb41241d4e9e78362666dc12';
-
 const KakaoMapLauncher = (props: IKakaoMapProps) => {
   const [mapLevel, setMapLevel] = useState<number>(4);
-  const script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.src = `//dapi.kakao.com/v2/maps/sdk.js?&autoload=false&appkey=93b1f223fb41241d4e9e78362666dc12&libraries=services`;
-  script.defer = true;
-  document.head.appendChild(script);
 
   useEffect(() => {
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = `//dapi.kakao.com/v2/maps/sdk.js?&autoload=false&appkey=${String(
+      process.env.NEXT_PUBLIC_KAKAO_API_KEY,
+    )}&libraries=services`;
+    script.defer = true;
+    document.head.appendChild(script);
     script.onload = () => {
       const { kakao } = window;
 
@@ -72,7 +72,6 @@ const KakaoMapLauncher = (props: IKakaoMapProps) => {
       const { kakao } = window;
 
       kakao.maps.load(() => {
-
         const container = document.getElementById('map');
 
         const options = {
@@ -134,7 +133,14 @@ const KakaoMapLauncher = (props: IKakaoMapProps) => {
         });
       });
     };
-  }, [props, mapLevel]);
+  }, [
+    props.radius,
+    props.currentPosition,
+    props.markerPosition,
+    props.setCurrentPosition,
+    props.setMarkerPosition,
+    mapLevel,
+  ]);
 
   return (
     <>
