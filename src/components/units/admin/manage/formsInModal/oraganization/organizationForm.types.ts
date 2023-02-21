@@ -41,10 +41,10 @@ export interface OrganizationFormPresenterProps {
 export interface IFormData {
   name: string;
   checkPoint?: string;
-  address?: string;
+  address: string;
   lat?: string;
   lng?: string;
   range?: number;
   description?: string;
-  color?: string;
+  color: string;
 }

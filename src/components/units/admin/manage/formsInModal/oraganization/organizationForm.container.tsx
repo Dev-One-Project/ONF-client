@@ -15,8 +15,6 @@ import { CREATE_ORGANIZATION } from './organizationForm.queries';
 import * as yup from 'yup';
 import { IFormData } from './organizationForm.types';
 
-// const IP_API_KEY = '726352a79674495788faaade6bbbb04d';
-
 const schema = yup.object({
   name: yup.string().min(1).required(),
 });
@@ -50,14 +48,6 @@ const OrganizationFormContainer = (props: IFormProps) => {
   // IP 와 현재 위치 좌표를 얻어옴.
   useEffect(() => {
     let isComponentMounted = true;
-    // const getIp = async () => {
-    //   await axios
-    //     .get(`https://ipgeolocation.abstractapi.com/v1/?api_key=${IP_API_KEY}`)
-    //     .then((res) => {
-    //       if (isComponentMounted) setIp(res.data.ip_address);
-    //     });
-    // };
-    // void getIp();
 
     const getLocation = async () => {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -90,10 +80,6 @@ const OrganizationFormContainer = (props: IFormProps) => {
     setValue('range', Number(range));
   };
 
-  // const paintIp = useCallback(() => {
-  //   setValue('ip', ip);
-  // }, [ip, setValue]);
-
   const onCompleteSearch = (e: Address) => {
     setAddress(e.address);
     setValue('address', e.address);
@@ -107,10 +93,8 @@ const OrganizationFormContainer = (props: IFormProps) => {
   };
 
   const onSubmit = async (formData: IFormData) => {
+    formData.color = '#fff';
     console.log(formData);
-
-    // 백엔드 api 수정되면 삭제
-    if (formData) return;
 
     try {
       await createOrganization({
@@ -125,6 +109,7 @@ const OrganizationFormContainer = (props: IFormProps) => {
           });
         },
       });
+      props.onCancel();
     } catch (error) {
       alert(error as string);
     }
@@ -135,7 +120,6 @@ const OrganizationFormContainer = (props: IFormProps) => {
     <OrganizationFormPresenter
       isValid={isValid}
       onTogglePositionTab={onTogglePositionTab}
-      // paintIp={paintIp}
       onChangeMarkerPosition={onChangeMarkerPosition}
       currentPosition={currentPosition}
       setCurrentPosition={setCurrentPosition}
