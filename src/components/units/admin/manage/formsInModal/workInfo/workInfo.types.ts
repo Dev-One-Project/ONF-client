@@ -33,3 +33,8 @@ export interface IWorkInfoPresenterProps {
   onClickTab: (i: number) => () => void;
   onCancel: () => void;
 }
+
+export interface IWorkInfoTabProps {
+  register: UseFormRegister<IFormData>;
+  setValue?: UseFormSetValue<IFormData>;
+}

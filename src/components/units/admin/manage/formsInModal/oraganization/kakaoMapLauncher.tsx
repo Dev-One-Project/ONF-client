@@ -64,7 +64,9 @@ const KakaoMapLauncher = (props: IKakaoMapProps) => {
   useEffect(() => {
     const script = document.createElement('script');
     script.type = 'text/javascript';
-    script.src = `//dapi.kakao.com/v2/maps/sdk.js?&autoload=false&appkey=93b1f223fb41241d4e9e78362666dc12&libraries=services`;
+    script.src = `//dapi.kakao.com/v2/maps/sdk.js?&autoload=false&appkey=${String(
+      process.env.NEXT_PUBLIC_KAKAO_API_KEY,
+    )}&libraries=services`;
     script.defer = true;
     document.head.appendChild(script);
 
