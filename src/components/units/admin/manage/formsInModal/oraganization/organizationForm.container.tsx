@@ -45,7 +45,7 @@ const OrganizationFormContainer = (props: IFormProps) => {
   const [range, setRange] = useState<valueType | null>(150);
   const [address, setAddress] = useState<string>('');
 
-  // IP 와 현재 위치 좌표를 얻어옴.
+  // 현재 위치 좌표를 얻어옴.
   useEffect(() => {
     let isComponentMounted = true;
 
@@ -94,8 +94,6 @@ const OrganizationFormContainer = (props: IFormProps) => {
 
   const onSubmit = async (formData: IFormData) => {
     formData.color = '#fff';
-    console.log(formData);
-
     try {
       await createOrganization({
         variables: { createOrganizationInput: formData },

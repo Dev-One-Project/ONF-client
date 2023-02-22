@@ -3,9 +3,9 @@ import { useState } from 'react';
 import { styleSet } from '../../../../../../../commons/styles/styleSet';
 import Check01 from '../../../../../../commons/input/check01';
 import Label from '../../common/label';
-import { IWagesProps } from '../workInfo.types';
+import { IWorkInfoTabProps } from '../workInfo.types';
 
-const MaximumLaborRules = (props: IWagesProps) => {
+const MaximumLaborRules = (props: IWorkInfoTabProps) => {
   const [open, setOpen] = useState(false);
   return (
     <Wrapper>

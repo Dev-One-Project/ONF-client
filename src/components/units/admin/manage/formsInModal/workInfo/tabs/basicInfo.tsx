@@ -1,9 +1,9 @@
 import InputLabel from '../../common/inputLabel';
 import Memo from '../../common/memo';
-import { IWagesProps } from '../workInfo.types';
 import styled from '@emotion/styled';
+import { IWorkInfoTabProps } from '../workInfo.types';
 
-const BasicInfo = (props: IWagesProps) => {
+const BasicInfo = (props: IWorkInfoTabProps) => {
   return (
     <Wrapper>
       <InputLabel type="text" name="name" register={props.register('name')}>
