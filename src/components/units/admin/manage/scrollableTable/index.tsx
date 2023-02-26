@@ -135,7 +135,7 @@ const ScrollableTable = (props: IScrollableTableProps) => {
     ];
     bodyData = props.data?.vacationCategories?.fetchVacationCategories ?? [];
   }
-  console.log('bodyData', bodyData);
+
   const onCheckedAll = useCallback((checked) => {
     if (checked) {
       const checkedListArray: Array<JSX.Element | string | {}> = [];
@@ -151,7 +151,7 @@ const ScrollableTable = (props: IScrollableTableProps) => {
     },
     [checkedList],
   );
-  console.log(props.data);
+
   return (
     <Wrapper
       isAdminSidebar={isAdminSidebar}

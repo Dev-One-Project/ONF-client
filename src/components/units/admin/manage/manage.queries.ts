@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const FETCH_MEMBERS = gql`
-  query {
-    fetchMembers {
+  query fetchMembers($isInActiveMember: Boolean!) {
+    fetchMembers(isInActiveMember: $isInActiveMember) {
       id
       name
       joinDate
