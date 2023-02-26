@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ManagePresenter from './manage.presenter';
 import { IManageProps } from './manage.types';
 
@@ -7,6 +7,21 @@ const Manage = (props: IManageProps) => {
   const [aniMode, setAniMode] = useState(false);
   const [isLocation, setIsLocation] = useState(false);
   const [editTarget, setEditTarget] = useState();
+  const [isInActive, setIsInActive] = useState(false);
+
+  useEffect(() => {
+    if (props.tab !== '직원') return;
+    const onChangeSwitch = async () => {
+      console.log(isInActive);
+      try {
+        const result = await props.refetch?.({ isInActiveMember: isInActive });
+        console.log(result);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    void onChangeSwitch();
+  }, [props, isInActive]);
 
   const onClickOpenModal = () => {
     setIsOpen(true);
@@ -26,6 +41,7 @@ const Manage = (props: IManageProps) => {
 
   return (
     <ManagePresenter
+      setIsInActive={setIsInActive}
       tab={props.tab}
       data={props.data}
       editTarget={editTarget}

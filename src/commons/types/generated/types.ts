@@ -101,7 +101,7 @@ export type ICreateNoticeBoardInput = {
 export type ICreateOrganizationInput = {
   address: Scalars['String'];
   checkPoint?: InputMaybe<Scalars['String']>;
-  color: Scalars['String'];
+  color?: InputMaybe<Scalars['String']>;
   description?: InputMaybe<Scalars['String']>;
   lat?: InputMaybe<Scalars['String']>;
   lng?: InputMaybe<Scalars['String']>;
@@ -167,10 +167,8 @@ export type ICreateVacationIssueInput = {
 export type ICreateWorkCheckInput = {
   isWorking?: InputMaybe<Scalars['Boolean']>;
   memberId: Scalars['String'];
-  organizationId?: InputMaybe<Scalars['String']>;
   quittingTime?: InputMaybe<Scalars['String']>;
-  roleCategoryId?: InputMaybe<Scalars['String']>;
-  scheduleId?: InputMaybe<Scalars['String']>;
+  scheduleId: Scalars['String'];
   workCheckMemo?: InputMaybe<Scalars['String']>;
   workDay: Scalars['DateTime'];
   workingTime: Scalars['String'];
@@ -261,6 +259,7 @@ export type IMutation = {
   createHolidays: Scalars['String'];
   /** 멤버 정보 입력 */
   createMember: IMember;
+  /** 공지사항 게시글 생성 */
   createNoticeBoard: INoticeBoard;
   /** 조직 신규 생성 */
   createOrganization: IOrganization;
@@ -302,6 +301,7 @@ export type IMutation = {
   deleteManyWorkCheck: Scalars['Boolean'];
   /** 멤버 정보 완전 삭제 */
   deleteMember: Scalars['Boolean'];
+  /** 공지사항 게시글 삭제 */
   deleteNoticeBoard: Scalars['Boolean'];
   /** 근무일정 단일 삭제 */
   deleteOneSchedule: Scalars['Boolean'];
@@ -351,6 +351,7 @@ export type IMutation = {
   updateManyWorkCheck: Array<IWorkCheck>;
   /** 멤버 정보 수정 */
   updateMember: IMember;
+  /** 공지사항 게시글 수정 */
   updateNoticeBoard: INoticeBoard;
   /** 근무일정 단일 수정 */
   updateOneSchedule: ISchedule;
@@ -597,7 +598,7 @@ export type IMutationDeleteVacationIssueArgs = {
 
 
 export type IMutationInsertWorkInfoArgs = {
-  appiedFrom: Scalars['String'];
+  appliedFrom: Scalars['String'];
   memberId: Scalars['String'];
   workInfoId: Scalars['String'];
 };
@@ -793,6 +794,7 @@ export type IQuery = {
   fetchAccount: IAccount;
   /** Fetch Accounts by company & role */
   fetchAccounts: Array<IAccount>;
+  /** 공지사항 게시글 전부 조회 */
   fetchAllNoticeBoards: Array<INoticeBoard>;
   /** 근무일정 유형 전체 조회 */
   fetchAllScheduleCategories: Array<IScheduleCategory>;
@@ -837,6 +839,7 @@ export type IQuery = {
   /** 회사내의 직원 수 카운트 */
   fetchNumberOfEmployees: Scalars['Int'];
   fetchOneMemberWorkCheck: IWorkCheck;
+  /** 공지사항 게시글 단일 조회 */
   fetchOneNoticeBoard: INoticeBoard;
   /** 조직 상세 조회 */
   fetchOrganizationDetail: IOrganization;
@@ -1047,7 +1050,7 @@ export type ISchedule = {
   endWorkTime: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   member: IMember;
-  memo: Scalars['String'];
+  memo?: Maybe<Scalars['String']>;
   organization: IOrganization;
   roleCategory: IRoleCategory;
   scheduleCategory: IScheduleCategory;
@@ -1200,9 +1203,7 @@ export type IUpdateVacationIssueInput = {
 export type IUpdateWorkCheckInput = {
   isWorking?: InputMaybe<Scalars['Boolean']>;
   memberId?: InputMaybe<Scalars['String']>;
-  organizationId?: InputMaybe<Scalars['String']>;
   quittingTime?: InputMaybe<Scalars['String']>;
-  roleCategoryId?: InputMaybe<Scalars['String']>;
   scheduleId?: InputMaybe<Scalars['String']>;
   workCheckMemo?: InputMaybe<Scalars['String']>;
   workDay?: InputMaybe<Scalars['DateTime']>;

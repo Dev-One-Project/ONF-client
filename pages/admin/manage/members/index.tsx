@@ -1,5 +1,8 @@
 import { useQuery } from '@apollo/client';
-import { IQuery } from '../../../../src/commons/types/generated/types';
+import {
+  IQuery,
+  IQueryFetchMembersArgs,
+} from '../../../../src/commons/types/generated/types';
 import Manage from '../../../../src/components/units/admin/manage/manage.container';
 import {
   FETCH_MEMBERS,
@@ -9,8 +12,10 @@ import {
 } from '../../../../src/components/units/admin/manage/manage.queries';
 
 const ManageMember = () => {
-  const { data: members } =
-    useQuery<Pick<IQuery, 'fetchMembers'>>(FETCH_MEMBERS);
+  const { data: members, refetch } = useQuery<
+    Pick<IQuery, 'fetchMembers'>,
+    IQueryFetchMembersArgs
+  >(FETCH_MEMBERS);
   const { data: organizations } =
     useQuery<Pick<IQuery, 'fetchOrganizations'>>(FETCH_ORGANIZATIONS);
   const { data: roleCategories } = useQuery<
@@ -24,7 +29,7 @@ const ManageMember = () => {
     roleCategories,
     workInfos,
   };
-  return <Manage tab="직원" data={data} />;
+  return <Manage tab="직원" refetch={refetch} data={data} />;
 };
 
 export default ManageMember;
