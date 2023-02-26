@@ -1,4 +1,4 @@
-version: "3.7"
+version: '3.7'
 
 services:
   onf-client:
@@ -9,6 +9,8 @@ services:
       - 10010:3000
     environment:
       - TZ=Asia/Seoul
+    env_file:
+      - .env.production.local
     networks:
       - onf-client
 
