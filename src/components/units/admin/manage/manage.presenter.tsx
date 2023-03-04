@@ -56,10 +56,7 @@ const ManagePresenter = (props: IManagePresenterProps) => {
           </S.SwitchBox>
           {props.tab === '직원' && (
             <S.TotalMembersCount>
-              총 직원 수:{' '}
-              {Number(
-                props.data?.members?.fetchMembers[0].company.memberCount,
-              ) + 1}
+              총 직원 수: {props.data?.members?.fetchMembers.length}
             </S.TotalMembersCount>
           )}
           <ScrollableTable

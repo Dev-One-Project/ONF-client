@@ -20,7 +20,7 @@ import Check01 from './check01';
 
 interface ISelectProps {
   register?: UseFormRegisterReturn;
-  setValue?: UseFormSetValue<FieldValues>;
+  setValue?: UseFormSetValue<FieldValues | any>;
   setState?: SetStateAction<any>;
   name?: string;
   role?: string;
