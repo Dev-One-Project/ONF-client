@@ -28,29 +28,35 @@ const AdminProfileUI = (props: IAdminProfileProps) => {
         <S.FormBody>
           <S.FormContents>
             <S.Label>이름</S.Label>
-            <Input01 type="text" register={props.register('name')} />
+            <Input01
+              defaultValue={props.data?.fetchAccount.name}
+              type="text"
+              register={props.register('account.name')}
+            />
           </S.FormContents>
           <S.FormContents>
             <S.Label>이메일</S.Label>
-            <S.Label>4ggie97@gmail.com</S.Label>
+            <S.Label>{props.data?.fetchAccount.email}</S.Label>
           </S.FormContents>
           <S.FormContents>
             <S.Label>전화번호</S.Label>
-            <S.Label>01062986609</S.Label>
+            <S.Label>
+              {props.data?.fetchAccount.phone ?? '등록된 전화번호가 없습니다.'}
+            </S.Label>
           </S.FormContents>
           <S.FormContents>
             <S.Label>직무들</S.Label>
             <Select01
-              register={props.register('duty')}
-              setValue={props.setValue}
+              // register={props.register('duty')}
+              // setValue={props.setValue}
               name={'duty'}
             />
           </S.FormContents>
           <S.FormContents>
             <S.Label>지점들</S.Label>
             <Select01
-              register={props.register('organization')}
-              setValue={props.setValue}
+              // register={props.register('organization')}
+              // setValue={props.setValue}
               name={'oranization'}
               data={[
                 { id: 'busker', name: 'BUSKER' },
@@ -100,7 +106,9 @@ const AdminProfileUI = (props: IAdminProfileProps) => {
                 />
               </Tooltip>
             </S.Label>
-            <S.Label>최고 관리자</S.Label>
+            <S.Label>
+              {props.data?.fetchAccount.roles ?? '등록된 권한이 없습니다.'}
+            </S.Label>
           </S.FormContents>
           <S.FormContents>
             <S.Label>모바일 알림 설정</S.Label>
@@ -108,7 +116,7 @@ const AdminProfileUI = (props: IAdminProfileProps) => {
               <S.NotificationContents>
                 <Check01
                   text="출근 알림"
-                  register={props.register('goToWorkAlert')}
+                  // register={props.register('goToWorkAlert')}
                 />
                 <S.NotificationSubscription>
                   (모바일 앱으로 배정된 지점 내 직원들의 출근 알림을 받습니다)
@@ -117,7 +125,7 @@ const AdminProfileUI = (props: IAdminProfileProps) => {
               <S.NotificationContents>
                 <Check01
                   text="퇴근 알림"
-                  register={props.register('goToHomeAlert')}
+                  // register={props.register('goToHomeAlert')}
                 />
                 <S.NotificationSubscription>
                   (모바일 앱으로 배정된 지점 내 직원들의 퇴근 알림을 받습니다)
@@ -126,7 +134,7 @@ const AdminProfileUI = (props: IAdminProfileProps) => {
               <S.NotificationContents>
                 <Check01
                   text="지각 알림"
-                  register={props.register('lateAlert')}
+                  // register={props.register('lateAlert')}
                 />
                 <S.NotificationSubscription>
                   (모바일 앱으로 배정된 지점 내 직원들의 지각 알림을 받습니다 -
@@ -136,7 +144,7 @@ const AdminProfileUI = (props: IAdminProfileProps) => {
               <S.NotificationContents>
                 <Check01
                   text="초과 근무 알림"
-                  register={props.register('overWorkAlert')}
+                  // register={props.register('overWorkAlert')}
                 />
                 <S.NotificationSubscription>
                   (모바일 앱으로 배정된 지점 내 직원들의 초과 근무 알림을
@@ -146,7 +154,7 @@ const AdminProfileUI = (props: IAdminProfileProps) => {
               <S.NotificationContents>
                 <Check01
                   text="요청 알림"
-                  register={props.register('requestAlert')}
+                  // register={props.register('requestAlert')}
                 />
                 <S.NotificationSubscription>
                   (모바일 앱으로 모든 요청 알림을 받습니다)
@@ -159,7 +167,7 @@ const AdminProfileUI = (props: IAdminProfileProps) => {
             <S.NotificationContents>
               <Check01
                 text="요청 알림"
-                register={props.register('emailAlert')}
+                // register={props.register('emailAlert')}
               />
               <S.NotificationSubscription>
                 (이메일로 모든 요청 알림을 받습니다)

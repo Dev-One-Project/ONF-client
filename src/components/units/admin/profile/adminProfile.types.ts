@@ -1,17 +1,23 @@
+import { IQuery } from './../../../../commons/types/generated/types';
 import { MenuProps } from 'antd';
 import {
-  FieldValues,
   UseFormHandleSubmit,
   UseFormRegister,
   UseFormSetValue,
 } from 'react-hook-form';
 
+export interface IFormData {
+  duty?: string[];
+  organization?: string[];
+  account: { name?: string };
+}
+
 export interface IAdminProfileProps {
-  setValue: UseFormSetValue<FieldValues>;
-  register: UseFormRegister<FieldValues>;
+  setValue: UseFormSetValue<IFormData>;
+  register: UseFormRegister<IFormData>;
   onSubmit: (data: any) => void;
-  handleSubmit: UseFormHandleSubmit<FieldValues>;
-  data?: any;
+  handleSubmit: UseFormHandleSubmit<IFormData>;
+  data?: Pick<IQuery, 'fetchAccount'>;
   items?: MenuProps['items'];
   organizationModalState: boolean;
   categoryModalState: boolean;
