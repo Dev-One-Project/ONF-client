@@ -10,8 +10,6 @@ export default function Home() {
   const { onClickMoveToPage } = useMoveToPage();
   const { data: fetchAccount } = useQuery(FETCH_ACCOUNT);
 
-  console.log(fetchAccount, 'fetchAccount');
-
   return (
     <Section>
       <Header>
@@ -55,7 +53,7 @@ export default function Home() {
           </button>
         )}
         {fetchAccount?.fetchAccount.roles === 'ADMIN' && (
-          <button onClick={onClickMoveToPage('/admin/schedule')}>
+          <button onClick={onClickMoveToPage('/admin/home')}>
             <LoginOutlined /> 관리자
           </button>
         )}
