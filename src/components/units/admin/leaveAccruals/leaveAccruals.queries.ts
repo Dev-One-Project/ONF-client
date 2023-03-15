@@ -55,16 +55,14 @@ export const FETCH_VACATION_ISSUE_DETAIL = gql`
 export const FETCH_VACATION_ISSUE_BASE = gql`
   query fetchVacationIssueBaseDate(
     $baseDate: DateTime!
-    $organizationId: [String!]!
-    $startDate: DateTime
-    $endDate: DateTime
-  ) {
+    $organizationId: [String!]! # $startDate: DateTime
+  ) # $endDate: DateTime
+  {
     fetchVacationIssueBaseDate(
       baseDate: $baseDate
-      organizationId: $organizationId
-      startDate: $startDate
-      endDate: $endDate
-    ) {
+      organizationId: $organizationId # startDate: $startDate
+    ) # endDate: $endDate
+    {
       id
       startingPoint
       expirationDate
@@ -84,14 +82,12 @@ export const FETCH_VACATION_ISSUE_BASE_DELETE = gql`
   query fetchVacationIssueWithBaseDateDelete(
     $baseDate: DateTime!
     $organizationId: [String!]!
-    $startDate: DateTime
-    $endDate: DateTime
+    $startDate: DateTime # $endDate: DateTime
   ) {
     fetchVacationIssueWithBaseDateDelete(
       baseDate: $baseDate
       organizationId: $organizationId
-      startDate: $startDate
-      endDate: $endDate
+      startDate: $startDate # endDate: $endDate
     ) {
       id
       startingPoint

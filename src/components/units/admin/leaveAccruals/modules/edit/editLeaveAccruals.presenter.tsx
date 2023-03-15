@@ -13,7 +13,6 @@ const EditLeaveAccrualsPresenter = (
   props: IEditLeaveAccrualsPresenterProps,
 ) => {
   const dateFormat = 'YYYY-MM-DD';
-  console.log(props.data);
 
   return (
     <form onSubmit={props.handleSubmit(props.onSubmit)}>

@@ -158,8 +158,8 @@ const LeaveAccrualsContainer = () => {
     variables: {
       baseDate,
       organizationId: organizationArr?.map((organization) => organization.id),
-      startDate: startEndDate[0],
-      endDate: startEndDate[1],
+      // startDate: startEndDate[0],
+      // endDate: startEndDate[1],
     },
   });
 
@@ -172,7 +172,7 @@ const LeaveAccrualsContainer = () => {
       baseDate,
       organizationId: organizationArr?.map((organization) => organization.id),
       startDate: startEndDate[0],
-      endDate: startEndDate[1],
+      // endDate: startEndDate[1],
     },
   });
 

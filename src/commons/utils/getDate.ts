@@ -54,3 +54,22 @@ export const getDateLeave = (start: Date, end: Date) => {
   const day = dayToString(date.getDay());
   return `${mm}월 ${dd}일 (${day})`;
 };
+
+export const getDateDayMD = (start: Date) => {
+  const date = new Date(start);
+  const mm = String(date.getMonth() + 1);
+  const dd = String(date.getDate()).padStart(2, '0');
+  const day = dayToString(date.getDay());
+  return `(${day}, ${mm}월 ${dd}일)`;
+};
+
+export const getDateAll = (start: Date) => {
+  const date = new Date(start);
+  const yyyy = date.getFullYear();
+  const mm = String(date.getMonth() + 1).padStart(2, '0');
+  const dd = String(date.getDate()).padStart(2, '0');
+  const hour = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  const seconds = date.getSeconds().toString().padStart(2, '0');
+  return `${yyyy}/${mm}/${dd} ${hour}:${minutes}:${seconds}`;
+};

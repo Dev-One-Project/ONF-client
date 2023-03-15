@@ -1,3 +1,4 @@
+import { MouseEvent } from 'react';
 import {
   IQuery,
   IVacation,
@@ -8,7 +9,7 @@ import * as S from '../leaves.styles';
 
 interface ILeaveOptionalFetchProps {
   filterInit: boolean;
-  onClickList: () => void;
+  onClickList: (e: MouseEvent<HTMLUListElement>) => void;
   onCheckedElement: (checked: boolean, selectedTarget: IVacation) => void;
   checkedList: IVacation[];
   withDate?: Pick<IQuery, 'fetchVacationWithDate'>;
@@ -19,7 +20,11 @@ const LeaveOptionalFetch = (props: ILeaveOptionalFetchProps) => {
   const leaveOptionalFetch = () => {
     if (props.filterInit) {
       return props.withDate?.fetchVacationWithDate.flat().map((fetchData) => (
-        <S.Ul onClick={props.onClickList} key={fetchData.id}>
+        <S.Ul
+          onClick={props.onClickList}
+          key={fetchData.id}
+          id={String(fetchData.id)}
+        >
           <li>
             <Check01
               onClick={(e) => {
@@ -48,7 +53,11 @@ const LeaveOptionalFetch = (props: ILeaveOptionalFetchProps) => {
       return props.withDelete?.fetchVacationWithDelete
         .flat()
         .map((fetchData) => (
-          <S.Ul onClick={props.onClickList} key={fetchData.id}>
+          <S.Ul
+            onClick={props.onClickList}
+            key={fetchData.id}
+            id={String(fetchData.id)}
+          >
             <li>
               <Check01
                 onClick={(e) => {

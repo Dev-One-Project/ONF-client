@@ -12,6 +12,8 @@ import Select02 from '../../../commons/input/select02';
 import Textarea from '../../../commons/textarea';
 import LeaveOptionalFetch from './modules/leaveOptionalFetch';
 import Calendar from '../../../commons/calendar/calendar';
+import { getDateDayMD } from '../../../../commons/utils/getDate';
+import EditLeavesContainer from './modules/edit/editLeaves.container';
 
 const LeavesPresenter = (props: ILeavesPresenterProps) => {
   return (
@@ -142,80 +144,19 @@ const LeavesPresenter = (props: ILeavesPresenterProps) => {
           aniMode={props.aniMode}
           onCancel={props.onClickCloseModal}
           width="31rem"
-          title={'김멤버의 휴가 바꾸기 (목, 12월 22일)'}
+          title={`${String(
+            props.data?.fetchVacation.member?.name,
+          )}의 휴가 바꾸기 ${getDateDayMD(
+            props.data?.fetchVacation.vacationStartDate,
+          )}`}
         >
-          <form>
-            <S.ModalWrapper>
-              <S.ModalField>
-                <S.LabelBox>
-                  <label>휴가 유형</label>
-                  <Select02
-                    data={props.memberData}
-                    register={props.register('member')}
-                  />
-                </S.LabelBox>
-                <S.LabelBox>
-                  <label>휴가 기간</label>
-                  <DatePicker.RangePicker
-                    style={{
-                      borderRadius: '0',
-                      padding: '0.4rem 1rem',
-                    }}
-                    defaultValue={[
-                      dayjs(
-                        new Date(
-                          props.date.getFullYear(),
-                          props.date.getMonth(),
-                          1,
-                        ),
-                      ),
-                      dayjs(
-                        new Date(
-                          props.date.getFullYear(),
-                          Number(props.date.getMonth()) + 1,
-                          0,
-                        ),
-                      ),
-                    ]}
-                    onChange={props.onChangeStartEndDate}
-                  />
-                </S.LabelBox>
-                <S.MemoBox>
-                  <label>사유</label>
-                  <Textarea height="4rem" register={props.register('memo')} />
-                </S.MemoBox>
-              </S.ModalField>
-              <S.LabelBox>
-                <S.P>생성일자</S.P>
-                <S.P>2022/12/22 16:04:45</S.P>
-              </S.LabelBox>
-              <S.LabelBox>
-                <S.P>마지막 수정일자</S.P>
-                <S.P>2022/12/28 15:57:03</S.P>
-              </S.LabelBox>
-            </S.ModalWrapper>
-            <Divider
-              style={{ margin: '1.8rem 0 0', transform: 'scaleX(1.07)' }}
-            />
-            <S.ModalFooter>
-              <Btn01 type={'button'} text="삭제하기" bdC="#ddd" color="red" />
-              <S.BtnBox>
-                <Btn01
-                  type={'button'}
-                  text="닫기"
-                  bdC="#ddd"
-                  onClick={props.onClickCloseModal}
-                />
-                <Btn01
-                  type={'button'}
-                  text="변경사항 저장"
-                  color="#fff"
-                  bgC={styleSet.colors.primary}
-                  bdC={styleSet.colors.primary}
-                />
-              </S.BtnBox>
-            </S.ModalFooter>
-          </form>
+          <EditLeavesContainer
+            vacationCategoriesData={props.vacationCategoriesData}
+            data={props.data}
+            date={props.date}
+            onClickCloseModal={props.onClickCloseModal}
+            setAniMode={props.setAniMode}
+          />
         </FallingModal>
       )}
 
