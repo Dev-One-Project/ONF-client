@@ -1,8 +1,9 @@
 import { useMutation, useQuery } from '@apollo/client';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { MouseEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   IQuery,
+  IQueryFetchVacationArgs,
   IQueryFetchVacationWithDateArgs,
   IQueryFetchVacationWithDeleteArgs,
   IVacation,
@@ -13,6 +14,7 @@ import {
   CREATE_VACATION,
   DELETE_MANY_VACATION,
   FETCH_MEMBERS,
+  FETCH_VACATION,
   FETCH_VACATION_CATEGORIES,
   FETCH_VACATION_WITH_DATE,
   FETCH_VACATION_WITH_DELETE,
@@ -21,6 +23,9 @@ import { IInputData } from './leaves.types';
 
 const LeavesContainer = () => {
   const date = new Date();
+
+  const { register, handleSubmit, setValue } = useForm();
+
   const [filterInit, setFilterInit] = useState(false);
   const [isCheckedChange, setIsCheckedChange] = useState(false);
   const [organizationArr, setOrganizationArr] = useState<IInputData[]>([]);
@@ -33,7 +38,7 @@ const LeavesContainer = () => {
   const [checkedList, setCheckedList] = useState<IVacation[]>([]);
   const [dataLength, setDataLength] = useState(0);
 
-  const { register, handleSubmit, setValue } = useForm();
+  const [vacationId, setVacationId] = useState('');
 
   const [isOpen, setIsOpen] = useState(false);
   const [aniMode, setAniMode] = useState(false);
@@ -47,9 +52,10 @@ const LeavesContainer = () => {
     setStartEndDate([value[0].$d, value[1].$d]);
   };
 
-  const onClickList = () => {
+  const onClickList = (e: MouseEvent<HTMLUListElement>) => {
     setIsOpen(true);
     setAniMode(true);
+    setVacationId(e.currentTarget.id);
   };
 
   const onClickOpenModal = () => {
@@ -70,7 +76,6 @@ const LeavesContainer = () => {
     try {
       data.vacations = selectedDate.map((data) => new Date(data));
       data.memberId = memberArr?.map((data) => data.id);
-      console.log(data);
       await createVacation({
         variables: { createVacationInput: data },
         update(cache) {
@@ -85,6 +90,11 @@ const LeavesContainer = () => {
       alert(error);
     }
   };
+
+  const { data } = useQuery<
+    Pick<IQuery, 'fetchVacation'>,
+    IQueryFetchVacationArgs
+  >(FETCH_VACATION, { variables: { vacationId } });
 
   const { data: organizations } =
     useQuery<Pick<IQuery, 'fetchOrganizations'>>(FETCH_ORGANIZATIONS);
@@ -261,6 +271,8 @@ const LeavesContainer = () => {
       memberData={memberData}
       setMemberArr={setMemberArr}
       vacationCategoriesData={vacationCategoriesData}
+      data={data}
+      setAniMode={setAniMode}
     />
   );
 };

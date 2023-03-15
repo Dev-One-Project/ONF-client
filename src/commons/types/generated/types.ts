@@ -666,7 +666,7 @@ export type IMutationUpdateManyVacationCategoriesArgs = {
 
 
 export type IMutationUpdateManyVacationsIssueArgs = {
-  updateVacationIssueInput?: InputMaybe<IUpdateVacationIssueInput>;
+  updateVacationIssueInput: IUpdateVacationIssueInput;
   vacationIssueId: Array<Scalars['String']>;
 };
 
@@ -991,9 +991,7 @@ export type IQueryFetchVacationIssueArgs = {
 
 export type IQueryFetchVacationIssueBaseDateArgs = {
   baseDate: Scalars['DateTime'];
-  endDate?: InputMaybe<Scalars['DateTime']>;
   organizationId: Array<Scalars['String']>;
-  startDate?: InputMaybe<Scalars['DateTime']>;
 };
 
 
@@ -1013,9 +1011,7 @@ export type IQueryFetchVacationIssueDetailDateDeleteArgs = {
 
 export type IQueryFetchVacationIssueWithBaseDateDeleteArgs = {
   baseDate: Scalars['DateTime'];
-  endDate?: InputMaybe<Scalars['DateTime']>;
   organizationId: Array<Scalars['String']>;
-  startDate?: InputMaybe<Scalars['DateTime']>;
 };
 
 
@@ -1213,10 +1209,12 @@ export type IUpdateWorkCheckInput = {
 export type IVacation = {
   __typename?: 'Vacation';
   company?: Maybe<ICompany>;
+  createdAt?: Maybe<Scalars['DateTime']>;
   description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['String']>;
   member?: Maybe<IMember>;
   organization?: Maybe<IOrganization>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
   vacationCategory?: Maybe<IVacationCategory>;
   vacationEndDate?: Maybe<Scalars['DateTime']>;
   vacationStartDate: Scalars['DateTime'];

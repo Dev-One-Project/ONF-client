@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, MouseEvent, SetStateAction } from 'react';
 import {
   FieldValues,
   UseFormHandleSubmit,
@@ -17,7 +17,7 @@ export interface ILeavesPresenterProps {
   onChangeStartEndDate: (value: any) => void;
   isOpen: boolean;
   aniMode: boolean;
-  onClickList: () => void;
+  onClickList: (e: MouseEvent<HTMLUListElement>) => void;
   onClickCloseModal: () => void;
   setIsOpen: SetStateAction<any>;
   register: UseFormRegister<FieldValues>;
@@ -43,6 +43,8 @@ export interface ILeavesPresenterProps {
   memberData?: InputData[];
   setMemberArr: Dispatch<SetStateAction<IInputData[]>>;
   vacationCategoriesData?: IInputData[];
+  data?: Pick<IQuery, 'fetchVacation'>;
+  setAniMode: Dispatch<SetStateAction<boolean>>;
 }
 
 export interface IInputData {

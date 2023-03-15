@@ -91,3 +91,24 @@ export const CREATE_VACATION = gql`
     }
   }
 `;
+
+export const FETCH_VACATION = gql`
+  query fetchVacation($vacationId: String!) {
+    fetchVacation(vacationId: $vacationId) {
+      id
+      vacationStartDate
+      vacationEndDate
+      description
+      member {
+        id
+        name
+      }
+      vacationCategory {
+        id
+        name
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
