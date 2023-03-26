@@ -37,12 +37,12 @@ export const INSERT_WORK_INFO = gql`
   mutation insertWorkInfo(
     $memberId: String!
     $workInfoId: String!
-    $appiedFrom: String!
+    $appliedFrom: String!
   ) {
     insertWorkInfo(
       memberId: $memberId
       workInfoId: $workInfoId
-      appiedFrom: $appiedFrom
+      appliedFrom: $appliedFrom
     ) {
       id
       name

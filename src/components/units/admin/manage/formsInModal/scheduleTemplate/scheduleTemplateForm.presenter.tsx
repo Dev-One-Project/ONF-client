@@ -79,7 +79,7 @@ const ScheduleTemplateFormPresenter = (
         </InputLabel>
         <Memo register={props.register('memo')} textareaHeight={'4rem'} />
       </Wrapper>
-      <Footer onCancel={props.onCancel} />
+      <Footer isValid={props.isValid} onCancel={props.onCancel} />
     </form>
   );
 };

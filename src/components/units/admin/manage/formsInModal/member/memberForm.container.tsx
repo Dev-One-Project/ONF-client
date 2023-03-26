@@ -78,7 +78,7 @@ const MemberFormContainer = (props: IFormProps) => {
     return () => {
       reset({});
     };
-  }, []);
+  }, [props.editTarget, reset]);
 
   const onChangeStartDate: DatePickerProps['onChange'] = (
     date: Dayjs | null,
@@ -180,7 +180,7 @@ const MemberFormContainer = (props: IFormProps) => {
         variables: {
           memberId: result.data?.createMember.id ?? '',
           workInfoId: data.workInfoId ?? '',
-          appiedFrom: data.appliedFrom ?? '',
+          appliedFrom: data.appliedFrom ?? '',
         },
         update(cache) {
           cache.modify({
