@@ -47,14 +47,6 @@ export const FETCH_ORGANIZATIONS = gql`
       lat
       lng
       description
-      # color
-      # scheduleTemplate {
-      #   id
-      #   name
-      #   startTime
-      #   endTime
-      #   colorCode
-      # }
     }
   }
 `;
@@ -66,13 +58,6 @@ export const FETCH_ROLE_CATEGORIES = gql`
       name
       memo
       colorCode
-      # scheduleTemplate {
-      #   id
-      #   name
-      #   startTime
-      #   endTime
-      #   colorCode
-      # }
     }
   }
 `;
@@ -115,12 +100,6 @@ export const FETCH_ALL_SCHEDULE_TEMPLATE = gql`
     }
   }
 `;
-
-// export const FETCH_WAGES = gql`
-//   query {
-
-//   }
-// `
 
 export const FETCH_VACATION_CATEGORIES = gql`
   query {

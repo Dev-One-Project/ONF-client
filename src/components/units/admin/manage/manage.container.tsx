@@ -12,13 +12,9 @@ const Manage = (props: IManageProps) => {
   useEffect(() => {
     if (props.tab !== '직원') return;
     const onChangeSwitch = async () => {
-      console.log(isInActive);
       try {
-        const result = await props.refetch?.({ isInActiveMember: isInActive });
-        console.log(result);
-      } catch (error) {
-        console.log(error);
-      }
+        await props.refetch?.({ isInActiveMember: isInActive });
+      } catch (error) {}
     };
     void onChangeSwitch();
   }, [props, isInActive]);
