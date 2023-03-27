@@ -1,4 +1,5 @@
 import { SearchOutlined } from '@ant-design/icons';
+import { gql, useQuery } from '@apollo/client';
 import styled from '@emotion/styled';
 import { ChangeEvent, MouseEvent, useMemo, useState } from 'react';
 import {
@@ -7,6 +8,7 @@ import {
   UseFormSetValue,
 } from 'react-hook-form';
 import { styleSet } from '../../../commons/styles/styleSet';
+import { IQuery } from '../../../commons/types/generated/types';
 
 interface ISelectProps {
   register?: UseFormRegisterReturn;
@@ -32,10 +34,25 @@ interface IStyle {
   customWidth?: string;
 }
 
+const FETCH_ACCOUNT = gql`
+  query {
+    fetchAccount {
+      id
+      member {
+        id
+        name
+      }
+    }
+  }
+`;
+
 const Select02 = (props: ISelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [keyword, setKeyword] = useState('');
   const [isSelect, setIsSelect] = useState('');
+
+  const { data: fetchAccount } =
+    useQuery<Pick<IQuery, 'fetchAccount'>>(FETCH_ACCOUNT);
 
   useMemo(() => {
     if (props.defaultValue && props.name) {
@@ -107,7 +124,11 @@ const Select02 = (props: ISelectProps) => {
               <Options className="options">
                 <div style={{ margin: '0.1rem 0' }} />
                 {props.data
-                  ?.filter((el) => el.name?.includes(keyword))
+                  ?.filter(
+                    (el) =>
+                      el.name?.includes(keyword) &&
+                      el.id === fetchAccount?.fetchAccount.member?.id,
+                  )
                   .map((el) => (
                     <p
                       key={el.id}
@@ -126,7 +147,11 @@ const Select02 = (props: ISelectProps) => {
                 <Options className="options">
                   <div style={{ margin: '0.1rem 0' }} />
                   {props.data
-                    ?.filter((el) => el.name?.includes(keyword))
+                    ?.filter(
+                      (el) =>
+                        el.name?.includes(keyword) &&
+                        el.id !== fetchAccount?.fetchAccount.member?.id,
+                    )
                     .map((el) => (
                       <p
                         key={el.id}
