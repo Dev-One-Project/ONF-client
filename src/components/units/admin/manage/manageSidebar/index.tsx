@@ -6,10 +6,6 @@ interface ITabProps {
   isActive: boolean;
 }
 
-// interface IStyle {
-//   isAdminSidebar?: boolean;
-// }
-
 const ManageSidebarComponent = () => {
   const router = useRouter();
 
@@ -24,6 +20,7 @@ const ManageSidebarComponent = () => {
   ];
 
   const onClickChangeTab = (path: string) => async () => {
+    if (router.asPath.includes(path)) return;
     await router.push(`/admin/manage/${path}`);
   };
   return (

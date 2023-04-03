@@ -1,7 +1,6 @@
 import { CheckCircleOutlined } from '@ant-design/icons';
 import { useMutation, useQuery } from '@apollo/client';
 import { notification } from 'antd';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { styleSet } from '../../../../commons/styles/styleSet';
 import {
@@ -21,8 +20,7 @@ const AdminProfile = () => {
     Pick<IMutation, 'changeAccount'>,
     IMutationChangeAccountArgs
   >(CHANGE_ACCOUNT);
-  const [categoryModalState, setCategoryModalState] = useState(false);
-  const [organizationModalState, setOrganizationModalState] = useState(false);
+
   const { register, handleSubmit, setValue } = useForm<IFormData>({});
 
   const onSubmit = async (data: IFormData) => {
@@ -51,24 +49,13 @@ const AdminProfile = () => {
     }
   };
 
-  const onClickToggleCategoryModal = () => {
-    setCategoryModalState((prev) => !prev);
-  };
-  const onClickToggleOrganizationModal = () => {
-    setOrganizationModalState((prev) => !prev);
-  };
-
   return (
     <AdminProfileUI
       data={accountData}
       setValue={setValue}
       onSubmit={onSubmit}
       handleSubmit={handleSubmit}
-      categoryModalState={categoryModalState}
-      organizationModalState={organizationModalState}
       register={register}
-      onClickToggleCategoryModal={onClickToggleCategoryModal}
-      onClickToggleOrganizationModal={onClickToggleOrganizationModal}
     />
   );
 };

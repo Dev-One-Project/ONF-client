@@ -44,7 +44,7 @@ const Switch01 = (props: ISwitch01Props) => {
 
 export default Switch01;
 
-const Switch = styled.li`
+const Switch = styled.span`
   display: flex;
   word-break: keep-all;
   align-items: center;

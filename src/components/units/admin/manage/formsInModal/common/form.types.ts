@@ -11,10 +11,4 @@ export interface IFormProps {
     workInfos?: Pick<IQuery, 'fetchWorkInfos'>;
     scheduleCategories?: Pick<IQuery, 'fetchAllScheduleCategories'>;
   };
-
-  // 빌드 에러 수정용... 나중에 삭제
-  register?: any;
-  onSubmit?: any;
-  handleSubmit?: any;
-  setValue?: any;
 }

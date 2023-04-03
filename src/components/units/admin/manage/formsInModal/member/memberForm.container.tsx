@@ -73,12 +73,16 @@ const MemberFormContainer = (props: IFormProps) => {
   useEffect(() => {
     if (props.editTarget) {
       reset(props.editTarget);
+      if (props.editTarget.workInfo) {
+        setIsActiveWagesInput(true);
+        setValue('workInfoId', props.editTarget.workInfo.id);
+      }
     }
 
     return () => {
       reset({});
     };
-  }, [props.editTarget, reset]);
+  }, [props.editTarget, reset, setValue]);
 
   const onChangeStartDate: DatePickerProps['onChange'] = (
     date: Dayjs | null,
@@ -141,11 +145,21 @@ const MemberFormContainer = (props: IFormProps) => {
     },
   ];
 
+  const workInfoDefaultValue = props.editTarget?.workInfo?.id && [
+    {
+      id: String(props.editTarget?.workInfo?.id),
+      name: String(props.editTarget?.workInfo?.name),
+    },
+  ];
+
   const defaultJoinDate = props.editTarget?.joinDate
     ? dayjs(props.editTarget?.joinDate, 'YYYY-MM-DD')
     : undefined;
   const defaultExitDate = props.editTarget?.exitDate
     ? dayjs(props.editTarget?.exitDate, 'YYYY-MM-DD')
+    : undefined;
+  const defaultAppliedFrom = props.editTarget?.appliedFrom
+    ? dayjs(props.editTarget?.appliedFrom, 'YYYY-MM-DD')
     : undefined;
 
   const onSubmit = async (data: IFormData) => {
@@ -198,9 +212,37 @@ const MemberFormContainer = (props: IFormProps) => {
   };
 
   const onEdit = async (data: any) => {
+    const workInfoId =
+      typeof data.workInfoId === 'string'
+        ? data.workInfoId
+        : data.workInfoId[0];
     try {
       await updateMember({
-        variables: { memberId: props.editTarget?.id, updateMemberInput: data },
+        variables: {
+          memberId: props.editTarget?.id,
+          updateMemberInput: {
+            name: data.name,
+            organizationId: data.organizationId[0],
+            roleCategoryId: data.roleCategoryId[0],
+            exitDate: data.exitDate,
+            joinDate: data.joinDate,
+            memo: data.memo,
+          },
+        },
+      });
+      await insertWorkInfo({
+        variables: {
+          memberId: props.editTarget?.id,
+          appliedFrom: data.appliedFrom ?? '',
+          workInfoId,
+        },
+        update(cache) {
+          cache.modify({
+            fields: {
+              fetchMembers: () => {},
+            },
+          });
+        },
       });
     } catch (error) {
       if (error instanceof Error) alert(error.message);
@@ -209,7 +251,17 @@ const MemberFormContainer = (props: IFormProps) => {
 
   const onSoftDelete = async () => {
     try {
-      await softDeleteMember({ variables: { memberId: props.editTarget?.id } });
+      await softDeleteMember({
+        variables: { memberId: props.editTarget?.id },
+        update(cache) {
+          cache.modify({
+            fields: {
+              fetchMembers: () => {},
+            },
+          });
+        },
+      });
+      props.onCancel();
       Modal.success({
         content: `${String(props.editTarget?.name)} 님이 비활성화 되었습니다.`,
       });
@@ -220,11 +272,13 @@ const MemberFormContainer = (props: IFormProps) => {
 
   return (
     <MemberFormpresenter
+      editTarget={props.editTarget}
       isValid={isValid}
       roleCategories={roleCategories}
       roleCategoryDefaultValue={roleCategoryDefaultValue}
       organizations={organizations}
       organizationDefaultValue={organizationDefaultValue}
+      workInfoDefaultValue={workInfoDefaultValue}
       setIsActiveStartDate={setIsActiveStartDate}
       isActiveStartDate={isActiveStartDate}
       defaultJoinDate={defaultJoinDate}
@@ -233,6 +287,7 @@ const MemberFormContainer = (props: IFormProps) => {
       setIsActiveEndDate={setIsActiveEndDate}
       isActiveEndDate={isActiveEndDate}
       defaultExitDate={defaultExitDate}
+      defaultAppliedFrom={defaultAppliedFrom}
       onChangeEndDate={onChangeEndDate}
       onChangeInvitation={onChangeInvitation}
       invitationRadio={invitationRadio}

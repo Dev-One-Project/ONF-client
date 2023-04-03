@@ -126,7 +126,7 @@ const Select01 = (props: ISelectProps) => {
       props.setValue?.(
         props.name,
         props.singleMode
-          ? checkedList[0].id
+          ? checkedList[0]?.id
           : checkedList.map((el) => (props.returnNameMode ? el.name : el.id)),
       );
     } else props.setState?.(checkedList);
