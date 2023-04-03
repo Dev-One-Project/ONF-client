@@ -19,8 +19,4 @@ export interface IAdminProfileProps {
   handleSubmit: UseFormHandleSubmit<IFormData>;
   data?: Pick<IQuery, 'fetchAccount'>;
   items?: MenuProps['items'];
-  organizationModalState: boolean;
-  categoryModalState: boolean;
-  onClickToggleOrganizationModal: () => void;
-  onClickToggleCategoryModal: () => void;
 }

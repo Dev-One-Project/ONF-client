@@ -70,6 +70,7 @@ const MemberFormpresenter = (props: IMemberFormPresenterProps) => {
                 <S.InnerContent>
                   <Check01
                     onChange={() => props.setIsActiveStartDate((prev) => !prev)}
+                    checked={props.isActiveStartDate}
                     text="입사일"
                   />
                   {props.isActiveStartDate && (
@@ -156,6 +157,7 @@ const MemberFormpresenter = (props: IMemberFormPresenterProps) => {
               <Check01
                 onChange={() => props.setIsActiveWagesInput((prev) => !prev)}
                 text="근로 정보 입력"
+                checked={props.isActiveWagesInput}
               />
               {props.isActiveWagesInput && (
                 <>
@@ -164,6 +166,7 @@ const MemberFormpresenter = (props: IMemberFormPresenterProps) => {
                     name="workInfoId"
                     setValue={props.setValue}
                     register={props.register('workInfoId')}
+                    defaultChecked={props.workInfoDefaultValue}
                     data={props.workInfos}
                     singleMode
                     textFillMode
@@ -174,7 +177,10 @@ const MemberFormpresenter = (props: IMemberFormPresenterProps) => {
                     type="custom"
                     name="appliedFrom"
                     customInput={
-                      <DatePicker onChange={props.onChangeAppliedFrom} />
+                      <DatePicker
+                        defaultValue={props.defaultAppliedFrom}
+                        onChange={props.onChangeAppliedFrom}
+                      />
                     }
                   >
                     적용 시점

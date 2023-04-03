@@ -34,16 +34,18 @@ export interface IMemberFormPresenterProps {
   organizations?: InputData[];
   roleCategoryDefaultValue?: InputData[];
   organizationDefaultValue?: InputData[];
+  workInfoDefaultValue?: InputData[];
   isActiveStartDate: boolean;
   setIsActiveStartDate: Dispatch<SetStateAction<boolean>>;
-  defaultJoinDate?: Dayjs;
   onChangeStartDate: DatePickerProps['onChange'];
   onChangeEndDate: DatePickerProps['onChange'];
   onChangeAppliedFrom: DatePickerProps['onChange'];
   onCancel: () => void;
   setIsActiveEndDate: Dispatch<SetStateAction<boolean>>;
   isActiveEndDate: boolean;
+  defaultJoinDate?: Dayjs;
   defaultExitDate?: Dayjs;
+  defaultAppliedFrom?: Dayjs;
   onChangeInvitation: (
     index: number,
   ) => (e: ChangeEvent<HTMLInputElement>) => void;

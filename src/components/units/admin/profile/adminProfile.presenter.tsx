@@ -47,21 +47,22 @@ const AdminProfileUI = (props: IAdminProfileProps) => {
           <S.FormContents>
             <S.Label>직무들</S.Label>
             <Select01
-              // register={props.register('duty')}
-              // setValue={props.setValue}
               name={'duty'}
+              data={[
+                { id: 'busker', name: '직무A' },
+                { id: 'zero9', name: '직무B' },
+                { id: 'wetrekking', name: '직무C' },
+              ]}
             />
           </S.FormContents>
           <S.FormContents>
             <S.Label>지점들</S.Label>
             <Select01
-              // register={props.register('organization')}
-              // setValue={props.setValue}
               name={'oranization'}
               data={[
-                { id: 'busker', name: 'BUSKER' },
-                { id: 'zero9', name: 'ZERO9' },
-                { id: 'wetrekking', name: 'WETREKKING' },
+                { id: 'busker', name: '지점A' },
+                { id: 'zero9', name: '지점B' },
+                { id: 'wetrekking', name: '지점C' },
               ]}
             />
           </S.FormContents>
