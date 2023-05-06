@@ -91,7 +91,8 @@ export const Table = styled.table`
   td {
     border: 1px solid ${styleSet.colors.gray};
     font-size: 8px;
-    min-width: calc((100vw - 26.5rem) / 31);
+    min-width: ${(props: any) =>
+      `calc((100vw - 26.5rem) / ${Number(props.day)})`};
     max-width: 30px;
     height: 3rem;
     text-align: center;

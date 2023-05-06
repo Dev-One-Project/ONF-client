@@ -44,6 +44,7 @@ const EditLeaveAccrualsContainer = (
   const onSubmit = async (data: any) => {
     try {
       console.log(data);
+      data.vacationAll = Number(data.vacationAll);
       await updateVacationIssue({
         variables: {
           vacationIssueId: props.listMemberId,

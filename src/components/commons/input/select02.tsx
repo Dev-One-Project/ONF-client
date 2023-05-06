@@ -124,10 +124,11 @@ const Select02 = (props: ISelectProps) => {
               <Options className="options">
                 <div style={{ margin: '0.1rem 0' }} />
                 {props.data
-                  ?.filter(
-                    (el) =>
-                      el.name?.includes(keyword) &&
-                      el.id === fetchAccount?.fetchAccount.member?.id,
+                  ?.filter((el) =>
+                    props.name === 'memberId'
+                      ? el.name?.includes(keyword) &&
+                        el.id === fetchAccount?.fetchAccount.member?.id
+                      : el.name?.includes(keyword),
                   )
                   .map((el) => (
                     <p
@@ -147,10 +148,11 @@ const Select02 = (props: ISelectProps) => {
                 <Options className="options">
                   <div style={{ margin: '0.1rem 0' }} />
                   {props.data
-                    ?.filter(
-                      (el) =>
-                        el.name?.includes(keyword) &&
-                        el.id !== fetchAccount?.fetchAccount.member?.id,
+                    ?.filter((el) =>
+                      props.name === 'memberId'
+                        ? el.name?.includes(keyword) &&
+                          el.id !== fetchAccount?.fetchAccount.member?.id
+                        : el.name?.includes(keyword),
                     )
                     .map((el) => (
                       <p

@@ -79,7 +79,7 @@ const AttendancesCalendarPresenter = (
       </S.OptWrapper>
 
       <S.UlWrapper>
-        <S.Table>
+        <S.Table day={props.monthArr.length}>
           <thead>
             <tr>
               <th></th>
