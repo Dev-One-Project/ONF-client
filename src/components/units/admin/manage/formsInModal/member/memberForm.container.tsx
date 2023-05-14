@@ -1,4 +1,3 @@
-import { Modal } from 'antd';
 import type { DatePickerProps } from 'antd';
 import { useEffect, useState } from 'react';
 import { IFormProps } from '../common/form.types';
@@ -24,6 +23,7 @@ import MemberFormpresenter from './memberForm.presenter';
 import { IFormData } from './memberForm.types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import AntdNotificationModal from '../../../../../commons/modal/antdNotificationModal';
 
 const schema = yup.object({
   name: yup.string().min(1).required(),
@@ -204,8 +204,8 @@ const MemberFormContainer = (props: IFormProps) => {
           });
         },
       });
-
       props.onCancel();
+      AntdNotificationModal({ message: '변경 사항이 저장되었습니다.' });
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }
@@ -244,6 +244,8 @@ const MemberFormContainer = (props: IFormProps) => {
           });
         },
       });
+      props.onCancel();
+      AntdNotificationModal({ message: '변경 사항이 저장되었습니다.' });
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }
@@ -262,9 +264,7 @@ const MemberFormContainer = (props: IFormProps) => {
         },
       });
       props.onCancel();
-      Modal.success({
-        content: `${String(props.editTarget?.name)} 님이 비활성화 되었습니다.`,
-      });
+      AntdNotificationModal({ message: '변경 사항이 저장되었습니다.' });
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }

@@ -29,11 +29,12 @@ import {
   SuccessModal,
 } from '../../../commons/modal/sweetAlertModal';
 import AdminHeaderPresenter from './header.presenter';
+import { useMoveToPage } from '../../../commons/hooks/useMoveToPage';
 
 const AdminHeaderContainer = () => {
   const router = useRouter();
   useAuth();
-
+  const { onClickMoveToPage } = useMoveToPage();
   const [, setIsAdminSidebar] = useRecoilState(isAdminSidebarState);
   const [isOpen, setIsOpen] = useState(false);
   const [isPoppingModalOpen, setIsPoppingModalOpen] = useState(false);
@@ -120,6 +121,7 @@ const AdminHeaderContainer = () => {
     try {
       await logout();
       SuccessModal('정상적으로 로그아웃 되었습니다.');
+      onClickMoveToPage('/');
     } catch (error) {
       ErrorModal('다시 시도해주세요.');
     }

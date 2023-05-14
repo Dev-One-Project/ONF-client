@@ -21,8 +21,8 @@ export default function Home() {
             height={60}
             onClick={onClickMoveToPage('/')}
           />
-          {fetchAccount?.fetchAccount ? (
-            <HeaderList>
+          <HeaderList>
+            {fetchAccount?.fetchAccount ? (
               <li
                 className="login"
                 onClick={onClickMoveToPage('/user/schedule')}
@@ -30,13 +30,13 @@ export default function Home() {
                 <UserOutlined />
                 {fetchAccount?.fetchAccount?.name}님 환영합니다!
               </li>
-            </HeaderList>
-          ) : (
-            <HeaderList>
-              <li onClick={onClickMoveToPage('/auth/login')}>로그인</li>
-              <li onClick={onClickMoveToPage('/auth/join')}>회원가입</li>
-            </HeaderList>
-          )}
+            ) : (
+              <>
+                <li onClick={onClickMoveToPage('/auth/login')}>로그인</li>
+                <li onClick={onClickMoveToPage('/auth/join')}>회원가입</li>
+              </>
+            )}
+          </HeaderList>
         </Wrapper>
       </Header>
 

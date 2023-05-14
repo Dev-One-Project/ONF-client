@@ -65,11 +65,16 @@ const VacationCategoryFormContainer = (props: IFormProps) => {
       name: String(role.name),
     }),
   );
+  const onEdit = () => {};
+  const onSoftDelete = () => {};
   return (
     <VacationCategoryFormPresenter
+      onEdit={onEdit}
+      onSoftDelete={onSoftDelete}
+      editTarget={props.editTarget}
+      isValid={isValid}
       organizations={organizations}
       roleCategories={roleCategories}
-      isValid={isValid}
       onSubmit={onSubmit}
       onCancel={props.onCancel}
       register={register}

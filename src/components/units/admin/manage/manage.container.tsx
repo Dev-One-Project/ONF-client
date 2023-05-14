@@ -29,9 +29,9 @@ const Manage = (props: IManageProps) => {
     setEditTarget(undefined);
   };
 
-  const onOpenEdit = (el: any) => {
-    console.log(el);
-    setEditTarget(el);
+  const onOpenEdit = (data: any) => {
+    console.log(data);
+    setEditTarget(data);
     onClickOpenModal();
   };
 

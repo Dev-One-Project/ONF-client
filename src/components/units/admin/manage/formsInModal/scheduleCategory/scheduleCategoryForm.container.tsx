@@ -24,6 +24,7 @@ const ScheduleCategoryFormContainer = (props: IFormProps) => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { isValid },
   } = useForm<IFormData>({
     resolver: yupResolver(categoryFormSchema),
@@ -50,8 +51,15 @@ const ScheduleCategoryFormContainer = (props: IFormProps) => {
       alert(error as string);
     }
   };
+
+  const onEdit = () => {};
+  const onSoftDelete = () => {};
   return (
     <ScheduleCategoryFormPresenter
+      onEdit={onEdit}
+      onSoftDelete={onSoftDelete}
+      editTarget={props.editTarget}
+      setValue={setValue}
       isValid={isValid}
       register={register}
       handleSubmit={handleSubmit}

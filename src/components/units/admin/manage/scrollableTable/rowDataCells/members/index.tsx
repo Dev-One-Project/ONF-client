@@ -19,7 +19,7 @@ const MemberData = (props: { data?: IMember }) => {
               props.data?.workInfo?.fixedPeriodRange,
             )} 평균 ${String(props.data?.workInfo?.fixedStandard)} ${String(
               props.data?.workInfo?.fixedHours,
-            )}`
+            )}시간`
           : '개발 예정'}
       </S.Td>
       <S.Td>
@@ -28,7 +28,7 @@ const MemberData = (props: { data?: IMember }) => {
               props.data?.workInfo?.maximumPeriodRange,
             )} 평균 ${String(props.data?.workInfo?.maximumStandard)} ${String(
               props.data?.workInfo?.maximumHours,
-            )}`
+            )}시간`
           : '개발 예정'}
       </S.Td>
       <S.Td>{props.data?.appliedFrom ?? '개발 예정'}</S.Td>

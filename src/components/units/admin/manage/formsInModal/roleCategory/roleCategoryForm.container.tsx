@@ -17,6 +17,7 @@ const RoleCategoryFormContainer = (props: IFormProps) => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { isValid },
   } = useForm();
 
@@ -40,6 +41,9 @@ const RoleCategoryFormContainer = (props: IFormProps) => {
       alert(error as string);
     }
   };
+
+  const onEdit = () => {};
+  const onSoftDelete = () => {};
   return (
     <RoleCategoryFormPresenter
       isValid={isValid}
@@ -47,6 +51,10 @@ const RoleCategoryFormContainer = (props: IFormProps) => {
       register={register}
       onSubmit={onSubmit}
       onCancel={props.onCancel}
+      editTarget={props.editTarget}
+      onEdit={onEdit}
+      onSoftDelete={onSoftDelete}
+      setValue={setValue}
     />
   );
 };
