@@ -89,13 +89,18 @@ const WorkInfoFormContainer = (props: IFormProps) => {
       return filtered;
     });
   };
+  const onEdit = () => {};
+  const onSoftDelete = () => {};
   return (
     <WorkInfoFormPresenter
+      onEdit={onEdit}
+      onSoftDelete={onSoftDelete}
+      editTarget={props.editTarget}
+      isValid={isValid}
       register={register}
       setValue={setValue}
       handleSubmit={handleSubmit}
       onSubmit={onSubmit}
-      isValid={isValid}
       isActive={isActive}
       onClickTab={onClickTab}
       onCancel={props.onCancel}

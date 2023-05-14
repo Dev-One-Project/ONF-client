@@ -1,14 +1,8 @@
 import { InputData } from '../../../../../commons/input/select01';
-import {
-  FieldValues,
-  SubmitHandler,
-  UseFormHandleSubmit,
-  UseFormRegister,
-  UseFormSetValue,
-} from 'react-hook-form';
 import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { Dayjs } from 'dayjs';
 import type { DatePickerProps } from 'antd';
+import { FormActionTypes } from '../common/form.types';
 
 export interface IFormData {
   name?: string;
@@ -22,13 +16,7 @@ export interface IFormData {
   appliedFrom?: string;
 }
 
-export interface IMemberFormPresenterProps {
-  handleSubmit: UseFormHandleSubmit<FieldValues>;
-  editTarget?: any;
-  onEdit: SubmitHandler<FieldValues>;
-  onSubmit: SubmitHandler<FieldValues>;
-  register: UseFormRegister<FieldValues>;
-  setValue: UseFormSetValue<FieldValues>;
+export interface IMemberFormPresenterProps extends FormActionTypes {
   roleCategories?: InputData[];
   workInfos?: InputData[];
   organizations?: InputData[];
@@ -40,7 +28,6 @@ export interface IMemberFormPresenterProps {
   onChangeStartDate: DatePickerProps['onChange'];
   onChangeEndDate: DatePickerProps['onChange'];
   onChangeAppliedFrom: DatePickerProps['onChange'];
-  onCancel: () => void;
   setIsActiveEndDate: Dispatch<SetStateAction<boolean>>;
   isActiveEndDate: boolean;
   defaultJoinDate?: Dayjs;
@@ -51,8 +38,6 @@ export interface IMemberFormPresenterProps {
   ) => (e: ChangeEvent<HTMLInputElement>) => void;
   invitationRadio: boolean[];
   setIsActiveWagesInput: Dispatch<SetStateAction<boolean>>;
-  onSoftDelete: () => void;
   isActvieWageInput: boolean;
   isActiveWagesInput: boolean;
-  isValid: boolean;
 }

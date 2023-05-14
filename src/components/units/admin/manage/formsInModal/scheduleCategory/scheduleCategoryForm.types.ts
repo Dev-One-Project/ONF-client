@@ -1,8 +1,4 @@
-import {
-  SubmitHandler,
-  UseFormHandleSubmit,
-  UseFormRegister,
-} from 'react-hook-form';
+import { FormActionTypes } from '../common/form.types';
 
 export interface IFormData {
   test: string;
@@ -13,10 +9,4 @@ export interface IFormData {
   memo?: string;
 }
 
-export interface IScheduleCategoryFormPresenterProps {
-  register: UseFormRegister<IFormData>;
-  onSubmit: SubmitHandler<IFormData>;
-  handleSubmit: UseFormHandleSubmit<IFormData>;
-  onCancel: () => void;
-  isValid: boolean;
-}
+export interface IScheduleCategoryFormPresenterProps extends FormActionTypes {}

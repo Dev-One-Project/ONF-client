@@ -1,21 +1,10 @@
-import {
-  SubmitHandler,
-  UseFormHandleSubmit,
-  UseFormRegister,
-  UseFormSetValue,
-} from 'react-hook-form';
-
 import { IQuery } from '../../../../../../commons/types/generated/types';
 import { Address } from 'react-daum-postcode';
 import { Dispatch, SetStateAction } from 'react';
 import { valueType } from 'antd/es/statistic/utils';
+import { FormActionTypes } from '../common/form.types';
 
-export interface OrganizationFormPresenterProps {
-  register: UseFormRegister<IFormData>;
-  handleSubmit: UseFormHandleSubmit<IFormData>;
-  onSubmit: SubmitHandler<IFormData>;
-  setValue: UseFormSetValue<IFormData>;
-  onCancel: () => void;
+export interface OrganizationFormPresenterProps extends FormActionTypes {
   data?: {
     organizations?: Pick<IQuery, 'fetchOrganizations'>;
   };
@@ -35,11 +24,10 @@ export interface OrganizationFormPresenterProps {
   onChangeMarkerPosition: (args: Partial<GeolocationCoordinates>) => void;
   paintIp?: () => void;
   onTogglePositionTab: () => void;
-  isValid: boolean;
 }
 
 export interface IFormData {
-  name: string;
+  name?: string;
   checkPoint?: string;
   address: string;
   lat?: string;

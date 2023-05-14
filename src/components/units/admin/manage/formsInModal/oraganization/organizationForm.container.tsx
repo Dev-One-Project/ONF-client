@@ -8,12 +8,17 @@ import { useForm } from 'react-hook-form';
 import {
   IMutation,
   IMutationCreateOrganizationArgs,
+  // IMutationUpdateOrganizationArgs,
 } from '../../../../../../commons/types/generated/types';
 import { IFormProps } from '../common/form.types';
 import OrganizationFormPresenter from './organizationForm.presenter';
-import { CREATE_ORGANIZATION } from './organizationForm.queries';
+import {
+  CREATE_ORGANIZATION,
+  // UPDATE_ORGANIZATION,
+} from './organizationForm.queries';
 import * as yup from 'yup';
 import { IFormData } from './organizationForm.types';
+import AntdNotificationModal from '../../../../../commons/modal/antdNotificationModal';
 
 const schema = yup.object({
   name: yup.string().min(1).required(),
@@ -24,6 +29,11 @@ const OrganizationFormContainer = (props: IFormProps) => {
     Pick<IMutation, 'createOrganization'>,
     IMutationCreateOrganizationArgs
   >(CREATE_ORGANIZATION);
+  // const [updateOrganization] = useMutation<
+  //   Pick<IMutation, 'updateOrganization'>,
+  //   IMutationUpdateOrganizationArgs
+  // >(UPDATE_ORGANIZATION);
+
   const {
     register,
     setValue,
@@ -33,6 +43,7 @@ const OrganizationFormContainer = (props: IFormProps) => {
   } = useForm<IFormData>({
     resolver: yupResolver(schema),
   });
+
   const [positionTab, setPositionTab] = useState(false);
   const [wifiTab, setWifiTab] = useState(false);
   // const [ip, setIp] = useState('');
@@ -60,18 +71,21 @@ const OrganizationFormContainer = (props: IFormProps) => {
 
     void getLocation();
 
-    reset({
-      name: '',
-      checkPoint: '',
-      description: '',
-      address: '',
-      color: '',
-    });
+    reset(
+      props.editTarget ?? {
+        name: '',
+        checkPoint: '',
+        description: '',
+        address: '',
+        color: '',
+      },
+    );
 
     return () => {
       isComponentMounted = false;
+      reset({});
     };
-  }, []);
+  }, [reset, props.editTarget]);
 
   const onTogglePositionTab = () => {
     setPositionTab((prev) => !prev);
@@ -96,7 +110,9 @@ const OrganizationFormContainer = (props: IFormProps) => {
     formData.color = '#fff';
     try {
       await createOrganization({
-        variables: { createOrganizationInput: formData },
+        variables: {
+          createOrganizationInput: { ...formData, name: formData.name ?? '' },
+        },
         update(cache, { data }) {
           cache.modify({
             fields: {
@@ -112,6 +128,16 @@ const OrganizationFormContainer = (props: IFormProps) => {
       alert(error as string);
     }
   };
+
+  const onEdit = async (formData: any) => {
+    console.log(formData);
+    AntdNotificationModal({ message: '변경 사항이 저장되었습니다.' });
+  };
+
+  const onSoftDelete = () => {
+    AntdNotificationModal({ message: '변경 사항이 저장되었습니다.' });
+  };
+
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   return (
@@ -135,6 +161,9 @@ const OrganizationFormContainer = (props: IFormProps) => {
       data={props.data}
       register={register}
       onSubmit={onSubmit}
+      onEdit={onEdit}
+      editTarget={props.editTarget}
+      onSoftDelete={onSoftDelete}
       setValue={setValue}
       handleSubmit={handleSubmit}
       onCompleteSearch={onCompleteSearch}

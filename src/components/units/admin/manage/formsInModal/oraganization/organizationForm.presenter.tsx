@@ -14,7 +14,11 @@ import { styleSet } from '../../../../../../commons/styles/styleSet';
 
 const OrganizationFormPresenter = (props: OrganizationFormPresenterProps) => {
   return (
-    <form onSubmit={props.handleSubmit(props.onSubmit)}>
+    <form
+      onSubmit={props.handleSubmit(
+        props.editTarget ? props.onEdit : props.onSubmit,
+      )}
+    >
       <S.Wrapper>
         <InputLabel type="text" name="name" register={props.register('name')}>
           지점명
@@ -119,7 +123,12 @@ const OrganizationFormPresenter = (props: OrganizationFormPresenterProps) => {
         )}
         <Memo register={props.register('description')} />
       </S.Wrapper>
-      <Footer isValid={props.isValid} onCancel={props.onCancel} />
+      <Footer
+        isValid={props.isValid}
+        onSoftDelete={props.onSoftDelete}
+        isEdit={props.editTarget}
+        onCancel={props.onCancel}
+      />
     </form>
   );
 };

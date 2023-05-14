@@ -72,8 +72,14 @@ const ScheduleTemplateFormContainer = (props: IFormProps) => {
         name: String(schedule.name),
       }),
     );
+
+  const onEdit = () => {};
+  const onSoftDelete = () => {};
   return (
     <ScheduleTemplateFormPresenter
+      onEdit={onEdit}
+      onSoftDelete={onSoftDelete}
+      editTarget={props.editTarget}
       isValid={isValid}
       scheduleCategories={scheduleCategories}
       organizations={organizations}

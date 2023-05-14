@@ -1,10 +1,5 @@
-import {
-  SubmitHandler,
-  UseFormHandleSubmit,
-  UseFormRegister,
-  UseFormSetValue,
-} from 'react-hook-form';
 import { InputData } from '../../../../../commons/input/select01';
+import { FormActionTypes } from '../common/form.types';
 
 export interface IFormData {
   name: string;
@@ -16,13 +11,7 @@ export interface IFormData {
   roleCategoryId: string;
 }
 
-export interface IVacationCategoryPresenterProps {
-  register: UseFormRegister<IFormData>;
-  handleSubmit: UseFormHandleSubmit<IFormData>;
-  onSubmit: SubmitHandler<IFormData>;
-  setValue: UseFormSetValue<IFormData>;
-  isValid: boolean;
-  onCancel: () => void;
+export interface IVacationCategoryPresenterProps extends FormActionTypes {
   organizations?: InputData[];
   roleCategories?: InputData[];
 }

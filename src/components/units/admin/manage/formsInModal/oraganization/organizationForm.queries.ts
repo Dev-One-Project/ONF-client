@@ -9,3 +9,17 @@ export const CREATE_ORGANIZATION = gql`
     }
   }
 `;
+
+export const UPDATE_ORGANIZATION = gql`
+  mutation updateOrganization(
+    $organizationId: String!
+    $updateOrganizationInput: UpdateOrganizationInput!
+  ) {
+    updateOrganization(
+      organizationId: $organizationId
+      updateOrganizationInput: $updateOrganizationInput
+    ) {
+      id
+    }
+  }
+`;

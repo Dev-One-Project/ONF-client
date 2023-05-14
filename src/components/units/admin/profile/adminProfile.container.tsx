@@ -1,8 +1,5 @@
-import { CheckCircleOutlined } from '@ant-design/icons';
 import { useMutation, useQuery } from '@apollo/client';
-import { notification } from 'antd';
 import { useForm } from 'react-hook-form';
-import { styleSet } from '../../../../commons/styles/styleSet';
 import {
   IMutation,
   IMutationChangeAccountArgs,
@@ -11,6 +8,7 @@ import {
 import { CHANGE_ACCOUNT, FETCH_ACCOUNT } from './admin.queries';
 import AdminProfileUI from './adminProfile.presenter';
 import { IFormData } from './adminProfile.types';
+import AntdNotificationModal from '../../../commons/modal/antdNotificationModal';
 
 const AdminProfile = () => {
   const { data: accountData } =
@@ -37,13 +35,7 @@ const AdminProfile = () => {
           });
         },
       });
-      notification.open({
-        message: '변경 사항이 저장되었습니다.',
-        icon: (
-          <CheckCircleOutlined style={{ color: styleSet.colors.primary }} />
-        ),
-        style: { paddingBottom: '0.5rem' },
-      });
+      AntdNotificationModal({ message: '변경 사항이 저장되었습니다.' });
     } catch (error) {
       if (error instanceof Error) alert(error);
     }
