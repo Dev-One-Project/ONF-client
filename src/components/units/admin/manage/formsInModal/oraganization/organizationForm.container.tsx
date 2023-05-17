@@ -8,13 +8,13 @@ import { useForm } from 'react-hook-form';
 import {
   IMutation,
   IMutationCreateOrganizationArgs,
-  // IMutationUpdateOrganizationArgs,
+  IMutationUpdateOrganizationArgs,
 } from '../../../../../../commons/types/generated/types';
 import { IFormProps } from '../common/form.types';
 import OrganizationFormPresenter from './organizationForm.presenter';
 import {
   CREATE_ORGANIZATION,
-  // UPDATE_ORGANIZATION,
+  UPDATE_ORGANIZATION,
 } from './organizationForm.queries';
 import * as yup from 'yup';
 import { IFormData } from './organizationForm.types';
@@ -29,10 +29,10 @@ const OrganizationFormContainer = (props: IFormProps) => {
     Pick<IMutation, 'createOrganization'>,
     IMutationCreateOrganizationArgs
   >(CREATE_ORGANIZATION);
-  // const [updateOrganization] = useMutation<
-  //   Pick<IMutation, 'updateOrganization'>,
-  //   IMutationUpdateOrganizationArgs
-  // >(UPDATE_ORGANIZATION);
+  const [updateOrganization] = useMutation<
+    Pick<IMutation, 'updateOrganization'>,
+    IMutationUpdateOrganizationArgs
+  >(UPDATE_ORGANIZATION);
 
   const {
     register,
@@ -44,7 +44,9 @@ const OrganizationFormContainer = (props: IFormProps) => {
     resolver: yupResolver(schema),
   });
 
-  const [positionTab, setPositionTab] = useState(false);
+  const [positionTab, setPositionTab] = useState(
+    !!props.editTarget?.lat ?? false,
+  );
   const [wifiTab, setWifiTab] = useState(false);
   // const [ip, setIp] = useState('');
   const [currentPosition, setCurrentPosition] = useState<
@@ -53,8 +55,12 @@ const OrganizationFormContainer = (props: IFormProps) => {
   const [markerPosition, setMarkerPosition] = useState<
     Partial<GeolocationCoordinates>
   >({ latitude: undefined, longitude: undefined });
-  const [range, setRange] = useState<valueType | null>(150);
-  const [address, setAddress] = useState<string>('');
+  const [range, setRange] = useState<valueType | null>(
+    props.editTarget?.range ?? 150,
+  );
+  const [address, setAddress] = useState<string>(
+    props.editTarget?.address ?? '',
+  );
 
   // 현재 위치 좌표를 얻어옴.
   useEffect(() => {
@@ -68,18 +74,19 @@ const OrganizationFormContainer = (props: IFormProps) => {
         }
       });
     };
-
-    void getLocation();
-
-    reset(
-      props.editTarget ?? {
-        name: '',
-        checkPoint: '',
-        description: '',
-        address: '',
-        color: '',
-      },
-    );
+    if (props.editTarget) {
+      setCurrentPosition({
+        latitude: +props.editTarget.lat,
+        longitude: +props.editTarget.lng,
+      });
+      setMarkerPosition({
+        latitude: +props.editTarget.lat,
+        longitude: +props.editTarget.lng,
+      });
+      reset(props.editTarget);
+    } else {
+      void getLocation();
+    }
 
     return () => {
       isComponentMounted = false;
@@ -108,6 +115,7 @@ const OrganizationFormContainer = (props: IFormProps) => {
 
   const onSubmit = async (formData: IFormData) => {
     formData.color = '#fff';
+
     try {
       await createOrganization({
         variables: {
@@ -130,8 +138,31 @@ const OrganizationFormContainer = (props: IFormProps) => {
   };
 
   const onEdit = async (formData: any) => {
-    console.log(formData);
-    AntdNotificationModal({ message: '변경 사항이 저장되었습니다.' });
+    formData.color = '#fff';
+    delete formData.__typename;
+    delete formData.id;
+
+    try {
+      await updateOrganization({
+        variables: {
+          organizationId: props.editTarget.id,
+          updateOrganizationInput: {
+            ...formData,
+          },
+        },
+        update(cache) {
+          cache.modify({
+            fields: {
+              fetchOrganizations: () => {},
+            },
+          });
+        },
+      });
+      AntdNotificationModal({ message: '변경 사항이 저장되었습니다.' });
+      props.onCancel();
+    } catch (error) {
+      if (error instanceof Error) alert(error.message);
+    }
   };
 
   const onSoftDelete = () => {

@@ -135,14 +135,7 @@ const KakaoMapLauncher = (props: IKakaoMapProps) => {
         });
       });
     };
-  }, [
-    props.radius,
-    props.currentPosition,
-    props.markerPosition,
-    props.setCurrentPosition,
-    props.setMarkerPosition,
-    mapLevel,
-  ]);
+  }, [props, mapLevel]);
 
   return (
     <>

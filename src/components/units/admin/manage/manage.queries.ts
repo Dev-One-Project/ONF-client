@@ -47,6 +47,7 @@ export const FETCH_ORGANIZATIONS = gql`
       lat
       lng
       description
+      range
     }
   }
 `;
