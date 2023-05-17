@@ -1,14 +1,3 @@
-import {
-  FieldValues,
-  SubmitHandler,
-  UseFormHandleSubmit,
-  UseFormRegister,
-} from 'react-hook-form';
+import { FormActionTypes } from '../common/form.types';
 
-export interface IRoleCategoryFormPresenterProps {
-  register: UseFormRegister<FieldValues>;
-  handleSubmit: UseFormHandleSubmit<FieldValues>;
-  onSubmit: SubmitHandler<FieldValues>;
-  onCancel: () => void;
-  isValid: boolean;
-}
+export interface IRoleCategoryFormPresenterProps extends FormActionTypes {}

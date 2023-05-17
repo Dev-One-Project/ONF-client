@@ -53,7 +53,11 @@ const OrganizationFormPresenter = (props: OrganizationFormPresenterProps) => {
         <S.FormContent>
           <Label for="method">출퇴근 수단</Label>
           <S.CheckBoxWrapper>
-            <Check01 text="좌표" onChange={props.onTogglePositionTab} />
+            <Check01
+              text="좌표"
+              checked={props.positionTab}
+              onChange={props.onTogglePositionTab}
+            />
             <Check01
               text="WiFi"
               onChange={() => props.setWifiTab((prev) => !prev)}
